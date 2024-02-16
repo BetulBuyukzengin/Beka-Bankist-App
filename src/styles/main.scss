@@ -1,0 +1,21 @@
+body {
+    font-family: "Kanit";
+    font-weight: 400;
+}
+
+$themes: (
+    light: (
+        text: #232429,
+        background: #f7f8fc,
+        primary: #475ad4,
+        secondary: #6e7eec,
+        accent: #808fef,
+    ),
+    dark: (
+        text: #d6d7dc,
+        background: #030407,
+        primary: #2c3fba,
+        secondary: #132490,
+        accent: #101f7f,
+    ),
+);
