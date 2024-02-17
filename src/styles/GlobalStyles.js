@@ -3,11 +3,11 @@ import { createGlobalStyle } from "styled-components";
 const GlobalStyles = createGlobalStyle`
 :root{
      &, &.light-mode {
-        --color-text: #232429;
-        --color-background: #f7f8fc;
-        --color-primary: #475ad4;
-        --color-secondary: #6e7eec;
-        --color-accent: #808fef;
+        --color-text: #080808;
+        --color-background: rgba(245, 245, 245, 0.8);
+        --color-primary: #011d98;
+        --color-secondary: #5067CE;
+        --color-accent: #01283c;
         --color-border: rgba(0, 0, 0, 0.1);
 
         --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
@@ -21,11 +21,11 @@ const GlobalStyles = createGlobalStyle`
     }
 
     &.dark-mode {
-        --color-text: #d6d7dc;
-        --color-background: #030407;
-        --color-primary: #2c3fba;
-        --color-secondary: #132490;
-        --color-accent: #101f7f;
+        --color-text: #f7f7f7;
+        --color-background: rgba(10, 10, 10, 0.8);
+        --color-primary: #98aafb;
+        --color-secondary: #6783fe;
+        --color-accent: #c3eafe;
         --color-border: rgba(255, 255, 255, 0.3);
 
         --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
@@ -72,14 +72,13 @@ const GlobalStyles = createGlobalStyle`
   margin: 0;
 
   /* Creating animations for dark mode */
-  transition: all 0.3s;
+  transition: all 0.2s;
 }
 
 body {
     font-family: 'Kanit', sans-serif;
     font-weight: 400;
     font-size: 62.5%;
-    transition: all 0.3s ;
 }
 
 input,
@@ -117,6 +116,10 @@ h6 {
     overflow-wrap: break-word;
     hyphens: auto;
 
+}
+
+svg{
+  transition: none;
 }
 
 img {
