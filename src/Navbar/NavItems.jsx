@@ -12,8 +12,18 @@ const StyledLi = styled.li`
         margin-left: 0.5rem;
     }
 
+    &:nth-child(3),
+    &:nth-child(4),
+    &:nth-child(5) {
+        margin-left: 1.8rem;
+    }
+
     &:nth-child(2) {
         margin-right: auto;
+    }
+
+    &:nth-child(6) {
+        margin-left: 8rem;
     }
 `;
 
@@ -33,20 +43,20 @@ const StyledLink = styled.button`
     }
 `;
 
-// const StyledImg = styled.img`
-//     width: 4rem;
-//     height: 4rem;
-//     border-radius: 50%;
-//     display: flex;
-// `;
+const StyledImg = styled.img`
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    display: flex;
+`;
 
 function NavItem() {
     const { isDarkMode, toggleDarkMode } = useDarkMode();
     return (
         <>
-            {/* <StyledLi>
-                <StyledImg src="../../public/img/Beka-Bank-icon.png" />
-            </StyledLi> */}
+            <StyledLi>
+                <StyledImg src="../../public/img/money.jpg" />
+            </StyledLi>
             <StyledLi>
                 <StyledLink>Beka-Bank</StyledLink>
             </StyledLi>
