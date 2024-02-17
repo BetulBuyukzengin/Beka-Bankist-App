@@ -1,45 +1,55 @@
 import styled from "styled-components";
 import Slider from "../Slider/Slider";
+import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
 
 const StyledHome = styled.div`
+    width: 100%;
     height: 100dvh;
-    background-image: url("../../../public/img/bank1.jpg");
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(
+            var(--color-background),
+            var(--color-background)
+        ),
+        url("../../../public/img/bank1.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     position: relative;
 `;
-const StyledOpacity = styled.div`
-    background: rgba(0, 0, 0, 0.7);
-    opacity: 0.7;
+
+// const StyledOpacity = styled.div`
+//     background: var(--color-background);
+//     opacity: 0.85;
+//     position: absolute;
+//     height: 100dvh;
+//     width: 100%;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+// `;
+
+const StyledIcon = styled(KeyboardDoubleArrowDownIcon)`
+    font-size: 2rem;
+    color: var(--color-text);
     position: absolute;
-    height: 100dvh;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    left: 50%;
+    bottom: 5%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    transition: transform 0.3s;
+
+    &:hover {
+        transition: all 0.3s;
+        color: var(--color-primary);
+        transform: translateY(7px) translate(-50%, -50%);
+    }
 `;
-// const StyledDescription = styled.div`
-//   margin-top: 8rem;
-//   width: 70%;
-// `;
-// const StyledH1 = styled.div`
-//   font-size: 4rem;
-//   color: #fff;
-//   font-weight: 900;
-//   letter-spacing: 0.3rem;
-// `;
-// const StyledParagraphy = styled.p`
-//   font-size: 1.4rem;
-//   color: #fff;
-//   line-height: 2rem;
-//   letter-spacing: 0.1rem;
-// `;
 export default function Home() {
     return (
         <StyledHome>
-            <StyledOpacity>
-                <Slider />
-            </StyledOpacity>
+            <Slider />
+            <StyledIcon />
         </StyledHome>
     );
 }
