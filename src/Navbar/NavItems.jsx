@@ -55,7 +55,13 @@ function NavItem() {
     return (
         <>
             <StyledLi>
-                <StyledImg src="../../public/img/money.jpg" />
+                <StyledImg
+                    src={
+                        isDarkMode
+                            ? "../../public/img/logo-dark.png"
+                            : "../../public/img/logo-light.png"
+                    }
+                />
             </StyledLi>
             <StyledLi>
                 <StyledLink>Beka-Bank</StyledLink>
