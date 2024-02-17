@@ -1,8 +1,12 @@
 body {
   font-family: "Kanit";
   font-weight: 400;
+  margin: 0;
+  padding: 0;
 }
-
+.MuiMobileStepper-dotActive {
+  color: white !important;
+}
 $themes: (
   light: (
     text: #232429,

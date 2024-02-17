@@ -1,5 +1,10 @@
+import Home from "./Components/Home/Home";
 function App() {
-    return <div>BANKIST APP BETUL & KADIR</div>;
+  return (
+    <>
+      <Home />
+    </>
+  );
 }
 
 export default App;
