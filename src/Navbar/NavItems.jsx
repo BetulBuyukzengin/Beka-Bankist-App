@@ -6,11 +6,12 @@ import { useDarkMode } from "../Contexts/DarkModeContext";
 const StyledLi = styled.li`
     font-size: 1.7rem;
 
-    &:not(:first-child) {
+    &:not(:first-child),
+    &:not(:nth-child(2)) {
         margin-left: 1rem;
     }
 
-    &:first-child {
+    &:nth-child(2) {
         margin-right: auto;
     }
 `;
@@ -31,10 +32,20 @@ const StyledLink = styled.button`
     }
 `;
 
+const StyledImg = styled.img`
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    display: flex;
+`;
+
 function NavItem() {
     const { isDarkMode, toggleDarkMode } = useDarkMode();
     return (
         <>
+            <StyledLi>
+                <StyledImg src="../../public/img/Beka-Bank-icon.png" />
+            </StyledLi>
             <StyledLi>
                 <StyledLink>Beka-Bank</StyledLink>
             </StyledLi>
