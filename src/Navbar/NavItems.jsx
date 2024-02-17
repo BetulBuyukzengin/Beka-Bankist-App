@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import { HiArrowRightOnRectangle, HiOutlineSun } from "react-icons/hi2";
-import { HiOutlineMoon } from "react-icons/hi2";
+import LoginIcon from "@mui/icons-material/Login";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import LightModeIcon from "@mui/icons-material/LightMode";
 import { useDarkMode } from "../Contexts/DarkModeContext";
 
 const StyledLi = styled.li`
@@ -8,7 +9,7 @@ const StyledLi = styled.li`
 
     &:not(:first-child),
     &:not(:nth-child(2)) {
-        margin-left: 1rem;
+        margin-left: 0.5rem;
     }
 
     &:nth-child(2) {
@@ -20,7 +21,7 @@ const StyledLink = styled.button`
     border: none;
     color: var(--color-text);
     background-color: transparent;
-    padding: 1rem 2rem;
+    padding: 1rem 1.5rem;
 
     &:hover {
         color: var(--color-primary);
@@ -32,12 +33,12 @@ const StyledLink = styled.button`
     }
 `;
 
-const StyledImg = styled.img`
-    width: 4rem;
-    height: 4rem;
-    border-radius: 50%;
-    display: flex;
-`;
+// const StyledImg = styled.img`
+//     width: 4rem;
+//     height: 4rem;
+//     border-radius: 50%;
+//     display: flex;
+// `;
 
 function NavItem() {
     const { isDarkMode, toggleDarkMode } = useDarkMode();
@@ -60,12 +61,12 @@ function NavItem() {
             </StyledLi>
             <StyledLi>
                 <StyledLink onClick={toggleDarkMode}>
-                    {isDarkMode ? <HiOutlineSun /> : <HiOutlineMoon />}
+                    {isDarkMode ? <DarkModeIcon /> : <LightModeIcon />}
                 </StyledLink>
             </StyledLi>
             <StyledLi>
                 <StyledLink>
-                    <HiArrowRightOnRectangle />
+                    <LoginIcon />
                 </StyledLink>
             </StyledLi>
         </>
