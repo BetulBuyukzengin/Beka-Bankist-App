@@ -1,10 +1,12 @@
 ### 💬 `Commit Examples`
 
--   feat: add new feature
--   fix: fix bug
--   docs: update README.md
--   style: fix formatting
--   refactor: refactor code
--   perf: improve performance
--   chore: update dependencies
--   revert: revert to commit 123456
+- feat: add new feature
+- fix: fix bug
+- docs: update README.md
+- style: fix formatting
+- refactor: refactor code
+- perf: improve performance
+- chore: update dependencies
+- revert: revert to commit 123456
+
+npm i --legacy-peer-deps: ignore error
