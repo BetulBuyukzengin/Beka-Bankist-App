@@ -11,15 +11,15 @@ const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 const homeTexts = [
     {
         head: "BANKING SOLUTIONS",
-        desc: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. eveniet maxime corrupti, nisi adipisicing elit. Quaerat eveniet maxime corrupti, nisi ",
+        desc: "Discover premium financial solutions. Managing your accounts, saving, and investing has never been this easy. Get one step closer to your financial goals with a secure, fast, and user-friendly experience.",
     },
     {
         head: "FINANCIAL SOLUTIONS",
-        desc: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. eveniet maxime corrupti, nisi adipisicing elit. Quaerat eveniet maxime corrupti, nisi ",
+        desc: "Explore cutting-edge financial solutions tailored just for you. From efficient account management to smart saving and strategic investing, we're here to empower your financial journey. Unlock a seamless, secure, and user-friendly experience.",
     },
     {
         head: "SAVINGS ACCOUNTS",
-        desc: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. eveniet maxime corrupti, nisi adipisicing elit. Quaerat eveniet maxime corrupti, nisi ",
+        desc: "Open the door to smart saving with our range of Savings Accounts. Secure your financial future with flexible options designed to suit your goals. Enjoy competitive interest rates and user-friendly features, making your savings journey effortless and rewarding.",
     },
 ];
 
@@ -61,18 +61,19 @@ export default function Slider() {
                             >
                                 <Typography
                                     sx={{
-                                        fontSize: "3rem",
+                                        fontSize: "3.8rem",
                                         color: "var(--color-secondary)",
                                         fontWeight: "900",
                                         letterSpacing: " 0.3rem",
                                         textAlign: "center",
+                                        mb: "1rem",
                                     }}
                                 >
                                     {homeTexts[activeStep].head}
                                 </Typography>
                                 <Typography
                                     sx={{
-                                        width: "50%",
+                                        width: "60%",
                                         fontSize: "1.2rem",
                                         color: "var(--color-text)",
                                         lineHeight: "2rem",

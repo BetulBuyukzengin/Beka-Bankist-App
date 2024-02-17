@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import { HiArrowRightOnRectangle, HiOutlineSun } from "react-icons/hi2";
-import { HiOutlineMoon } from "react-icons/hi2";
+import LoginIcon from "@mui/icons-material/Login";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import LightModeIcon from "@mui/icons-material/LightMode";
 import { useDarkMode } from "../Contexts/DarkModeContext";
 
 const StyledLi = styled.li`
@@ -8,11 +9,20 @@ const StyledLi = styled.li`
 
   &:not(:first-child),
   &:not(:nth-child(2)) {
-    margin-left: 1rem;
+    margin-left: 0.5rem;
+  }
+
+  &:nth-child(3),
+  &:nth-child(4),
+  &:nth-child(5) {
+    margin-left: 1.8rem;
   }
 
   &:nth-child(2) {
     margin-right: auto;
+  }
+  &:nth-child(6) {
+    margin-left: 8rem;
   }
 `;
 
@@ -20,7 +30,7 @@ const StyledLink = styled.button`
   border: none;
   color: var(--color-text);
   background-color: transparent;
-  padding: 1rem 2rem;
+  padding: 1rem 1.5rem;
 
   &:hover {
     color: var(--color-primary);
@@ -43,6 +53,9 @@ function NavItem() {
   const { isDarkMode, toggleDarkMode } = useDarkMode();
   return (
     <>
+      {/* <StyledLi>
+                <StyledImg src="../../public/img/Beka-Bank-icon.png" />
+            </StyledLi> */}
       <StyledLi>
         <StyledImg
           src={
@@ -66,12 +79,12 @@ function NavItem() {
       </StyledLi>
       <StyledLi>
         <StyledLink onClick={toggleDarkMode}>
-          {isDarkMode ? <HiOutlineSun /> : <HiOutlineMoon />}
+          {isDarkMode ? <DarkModeIcon /> : <LightModeIcon />}
         </StyledLink>
       </StyledLi>
       <StyledLi>
         <StyledLink>
-          <HiArrowRightOnRectangle />
+          <LoginIcon />
         </StyledLink>
       </StyledLi>
     </>
