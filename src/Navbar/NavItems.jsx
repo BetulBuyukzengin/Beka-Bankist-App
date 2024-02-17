@@ -43,9 +43,9 @@ function NavItem() {
     const { isDarkMode, toggleDarkMode } = useDarkMode();
     return (
         <>
-            <StyledLi>
+            {/* <StyledLi>
                 <StyledImg src="../../public/img/Beka-Bank-icon.png" />
-            </StyledLi>
+            </StyledLi> */}
             <StyledLi>
                 <StyledLink>Beka-Bank</StyledLink>
             </StyledLi>
