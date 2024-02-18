@@ -21,6 +21,7 @@ const StyledLi = styled.li`
   &:nth-child(2) {
     margin-right: auto;
   }
+
   &:nth-child(6) {
     margin-left: 8rem;
   }

@@ -38,6 +38,7 @@ const GlobalStyles = createGlobalStyle`
         --image-opacity: 90%;
     }
 
+    --font-texts: "Roboto","Helvetica","Arial",sans-serif;
     --border-radius-tiny: 3px;
     --border-radius-sm: 5px;
     --border-radius-md: 7px;

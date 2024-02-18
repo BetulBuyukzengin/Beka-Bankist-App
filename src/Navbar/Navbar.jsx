@@ -3,8 +3,9 @@ import NavList from "./NavList";
 
 const StyledNavbar = styled.nav`
     width: 100%;
-    position: absolute;
+    position: fixed;
     z-index: 111;
+    backdrop-filter: blur(3px);
     top: 0;
 `;
 
