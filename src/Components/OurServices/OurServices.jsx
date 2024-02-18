@@ -35,10 +35,7 @@ function OurServices() {
             <StyledGridContainer>
                 <GridItem
                     icon={
-                        <StyledImg
-                            src="../../../public/img/wallet.png"
-                            alt="money"
-                        />
+                        <StyledImg src="../../../img/wallet.png" alt="money" />
                     }
                     button="Learn More"
                     text="With our expert team by your side, we are here to turn your financial goals into reality!"
@@ -47,7 +44,7 @@ function OurServices() {
                 <GridItem
                     icon={
                         <StyledImg
-                            src="../../../public/img/debit-card.png"
+                            src="../../../img/debit-card.png"
                             alt="credit card"
                         />
                     }
@@ -58,7 +55,7 @@ function OurServices() {
                 <GridItem
                     icon={
                         <StyledImg
-                            src="../../../public/img/money-bag.png"
+                            src="../../../img/money-bag.png"
                             alt="money bag"
                         />
                     }
@@ -68,10 +65,7 @@ function OurServices() {
                 />
                 <GridItem
                     icon={
-                        <StyledImg
-                            src="../../../public/img/money.png"
-                            alt="money"
-                        />
+                        <StyledImg src="../../../img/money.png" alt="money" />
                     }
                     button="Learn More"
                     text="Navigate the complex world of insurance with our expert consulting services."
@@ -79,10 +73,7 @@ function OurServices() {
                 />
                 <GridItem
                     icon={
-                        <StyledImg
-                            src="../../../public/img/checkout.png"
-                            alt="cart"
-                        />
+                        <StyledImg src="../../../img/checkout.png" alt="cart" />
                     }
                     button="Learn More"
                     text="Maximize your wealth potential with our strategic financial investment solutions."
@@ -91,7 +82,7 @@ function OurServices() {
                 <GridItem
                     icon={
                         <StyledImg
-                            src="../../../public/img/megaphone.png"
+                            src="../../../img/megaphone.png"
                             alt="megaphone"
                         />
                     }

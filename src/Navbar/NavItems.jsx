@@ -58,8 +58,8 @@ function NavItem() {
                 <StyledImg
                     src={
                         isDarkMode
-                            ? "../../public/img/logo-dark.png"
-                            : "../../public/img/logo-light.png"
+                            ? "../../img/logo-dark.png"
+                            : "../../img/logo-light.png"
                     }
                 />
             </StyledLi>
