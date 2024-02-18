@@ -1,9 +1,10 @@
 import { DarkModeProvider } from "./Contexts/DarkModeContext.jsx";
 import Navbar from "./Navbar/Navbar";
 import GlobalStyles from "./styles/GlobalStyles";
-
 import Home from "./Components/Home/Home";
 import AboutUs from "./Components/AboutUs/AboutUs.jsx";
+import OurServices from "./Components/OurServices/OurServices.jsx";
+
 function App() {
     return (
         <DarkModeProvider>
@@ -11,6 +12,7 @@ function App() {
             <Navbar />
             <Home />
             <AboutUs />
+            <OurServices />
         </DarkModeProvider>
     );
 }

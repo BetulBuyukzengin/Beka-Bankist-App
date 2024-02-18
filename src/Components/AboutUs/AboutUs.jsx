@@ -32,11 +32,6 @@ const StyledAboutText = styled.div`
     text-align: left;
     height: 100%;
     line-height: 1.5rem;
-
-    &::first-letter {
-        font-size: 2.5rem;
-        color: var(--color-secondary);
-    }
 `;
 
 function AboutUs() {
