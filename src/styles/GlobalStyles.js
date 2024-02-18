@@ -7,7 +7,7 @@ const GlobalStyles = createGlobalStyle`
         --color-background: rgba(245, 245, 245, 0.8);
         --color-primary: #011d98;
         --color-secondary: #5067CE;
-        --color-accent: #01283c;
+        --color-accent: #00466A;
         --color-border: rgba(0, 0, 0, 0.1);
 
         --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);

@@ -46,7 +46,7 @@ const StyledText = styled.div`
 function Image() {
     return (
         <StyledContainer>
-            <StyledImage src="../../../public/img/money.jpg" alt="Png" />
+            <StyledImage src="../../../img/money.jpg" alt="Png" />
             <StyledTextContainer>
                 <StyledText>Beka-Bank</StyledText>
             </StyledTextContainer>

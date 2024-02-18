@@ -5,6 +5,8 @@ import Gallery from "./Components/Gallery/Gallery";
 
 import Home from "./Components/Home/Home";
 import AboutUs from "./Components/AboutUs/AboutUs.jsx";
+import OurServices from "./Components/OurServices/OurServices.jsx";
+
 function App() {
   return (
     <DarkModeProvider>
@@ -13,6 +15,7 @@ function App() {
       <Home />
       <AboutUs />
       <Gallery />
+      <OurServices />
     </DarkModeProvider>
   );
 }

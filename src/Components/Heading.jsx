@@ -4,7 +4,10 @@ import styled from "styled-components";
 const StyledHeading = styled.h1`
     color: var(--color-secondary);
     font-size: 3.8rem;
-    margin-top: 6rem;
+    /* margin-top: 6rem; */
+    padding-top: 6rem;
+    text-align: center;
+    filter: drop-shadow(var(--shadow-md));
 `;
 
 const StyledParagraph = styled.p`
