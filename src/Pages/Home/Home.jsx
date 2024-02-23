@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Slider from "../Slider/Slider";
+import Slider from "../../Components/Slider/Slider";
 import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
 
 const StyledHome = styled.div`

@@ -2,7 +2,7 @@ import styled from "styled-components";
 import LoginIcon from "@mui/icons-material/Login";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
-import { useDarkMode } from "../Contexts/DarkModeContext";
+import { useDarkMode } from "../../Contexts/DarkModeContext";
 
 const StyledLi = styled.li`
     font-size: 1.7rem;

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Heading from "../Heading";
+import Heading from "../../Components/Heading/Heading";
 import GridItem from "./GridItem";
 
 const StyledServices = styled.div`

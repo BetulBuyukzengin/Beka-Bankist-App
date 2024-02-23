@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Heading from "../Heading";
+import Heading from "../../Components/Heading/Heading";
 import Image from "../AboutUs/Image";
 
 const StyledAbout = styled.div`
