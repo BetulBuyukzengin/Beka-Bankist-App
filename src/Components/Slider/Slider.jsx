@@ -23,6 +23,7 @@ const homeTexts = [
     },
 ];
 
+// PROPS : 1) data // 2) isTypography
 export default function Slider() {
     const theme = useTheme();
     const [activeStep, setActiveStep] = React.useState(0);
