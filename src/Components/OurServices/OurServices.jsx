@@ -1,12 +1,6 @@
 import styled from "styled-components";
 import Heading from "../Heading";
 import GridItem from "./GridItem";
-// import WalletIcon from "@mui/icons-material/Wallet";
-// import CreditScoreIcon from "@mui/icons-material/CreditScore";
-// import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
-// import LocalAtmIcon from "@mui/icons-material/LocalAtm";
-// import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-// import CampaignIcon from "@mui/icons-material/Campaign";
 
 const StyledServices = styled.div`
     width: 100%;
