@@ -19,10 +19,12 @@ const StyledContainer = styled.div`
     gap: 2rem;
     justify-content: center;
     align-items: flex-start;
-    padding: 0 5rem;
+    padding: 0 10rem;
 `;
 
 const StyledAboutText = styled.div`
+    display: flex;
+    align-items: center;
     width: 50%;
     height: auto;
     font-size: 1.2rem;

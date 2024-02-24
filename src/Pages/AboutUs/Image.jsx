@@ -3,7 +3,7 @@ import styled from "styled-components";
 const StyledImage = styled.img`
     opacity: 1;
     display: block;
-    width: 100%;
+    width: 90%;
     height: auto;
     transition: 0.5s ease;
     backface-visibility: hidden;
