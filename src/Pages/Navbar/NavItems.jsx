@@ -22,12 +22,12 @@ const StyledLi = styled.li`
         margin-right: auto;
     }
 
-    &:nth-child(6) {
+    &:nth-child(7) {
         margin-left: 8rem;
     }
 `;
 
-const StyledLink = styled.button`
+const StyledLink = styled.a`
     border: none;
     color: var(--color-text);
     background-color: transparent;
@@ -36,6 +36,7 @@ const StyledLink = styled.button`
     &:hover {
         color: var(--color-primary);
         transform: translateY(-2px);
+        cursor: pointer;
     }
 
     &:active {
@@ -64,16 +65,19 @@ function NavItem() {
                 />
             </StyledLi>
             <StyledLi>
-                <StyledLink>Beka-Bank</StyledLink>
+                <StyledLink href="#home">Beka-Bank</StyledLink>
             </StyledLi>
             <StyledLi>
-                <StyledLink>Home</StyledLink>
+                <StyledLink href="#home">Home</StyledLink>
             </StyledLi>
             <StyledLi>
-                <StyledLink>About Us</StyledLink>
+                <StyledLink href="#aboutUs">About Us</StyledLink>
             </StyledLi>
             <StyledLi>
-                <StyledLink>Contact</StyledLink>
+                <StyledLink href="#ourServices">Our Services</StyledLink>
+            </StyledLi>
+            <StyledLi>
+                <StyledLink href="#contact">Contact</StyledLink>
             </StyledLi>
             <StyledLi>
                 <StyledLink onClick={toggleDarkMode}>
@@ -82,7 +86,7 @@ function NavItem() {
             </StyledLi>
             <StyledLi>
                 <StyledLink>
-                    <LoginIcon />
+                    <LoginIcon href="#loginPage" />
                 </StyledLink>
             </StyledLi>
         </>

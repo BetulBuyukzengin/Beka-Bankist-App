@@ -8,7 +8,7 @@ const GlobalStyles = createGlobalStyle`
         --color-primary: #011d98;
         --color-secondary: #5067CE;
         --color-accent: #00466A;
-        --color-border: rgba(0, 0, 0, 0.1);
+        --color-border: rgba(0, 0, 0, 0.03);
         --color-gray: #6c757d;
 
         --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
@@ -27,7 +27,7 @@ const GlobalStyles = createGlobalStyle`
         --color-primary: #98aafb;
         --color-secondary: #6783fe;
         --color-accent: #c3eafe;
-        --color-border: rgba(255, 255, 255, 0.1);
+        --color-border: rgba(255, 255, 255, 0.03);
         --color-gray: #a0a0a0;
 
         --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
@@ -76,6 +76,7 @@ const GlobalStyles = createGlobalStyle`
 
   /* Creating animations for dark mode */
   transition: all 0.2s;
+  scroll-behavior: smooth;
 }
 
 body {

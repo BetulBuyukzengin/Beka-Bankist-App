@@ -66,7 +66,7 @@ function FrequentlyQuestions() {
     };
 
     return (
-        <StyledContainer>
+        <StyledContainer id="frequentlyQuestions">
             <Heading head="Frequently Ask Questions" />
             <StyledGridContainer>
                 {questions.map(cur => (

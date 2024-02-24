@@ -6,6 +6,7 @@ const StyledGridItem = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
+    gap: 0.5rem;
 `;
 
 const StyledIconContainer = styled.div`
@@ -34,20 +35,24 @@ const StyledText = styled.p`
     opacity: 0.7;
 `;
 
-const StyledButtonContainer = styled.button`
+const StyledButton = styled.button`
     outline: none;
     border: none;
     background-color: var(--color-secondary);
     padding: 0.5rem 1rem;
     color: white;
     border-radius: var(--border-radius-sm);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s;
 
     &:hover {
         transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
     }
 
     &:active {
         transform: translateY(0);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
 `;
 
@@ -57,7 +62,7 @@ function GridItem({ icon, head, text, button }) {
             <StyledIconContainer>{icon}</StyledIconContainer>
             <StyledHead>{head}</StyledHead>
             <StyledText>{text}</StyledText>
-            <StyledButtonContainer>{button}</StyledButtonContainer>
+            <StyledButton>{button}</StyledButton>
         </StyledGridItem>
     );
 }

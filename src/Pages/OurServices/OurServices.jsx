@@ -22,9 +22,10 @@ const StyledImg = styled.img`
     filter: drop-shadow(var(--shadow-md));
 `;
 
+// ICON - HEAD - TEXT - BUTTON özelliklerini objeler dizisi yapıp tek bir GridItem'a map yapabiliriz.
 function OurServices() {
     return (
-        <StyledServices>
+        <StyledServices id="ourServices">
             <Heading head="Our Services" />
             <StyledGridContainer>
                 <GridItem

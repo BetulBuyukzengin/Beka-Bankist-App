@@ -9,6 +9,7 @@ import Home from "./Pages/Home/Home.jsx";
 import AboutUs from "./Pages/AboutUs/AboutUs.jsx";
 import OurServices from "./Pages/OurServices/OurServices.jsx";
 import FrequentlyQuestions from "./Pages/Questions/FrequentlyQuestions.jsx";
+import ContactUs from "./Pages/Contact/Contact.jsx";
 
 function App() {
     return (
@@ -18,6 +19,7 @@ function App() {
             <Home />
             <AboutUs />
             <OurServices />
+            <ContactUs />
             <FrequentlyQuestions />
         </DarkModeProvider>
     );

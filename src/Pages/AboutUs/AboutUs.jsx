@@ -36,7 +36,7 @@ const StyledAboutText = styled.div`
 
 function AboutUs() {
     return (
-        <StyledAbout>
+        <StyledAbout id="aboutUs">
             <Heading
                 head="About Us"
                 text="Welcome to Beka-Bank, where financial excellence meets customer-centricity. Established with a commitment to empowering lives and fostering financial well-being, we take pride in our legacy of trust, innovation, and personalized service."

@@ -5,7 +5,7 @@ const StyledNavbar = styled.nav`
     width: 100%;
     position: fixed;
     z-index: 111;
-    backdrop-filter: blur(3px);
+    backdrop-filter: blur(5px);
     top: 0;
 `;
 

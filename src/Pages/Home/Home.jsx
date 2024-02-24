@@ -48,7 +48,7 @@ const StyledIcon = styled(KeyboardDoubleArrowDownIcon)`
 `;
 export default function Home() {
     return (
-        <StyledHome>
+        <StyledHome id="home">
             <Slider />
             <StyledIcon />
         </StyledHome>
