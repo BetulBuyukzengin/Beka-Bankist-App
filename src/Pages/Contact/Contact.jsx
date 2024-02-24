@@ -38,7 +38,7 @@ function Contact() {
             <StyledGridContainer>
                 <StyledGridItem>
                     <StyledImg
-                        src="../../../public/img/icons8-location-80.png"
+                        src="../../../img/icons8-location-80.png"
                         alt=""
                     />
                     <span>
@@ -47,17 +47,11 @@ function Contact() {
                     </span>
                 </StyledGridItem>
                 <StyledGridItem>
-                    <StyledImg
-                        src="../../../public/img/icons8-phone-80.png"
-                        alt=""
-                    />
+                    <StyledImg src="../../../img/icons8-phone-80.png" alt="" />
                     <span>+1 232 3235 324</span>
                 </StyledGridItem>
                 <StyledGridItem>
-                    <StyledImg
-                        src="../../../public/img/icons8-mail-96.png"
-                        alt=""
-                    />
+                    <StyledImg src="../../../img/icons8-mail-96.png" alt="" />
                     <span>youremail@domain.com</span>
                 </StyledGridItem>
             </StyledGridContainer>
