@@ -31,7 +31,7 @@ const StyledImg = styled.img`
     height: 2rem;
 `;
 
-function ContactUs() {
+function Contact() {
     return (
         <StyledContactUs id="contact">
             <Heading head="Contact" />
@@ -66,4 +66,4 @@ function ContactUs() {
     );
 }
 
-export default ContactUs;
+export default Contact;
