@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import Slider from "../../Components/Slider/Slider";
 import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
 
@@ -18,39 +18,44 @@ const StyledHome = styled.div`
     position: relative;
 `;
 
-// const StyledOpacity = styled.div`
-//     background: var(--color-background);
-//     opacity: 0.85;
-//     position: absolute;
-//     height: 100dvh;
-//     width: 100%;
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-// `;
+const bounceAnimation = keyframes`
+    0%, 100% {
+    transform: translate(-50%, -50%);
+     }
+    50% {
+    transform: translateY(7px) translate(-50%, -50%);
+    }
+`;
 
 const StyledIcon = styled(KeyboardDoubleArrowDownIcon)`
-    font-size: 2rem;
     color: var(--color-text);
     position: absolute;
     left: 50%;
     bottom: 5%;
     transform: translate(-50%, -50%);
-    cursor: pointer;
-    transition: transform 0.3s ease-in-out;
+    animation: ${bounceAnimation} infinite 2s
+        cubic-bezier(0.84, 0.11, 0.51, 0.78);
 
     &:hover {
+        cursor: pointer;
         transition: all 0.3s;
-        /* transition: color 0.3s ease-in-out, transform 0.3s ease-in-out, */
         color: var(--color-primary);
         transform: translateY(7px) translate(-50%, -50%);
+        animation: none;
     }
 `;
+
+const StyledLink = styled.a`
+    color: var(--color-text);
+`;
+
 export default function Home() {
     return (
         <StyledHome id="home">
             <Slider />
-            <StyledIcon />
+            <StyledLink href="#aboutUs">
+                <StyledIcon />
+            </StyledLink>
         </StyledHome>
     );
 }
