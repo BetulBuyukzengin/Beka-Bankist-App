@@ -5,29 +5,23 @@ import MobileStepper from "@mui/material/MobileStepper";
 import Typography from "@mui/material/Typography";
 import SwipeableViews from "react-swipeable-views";
 import { autoPlay } from "react-swipeable-views-utils";
+import PropTypes from "prop-types";
+import Avatar from "@mui/material/Avatar";
+import Tooltip from "@mui/material/Tooltip";
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
-const homeTexts = [
-    {
-        head: "BANKING SOLUTIONS",
-        desc: "Discover premium financial solutions. Managing your accounts, saving, and investing has never been this easy. Get one step closer to your financial goals with a secure, fast, and user-friendly experience.",
-    },
-    {
-        head: "FINANCIAL SOLUTIONS",
-        desc: "Explore cutting-edge financial solutions tailored just for you. From efficient account management to smart saving and strategic investing, we're here to empower your financial journey. Unlock a seamless, secure, and user-friendly experience.",
-    },
-    {
-        head: "SAVINGS ACCOUNTS",
-        desc: "Open the door to smart saving with our range of Savings Accounts. Secure your financial future with flexible options designed to suit your goals. Enjoy competitive interest rates and user-friendly features, making your savings journey effortless and rewarding.",
-    },
-];
+Slider.propTypes = {
+    data: PropTypes.array.isRequired,
+    isHead: PropTypes.bool.isRequired,
+    isAvatar: PropTypes.bool.isRequired,
+};
 
-// PROPS : 1) data // 2) isTypography
-export default function Slider() {
+// PROPS : 1) data // 2) isHead // 3) isAvatar
+export default function Slider({ data, isHead, isAvatar }) {
     const theme = useTheme();
     const [activeStep, setActiveStep] = React.useState(0);
-    const maxSteps = homeTexts.length;
+    const maxSteps = data.length;
 
     const handleStepChange = step => {
         setActiveStep(step);
@@ -48,8 +42,8 @@ export default function Slider() {
                 onChangeIndex={handleStepChange}
                 enableMouseEvents
             >
-                {homeTexts.map((step, index) => (
-                    <div key={step.head}>
+                {data?.map((step, index) => (
+                    <div key={index}>
                         {Math.abs(activeStep - index) <= 2 ? (
                             <Box
                                 sx={{
@@ -60,18 +54,22 @@ export default function Slider() {
                                     justifyContent: "center",
                                 }}
                             >
-                                <Typography
-                                    sx={{
-                                        fontSize: "3.8rem",
-                                        color: "var(--color-secondary)",
-                                        fontWeight: "900",
-                                        letterSpacing: " 0.3rem",
-                                        textAlign: "center",
-                                        mb: "1rem",
-                                    }}
-                                >
-                                    {homeTexts[activeStep].head}
-                                </Typography>
+                                <>
+                                    {isHead && (
+                                        <Typography
+                                            sx={{
+                                                fontSize: "3.8rem",
+                                                color: "var(--color-secondary)",
+                                                fontWeight: "900",
+                                                letterSpacing: " 0.3rem",
+                                                textAlign: "center",
+                                                mb: "1rem",
+                                            }}
+                                        >
+                                            {data[activeStep].head}
+                                        </Typography>
+                                    )}
+                                </>
                                 <Typography
                                     sx={{
                                         width: "60%",
@@ -80,10 +78,28 @@ export default function Slider() {
                                         lineHeight: "2rem",
                                         textAlign: "center",
                                         mb: "2rem",
+                                        fontStyle: isAvatar && "italic",
                                     }}
                                 >
-                                    {homeTexts[activeStep].desc}
+                                    {data[activeStep].desc}
                                 </Typography>
+                                {isAvatar && (
+                                    <Tooltip
+                                        sx={{ zIndex: 999 }}
+                                        title={step?.name}
+                                        arrow
+                                    >
+                                        <Avatar
+                                            alt={step?.name}
+                                            src={step?.avatar}
+                                            sx={{
+                                                width: 96,
+                                                height: 96,
+                                                mb: "2rem",
+                                            }}
+                                        />
+                                    </Tooltip>
+                                )}
                             </Box>
                         ) : null}
                     </div>

@@ -69,12 +69,12 @@ function FrequentlyQuestions() {
         <StyledContainer id="frequentlyQuestions">
             <Heading head="Frequently Ask Questions" />
             <StyledGridContainer>
-                {questions.map(cur => (
+                {questions.map((cur, i) => (
                     <CustomAccordion
                         question={cur.question}
                         content={cur.content}
                         key={cur}
-                        index={cur}
+                        index={i}
                         expanded={expanded}
                         handleChange={handleChange}
                     />

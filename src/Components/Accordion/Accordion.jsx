@@ -5,6 +5,15 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Grow from "@mui/material/Grow";
+import PropTypes from "prop-types";
+
+CustomAccordion.propTypes = {
+    index: PropTypes.number.isRequired,
+    expanded: PropTypes.bool.isRequired,
+    handleChange: PropTypes.func.isRequired,
+    question: PropTypes.string.isRequired,
+    content: PropTypes.string.isRequired,
+};
 
 function CustomAccordion({ index, expanded, handleChange, question, content }) {
     return (
