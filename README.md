@@ -1,3 +1,6 @@
+# `Beka-Bankist-App`
+We developing this project with two contributors.
+
 ### 💬 `Commit Examples`
 
 -   feat: add new feature
