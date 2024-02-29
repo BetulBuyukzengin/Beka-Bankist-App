@@ -5,11 +5,9 @@ const StyledUl = styled.ul`
     display: flex;
     justify-content: space-around;
     align-items: center;
-    /* backdrop-filter: blur(4px) saturate(185%); */
     background-color: transparent;
     border-bottom: 1px solid var(--color-border);
-
-    /* Deneme */
+    height: 5rem;
     box-shadow: var(--shadow-md);
 `;
 

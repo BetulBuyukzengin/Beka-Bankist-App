@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Heading from "../Heading";
+import Heading from "../../Components/Heading/Heading";
 import Image from "../AboutUs/Image";
 
 const StyledAbout = styled.div`
@@ -19,10 +19,12 @@ const StyledContainer = styled.div`
     gap: 2rem;
     justify-content: center;
     align-items: flex-start;
-    padding: 0 5rem;
+    padding: 0 10rem;
 `;
 
 const StyledAboutText = styled.div`
+    display: flex;
+    align-items: center;
     width: 50%;
     height: auto;
     font-size: 1.2rem;
@@ -36,7 +38,7 @@ const StyledAboutText = styled.div`
 
 function AboutUs() {
     return (
-        <StyledAbout>
+        <StyledAbout id="aboutUs">
             <Heading
                 head="About Us"
                 text="Welcome to Beka-Bank, where financial excellence meets customer-centricity. Established with a commitment to empowering lives and fostering financial well-being, we take pride in our legacy of trust, innovation, and personalized service."

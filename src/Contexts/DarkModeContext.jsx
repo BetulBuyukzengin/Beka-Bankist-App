@@ -1,11 +1,18 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react/prop-types */
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect } from "react";
+import { useLocalStorageState } from "../Hooks/useLocalStorageState";
 
 const DarkModeContext = createContext();
 
 function DarkModeProvider({ children }) {
-    const [isDarkMode, setIsDarkMode] = useState(false);
+    const isUserUsingDarkMode = window.matchMedia(
+        "(prefers-color-scheme: dark)"
+    ).matches;
+    const [isDarkMode, setIsDarkMode] = useLocalStorageState(
+        isUserUsingDarkMode,
+        "isDarkMode"
+    );
 
     useEffect(() => {
         if (isDarkMode) {

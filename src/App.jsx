@@ -1,11 +1,13 @@
 import { DarkModeProvider } from "./Contexts/DarkModeContext.jsx";
-import Navbar from "./Navbar/Navbar";
 import GlobalStyles from "./styles/GlobalStyles";
+import Navbar from "./Pages/Navbar/Navbar.jsx";
+import Home from "./Pages/Home/Home.jsx";
+import AboutUs from "./Pages/AboutUs/AboutUs.jsx";
+import OurServices from "./Pages/OurServices/OurServices.jsx";
+import FrequentlyQuestions from "./Pages/Questions/FrequentlyQuestions.jsx";
+import Contact from "./Pages/Contact/Contact.jsx";
+import Testimonals from "./Pages/Testimonals/Testimonals.jsx";
 import Gallery from "./Components/Gallery/Gallery";
-
-import Home from "./Components/Home/Home";
-import AboutUs from "./Components/AboutUs/AboutUs.jsx";
-import OurServices from "./Components/OurServices/OurServices.jsx";
 
 function App() {
   return (
@@ -16,6 +18,9 @@ function App() {
       <AboutUs />
       <Gallery />
       <OurServices />
+      <FrequentlyQuestions />
+      <Contact />
+      <Testimonals />
     </DarkModeProvider>
   );
 }
