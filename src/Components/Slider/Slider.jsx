@@ -1,4 +1,3 @@
-import * as React from "react";
 import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import MobileStepper from "@mui/material/MobileStepper";
@@ -8,6 +7,7 @@ import { autoPlay } from "react-swipeable-views-utils";
 import PropTypes from "prop-types";
 import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
+import { useState } from "react";
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
@@ -17,14 +17,29 @@ Slider.propTypes = {
     isAvatar: PropTypes.bool.isRequired,
 };
 
+// const springConfig = {
+//     duraiton: "3s",
+//     easeFunction: "ease-in-out",
+//     delay: "0s",
+// };
+
 // PROPS : 1) data // 2) isHead // 3) isAvatar
 export default function Slider({ data, isHead, isAvatar }) {
     const theme = useTheme();
-    const [activeStep, setActiveStep] = React.useState(0);
+    const [isAutoPlay, setAutoPlay] = useState(true);
+    const [activeStep, setActiveStep] = useState(0);
     const maxSteps = data.length;
 
     const handleStepChange = step => {
         setActiveStep(step);
+    };
+
+    const handleMouseEnter = () => {
+        setAutoPlay(false);
+    };
+
+    const handleMouseLeave = () => {
+        setAutoPlay(true);
     };
 
     return (
@@ -36,7 +51,10 @@ export default function Slider({ data, isHead, isAvatar }) {
             }}
         >
             <AutoPlaySwipeableViews
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
                 interval={3000}
+                autoplay={isAutoPlay}
                 axis={theme.direction === "rtl" ? "x-reverse" : "x"}
                 index={activeStep}
                 onChangeIndex={handleStepChange}
