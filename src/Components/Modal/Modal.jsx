@@ -17,12 +17,8 @@ const StyledBox = styled(Box)`
     outline: none;
   }
 `;
-const StyledImg = styled.img`
-  width: 100%;
-  height: 100%;
-  border: none;
-`;
-export default function GalleryModal({ handleClose, open, image }) {
+
+export default function GalleryModal({ handleClose, open, imagesList }) {
   return (
     <Modal
       open={open}
@@ -31,8 +27,7 @@ export default function GalleryModal({ handleClose, open, image }) {
       aria-describedby="modal-modal-description"
     >
       <StyledBox>
-        <Slider />
-        <StyledImg src={`../../../public/img/${image}`} />
+        <Slider data={imagesList} />
       </StyledBox>
     </Modal>
   );

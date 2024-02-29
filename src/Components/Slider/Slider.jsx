@@ -8,6 +8,7 @@ import { autoPlay } from "react-swipeable-views-utils";
 import PropTypes from "prop-types";
 import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
+import styled from "styled-components";
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
@@ -16,12 +17,16 @@ Slider.propTypes = {
   isHead: PropTypes.bool.isRequired,
   isAvatar: PropTypes.bool.isRequired,
 };
-
+const StyledImg = styled.img`
+  width: 100%;
+  height: 100%;
+  border: none;
+`;
 // PROPS : 1) data // 2) isHead // 3) isAvatar
 export default function Slider({ data, isHead, isAvatar }) {
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
-  const maxSteps = data.length;
+  const maxSteps = data?.length;
 
   const handleStepChange = (step) => {
     setActiveStep(step);
@@ -95,6 +100,9 @@ export default function Slider({ data, isHead, isAvatar }) {
                       }}
                     />
                   </Tooltip>
+                )}
+                {step.galleryImg && (
+                  <StyledImg src={`../../../public/img/${step.galleryImg}`} />
                 )}
               </Box>
             ) : null}

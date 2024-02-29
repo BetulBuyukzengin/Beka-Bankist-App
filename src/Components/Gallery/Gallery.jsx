@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Heading from "../Heading";
+import Heading from "../Heading/Heading";
 import SearchIcon from "@mui/icons-material/Search";
 import Modal from "../Modal/Modal";
 import { useState } from "react";
@@ -47,7 +47,14 @@ const StyledGridItem = styled.div`
     }
   }
 `;
-const images = ["bank1.jpg", "money.jpg"];
+const images = [
+  {
+    galleryImg: "bank1.jpg",
+  },
+  {
+    galleryImg: "money.jpg",
+  },
+];
 
 export default function Gallery() {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -64,16 +71,19 @@ export default function Gallery() {
       <Heading head="Gallery" />
       <StyledGridContainer>
         {images.map((img, index) => (
-          <StyledGridItem key={index} onClick={() => handleOpen(img)}>
+          <StyledGridItem
+            key={index}
+            onClick={() => handleOpen(img.galleryImg)}
+          >
             <StyledImg
-              src={`../../../public/img/${img}`}
+              src={`../../../public/img/${img.galleryImg}`}
               alt={`Resim ${index + 1}`}
             />
             <StyledSearchIcon />
           </StyledGridItem>
         ))}
       </StyledGridContainer>
-      <Modal handleClose={handleClose} open={open} image={selectedImage} />
+      <Modal handleClose={handleClose} open={open} imagesList={images} />
     </StyledGaleryContainer>
   );
 }
