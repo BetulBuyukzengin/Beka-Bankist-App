@@ -7,6 +7,7 @@ import { autoPlay } from "react-swipeable-views-utils";
 import PropTypes from "prop-types";
 import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
+import styled from "styled-components";
 import { useState } from "react";
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
@@ -16,19 +17,18 @@ Slider.propTypes = {
     isHead: PropTypes.bool.isRequired,
     isAvatar: PropTypes.bool.isRequired,
 };
-
-// const springConfig = {
-//     duraiton: "3s",
-//     easeFunction: "ease-in-out",
-//     delay: "0s",
-// };
-
+const StyledImg = styled.img`
+    width: 100%;
+    height: 100%;
+    border: none;
+`;
 // PROPS : 1) data // 2) isHead // 3) isAvatar
 export default function Slider({ data, isHead, isAvatar }) {
     const theme = useTheme();
-    const [isAutoPlay, setAutoPlay] = useState(true);
     const [activeStep, setActiveStep] = useState(0);
-    const maxSteps = data.length;
+    const [isAutoPlay, setAutoPlay] = useState(true);
+
+    const maxSteps = data?.length;
 
     const handleStepChange = step => {
         setActiveStep(step);
@@ -54,11 +54,11 @@ export default function Slider({ data, isHead, isAvatar }) {
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
                 interval={3000}
-                autoplay={isAutoPlay}
                 axis={theme.direction === "rtl" ? "x-reverse" : "x"}
                 index={activeStep}
                 onChangeIndex={handleStepChange}
                 enableMouseEvents
+                autoplay={isAutoPlay}
             >
                 {data?.map((step, index) => (
                     <div key={index}>
@@ -117,6 +117,11 @@ export default function Slider({ data, isHead, isAvatar }) {
                                             }}
                                         />
                                     </Tooltip>
+                                )}
+                                {step.galleryImg && (
+                                    <StyledImg
+                                        src={`../../../public/img/${step.galleryImg}`}
+                                    />
                                 )}
                             </Box>
                         ) : null}

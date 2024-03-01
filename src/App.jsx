@@ -7,20 +7,22 @@ import OurServices from "./Pages/OurServices/OurServices.jsx";
 import FrequentlyQuestions from "./Pages/Questions/FrequentlyQuestions.jsx";
 import Contact from "./Pages/Contact/Contact.jsx";
 import Testimonals from "./Pages/Testimonals/Testimonals.jsx";
+import Gallery from "./Components/Gallery/Gallery";
 
 function App() {
-    return (
-        <DarkModeProvider>
-            <GlobalStyles />
-            <Navbar />
-            <Home />
-            <AboutUs />
-            <OurServices />
-            <FrequentlyQuestions />
-            <Contact />
-            <Testimonals />
-        </DarkModeProvider>
-    );
+  return (
+    <DarkModeProvider>
+      <GlobalStyles />
+      <Navbar />
+      <Home />
+      <AboutUs />
+      <Gallery />
+      <OurServices />
+      <FrequentlyQuestions />
+      <Contact />
+      <Testimonals />
+    </DarkModeProvider>
+  );
 }
 
 export default App;
