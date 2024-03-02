@@ -8,19 +8,27 @@ import FrequentlyQuestions from "./Pages/Questions/FrequentlyQuestions.jsx";
 import Contact from "./Pages/Contact/Contact.jsx";
 import Testimonals from "./Pages/Testimonals/Testimonals.jsx";
 import Gallery from "./Components/Gallery/Gallery";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Login from "./Pages/Login/Login.jsx";
 
 function App() {
   return (
     <DarkModeProvider>
+      <Router>
+        <Routes>
+          {/* <Navbar /> */}
+          <Route path="/" element={<Navbar />} />
+          <Route path="/login" element={<Login />} />
+        </Routes>
+      </Router>
       <GlobalStyles />
-      <Navbar />
       <Home />
       <AboutUs />
       <Gallery />
       <OurServices />
       <FrequentlyQuestions />
-      <Contact />
       <Testimonals />
+      <Contact />
     </DarkModeProvider>
   );
 }
