@@ -11,14 +11,19 @@ const StyledBox = styled(Box)`
   transform: translate(-50%, -50%);
   border: none;
   width: 60%;
-  height: 85dvh;
+  /* height: 70dvh; */
 
   &:focus-visible {
     outline: none;
   }
 `;
 
-export default function GalleryModal({ handleClose, open, imagesList }) {
+export default function GalleryModal({
+  handleClose,
+  open,
+  imagesList,
+  selectedImage,
+}) {
   return (
     <Modal
       open={open}
@@ -27,7 +32,11 @@ export default function GalleryModal({ handleClose, open, imagesList }) {
       aria-describedby="modal-modal-description"
     >
       <StyledBox>
-        <Slider data={imagesList} />
+        <Slider
+          data={imagesList}
+          style={{ height: "20px" }}
+          selectedImage={selectedImage}
+        />
       </StyledBox>
     </Modal>
   );
