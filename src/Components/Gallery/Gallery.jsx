@@ -54,6 +54,27 @@ const images = [
   {
     galleryImg: "money.jpg",
   },
+  {
+    galleryImg: "gallery1.jpg",
+  },
+  {
+    galleryImg: "gallery2.jpg",
+  },
+  {
+    galleryImg: "gallery3.jpg",
+  },
+  {
+    galleryImg: "gallery4.jpg",
+  },
+  {
+    galleryImg: "gallery5.jpg",
+  },
+  {
+    galleryImg: "gallery6.jpg",
+  },
+  {
+    galleryImg: "gallery7.jpg",
+  },
 ];
 
 export default function Gallery() {
@@ -61,9 +82,10 @@ export default function Gallery() {
   const [open, setOpen] = useState(false);
 
   const handleOpen = (img) => {
-    setOpen(true);
     setSelectedImage(img);
+    setOpen(true);
   };
+
   const handleClose = () => setOpen(false);
 
   return (
@@ -83,7 +105,12 @@ export default function Gallery() {
           </StyledGridItem>
         ))}
       </StyledGridContainer>
-      <Modal handleClose={handleClose} open={open} imagesList={images} />
+      <Modal
+        handleClose={handleClose}
+        open={open}
+        imagesList={images}
+        selectedImage={selectedImage}
+      />
     </StyledGaleryContainer>
   );
 }

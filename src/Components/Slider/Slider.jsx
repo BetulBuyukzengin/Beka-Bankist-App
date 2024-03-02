@@ -1,4 +1,3 @@
-import * as React from "react";
 import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import MobileStepper from "@mui/material/MobileStepper";
@@ -9,13 +8,14 @@ import PropTypes from "prop-types";
 import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
 import styled from "styled-components";
-
+import { useEffect, useState } from "react";
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 Slider.propTypes = {
   data: PropTypes.array.isRequired,
   isHead: PropTypes.bool.isRequired,
   isAvatar: PropTypes.bool.isRequired,
+  selectedImage: PropTypes.string,
 };
 const StyledImg = styled.img`
   width: 100%;
@@ -23,14 +23,25 @@ const StyledImg = styled.img`
   border: none;
 `;
 // PROPS : 1) data // 2) isHead // 3) isAvatar
-export default function Slider({ data, isHead, isAvatar }) {
+export default function Slider({ data, isHead, isAvatar, selectedImage }) {
   const theme = useTheme();
-  const [activeStep, setActiveStep] = React.useState(0);
+  const [activeStep, setActiveStep] = useState(0);
   const maxSteps = data?.length;
+
+  useEffect(() => {
+    // Tıklanan resmin index'ini bul
+    const selectedImgIndex = data.findIndex(
+      (item) => item.galleryImg === selectedImage
+    );
+    setActiveStep(selectedImgIndex >= 0 ? selectedImgIndex : 0);
+  }, [selectedImage, data]);
 
   const handleStepChange = (step) => {
     setActiveStep(step);
   };
+  // console.log(selectedImage);
+  // console.log(selectedIndex);
+  // console.log(data);
 
   return (
     <Box
@@ -101,6 +112,12 @@ export default function Slider({ data, isHead, isAvatar }) {
                     />
                   </Tooltip>
                 )}
+                {/* {selectedImage && (
+                  <StyledImg
+                    src={`../../../public/img/${selectedImage}`}
+                    alt={`Resim ${index + 1}`}
+                  />
+                )} */}
                 {step.galleryImg && (
                   <StyledImg src={`../../../public/img/${step.galleryImg}`} />
                 )}
