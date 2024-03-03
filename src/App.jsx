@@ -10,6 +10,7 @@ import Testimonals from "./Pages/Testimonals/Testimonals.jsx";
 import Gallery from "./Components/Gallery/Gallery";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./Pages/Login/Login.jsx";
+import Footer from "./Pages/Footer/Footer.jsx";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
       <FrequentlyQuestions />
       <Testimonals />
       <Contact />
+      <Footer />
     </DarkModeProvider>
   );
 }
