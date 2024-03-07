@@ -2,8 +2,8 @@ import styled from "styled-components";
 import LoginIcon from "@mui/icons-material/Login";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
-import { useDarkMode } from "../../Contexts/DarkModeContext";
-
+import { useDarkMode } from "../../../Contexts/DarkModeContext";
+import { Link } from "react-router-dom";
 const StyledLi = styled.li`
   font-size: 1.7rem;
 
@@ -44,6 +44,22 @@ const StyledLink = styled.a`
   }
 `;
 
+const StyledLinkTo = styled(Link)`
+  border: none;
+  color: var(--color-text);
+  background-color: transparent;
+  padding: 1rem 1.5rem;
+
+  &:hover {
+    color: var(--color-primary);
+    transform: translateY(-2px);
+    cursor: pointer;
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+`;
 const StyledImg = styled.img`
   width: 4rem;
   height: 4rem;
@@ -83,9 +99,9 @@ function NavItem() {
         </StyledLink>
       </StyledLi>
       <StyledLi>
-        <StyledLink>
-          <LoginIcon href="#loginPage" />
-        </StyledLink>
+        <StyledLinkTo to="/login">
+          <LoginIcon />
+        </StyledLinkTo>
       </StyledLi>
     </>
   );

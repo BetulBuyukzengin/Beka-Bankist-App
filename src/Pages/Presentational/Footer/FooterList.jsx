@@ -10,7 +10,7 @@ const StyledList = styled.ul`
 
 FooterList.propTypes = {
   data: PropTypes.array.isRequired,
-  direction: PropTypes.string.isRequired,
+  direction: PropTypes.string,
 };
 
 function FooterList({ data, direction }) {

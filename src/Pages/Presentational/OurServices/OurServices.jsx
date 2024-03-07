@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import Heading from "../../Components/Heading/Heading";
 import GridItem from "./GridItem";
+import Heading from "../../../Components/Heading/Heading";
 
 const StyledServices = styled.div`
   width: 100%;

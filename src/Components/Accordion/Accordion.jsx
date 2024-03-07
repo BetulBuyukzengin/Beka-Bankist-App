@@ -44,7 +44,7 @@ function CustomAccordion({ index, expanded, handleChange, question, content }) {
         </Typography>
       </AccordionSummary>
       <AccordionDetails>
-        <Grow in={expanded} timeout={500}>
+        <Grow in={Boolean(expanded)} timeout={500}>
           <Typography sx={{ color: "var(--color-text)", opacity: 0.7 }}>
             {content}
           </Typography>

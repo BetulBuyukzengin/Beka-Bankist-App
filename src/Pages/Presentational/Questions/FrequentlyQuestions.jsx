@@ -1,8 +1,7 @@
 import styled from "styled-components";
-import Heading from "../../Components/Heading/Heading";
-import CustomAccordion from "../../Components/Accordion/Accordion";
 import { useState } from "react";
-
+import Heading from "../../../Components/Heading/Heading";
+import CustomAccordion from "../../../Components/Accordion/Accordion";
 const questions = [
   {
     question: "Can I accept both Paypal and Stripe ?",
@@ -73,7 +72,7 @@ function FrequentlyQuestions() {
           <CustomAccordion
             question={cur.question}
             content={cur.content}
-            key={cur}
+            key={i}
             index={i}
             expanded={expanded}
             handleChange={handleChange}

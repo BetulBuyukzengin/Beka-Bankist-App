@@ -1,4 +1,4 @@
-import { useTheme } from "@mui/material/styles";
+// import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import MobileStepper from "@mui/material/MobileStepper";
 import Typography from "@mui/material/Typography";
@@ -8,13 +8,15 @@ import PropTypes from "prop-types";
 import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
 import styled from "styled-components";
+
 import { useEffect, useState } from "react";
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 Slider.propTypes = {
-  data: PropTypes.array.isRequired,
-  isHead: PropTypes.bool.isRequired,
-  isAvatar: PropTypes.bool.isRequired,
+  data: PropTypes.array,
+  isHead: PropTypes.bool,
+  isAvatar: PropTypes.bool,
+
   selectedImage: PropTypes.string,
 };
 const StyledImg = styled.img`
@@ -24,7 +26,9 @@ const StyledImg = styled.img`
 `;
 // PROPS : 1) data // 2) isHead // 3) isAvatar
 export default function Slider({ data, isHead, isAvatar, selectedImage }) {
-  const theme = useTheme();
+  // const theme = useTheme();
+  const [isAutoPlay, setAutoPlay] = useState(true);
+
   const [activeStep, setActiveStep] = useState(0);
   const maxSteps = data?.length;
 
@@ -39,6 +43,15 @@ export default function Slider({ data, isHead, isAvatar, selectedImage }) {
   const handleStepChange = (step) => {
     setActiveStep(step);
   };
+
+  const handleMouseEnter = () => {
+    setAutoPlay(false);
+  };
+
+  const handleMouseLeave = () => {
+    setAutoPlay(true);
+  };
+
   // console.log(selectedImage);
   // console.log(selectedIndex);
   // console.log(data);
@@ -52,11 +65,14 @@ export default function Slider({ data, isHead, isAvatar, selectedImage }) {
       }}
     >
       <AutoPlaySwipeableViews
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
         interval={3000}
-        axis={theme.direction === "rtl" ? "x-reverse" : "x"}
+        // axis={theme.direction === "rtl" ? "x-reverse" : "x"}
         index={activeStep}
         onChangeIndex={handleStepChange}
         enableMouseEvents
+        autoplay={isAutoPlay}
       >
         {data?.map((step, index) => (
           <div key={index}>
@@ -112,12 +128,6 @@ export default function Slider({ data, isHead, isAvatar, selectedImage }) {
                     />
                   </Tooltip>
                 )}
-                {/* {selectedImage && (
-                  <StyledImg
-                    src={`../../../public/img/${selectedImage}`}
-                    alt={`Resim ${index + 1}`}
-                  />
-                )} */}
                 {step.galleryImg && (
                   <StyledImg src={`../../../public/img/${step.galleryImg}`} />
                 )}

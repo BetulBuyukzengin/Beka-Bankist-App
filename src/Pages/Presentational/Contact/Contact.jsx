@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import Heading from "../../Components/Heading/Heading";
 import ContactForm from "./ContactForm";
+import Heading from "../../../Components/Heading/Heading";
 
 const StyledContactUs = styled.div`
   width: 100%;

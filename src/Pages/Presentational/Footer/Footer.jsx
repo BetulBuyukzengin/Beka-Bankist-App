@@ -1,6 +1,6 @@
 import { Grid } from "@mui/material";
 import styled from "styled-components";
-import FooterTitle from "../../Components/FooterTitle/FooterTitle";
+import FooterTitle from "../../../Components/FooterTitle/FooterTitle";
 import FooterList from "./FooterList";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import XIcon from "@mui/icons-material/X";

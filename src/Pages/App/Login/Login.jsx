@@ -3,8 +3,8 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
-import { useDarkMode } from "../../Contexts/DarkModeContext";
 import { useForm } from "react-hook-form";
+import { useDarkMode } from "../../../Contexts/DarkModeContext";
 
 const StyledForm = styled.form`
   width: 100%;
@@ -31,7 +31,7 @@ const StyledTextField = styled(TextField)`
     }
   }
 `;
-const StyledContactFormTitle = styled.h2`
+const StyledLoginFormTitle = styled.h2`
   margin-bottom: 1rem;
   letter-spacing: 0.1rem;
   color: var(--color-text);
@@ -56,9 +56,9 @@ const StyledButton = styled.button`
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-function ContactForm() {
+function Login() {
   const { isDarkMode } = useDarkMode();
-  const { register, handleSubmit, formState, getValues, reset } = useForm();
+  const { register, handleSubmit, formState, reset } = useForm();
   const { errors } = formState;
 
   function onSubmit() {
@@ -76,33 +76,9 @@ function ContactForm() {
           backgroundColor: "transparent",
         }}
       >
-        <StyledContactFormTitle>Contact Form</StyledContactFormTitle>
+        <StyledLoginFormTitle>Login</StyledLoginFormTitle>
         <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={2}>
-            <Grid item xs={6}>
-              <StyledTextField
-                label="First Name"
-                variant={isDarkMode ? "filled" : "outlined"}
-                {...register("firstName", {
-                  required: "This field is required!",
-                })}
-                id="firstName"
-                helperText={errors?.firstName?.message}
-                error={errors?.firstName}
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <StyledTextField
-                label="Last Name"
-                variant={isDarkMode ? "filled" : "outlined"}
-                {...register("lastName", {
-                  required: "This field is required!",
-                })}
-                id="lastName"
-                helperText={errors?.lastName?.message}
-                error={errors?.lastName}
-              />
-            </Grid>
             <Grid item xs={12}>
               <StyledTextField
                 label="Email"
@@ -114,41 +90,29 @@ function ContactForm() {
                 })}
                 id="eMail"
                 helperText={errors?.eMail?.message}
-                error={errors?.eMail}
+                error={Boolean(errors?.eMail)}
               />
             </Grid>
+
             <Grid item xs={12}>
               <StyledTextField
-                label="Subject"
+                type="password"
+                label="Password"
                 variant={isDarkMode ? "filled" : "outlined"}
-                {...register("subject", {
+                {...register("password", {
                   required: "This field is required!",
                 })}
-                id="subject"
-                helperText={errors?.subject?.message}
-                error={errors?.subject}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <StyledTextField
-                multiline
-                minRows={5}
-                label="Message"
-                variant={isDarkMode ? "filled" : "outlined"}
-                {...register("message", {
-                  required: "This field is required!",
-                })}
-                id="message"
-                helperText={errors?.message?.message}
-                error={errors?.message}
+                id="password"
+                helperText={errors?.password?.message}
+                error={Boolean(errors?.password)}
               />
             </Grid>
           </Grid>
         </Box>
-        <StyledButton> Send Message</StyledButton>
+        <StyledButton> Login </StyledButton>
       </Paper>
     </StyledForm>
   );
 }
 
-export default ContactForm;
+export default Login;
