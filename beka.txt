@@ -1,0 +1,24 @@
+             ********** Project's Features *********
+User Features
+
+# Firebase entegration
+# Login 
+ - language
+ - e-mail & password
+# Create user
+ - Fullname email, password and password repeat
+# Forgot password
+
+------------------------------------------------------------------------------
+
+Application Features
+
+# Header: Avatar, logout, fullName, dark-lightmode, clock / https://mui.com/material-ui/react-avatar/#with-badge , import LogoutIcon from '@mui/icons-material/Logout';
+# Sidebar: https://mui.com/material-ui/react-drawer/#mini-variant-drawer
+ - Account: IBAN, account number, balance, Bank's office / import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+ - Movements: Movement table [date-time, amount, send to, movement type], withdraw, deposit, filter and sort, pdf & excel doc / https://mui.com/material-ui/react-table/#sticky-header / import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
+ - Money Transfers: send to money -look at pictures
+ - Applications: loan app, approval text (onay metni)
+ - Crypto-Borsa: Table / https://mui.com/material-ui/react-table/#sticky-header
+ - Support navigation
+ - Settings: update user feature / import SettingsApplicationsIcon from '@mui/icons-material/SettingsApplications';
