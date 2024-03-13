@@ -14,7 +14,7 @@ User Features
 Application Features
 
 # Header: Avatar, logout, fullName, dark-lightmode, clock / https://mui.com/material-ui/react-avatar/#with-badge , import LogoutIcon from '@mui/icons-material/Logout';
-# Sidebar: https://mui.com/material-ui/react-drawer/#mini-variant-drawer
+#✅ Sidebar: https://mui.com/material-ui/react-drawer/#mini-variant-drawer
  - Account: IBAN, account number, balance, Bank's office / import AccountCircleIcon from '@mui/icons-material/AccountCircle';
  - Movements: Movement table [date-time, amount, send to, movement type], withdraw, deposit, filter and sort, pdf & excel doc / https://mui.com/material-ui/react-table/#sticky-header / import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
  - Money Transfers: send to money -look at pictures

@@ -36,7 +36,7 @@ const StyledLoginFormTitle = styled.h2`
   letter-spacing: 0.1rem;
   color: var(--color-text);
 `;
-const StyledButton = styled.button`
+const StyledLoginBtn = styled(Link)`
   color: var(--color-text);
   background-color: var(--color-secondary);
   padding: 0.6rem 1rem;
@@ -130,7 +130,7 @@ function Login() {
             />
           </Grid>
         </Grid>
-        <StyledButton> Login </StyledButton>
+        <StyledLoginBtn to="/applayout">Login</StyledLoginBtn>
         <StyledLink to="/createaccount">
           <StyledCreateAccountButton>Create Account</StyledCreateAccountButton>
         </StyledLink>

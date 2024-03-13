@@ -10,6 +10,8 @@ import {
 import Login from "./Pages/App/Login/Login.jsx";
 import Presentational from "./Pages/Presentational/Presentational.jsx";
 import CreateAccount from "./Pages/App/CreateAccount/CreateAccount.jsx";
+import AppLayout from "./Pages/App/AppLayout.jsx";
+import Account from "./Pages/App/Account/Account.jsx";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +25,16 @@ const router = createBrowserRouter([
   {
     path: "/createaccount",
     Component: CreateAccount,
+  },
+  {
+    path: "/applayout",
+    Component: AppLayout,
+    children: [
+      {
+        path: "/applayout/account",
+        Component: Account,
+      },
+    ],
   },
 ]);
 

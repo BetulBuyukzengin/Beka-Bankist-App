@@ -5,6 +5,7 @@ const GlobalStyles = createGlobalStyle`
      &, &.light-mode {
         --color-text: #080808;
         --color-background: rgba(245, 245, 245, 0.8);
+        --color-background-2: rgba(245, 245, 245, 1);
         --color-primary: #011d98;
         --color-secondary: #5067CE;
         --color-accent: #00466A;
@@ -24,6 +25,7 @@ const GlobalStyles = createGlobalStyle`
     &.dark-mode {
         --color-text: #f7f7f7;
         --color-background: rgba(10, 10, 10, 0.8);
+        --color-background-2: rgba(10, 10, 10, 1);
         --color-primary: #98aafb;
         --color-secondary: #6783fe;
         --color-accent: #c3eafe;
