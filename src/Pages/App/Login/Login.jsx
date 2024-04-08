@@ -5,9 +5,11 @@ import Grid from "@mui/material/Grid";
 import { useForm } from "react-hook-form";
 import { useDarkMode } from "../../../Contexts/DarkModeContext";
 import { Link } from "react-router-dom";
+import { useLogin } from "../../../services/userServices";
 
 const StyledForm = styled.form`
   width: 100%;
+  height: 100dvh;
   padding: 0;
   display: flex;
   flex-direction: column;
@@ -15,6 +17,7 @@ const StyledForm = styled.form`
   align-items: center;
   padding-top: 2rem;
   color: var(--color-text);
+  background-color: var(--color-background);
   font-size: 1rem;
 `;
 const StyledTextField = styled(TextField)`
@@ -36,7 +39,7 @@ const StyledLoginFormTitle = styled.h2`
   letter-spacing: 0.1rem;
   color: var(--color-text);
 `;
-const StyledLoginBtn = styled(Link)`
+const StyledLoginBtn = styled.button`
   color: var(--color-text);
   background-color: var(--color-secondary);
   padding: 0.6rem 1rem;
@@ -59,7 +62,7 @@ const StyledLink = styled(Link)`
 `;
 const StyledCreateAccountButton = styled.button`
   color: var(--color-text);
-  /* background-color: var(--color-secondary); */
+  background-color: var(--color-secondary);
   padding: 0.6rem 1rem;
   margin-top: 1rem;
   border-radius: 2px;
@@ -81,12 +84,12 @@ function Login() {
   const { isDarkMode } = useDarkMode();
   const { register, handleSubmit, formState, reset } = useForm();
   const { errors } = formState;
+  const { mutateAsync: login, isLoading } = useLogin();
 
-  function onSubmit() {
-    reset();
-    console.log("submitlendi");
+  function onSubmit(data) {
+    login(data);
+    // reset();
   }
-  console.log(errors?.message?.message);
   return (
     <StyledForm onSubmit={handleSubmit(onSubmit)}>
       <Paper
@@ -105,14 +108,14 @@ function Login() {
             <StyledTextField
               label="Email"
               variant={isDarkMode ? "filled" : "outlined"}
-              {...register("eMail", {
+              {...register("email", {
                 required: "This field is required!",
                 validate: (value) =>
                   emailRegex.test(value) || "Format does not match email",
               })}
-              id="eMail"
-              helperText={errors?.eMail?.message}
-              error={Boolean(errors?.eMail)}
+              id="email"
+              helperText={errors?.email?.message}
+              error={Boolean(errors?.email)}
             />
           </Grid>
 
@@ -130,7 +133,7 @@ function Login() {
             />
           </Grid>
         </Grid>
-        <StyledLoginBtn to="/applayout">Login</StyledLoginBtn>
+        <StyledLoginBtn type="submit">Login</StyledLoginBtn>
         <StyledLink to="/createaccount">
           <StyledCreateAccountButton>Create Account</StyledCreateAccountButton>
         </StyledLink>

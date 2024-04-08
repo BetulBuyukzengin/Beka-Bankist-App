@@ -26,10 +26,26 @@ import { useDarkMode } from "../../../src/Contexts/DarkModeContext";
 import { styled } from "styled-components";
 import LogoutIcon from "@mui/icons-material/Logout";
 import Time from "../Time/Time";
-
+import { useLogout } from "../../services/userServices";
+import { useNavigate } from "react-router-dom";
 const drawerWidth = 240;
 
 const StyledLink = styled.a`
+  border: none;
+  color: var(--color-text);
+  background-color: transparent;
+
+  &:hover {
+    color: var(--color-primary);
+    transform: translateY(-2px);
+    cursor: pointer;
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+`;
+const StyledButton = styled.button`
   border: none;
   color: var(--color-text);
   background-color: transparent;
@@ -126,7 +142,8 @@ const Drawer = muiStyled(MuiDrawer, {
 
 export default function Sidebar() {
   const { toggleDarkMode, isDarkMode } = useDarkMode();
-
+  const { isLoading, mutateAsync: logout } = useLogout();
+  const navigate = useNavigate();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -177,9 +194,9 @@ export default function Sidebar() {
           <StyledLink onClick={toggleDarkMode}>
             {isDarkMode ? <DarkModeIcon /> : <LightModeIcon />}
           </StyledLink>
-          <StyledLink>
+          <StyledButton onClick={logout}>
             <LogoutIcon />
-          </StyledLink>
+          </StyledButton>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
@@ -199,54 +216,23 @@ export default function Sidebar() {
         </DrawerHeader>
         <Divider />
         <List>
-          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: "block" }}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? "initial" : "center",
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : "auto",
-                    justifyContent: "center",
-                  }}
-                >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-          ))}
+          <ListItem disablePadding sx={{ display: "block" }}>
+            <ListItemButton
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? "initial" : "center",
+                px: 2.5,
+              }}
+              onClick={() => navigate("/applayout/account")}
+            >
+              <ListItemIcon>
+                <MailIcon />
+              </ListItemIcon>
+              <ListItemText primary="Accounts" sx={{ opacity: open ? 1 : 0 }} />
+            </ListItemButton>
+          </ListItem>
         </List>
-        <Divider />
-        <List>
-          {["All mail", "Trash", "Spam"].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: "block" }}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? "initial" : "center",
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : "auto",
-                    justifyContent: "center",
-                  }}
-                >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
+        {/* <Divider /> */}
       </Drawer>
       <Box
         component="main"
@@ -259,18 +245,6 @@ export default function Sidebar() {
         }}
       >
         <DrawerHeader />
-        <Typography paragraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          vivamus at augue. At augue eget arcu dictum varius duis at consectetur
-          lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa sapien
-          faucibus et molestie ac.
-        </Typography>
-        <Typography paragraph>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est
-          ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar
-          eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-          posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography>
         <StyledTime>
           <Time />
         </StyledTime>

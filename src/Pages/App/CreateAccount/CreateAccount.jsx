@@ -5,8 +5,10 @@ import Grid from "@mui/material/Grid";
 import { useForm } from "react-hook-form";
 import { useDarkMode } from "../../../Contexts/DarkModeContext";
 import { Link } from "react-router-dom";
+import { useSignUp } from "../../../services/userServices";
 const StyledForm = styled.form`
   width: 100%;
+  height: 100dvh;
   padding: 0;
   display: flex;
   flex-direction: column;
@@ -14,6 +16,7 @@ const StyledForm = styled.form`
   align-items: center;
   padding-top: 2rem;
   color: var(--color-text);
+  background-color: var(--color-background);
   font-size: 1rem;
 `;
 const StyledTextField = styled(TextField)`
@@ -58,7 +61,7 @@ const StyledLink = styled(Link)`
 `;
 const StyledCreateAccountButton = styled.button`
   color: var(--color-text);
-  /* background-color: var(--color-secondary); */
+  background-color: var(--color-secondary);
   padding: 0.6rem 1rem;
   margin-top: 1rem;
   border-radius: 2px;
@@ -80,12 +83,12 @@ function CreateAccount() {
   const { isDarkMode } = useDarkMode();
   const { register, handleSubmit, formState, reset, getValues } = useForm();
   const { errors } = formState;
+  const { isLoading, mutate: signUp } = useSignUp();
 
-  function onSubmit() {
+  function onSubmit(data) {
+    signUp(data);
     reset();
-    console.log("submitlendi");
   }
-  console.log(errors);
   return (
     <StyledForm onSubmit={handleSubmit(onSubmit)}>
       <Paper
@@ -104,14 +107,14 @@ function CreateAccount() {
             <StyledTextField
               label="Email"
               variant={isDarkMode ? "filled" : "outlined"}
-              {...register("eMail", {
+              {...register("email", {
                 required: "This field is required!",
                 validate: (value) =>
                   emailRegex.test(value) || "Format does not match email",
               })}
-              id="eMail"
-              helperText={errors?.eMail?.message}
-              error={Boolean(errors?.eMail)}
+              id="email"
+              helperText={errors?.email?.message}
+              error={Boolean(errors?.email)}
             />
           </Grid>
 
@@ -154,7 +157,9 @@ function CreateAccount() {
             />
           </Grid>
         </Grid>
-        <StyledCreateAccountButton>Create Account</StyledCreateAccountButton>
+        <StyledCreateAccountButton type="submit">
+          Create Account
+        </StyledCreateAccountButton>
 
         <StyledLink to="/login">
           <StyledButton> Login </StyledButton>
