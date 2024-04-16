@@ -63,9 +63,9 @@ function ContactForm() {
 
   function onSubmit() {
     reset();
-    console.log("submitlendi");
+    ("submitlendi");
   }
-  console.log(errors?.message?.message);
+  errors?.message?.message;
   return (
     <StyledForm onSubmit={handleSubmit(onSubmit)}>
       <Paper

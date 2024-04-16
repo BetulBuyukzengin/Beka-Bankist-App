@@ -52,9 +52,9 @@ export default function Slider({ data, isHead, isAvatar, selectedImage }) {
     setAutoPlay(true);
   };
 
-  // console.log(selectedImage);
-  // console.log(selectedIndex);
-  // console.log(data);
+  // (selectedImage);
+  // (selectedIndex);
+  // (data);
 
   return (
     <Box

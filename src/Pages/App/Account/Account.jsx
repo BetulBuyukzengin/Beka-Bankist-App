@@ -1,5 +1,7 @@
+import AppSlider from "../../../Components/AppSlider/AppSlider";
+
 function Account() {
-  return <div>account</div>;
+  return <AppSlider />;
 }
 
 export default Account;

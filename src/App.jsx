@@ -4,12 +4,11 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Login from "./Pages/App/Login/Login.jsx";
 import Presentational from "./Pages/Presentational/Presentational.jsx";
 import CreateAccount from "./Pages/App/CreateAccount/CreateAccount.jsx";
-import AppLayout from "./Pages/App/AppLayout.jsx";
+import DashboardLayout from "./Components/DashboardLayout/DashboardLayout.jsx";
 import Account from "./Pages/App/Account/Account.jsx";
 import { ToastContainer } from "react-toastify";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "react-toastify/dist/ReactToastify.css";
-import Protected from "./Components/Protected/Protected.jsx";
 
 const router = createBrowserRouter([
   {
@@ -26,7 +25,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/applayout",
-    Component: AppLayout,
+    Component: DashboardLayout,
     children: [
       {
         path: "/applayout/account",

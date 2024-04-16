@@ -17,7 +17,6 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import CustomAvatar from "../Avatar/Avatar";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
@@ -25,9 +24,9 @@ import LightModeIcon from "@mui/icons-material/LightMode";
 import { useDarkMode } from "../../../src/Contexts/DarkModeContext";
 import { styled } from "styled-components";
 import LogoutIcon from "@mui/icons-material/Logout";
-import Time from "../Time/Time";
-import { useLogout } from "../../services/userServices";
+import { useLogout, useUser } from "../../services/userServices";
 import { useNavigate } from "react-router-dom";
+import AppLayout from "../../Pages/App/AppLayout";
 const drawerWidth = 240;
 
 const StyledLink = styled.a`
@@ -60,17 +59,7 @@ const StyledButton = styled.button`
     transform: translateY(0);
   }
 `;
-const StyledTime = styled.span`
-  position: absolute;
-  bottom: 1rem;
-  right: 1rem;
-  background-color: var(--color-secondary);
-  color: var(--color-text);
-  padding: 0.2rem 0.7rem;
-  border-radius: 1rem;
-  box-shadow: var(--shadow-md);
-  font-size: 0.8rem;
-`;
+
 const openedMixin = (theme) => ({
   width: drawerWidth,
   backgroundColor: "var(--color-background-2)",
@@ -116,6 +105,7 @@ const AppBar = muiStyled(MuiAppBar, {
   ...(open && {
     marginLeft: drawerWidth,
     width: `calc(100% - ${drawerWidth}px)`,
+    // display: "block",
     transition: theme.transitions?.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
@@ -130,6 +120,7 @@ const Drawer = muiStyled(MuiDrawer, {
   flexShrink: 0,
   whiteSpace: "nowrap",
   boxSizing: "border-box",
+  backgroundColor: "var(--color-background)",
   ...(open && {
     ...openedMixin(theme),
     "& .MuiDrawer-paper": openedMixin(theme),
@@ -146,6 +137,8 @@ export default function Sidebar() {
   const navigate = useNavigate();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+
+  const { user } = useUser();
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -188,7 +181,7 @@ export default function Sidebar() {
           </IconButton>
           <CustomAvatar />
           <Typography variant="h6" noWrap component="div">
-            Kadir
+            {user?.user_metadata?.fullName}
           </Typography>
 
           <StyledLink onClick={toggleDarkMode}>
@@ -234,21 +227,7 @@ export default function Sidebar() {
         </List>
         {/* <Divider /> */}
       </Drawer>
-      <Box
-        component="main"
-        sx={{
-          flexGrow: 1,
-          p: 3,
-          height: "100vh",
-          color: "var(--color-text)",
-          backgroundColor: "var(--color-background)",
-        }}
-      >
-        <DrawerHeader />
-        <StyledTime>
-          <Time />
-        </StyledTime>
-      </Box>
+      <AppLayout />
     </Box>
   );
 }

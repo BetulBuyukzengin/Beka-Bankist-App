@@ -105,6 +105,19 @@ function CreateAccount() {
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <StyledTextField
+              label="Full Name"
+              variant={isDarkMode ? "filled" : "outlined"}
+              {...register("fullName", {
+                required: "This field is required!",
+              })}
+              id="fullName"
+              helperText={errors?.fullName?.message}
+              error={Boolean(errors?.fullName)}
+            />
+          </Grid>
+
+          <Grid item xs={12}>
+            <StyledTextField
               label="Email"
               variant={isDarkMode ? "filled" : "outlined"}
               {...register("email", {

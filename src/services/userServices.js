@@ -6,16 +6,15 @@ import { useNavigate } from "react-router-dom";
 async function login(credentials) {
   let { data, error } = await supabase.auth.signInWithPassword(credentials);
   if (error) throw new Error(error.message);
+  ("login oldu");
   return data;
 }
 
 export function useLogin() {
   const navigate = useNavigate();
   const { mutateAsync, isLoading } = useMutation({
-    // mutationFn: login,
     mutationFn: ({ email, password }) => login({ email, password }),
     onSuccess: () => {
-      //   toast("Login successful");
       toast.success("Login successful");
       navigate("/applayout");
     },
@@ -52,6 +51,7 @@ async function getCurrentUser() {
   const { data, error } = await supabase.auth.getUser();
 
   if (error) throw new Error(error.message);
+  data;
   return data?.user;
 }
 
@@ -64,19 +64,30 @@ export function useUser() {
 }
 
 async function signUp(data) {
-  const { data: user, error } = await supabase.auth.signUp(data);
+  const { data: user, error } = await supabase.auth.signUp({
+    email: data.email,
+    password: data.password,
+    options: {
+      data: {
+        fullName: data.fullName,
+      },
+    },
+  });
   if (error) throw new Error(error.message);
+  if (user) await login({ email: data.email, password: data.password });
   return user;
 }
 
 export function useSignUp() {
+  const navigate = useNavigate();
   const { mutate, isLoading } = useMutation({
     mutationFn: signUp,
-    onSuccess: () => {
+    onSuccess: (user) => {
       toast.success("Successfully sign up ");
+      user && navigate("/applayout");
     },
     onError: (error) => {
-      console.log(error.message);
+      error.message;
       toast.error("Failed sign up ");
     },
   });
