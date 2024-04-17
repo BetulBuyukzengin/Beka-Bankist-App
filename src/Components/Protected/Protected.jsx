@@ -5,14 +5,15 @@ import { useEffect } from "react";
 function Protected({ children }) {
   const navigate = useNavigate();
   const { isAuthenticated, isLoading, user } = useUser();
-  isLoading;
+  console.log(user);
   useEffect(
     function () {
       if (!user && !isLoading) navigate("/login");
     },
     [user, navigate, isLoading]
   );
-  if (isAuthenticated) return children;
+  if (isLoading) return <div>Loading</div>;
+  if (isAuthenticated && !isLoading) return children;
 }
 
 export default Protected;

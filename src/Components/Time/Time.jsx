@@ -1,5 +1,18 @@
 import { useEffect, useState } from "react";
+import styled from "styled-components";
 
+const StyledTime = styled.div`
+  background-color: transparent;
+  border-bottom: 3px solid var(--color-text);
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  color: var(--color-text);
+  padding: 0.2rem 0.7rem;
+  border-radius: 0.1rem;
+  box-shadow: var(--shadow-md);
+  font-size: 0.8rem;
+`;
 function Time() {
   const [clock, setClock] = useState("");
 
@@ -19,7 +32,7 @@ function Time() {
     return () => clearInterval(intervalID);
   }, []);
 
-  return <div>{clock}</div>;
+  return <StyledTime>{clock}</StyledTime>;
 }
 
 export default Time;

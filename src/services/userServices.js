@@ -1,7 +1,8 @@
 import { supabase } from "../Supabase/supabase";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { getAccounts } from "./accountServices";
 
 async function login(credentials) {
   let { data, error } = await supabase.auth.signInWithPassword(credentials);
@@ -12,11 +13,15 @@ async function login(credentials) {
 
 export function useLogin() {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
   const { mutateAsync, isLoading } = useMutation({
     mutationFn: ({ email, password }) => login({ email, password }),
-    onSuccess: () => {
+    onSuccess: (user) => {
       toast.success("Login successful");
-      navigate("/applayout");
+      // navigate("/applayout");
+      queryClient.setQueryData(["user", user.user]);
+      navigate("/applayout", { replace: true });
     },
     onError: () => {
       toast.error("Login failed");
@@ -47,11 +52,10 @@ export function useLogout() {
 async function getCurrentUser() {
   // get user token from locale storage with getSession()
   const { data: session } = await supabase.auth.getSession();
-  if (!session.session) return null;
+  if (!session.session) return;
   const { data, error } = await supabase.auth.getUser();
 
   if (error) throw new Error(error.message);
-  data;
   return data?.user;
 }
 

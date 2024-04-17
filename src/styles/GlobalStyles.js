@@ -77,7 +77,7 @@ const GlobalStyles = createGlobalStyle`
   margin: 0;
 
   /* Creating animations for dark mode */
-  transition: all 0.2s;
+  transition: all 50ms;
   scroll-behavior: smooth;
 }
 
