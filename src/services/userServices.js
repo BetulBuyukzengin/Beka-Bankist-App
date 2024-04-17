@@ -2,12 +2,10 @@ import { supabase } from "../Supabase/supabase";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { getAccounts } from "./accountServices";
 
 async function login(credentials) {
   let { data, error } = await supabase.auth.signInWithPassword(credentials);
   if (error) throw new Error(error.message);
-  ("login oldu");
   return data;
 }
 
@@ -21,7 +19,7 @@ export function useLogin() {
       toast.success("Login successful");
       // navigate("/applayout");
       queryClient.setQueryData(["user", user.user]);
-      navigate("/applayout", { replace: true });
+      navigate("/applayout/account", { replace: true });
     },
     onError: () => {
       toast.error("Login failed");

@@ -78,7 +78,10 @@ function AppSlider() {
         onExiting={() => setAnimating(true)}
         onExited={() => setAnimating(false)}
       >
-        <StyledCarouselCaption captionHeader={<AccountContent item={item} />} />
+        <StyledCarouselCaption
+          captionHeader={<AccountContent item={item} />}
+          captionText=""
+        />
       </CarouselItem>
     );
   });
