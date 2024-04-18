@@ -14,9 +14,11 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
+// import ListItemButton from "@mui/material/ListItemButton";
+import ListIconButton from "./ListIconButton";
+import TimelineIcon from "@mui/icons-material/Timeline";
+// import ListItemIcon from "@mui/material/ListItemIcon";
+// import ListItemText from "@mui/material/ListItemText";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import CustomAvatar from "../Avatar/Avatar";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
@@ -25,9 +27,9 @@ import { useDarkMode } from "../../../src/Contexts/DarkModeContext";
 import { styled } from "styled-components";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useLogout, useUser } from "../../services/userServices";
-import { useNavigate } from "react-router-dom";
 import AppLayout from "../../Pages/App/AppLayout";
 import Protected from "../../Components/Protected/Protected";
+import { ListItemIcon, ListItemText } from "@mui/material";
 
 const drawerWidth = 240;
 
@@ -133,18 +135,13 @@ const Drawer = muiStyled(MuiDrawer, {
   }),
 }));
 
-export default function Sidebar() {
+export default function DashboardLayout() {
   const { toggleDarkMode, isDarkMode } = useDarkMode();
   const { isLoading, mutateAsync: logout } = useLogout();
-  const navigate = useNavigate();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
-  // const heightTitle = "32.5px";
-  // const heightMain = `calc(100vh - ${heightTitle})`;
-
   const { user } = useUser();
-
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -176,6 +173,7 @@ export default function Sidebar() {
               display: "flex",
               backgroundColor: "var(--color-background)",
               color: "var(--color-text)",
+              justifyContent: "end",
             }}
           >
             <IconButton
@@ -190,7 +188,7 @@ export default function Sidebar() {
             >
               <MenuIcon />
             </IconButton>
-            <CustomAvatar />
+            <CustomAvatar user={user} />
             <Typography variant="h6" noWrap component="div">
               {user?.user_metadata?.fullName}
             </Typography>
@@ -227,19 +225,10 @@ export default function Sidebar() {
               disablePadding
               sx={{
                 display: "block",
-                // backgroundColor: "var(--color-background)",
-                // color: "var(--color-text)",
               }}
             >
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? "initial" : "center",
-                  px: 2.5,
-                }}
-                onClick={() => navigate("/applayout/account")}
-              >
-                <ListItemIcon sx={{ justifyContent: "center" }}>
+              <ListIconButton path={"/applayout/accounts"}>
+                <ListItemIcon>
                   <AccountBalanceWalletIcon
                     sx={{
                       color: "var(--color-text)",
@@ -250,10 +239,22 @@ export default function Sidebar() {
                   primary="Accounts"
                   sx={{ opacity: open ? 1 : 0 }}
                 />
-              </ListItemButton>
+              </ListIconButton>
+              <ListIconButton path={"/applayout/movements"}>
+                <ListItemIcon>
+                  <TimelineIcon
+                    sx={{
+                      color: "var(--color-text)",
+                    }}
+                  />
+                </ListItemIcon>
+                <ListItemText
+                  primary="Movements"
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
+              </ListIconButton>
             </ListItem>
           </List>
-          {/* <Divider /> */}
         </Drawer>
         <Box
           component="main"
@@ -262,7 +263,7 @@ export default function Sidebar() {
             p: 3,
             backgroundColor: "var(--color-background)",
             color: "var(--color-text)",
-            height: "100dvh",
+            minHeight: "100dvh",
           }}
         >
           <DrawerHeader />

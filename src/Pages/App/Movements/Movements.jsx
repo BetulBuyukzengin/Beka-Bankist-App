@@ -1,6 +1,6 @@
-import AppSlider from "../../../Components/AppSlider/AppSlider";
+import MovementsTable from "./MovementsTable";
 
-function Account() {
+function Movements() {
   return (
     <>
       <h3
@@ -12,11 +12,11 @@ function Account() {
           paddingTop: "1rem",
         }}
       >
-        MY ACCOUNTS
+        MOVEMENTS
       </h3>
-      <AppSlider />
+      <MovementsTable />
     </>
   );
 }
 
-export default Account;
+export default Movements;

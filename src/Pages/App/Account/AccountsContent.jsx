@@ -16,7 +16,7 @@ const StyledValue = styled.p`
 const StyledImg = styled.img`
   width: 10%;
 `;
-function AccountContent({ item }) {
+function AccountsContent({ item }) {
   return (
     <Grid container gap={5}>
       <Grid container spacing={2}>
@@ -57,4 +57,4 @@ function AccountContent({ item }) {
     </Grid>
   );
 }
-export default AccountContent;
+export default AccountsContent;

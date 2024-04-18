@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import AccountContent from "../../Pages/App/Account/AccountContent";
+import AccountContent from "../../Pages/App/Account/AccountsContent";
 import { useState } from "react";
 import {
   Carousel,
@@ -20,8 +20,9 @@ const StyledCarouselCaption = styled(CarouselCaption)`
 `;
 const StyledCarouselControl = styled(CarouselControl)`
   width: 8%;
-  bottom: 10rem;
+  bottom: 20rem;
 `;
+
 // const accounts = [
 //   {
 //     id: 1,

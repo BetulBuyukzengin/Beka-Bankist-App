@@ -5,10 +5,11 @@ import Login from "./Pages/App/Login/Login.jsx";
 import Presentational from "./Pages/Presentational/Presentational.jsx";
 import CreateAccount from "./Pages/App/CreateAccount/CreateAccount.jsx";
 import DashboardLayout from "./Components/DashboardLayout/DashboardLayout.jsx";
-import Account from "./Pages/App/Account/Account.jsx";
+import Accounts from "./Pages/App/Account/Accounts.jsx";
 import { ToastContainer } from "react-toastify";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "react-toastify/dist/ReactToastify.css";
+import Movements from "./Pages/App/Movements/Movements.jsx";
 
 const router = createBrowserRouter([
   {
@@ -28,9 +29,13 @@ const router = createBrowserRouter([
     Component: DashboardLayout,
     children: [
       {
-        path: "/applayout/account",
-        Component: Account,
+        path: "/applayout/accounts",
+        Component: Accounts,
         index: true,
+      },
+      {
+        path: "/applayout/movements",
+        Component: Movements,
       },
     ],
   },
