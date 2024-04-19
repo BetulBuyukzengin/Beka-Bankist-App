@@ -1,3 +1,4 @@
+import { Receipt } from "@mui/icons-material";
 import { TableCell, TableHead, TableRow } from "@mui/material";
 
 function DetailTableHead() {
@@ -11,6 +12,11 @@ function DetailTableHead() {
         </TableCell>
         <TableCell sx={{ color: "var(--color-text)" }}>Iban</TableCell>
         <TableCell sx={{ color: "var(--color-text)" }}>Branch</TableCell>
+        <TableCell sx={{ color: "var(--color-text)", borderBottom: "none" }}>
+          {/* <IconButton> */}
+          <Receipt />
+          {/* </IconButtonsssss> */}
+        </TableCell>
       </TableRow>
     </TableHead>
   );

@@ -50,7 +50,7 @@ function DetailTableRow({ row, open }) {
                     sx={{ color: "var(--color-text)", borderBottom: "none" }}
                   >
                     {formatIBAN(row.iban)}
-                  </TableCell>{" "}
+                  </TableCell>
                   <TableCell
                     sx={{ color: "var(--color-text)", borderBottom: "none" }}
                   >

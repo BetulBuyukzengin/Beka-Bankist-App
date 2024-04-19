@@ -1,44 +1,9 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
-import Collapse from "@mui/material/Collapse";
-import IconButton from "@mui/material/IconButton";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import MainTableRow from "./MainTableRow";
-import DetailTableRow from "./DetailTableRow";
 import Rows from "./Rows";
 import MainTableHead from "./TableHeads/MainTableHead";
-
-// function createData(status, date, movements, price) {
-//   return {
-//     status,
-//     date,
-//     movements,
-//     // price,
-//     details: [
-//       {
-//         date: "2020-01-05",
-//         time: "12.15",
-//         transferTo: "Betül",
-//       },
-//     ],
-//   };
-// }
-
-// const rows = [
-//   createData("Deposit", "11.02.2023", +300),
-//   createData("Withdraw", "01.04.2023", -100),
-//   createData("Withdraw", "15.01.2024", -159),
-//   createData("Deposit", "10.04.2024", +259),
-// ];
 
 const movData = [
   {
@@ -61,8 +26,18 @@ const movData = [
     iban: "TR3284238492843",
     branch: "Meram/Konya",
   },
+  {
+    status: "transfer",
+    date: "02.03.2024",
+    movements: 100,
+    time: "21.05",
+    transferTo: "Zahide",
+    currentBalance: 400,
+    iban: "TR7784238192843",
+    branch: "Meram/Konya",
+  },
 ];
-// ana
+
 export default function MovementsTable() {
   return (
     <TableContainer

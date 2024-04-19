@@ -9,7 +9,6 @@ function MainTableRow({ open, setOpen, row }) {
     <TableRow
       sx={{
         "& > *": { borderBottom: "unset" },
-        borderBottom: "none",
       }}
     >
       <TableCell>
@@ -37,16 +36,10 @@ function MainTableRow({ open, setOpen, row }) {
           }
         />
       </TableCell>
-      <TableCell
-        align="center"
-        sx={{ color: "var(--color-text)", borderBottom: "none" }}
-      >
+      <TableCell align="center" sx={{ color: "var(--color-text)" }}>
         {row.date}
       </TableCell>
-      <TableCell
-        align="center"
-        sx={{ color: "var(--color-text)", borderBottom: "none" }}
-      >
+      <TableCell align="center" sx={{ color: "var(--color-text)" }}>
         {row.status === "withdraw" || row.status === "transfer" ? "-  " : ""}
         {formatCurrency(row.movements)}
       </TableCell>
