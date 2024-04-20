@@ -1,6 +1,7 @@
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import styled from "styled-components";
+import MenuIcon from "../../../Components/MenuIcon/MenuIcon";
 
 const StyledLabel = styled.label`
   width: 50%;
@@ -22,6 +23,7 @@ const StyledDescription = styled.p`
 export default function ReceiptContent() {
   return (
     <StyledBox sx={{ flexGrow: 1 }}>
+      <MenuIcon />
       <Box mb={4}>
         <h5>BEKA BANKİST</h5>
       </Box>
