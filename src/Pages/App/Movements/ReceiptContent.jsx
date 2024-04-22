@@ -1,10 +1,18 @@
+/* eslint-disable react/prop-types */
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import styled from "styled-components";
 import MenuIcon from "../../../Components/MenuIcon/MenuIcon";
+import { usePDF } from "react-to-pdf";
+import { useUser } from "../../../services/userServices";
+import { formatDate, formatIBAN } from "../../../utils/utils";
+import { useDarkMode } from "../../../Contexts/DarkModeContext";
 
-const StyledLabel = styled.label`
-  width: 50%;
+const StyledLabelTitle = styled.label`
+  width: 40%;
+`;
+const StyledLabelDesc = styled.label`
+  width: 60%;
 `;
 const StyledBox = styled(Box)`
   position: absolute;
@@ -20,16 +28,22 @@ const StyledBox = styled(Box)`
 const StyledDescription = styled.p`
   font-size: 14px;
 `;
-export default function ReceiptContent() {
+
+export default function ReceiptContent({ row }) {
+  const { user, isLoading } = useUser();
+  const fullName = user.user_metadata.fullName;
+  // const { targetRef, toLightPDF } = useDarkMode();
+  const { toPDF, targetRef } = usePDF({ filename: "page.pdf" });
   return (
-    <StyledBox sx={{ flexGrow: 1 }}>
-      <MenuIcon />
+    <StyledBox sx={{ flexGrow: 1, width: "78% " }} ref={targetRef}>
+      <MenuIcon toPDF={toPDF} />
       <Box mb={4}>
         <h5>BEKA BANKİST</h5>
       </Box>
       <Box
         sx={{
           display: "flex",
+          gap: "1rem",
         }}
       >
         <Grid
@@ -51,8 +65,8 @@ export default function ReceiptContent() {
               display: "flex",
             }}
           >
-            <StyledLabel>ŞUBE KODU/ADI: </StyledLabel>
-            <StyledLabel>Meram/Konya</StyledLabel>
+            <StyledLabelTitle>RECIPIENT: </StyledLabelTitle>
+            <StyledLabelDesc>{row.recipient}</StyledLabelDesc>
           </Grid>
           <Grid
             item
@@ -62,8 +76,8 @@ export default function ReceiptContent() {
               display: "flex",
             }}
           >
-            <StyledLabel>IBAN: </StyledLabel>
-            <StyledLabel>TR15415534535315</StyledLabel>
+            <StyledLabelTitle>RECIPIENT BRANCH: </StyledLabelTitle>
+            <StyledLabelDesc>{row.recipientBranch}</StyledLabelDesc>
           </Grid>
           <Grid
             item
@@ -73,8 +87,19 @@ export default function ReceiptContent() {
               display: "flex",
             }}
           >
-            <StyledLabel>İŞLEM TARİHİ: </StyledLabel>
-            <StyledLabel>14/04/2024-11.22.12</StyledLabel>
+            <StyledLabelTitle> RECIPIENT IBAN: </StyledLabelTitle>
+            <StyledLabelDesc>{formatIBAN(row.recipientIban)}</StyledLabelDesc>
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            sx={{
+              paddingLeft: "0!important",
+              display: "flex",
+            }}
+          >
+            <StyledLabelTitle>OPERATION DATE: </StyledLabelTitle>
+            <StyledLabelDesc>{formatDate(row.created_at)}</StyledLabelDesc>
           </Grid>
         </Grid>
         <Grid
@@ -82,30 +107,81 @@ export default function ReceiptContent() {
           spacing={2}
           sx={{
             marginBottom: "2rem",
-            marginLeft: "2rem",
             border: "1px solid var(--color-text)",
+            padding: "1rem",
             borderRadius: "5px",
+            marginLeft: "0!important",
           }}
         >
-          <Grid item xs={12}>
-            SAYIN BETÜL BZ
+          <Grid
+            item
+            xs={12}
+            sx={{
+              paddingLeft: "0!important",
+              display: "flex",
+            }}
+          >
+            <StyledLabelTitle>SENDER: </StyledLabelTitle>
+            <StyledLabelDesc>{row.sender}</StyledLabelDesc>
           </Grid>
-          <Grid item xs={12} sx={{ paddingTop: "0!important" }}>
-            adres adres adres adsersf sdklflskf adres adres adres adsersf
-            sdklflskf
+          <Grid
+            item
+            xs={12}
+            sx={{
+              paddingLeft: "0!important",
+              display: "flex",
+            }}
+          >
+            <StyledLabelTitle>SENDER BRANCH: </StyledLabelTitle>
+            <StyledLabelDesc>{row.senderBranch}</StyledLabelDesc>
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            sx={{
+              paddingLeft: "0!important",
+              display: "flex",
+            }}
+          >
+            <StyledLabelTitle>SENDER IBAN: </StyledLabelTitle>
+            <StyledLabelDesc>{formatIBAN(row.senderIban)}</StyledLabelDesc>
           </Grid>
         </Grid>
       </Box>
       <Grid container>
-        <Grid item xs={6}>
+        <Grid
+          item
+          xs={6}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "1rem",
+            marginLeft: "1rem",
+          }}
+        >
+          SAYIN {fullName.toUpperCase()}
           <StyledDescription>
-            Withdrawn 60TL from your accouunt
+            {row.status === "withdraw" &&
+              `Withdrawn ${row.movements} from your account`}
+            {row.status === "deposit" &&
+              `${row.movements} deposited into your account from ${row.sender}`}
+            {row.status === "transfer" &&
+              `${row.movements} has been transferred from your account to ${row.recipient}.`}
           </StyledDescription>
           <StyledDescription>
-            fatura oluşturulma tarihi 15/04/2024-15.30.05
+            Invoice creation date: {formatDate(new Date())}
           </StyledDescription>
         </Grid>
-        <Grid item xs={6} sx={{ paddingLeft: "3%" }}>
+        <Grid
+          item
+          xs={5}
+          sx={{
+            marginLeft: "2rem",
+            display: "flex",
+            alignItems: "end",
+            justifyContent: "end",
+          }}
+        >
           <StyledDescription>
             REGARDS BEKA BANKIST ETHERNET BRANCH
           </StyledDescription>

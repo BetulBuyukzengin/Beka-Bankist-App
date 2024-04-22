@@ -28,19 +28,9 @@ function DetailTableRow({ row, open }) {
               Details
             </Typography>
             <Table size="small" aria-label="purchases">
-              <DetailTableHead />
+              <DetailTableHead row={row} />
               <TableBody>
                 <TableRow key={row.date}>
-                  <TableCell
-                    sx={{ color: "var(--color-text)", borderBottom: "none" }}
-                  >
-                    {row.time}
-                  </TableCell>
-                  <TableCell
-                    sx={{ color: "var(--color-text)", borderBottom: "none" }}
-                  >
-                    {row.transferTo}
-                  </TableCell>
                   <TableCell
                     sx={{ color: "var(--color-text)", borderBottom: "none" }}
                   >
@@ -49,12 +39,32 @@ function DetailTableRow({ row, open }) {
                   <TableCell
                     sx={{ color: "var(--color-text)", borderBottom: "none" }}
                   >
-                    {formatIBAN(row.iban)}
+                    {row.sender}
+                  </TableCell>
+                  {/* <TableCell
+                    sx={{ color: "var(--color-text)", borderBottom: "none" }}
+                  >
+                    {formatIBAN(row.senderIban)}
+                  </TableCell> */}
+                  <TableCell
+                    sx={{ color: "var(--color-text)", borderBottom: "none" }}
+                  >
+                    {row.senderBranch}
                   </TableCell>
                   <TableCell
                     sx={{ color: "var(--color-text)", borderBottom: "none" }}
                   >
-                    {row.branch}
+                    {row.recipient}
+                  </TableCell>
+                  {/* <TableCell
+                    sx={{ color: "var(--color-text)", borderBottom: "none" }}
+                  >
+                    {formatIBAN(row.recipientIban)}
+                  </TableCell> */}
+                  <TableCell
+                    sx={{ color: "var(--color-text)", borderBottom: "none" }}
+                  >
+                    {row.recipientBranch}
                   </TableCell>
                 </TableRow>
               </TableBody>

@@ -2,7 +2,7 @@
 import { Chip, IconButton, TableCell, TableRow } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import { formatCurrency } from "../../../utils/utils";
+import { formatCurrency, formatDate } from "../../../utils/utils";
 
 function MainTableRow({ open, setOpen, row }) {
   return (
@@ -26,7 +26,10 @@ function MainTableRow({ open, setOpen, row }) {
       </TableCell>
       <TableCell component="th" scope="row" sx={{ color: "var(--color-text)" }}>
         <Chip
-          label={row.status}
+          label={
+            row.status.slice(0, 1).toUpperCase() +
+            row.status.slice(1).toLowerCase()
+          }
           color={
             row.status === "deposit"
               ? "success"
@@ -37,7 +40,7 @@ function MainTableRow({ open, setOpen, row }) {
         />
       </TableCell>
       <TableCell align="center" sx={{ color: "var(--color-text)" }}>
-        {row.date}
+        {formatDate(row.created_at)}
       </TableCell>
       <TableCell align="center" sx={{ color: "var(--color-text)" }}>
         {row.status === "withdraw" || row.status === "transfer" ? "-  " : ""}

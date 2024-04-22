@@ -10,20 +10,30 @@ const StyledButton = styled.button`
   border: none;
 `;
 
-function DetailTableHead() {
+function DetailTableHead({ row }) {
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
+  const handleOpen = () => {
+    setOpen(true);
+  };
   const handleClose = () => setOpen(false);
   return (
     <TableHead>
       <TableRow>
-        <TableCell sx={{ color: "var(--color-text)" }}>Time</TableCell>
-        <TableCell sx={{ color: "var(--color-text)" }}>Transfer to</TableCell>
+        {/* <TableCell sx={{ color: "var(--color-text)" }}>Time</TableCell> */}
+        {/* <TableCell sx={{ color: "var(--color-text)" }}>Movements</TableCell> */}
         <TableCell sx={{ color: "var(--color-text)" }}>
           Current Balance
         </TableCell>
-        <TableCell sx={{ color: "var(--color-text)" }}>Iban</TableCell>
-        <TableCell sx={{ color: "var(--color-text)" }}>Branch</TableCell>
+        <TableCell sx={{ color: "var(--color-text)" }}>Sender</TableCell>
+        {/* <TableCell sx={{ color: "var(--color-text)" }}>Sender Iban</TableCell> */}
+        <TableCell sx={{ color: "var(--color-text)" }}>Sender Branch</TableCell>
+        <TableCell sx={{ color: "var(--color-text)" }}>Recipient</TableCell>
+        {/* <TableCell sx={{ color: "var(--color-text)" }}>
+          Recipient Iban
+        </TableCell> */}
+        <TableCell sx={{ color: "var(--color-text)" }}>
+          Recipient Branch
+        </TableCell>
         <TableCell sx={{ color: "var(--color-text)", borderBottom: "none" }}>
           <StyledButton onClick={handleOpen}>
             <Receipt />
@@ -35,7 +45,7 @@ function DetailTableHead() {
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          <ReceiptContent />
+          <ReceiptContent row={row} />
         </Modal>
       </TableRow>
     </TableHead>

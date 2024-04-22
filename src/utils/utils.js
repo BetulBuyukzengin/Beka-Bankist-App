@@ -1,3 +1,5 @@
+import { format } from "date-fns";
+
 export const formatCurrency = (value) =>
   new Intl.NumberFormat("tr", { style: "currency", currency: "TRY" }).format(
     value
@@ -16,4 +18,7 @@ export function formatBankAccountNumber(accountNumber) {
   );
 
   return formattedAccountNumber;
+}
+export function formatDate(date) {
+  return format(date, "dd/MM/yyyy HH:mm:s");
 }

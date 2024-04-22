@@ -10,6 +10,7 @@ import {
 } from "reactstrap";
 import { useAccounts } from "../../services/accountServices";
 import Loader from "../Loader/Loader";
+import { useDarkMode } from "../../Contexts/DarkModeContext";
 
 const StyledCarouselCaption = styled(CarouselCaption)`
   bottom: 0;
@@ -52,7 +53,7 @@ function AppSlider() {
   console.log(accounts);
   const [activeIndex, setActiveIndex] = useState(0);
   const [animating, setAnimating] = useState(false);
-
+  const { isDarkMode } = useDarkMode();
   const next = () => {
     if (animating) return;
     const nextIndex = activeIndex === accounts.length - 1 ? 0 : activeIndex + 1;
@@ -113,6 +114,13 @@ function AppSlider() {
           direction="prev"
           directionText="Previous"
           onClickHandler={previous}
+          style={{
+            "&>span": {
+              backgroundImage: isDarkMode
+                ? "url(../../../../../public/img/prevLight.png)"
+                : "url(../../../../../public/img/prevDark.png)",
+            },
+          }}
         />
         <StyledCarouselControl
           direction="next"

@@ -1,31 +1,22 @@
+/* eslint-disable react/prop-types */
 import * as React from "react";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import styled from "styled-components";
+import { useDarkMode } from "../../Contexts/DarkModeContext";
 
-const options = [
-  "None",
-  "Atria",
-  "Callisto",
-  "Dione",
-  "Ganymede",
-  "Hangouts Call",
-  "Luna",
-  "Oberon",
-  "Phobos",
-  "Pyxis",
-  "Sedna",
-  "Titania",
-  "Triton",
-  "Umbriel",
-];
+const options = ["Download (pdf)", "Send by email (pdf)"];
 
 const ITEM_HEIGHT = 48;
-const StyledMenu = styled.div``;
-export default function MenuIcon() {
+const StyledMenu = styled.div`
+  display: flex;
+  justify-content: end;
+`;
+export default function MenuIcon({ toPDF }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
+
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -43,7 +34,7 @@ export default function MenuIcon() {
         aria-expanded={open ? "true" : undefined}
         aria-haspopup="true"
         onClick={handleClick}
-        color="var(--color-text)"
+        color="inherit"
       >
         <MoreVertIcon />
       </IconButton>
@@ -63,13 +54,18 @@ export default function MenuIcon() {
         }}
       >
         {options.map((option) => (
+          // <button key={option}>
           <MenuItem
             key={option}
-            selected={option === "Pyxis"}
-            onClick={handleClose}
+            selected={option === "Download (pdf)"}
+            onClick={() => {
+              toPDF();
+              handleClose();
+            }}
           >
             {option}
           </MenuItem>
+          // </button>
         ))}
       </Menu>
     </StyledMenu>
