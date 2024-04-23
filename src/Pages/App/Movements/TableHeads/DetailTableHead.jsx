@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Receipt } from "@mui/icons-material";
 import { TableCell, TableHead, TableRow } from "@mui/material";
 import styled from "styled-components";

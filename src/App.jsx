@@ -10,6 +10,7 @@ import { ToastContainer } from "react-toastify";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "react-toastify/dist/ReactToastify.css";
 import Movements from "./Pages/App/Movements/Movements.jsx";
+import Transactions from "./Pages/App/Transactions/Transactions.jsx";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
       {
         path: "/applayout/movements",
         Component: Movements,
+      },
+      {
+        path: "/applayout/transactions",
+        Component: Transactions,
       },
     ],
   },

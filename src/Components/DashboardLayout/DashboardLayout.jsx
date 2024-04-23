@@ -30,6 +30,7 @@ import { useLogout, useUser } from "../../services/userServices";
 import AppLayout from "../../Pages/App/AppLayout";
 import Protected from "../../Components/Protected/Protected";
 import { ListItemIcon, ListItemText } from "@mui/material";
+import { CurrencyExchange } from "@mui/icons-material";
 
 const drawerWidth = 240;
 
@@ -250,6 +251,19 @@ export default function DashboardLayout() {
                 </ListItemIcon>
                 <ListItemText
                   primary="Movements"
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
+              </ListIconButton>
+              <ListIconButton path={"/applayout/transactions"}>
+                <ListItemIcon>
+                  <CurrencyExchange
+                    sx={{
+                      color: "var(--color-text)",
+                    }}
+                  />
+                </ListItemIcon>
+                <ListItemText
+                  primary="Transactions"
                   sx={{ opacity: open ? 1 : 0 }}
                 />
               </ListIconButton>
