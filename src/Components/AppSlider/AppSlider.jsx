@@ -22,31 +22,17 @@ const StyledCarouselCaption = styled(CarouselCaption)`
 const StyledCarouselControl = styled(CarouselControl)`
   width: 8%;
   bottom: 20rem;
+  & > span {
+    background-image: ${(props) =>
+      props.direction === "prev"
+        ? props.isDarkMode
+          ? "url(../../../../../public/img/prevLight.png)!important"
+          : "url(../../../../../public/img/prevDark.png)!important"
+        : props.isDarkMode
+        ? "url(../../../../../public/img/nextLight.png)!important"
+        : "url(../../../../../public/img/nextDark.png)!important"};
+  }
 `;
-
-// const accounts = [
-//   {
-//     id: 1,
-//     branch: "Meram/Konya",
-//     accountNo: "4514445457854598",
-//     iban: "TR320006262552531813342194",
-//     balance: 12,
-//   },
-//   {
-//     id: 2,
-//     branch: "Merkezefendi/Denizli",
-//     accountNo: "9514445457854598",
-//     iban: "TR590006242155998653315495",
-//     balance: 14,
-//   },
-//   {
-//     id: 3,
-//     branch: "Selçuklu/Konya",
-//     accountNo: "1214445457854598",
-//     iban: "TR900006272838411695643484",
-//     balance: 15,
-//   },
-// ];
 
 function AppSlider() {
   const { isLoading, accounts } = useAccounts();
@@ -114,18 +100,13 @@ function AppSlider() {
           direction="prev"
           directionText="Previous"
           onClickHandler={previous}
-          style={{
-            "&>span": {
-              backgroundImage: isDarkMode
-                ? "url(../../../../../public/img/prevLight.png)"
-                : "url(../../../../../public/img/prevDark.png)",
-            },
-          }}
+          isDarkMode={isDarkMode}
         />
         <StyledCarouselControl
           direction="next"
           directionText="Next"
           onClickHandler={next}
+          isDarkMode={isDarkMode}
         />
       </Carousel>
     </div>
