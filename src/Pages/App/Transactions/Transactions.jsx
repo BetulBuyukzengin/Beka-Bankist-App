@@ -1,28 +1,28 @@
-import CustomTabs from "./CustomTabs";
-import DepositTab from "./DepositTab";
-import LoanTab from "./LoanTab";
-import TransferMoneyTab from "./TransferMoneyTab";
-import WithdrawTab from "./WithdrawTab";
+import CustomTabs from "./Tabs/CustomTabs";
+import DepositTab from "./Tabs/DepositTab";
+import LoanTab from "./Tabs/LoanTab";
+import TransferMoneyTab from "./Tabs/TransferMoneyTab";
+import WithdrawTab from "./Tabs/WithdrawTab";
 
+const content = [
+  {
+    label: "Transfer",
+    component: <TransferMoneyTab />,
+  },
+  {
+    label: "Take out a loan",
+    component: <LoanTab />,
+  },
+  {
+    label: "Deposit",
+    component: <DepositTab />,
+  },
+  {
+    label: "Withdraw",
+    component: <WithdrawTab />,
+  },
+];
 function Transactions() {
-  const content = [
-    {
-      label: "Transfer",
-      component: <TransferMoneyTab />,
-    },
-    {
-      label: "Take out a loan",
-      component: <LoanTab />,
-    },
-    {
-      label: "Deposit",
-      component: <DepositTab />,
-    },
-    {
-      label: "Withdraw",
-      component: <WithdrawTab />,
-    },
-  ];
   return (
     <>
       <CustomTabs content={content} />
