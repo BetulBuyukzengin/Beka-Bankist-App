@@ -101,58 +101,46 @@ export default function TransferMoneyTab() {
           );
         })}
       </Stepper>
-      {activeStep === steps.length ? (
-        <React.Fragment>
-          <Typography sx={{ mt: 2, mb: 1 }}>
-            All steps completed - you&apos;re finished
-          </Typography>
-          <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-            <Box sx={{ flex: "1 1 auto" }} />
-            <Button onClick={handleReset}>Reset</Button>
-          </Box>
-        </React.Fragment>
-      ) : (
-        <React.Fragment>
-          {transactionSteps.map((transaction, index) => (
-            <>
-              {index === activeStep && (
-                <>
-                  <Typography key={index} sx={{ mt: 2, mb: 1 }}>
-                    {transaction.label}
-                  </Typography>
-                  <Box>{transaction.component}</Box>
-                </>
-              )}
-            </>
-          ))}
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "end",
-            }}
+      <React.Fragment>
+        {transactionSteps.map((transaction, index) => (
+          <>
+            {index === activeStep && (
+              <Box sx={{ height: "22rem" }}>
+                <Typography key={index} sx={{ mt: 2, mb: 1 }}>
+                  {transaction.label}
+                </Typography>
+                <Box>{transaction.component}</Box>
+              </Box>
+            )}
+          </>
+        ))}
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "end",
+          }}
+        >
+          <Button
+            color="inherit"
+            disabled={activeStep === 0}
+            onClick={handleBack}
+            sx={{ mr: 1 }}
           >
-            <Button
-              color="inherit"
-              disabled={activeStep === 0}
-              onClick={handleBack}
-              sx={{ mr: 1 }}
-            >
-              Back
-            </Button>
-            {/* <Box sx={{ flex: "1 1 auto" }} /> */}
-            {/* {isStepOptional(activeStep) && (
+            Back
+          </Button>
+          {/* <Box sx={{ flex: "1 1 auto" }} /> */}
+          {/* {isStepOptional(activeStep) && (
               <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
                 Skip
               </Button>
             )} */}
 
-            <Button onClick={handleNext}>
-              {activeStep === steps.length - 1 ? "Finish" : "Next"}
-            </Button>
-          </Box>
-        </React.Fragment>
-      )}
+          <Button onClick={handleNext}>
+            {activeStep === steps.length - 1 ? "Finish" : "Next"}
+          </Button>
+        </Box>
+      </React.Fragment>
     </Box>
   );
 }
