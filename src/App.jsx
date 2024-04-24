@@ -12,6 +12,9 @@ import "react-toastify/dist/ReactToastify.css";
 import Movements from "./Pages/App/Movements/Movements.jsx";
 import Transactions from "./Pages/App/Transactions/Transactions.jsx";
 
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -51,30 +54,32 @@ const queryClient = new QueryClient();
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
-      <DarkModeProvider>
-        <GlobalStyles />
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
+        <DarkModeProvider>
+          <GlobalStyles />
 
-        <RouterProvider router={router} />
-        {/* <BrowserRouter>
+          <RouterProvider router={router} />
+          {/* <BrowserRouter>
         <Routes>
           <Route path="/" element={<Presentational />} />
           <Route path="/login" element={<Login />} />
           <Route path="/createaccount" Component={CreateAccount} />
           </Routes>
         </BrowserRouter> */}
-      </DarkModeProvider>
+        </DarkModeProvider>
+      </LocalizationProvider>
     </QueryClientProvider>
   );
 }
