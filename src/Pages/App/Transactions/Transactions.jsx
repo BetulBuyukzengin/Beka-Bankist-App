@@ -24,9 +24,9 @@ const content = [
 ];
 function Transactions() {
   return (
-    <>
+    <div style={{ height: "78dvh" }}>
       <CustomTabs content={content} />
-    </>
+    </div>
   );
 }
 
