@@ -12,7 +12,9 @@ import styled from "styled-components";
 const StyledSwipeableViews = styled(SwipeableViews)`
   width: 100%;
 `;
-
+const StyledTabPanel = styled(TabPanel)`
+  /* height: 25rem; */
+`;
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -114,14 +116,14 @@ export default function CustomTabs({ content, orientation }) {
         onChangeIndex={handleChangeIndex}
       >
         {content.map((tab, index) => (
-          <TabPanel
+          <StyledTabPanel
             key={index}
             value={value}
             index={index}
             dir={theme.direction}
           >
             {tab.component}
-          </TabPanel>
+          </StyledTabPanel>
         ))}
       </StyledSwipeableViews>
     </Box>
