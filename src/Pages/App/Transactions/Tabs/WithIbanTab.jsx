@@ -5,18 +5,37 @@ function WithIbanTab() {
     <>
       <Grid
         container
-        sx={{ display: "flex", flexDirection: "column", alignItems: "end" }}
+        spacing={2}
+        sx={{
+          border: "1px solid var(--color-border-2)  ",
+          paddingBottom: "1rem",
+          paddingRight: "1rem",
+        }}
       >
-        <Grid item sx={{ display: "flex", gap: "3rem" }}>
+        <Grid item xs={6} sx={{ display: "flex", gap: "1rem" }}>
           <TextField
             id="outlined-basic"
             label="IBAN"
             variant="outlined"
+            fullWidth
             defaultValue="TR"
+            InputLabelProps={{
+              shrink: true,
+            }}
           />
-          <TextField id="outlined-basic" label="Full Name" variant="outlined" />
         </Grid>
-        <Grid item>
+        <Grid item xs={6} sx={{ display: "flex", gap: "1rem" }}>
+          <TextField
+            id="outlined-basic"
+            label="Full Name"
+            fullWidth
+            InputLabelProps={{
+              shrink: true,
+            }}
+            variant="outlined"
+          />
+        </Grid>
+        <Grid item xs={12} sx={{ display: "flex", justifyContent: "end" }}>
           <FormControlLabel
             control={<Switch />}
             label="Add as registered recipient"
