@@ -4,12 +4,15 @@ const GlobalStyles = createGlobalStyle`
 :root{
      &, &.light-mode {
         --color-text: #080808;
+        --color-text-2: rgba(8, 8, 8, 0.2);
         --color-background: rgba(245, 245, 245, 0.8);
         --color-background-2: rgba(245, 245, 245, 1);
         --color-primary: #011d98;
         --color-secondary: #5067CE;
         --color-accent: #00466A;
         --color-border: rgba(0, 0, 0, 0.03);
+        --color-border-2: rgba(0, 0, 0, 0.1);
+
         --color-gray: #6c757d;
 
         --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
@@ -24,12 +27,14 @@ const GlobalStyles = createGlobalStyle`
 
     &.dark-mode {
         --color-text: #f7f7f7;
+        --color-text-2: rgba(247, 247, 247, 0.2);
         --color-background: rgba(10, 10, 10, 0.8);
         --color-background-2: rgba(10, 10, 10, 1);
         --color-primary: #98aafb;
         --color-secondary: #6783fe;
         --color-accent: #c3eafe;
         --color-border: rgba(255, 255, 255, 0.03);
+        --color-border-2: rgba(255, 255, 255, 0.1);
         --color-gray: #a0a0a0;
 
         --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
@@ -85,6 +90,7 @@ body {
     font-family: 'Kanit', sans-serif;
     font-weight: 400;
     font-size: 62.5%;
+    padding-right: 0!important;
 }
 
 input,
