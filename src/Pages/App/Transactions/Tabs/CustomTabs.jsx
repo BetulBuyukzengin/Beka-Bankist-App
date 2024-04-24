@@ -7,6 +7,11 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import styled from "styled-components";
+
+const StyledSwipeableViews = styled(SwipeableViews)`
+  width: 100%;
+`;
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -47,6 +52,17 @@ const boxStyle = {
   height: 224,
 };
 
+const tabVerticalStyle = {
+  "&:not(:last-child)": {
+    borderBottom: "1.5px solid var(--color-border-2)",
+  },
+};
+const tabHorizontalStyle = {
+  "&:not(:last-child)": {
+    borderRight: "1.5px solid var(--color-border-2)",
+  },
+};
+
 export default function CustomTabs({ content, orientation }) {
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
@@ -80,14 +96,19 @@ export default function CustomTabs({ content, orientation }) {
         {content.map((tab, index) => (
           <Tab
             key={index}
-            sx={{ color: "var(--color-text)" }}
+            sx={
+              orientation
+                ? { ...tabVerticalStyle, color: "var(--color-text)" }
+                : { ...tabHorizontalStyle, color: "var(--color-text)" }
+            }
             label={tab.label}
             {...a11yProps(index)}
           />
         ))}
       </Tabs>
+
       {/* // </AppBar> */}
-      <SwipeableViews
+      <StyledSwipeableViews
         axis={theme.direction === "rtl" ? "x-reverse" : "x"}
         index={value}
         onChangeIndex={handleChangeIndex}
@@ -102,7 +123,7 @@ export default function CustomTabs({ content, orientation }) {
             {tab.component}
           </TabPanel>
         ))}
-      </SwipeableViews>
+      </StyledSwipeableViews>
     </Box>
   );
 }
