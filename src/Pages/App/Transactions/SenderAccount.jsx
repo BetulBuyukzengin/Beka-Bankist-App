@@ -4,7 +4,7 @@ import { Box, FormControlLabel, Grid, Radio, RadioGroup } from "@mui/material";
 import React from "react";
 import styled from "styled-components";
 
-const StyledH5 = styled.h6`
+const StyledH6 = styled.h6`
   text-align: start;
 `;
 const StyledTitleLabel = styled.label`
@@ -32,7 +32,7 @@ function AccountCheckComp() {
   return (
     <StyledAccountCheckComponent>
       <div>
-        <StyledH5>Meram-500</StyledH5>
+        <StyledH6>Meram-500</StyledH6>
         <StyledTitleLabel>Kullanılabilir bakiye:</StyledTitleLabel>
         <StyledValueLabel>500</StyledValueLabel>
       </div>
