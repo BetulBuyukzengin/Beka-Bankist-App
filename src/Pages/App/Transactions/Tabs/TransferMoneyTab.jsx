@@ -44,24 +44,19 @@ export default function TransferMoneyTab() {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const handleSkip = () => {
-    if (!isStepOptional(activeStep)) {
-      // You probably want to guard against something like this,
-      // it should never occur unless someone's actively trying to break something.
-      throw new Error("You can't skip a step that isn't optional.");
-    }
+  // const handleSkip = () => {
+  //   if (!isStepOptional(activeStep)) {
+  //     throw new Error("You can't skip a step that isn't optional.");
+  //   }
 
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setSkipped((prevSkipped) => {
-      const newSkipped = new Set(prevSkipped.values());
-      newSkipped.add(activeStep);
-      return newSkipped;
-    });
-  };
+  //   setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  //   setSkipped((prevSkipped) => {
+  //     const newSkipped = new Set(prevSkipped.values());
+  //     newSkipped.add(activeStep);
+  //     return newSkipped;
+  //   });
+  // };
 
-  const handleReset = () => {
-    setActiveStep(0);
-  };
   const transactionSteps = [
     {
       label: "Recipient Account",
@@ -86,11 +81,6 @@ export default function TransferMoneyTab() {
         {steps.map((label, index) => {
           const stepProps = {};
           const labelProps = {};
-          // if (isStepOptional(index)) {
-          //   labelProps.optional = (
-          //     <Typography variant="caption">Optional</Typography>
-          //   );
-          // }
           if (isStepSkipped(index)) {
             stepProps.completed = false;
           }
@@ -105,7 +95,12 @@ export default function TransferMoneyTab() {
         {transactionSteps.map((transaction, index) => (
           <>
             {index === activeStep && (
-              <Box sx={{ height: "22rem" }}>
+              <Box
+                sx={{
+                  height: "22rem",
+                  overflowY: "auto",
+                }}
+              >
                 <Typography key={index} sx={{ mt: 2, mb: 1 }}>
                   {transaction.label}
                 </Typography>
@@ -129,13 +124,6 @@ export default function TransferMoneyTab() {
           >
             Back
           </Button>
-          {/* <Box sx={{ flex: "1 1 auto" }} /> */}
-          {/* {isStepOptional(activeStep) && (
-              <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
-                Skip
-              </Button>
-            )} */}
-
           <Button onClick={handleNext}>
             {activeStep === steps.length - 1 ? "Finish" : "Next"}
           </Button>
