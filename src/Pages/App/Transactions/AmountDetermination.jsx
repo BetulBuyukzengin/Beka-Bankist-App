@@ -1,5 +1,7 @@
 import { Box, Grid, TextField } from "@mui/material";
 import { formatCurrency } from "../../../utils/utils";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 const GridStyle = {
   display: "flex",
   justifyContent: "center",
@@ -10,12 +12,13 @@ const GridStyle = {
 };
 const BoxStyle = {
   width: "40%",
-  border: "1px solid var(--color-border-2)",
+  border: "1px solid var(--color-text)",
   padding: "1.5rem 3rem",
   justifyContent: "space-between",
   display: "flex",
   borderRadius: "5px",
 };
+
 function AmountDetermination() {
   return (
     <Grid container spacing={2}>
@@ -30,6 +33,7 @@ function AmountDetermination() {
           <label>{formatCurrency(1000000000)}</label>
         </Box>
       </Grid>
+
       <Grid
         item
         xs={12}
@@ -41,6 +45,7 @@ function AmountDetermination() {
           <label>{formatCurrency(500)}</label>
         </Box>
       </Grid>
+
       <Grid
         item
         xs={12}
@@ -49,8 +54,24 @@ function AmountDetermination() {
       >
         <Box sx={{ ...BoxStyle, padding: "0", border: "none" }}>
           <TextField
+            sx={{
+              width: "40%",
+              "&:hover > div > fieldset": {
+                borderColor: "var(--color-text)!important",
+              },
+              "&>label": {
+                color: "var(--color-text)",
+              },
+              "&>div": {
+                // backgroundColor: "pink",
+                color: "var(--color-text)",
+                "&>fieldset": {
+                  borderColor: "var(--color-text)",
+                },
+              },
+            }}
             id="outlined-basic"
-            type="number"
+            type="text"
             label="Gönderilecek miktar"
             variant="outlined"
             fullWidth
