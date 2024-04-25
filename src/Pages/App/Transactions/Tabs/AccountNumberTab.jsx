@@ -1,6 +1,23 @@
 import { Grid, MenuItem, Select, TextField } from "@mui/material";
 
 import { useState } from "react";
+import styled from "styled-components";
+
+const StyledTextField = styled(TextField)`
+  width: 40%;
+  &:hover > div > fieldset {
+    border-color: var(--color-text) !important;
+  }
+  & > label {
+    color: var(--color-text);
+  }
+  & > div {
+    color: var(--color-text);
+    & > fieldset {
+      border-color: var(--color-text);
+    }
+  }
+`;
 
 function AccountNumberTab() {
   const [age, setAge] = useState("");
@@ -22,6 +39,7 @@ function AccountNumberTab() {
       >
         <Grid item xs={6}>
           <Select
+            sx={{ color: "var(--color-text)" }}
             id="demo-customized-select-native"
             value={age}
             onChange={handleChange}
@@ -43,13 +61,13 @@ function AccountNumberTab() {
                   width: 20,
                   left: "200px",
                   horizontal: "center",
+                  backgroundColor: "var(--color-background-2)",
+                  color: "var(--color-text)",
                 },
               },
             }}
           >
-            <MenuItem value="">
-              <label>Select Bank</label>
-            </MenuItem>
+            <MenuItem value="">Select Bank</MenuItem>
             <MenuItem value={10}>Ten</MenuItem>
             <MenuItem value={20}>Twenty</MenuItem>
             <MenuItem value={30}>Thirty</MenuItem>
@@ -57,6 +75,22 @@ function AccountNumberTab() {
         </Grid>
         <Grid item xs={6}>
           <Select
+            sx={{
+              "&&": {
+                width: "40%",
+                backgroundColor: "transparent",
+                color: "var(--color-text)",
+                "&:hover > fieldset ": {
+                  borderColor: "var(--color-text) !important",
+                },
+              },
+              // "&:hover &>fieldset": {
+              //   borderColor: "var(--color-text)!important",
+              // },
+              "&>fieldset": {
+                borderColor: "var(--color-text)",
+              },
+            }}
             id="demo-customized-select-native"
             value={age}
             onChange={handleChange}
@@ -78,20 +112,20 @@ function AccountNumberTab() {
                   width: 20,
                   left: "200px",
                   horizontal: "center",
+                  backgroundColor: "var(--color-background-2)",
+                  color: "var(--color-text)",
                 },
               },
             }}
           >
-            <MenuItem value="">
-              <label>Select Branch</label>
-            </MenuItem>
+            <MenuItem value="">Select Branch</MenuItem>
             <MenuItem value={10}>Ten</MenuItem>
             <MenuItem value={20}>Twenty</MenuItem>
             <MenuItem value={30}>Thirty</MenuItem>
           </Select>
         </Grid>
         <Grid item xs={6}>
-          <TextField
+          <StyledTextField
             id="outlined-basic"
             label="IBAN"
             variant="outlined"
@@ -103,7 +137,7 @@ function AccountNumberTab() {
           />
         </Grid>
         <Grid item xs={6}>
-          <TextField
+          <StyledTextField
             id="outlined-basic"
             label="Full Name"
             fullWidth
