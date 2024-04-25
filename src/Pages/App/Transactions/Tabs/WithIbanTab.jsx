@@ -1,4 +1,21 @@
 import { FormControlLabel, Grid, Switch, TextField } from "@mui/material";
+import styled from "styled-components";
+
+const StyledTextField = styled(TextField)`
+  width: 40%;
+  &:hover > div > fieldset {
+    border-color: var(--color-text) !important;
+  }
+  & > label {
+    color: var(--color-text);
+  }
+  & > div {
+    color: var(--color-text);
+    & > fieldset {
+      border-color: var(--color-text);
+    }
+  }
+`;
 
 function WithIbanTab() {
   return (
@@ -13,7 +30,7 @@ function WithIbanTab() {
         }}
       >
         <Grid item xs={6} sx={{ display: "flex", gap: "1rem" }}>
-          <TextField
+          <StyledTextField
             id="outlined-basic"
             label="IBAN"
             variant="outlined"
@@ -25,7 +42,7 @@ function WithIbanTab() {
           />
         </Grid>
         <Grid item xs={6} sx={{ display: "flex", gap: "1rem" }}>
-          <TextField
+          <StyledTextField
             id="outlined-basic"
             label="Full Name"
             fullWidth

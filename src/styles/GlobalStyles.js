@@ -138,7 +138,12 @@ h6 {
 svg{
   transition: none;
 }
-
+.MuiSvgIcon-root{
+  color: var(--color-text)!important;
+}
+.MuiSwitch-track{
+  background-color: var(--color-text)!important;
+}
 img {
   max-width: 100%;
 
