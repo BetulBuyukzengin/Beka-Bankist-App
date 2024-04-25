@@ -1,59 +1,93 @@
+/* eslint-disable react/prop-types */
 import { NavigateNext } from "@mui/icons-material";
-import { Grid } from "@mui/material";
+import { Box, FormControlLabel, Grid, Radio, RadioGroup } from "@mui/material";
+import React from "react";
 import styled from "styled-components";
 
-const StyledAccountButton = styled.button`
+const StyledH5 = styled.h6`
+  text-align: start;
+`;
+const StyledTitleLabel = styled.label`
+  margin-right: 0.5rem;
+`;
+const StyledValueLabel = styled.label``;
+
+const StyledAccountCheckComponent = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7% 9%;
+  border: 1px solid var(--color-border-2);
+`;
+const StyledBox = styled(Box)`
   background-color: transparent;
   display: flex;
-  justify-content: space-between;
-  color: var(--color-text);
-  width: 35%;
-  padding: 1.5rem 2rem;
-  border: 1px solid var(--color-border-2);
+  align-items: center;
+  justify-content: center;
+  width: 25%;
   cursor: pointer;
 `;
+function AccountCheckComp() {
+  return (
+    <StyledAccountCheckComponent>
+      <div>
+        <StyledH5>Meram-500</StyledH5>
+        <StyledTitleLabel>Kullanılabilir bakiye:</StyledTitleLabel>
+        <StyledValueLabel>500</StyledValueLabel>
+      </div>
+      <div>
+        <NavigateNext />
+      </div>
+    </StyledAccountCheckComponent>
+  );
+}
+
 function SenderAccount() {
+  const [value, setValue] = React.useState("female");
+
+  const handleChange = (event) => {
+    setValue(event.target.value);
+  };
+
   return (
     <Grid container spacing={2}>
       <Grid
         item
         xs={12}
-        // component="button"
         sx={{
           display: "flex",
           justifyContent: "center",
         }}
       >
-        <StyledAccountButton>
-          <div>
-            <h5>Meram-500</h5>
-            <label>Kullanılabilir bakiye:</label>
-            <label>500</label>
-          </div>
-          <div>
-            <NavigateNext />
-          </div>
-        </StyledAccountButton>
-      </Grid>
-      <Grid
-        item
-        xs={12}
-        // component="button"
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        <StyledAccountButton>
-          <div>
-            <h5>Meram-500</h5>
-            <label>Kullanılabilir bakiye:</label>
-            <label>500</label>
-          </div>
-          <div>
-            <NavigateNext />
-          </div>
-        </StyledAccountButton>
+        <StyledBox>
+          <RadioGroup
+            aria-labelledby="demo-controlled-radio-buttons-group"
+            name="controlled-radio-buttons-group"
+            value={value}
+            onChange={handleChange}
+          >
+            <FormControlLabel
+              sx={{ marginLeft: "0", marginRight: "0" }}
+              control={
+                <Radio
+                  sx={{
+                    // opacity: "0",
+                    height: "20%",
+                    width: "21.5%",
+                    position: "absolute",
+                    borderRadius: "0px",
+                    "&+span": {
+                      width: "17rem",
+                    },
+                  }}
+                />
+              }
+              value="AccountCheckComp"
+              label={<AccountCheckComp />}
+            />
+          </RadioGroup>
+        </StyledBox>
       </Grid>
     </Grid>
   );
