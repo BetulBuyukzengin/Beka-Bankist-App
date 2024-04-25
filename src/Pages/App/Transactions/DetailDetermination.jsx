@@ -14,9 +14,7 @@ const StyledGrid = styled(Grid)`
   justify-content: center;
   display: flex;
 `;
-const StyledLabel = styled.label`
-  color: var(--color-text);
-`;
+
 function DetailDetermination() {
   const [age, setAge] = useState("");
   const [value, setValue] = useState(new Date());
@@ -38,7 +36,19 @@ function DetailDetermination() {
       >
         <StyledGrid item xs={12}>
           <Select
-            sx={{ width: "40%", backgroundColor: "transparent" }}
+            sx={{
+              "&&": {
+                color: "var(--color-text)",
+                width: "40%",
+                backgroundColor: "transparent",
+                "&:hover > fieldset ": {
+                  borderColor: "var(--color-text) !important",
+                },
+              },
+              "&>fieldset": {
+                borderColor: "var(--color-text)",
+              },
+            }}
             id="demo-customized-select-native"
             value={age}
             onChange={handleChange}
@@ -60,24 +70,40 @@ function DetailDetermination() {
                   width: 20,
                   left: "200px",
                   horizontal: "center",
-                  backgroundColor: "transparent",
+                  backgroundColor: "var(--color-background-2)",
                   color: "var(--color-text)",
                 },
               },
             }}
           >
-            <MenuItem value="">
-              <StyledLabel>Para gönderim tipi</StyledLabel>
+            <MenuItem value="">Para gönderim tipi</MenuItem>
+            <MenuItem
+              sx={{
+                ":hover": { backgroundColor: " rgba(25, 118, 210, 0.08)" },
+              }}
+              value={10}
+            >
+              Ten
             </MenuItem>
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
           </Select>
         </StyledGrid>
         <StyledGrid item xs={12}>
           <TextField
             sx={{
               width: "40%",
+              "&:hover > div > fieldset": {
+                borderColor: "var(--color-text)!important",
+              },
+              "&>label": {
+                color: "var(--color-text)",
+              },
+              "&>div": {
+                // backgroundColor: "pink",
+                color: "var(--color-text)",
+                "&>fieldset": {
+                  borderColor: "var(--color-text)",
+                },
+              },
             }}
             id="outlined-basic"
             label="Açıklama"
@@ -90,10 +116,28 @@ function DetailDetermination() {
         </StyledGrid>
         <StyledGrid item xs={12}>
           <DatePicker
-            sx={{ width: "40%" }}
             label="Controlled picker"
             value={value}
             onChange={(newValue) => setValue(newValue)}
+            sx={{
+              width: "40%",
+              "&:hover > div > fieldset": {
+                borderColor: "var(--color-text)!important",
+              },
+              "&>label": {
+                color: "var(--color-text)",
+              },
+              "&>div": {
+                // backgroundColor: "pink",
+                color: "var(--color-text)",
+                // "&>button": {
+                //   color: "var(--color-text)",
+                // },
+                "&>fieldset": {
+                  borderColor: "var(--color-text)",
+                },
+              },
+            }}
           />
         </StyledGrid>
         <StyledGrid item xs={12}>
