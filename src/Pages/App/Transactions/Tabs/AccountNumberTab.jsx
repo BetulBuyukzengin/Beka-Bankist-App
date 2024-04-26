@@ -20,10 +20,14 @@ const StyledTextField = styled(TextField)`
 `;
 
 function AccountNumberTab() {
-  const [age, setAge] = useState("");
+  const [bank, setBank] = useState("");
+  const [branch, setBranch] = useState("");
 
-  const handleChange = (event) => {
-    setAge(event.target.value);
+  const handleBankChange = (event) => {
+    setBank(event.target.value);
+  };
+  const handleBranchChange = (event) => {
+    setBranch(event.target.value);
   };
 
   return (
@@ -41,8 +45,8 @@ function AccountNumberTab() {
           <Select
             sx={{ color: "var(--color-text)" }}
             id="demo-customized-select-native"
-            value={age}
-            onChange={handleChange}
+            value={bank}
+            onChange={handleBankChange}
             fullWidth
             displayEmpty
             MenuProps={{
@@ -92,8 +96,8 @@ function AccountNumberTab() {
               },
             }}
             id="demo-customized-select-native"
-            value={age}
-            onChange={handleChange}
+            value={branch}
+            onChange={handleBranchChange}
             fullWidth
             displayEmpty
             MenuProps={{
