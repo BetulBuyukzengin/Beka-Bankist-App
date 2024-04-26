@@ -16,10 +16,10 @@ const StyledGrid = styled(Grid)`
 `;
 
 function DetailDetermination() {
-  const [age, setAge] = useState("");
-  const [value, setValue] = useState(new Date());
+  const [money, setMoney] = useState("");
+  const [date, setDate] = useState(new Date());
   const handleChange = (event) => {
-    setAge(event.target.value);
+    setMoney(event.target.value);
   };
 
   return (
@@ -28,7 +28,7 @@ function DetailDetermination() {
         container
         spacing={2}
         sx={{
-          border: "1px solid var(--color-border-2)",
+          // border: "1px solid var(--color-border-2)",
           paddingBottom: "1rem",
           paddingRight: "1rem",
           marginTop: "1rem",
@@ -50,7 +50,7 @@ function DetailDetermination() {
               },
             }}
             id="demo-customized-select-native"
-            value={age}
+            value={money}
             onChange={handleChange}
             fullWidth
             displayEmpty
@@ -98,7 +98,6 @@ function DetailDetermination() {
                 color: "var(--color-text)",
               },
               "&>div": {
-                // backgroundColor: "pink",
                 color: "var(--color-text)",
                 "&>fieldset": {
                   borderColor: "var(--color-text)",
@@ -117,8 +116,8 @@ function DetailDetermination() {
         <StyledGrid item xs={12}>
           <DatePicker
             label="Controlled picker"
-            value={value}
-            onChange={(newValue) => setValue(newValue)}
+            value={date}
+            onChange={(newValue) => setDate(newValue)}
             sx={{
               width: "40%",
               "&:hover > div > fieldset": {
@@ -128,11 +127,7 @@ function DetailDetermination() {
                 color: "var(--color-text)",
               },
               "&>div": {
-                // backgroundColor: "pink",
                 color: "var(--color-text)",
-                // "&>button": {
-                //   color: "var(--color-text)",
-                // },
                 "&>fieldset": {
                   borderColor: "var(--color-text)",
                 },
