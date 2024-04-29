@@ -22,3 +22,9 @@ export function formatBankAccountNumber(accountNumber) {
 export function formatDate(date) {
   return format(date, "dd/MM/yyyy HH:mm:s");
 }
+
+export function calculateAndFormatLoan(loanAmount, interest, month) {
+  return `${formatCurrency(
+    (loanAmount * interest + Number(loanAmount)) / month
+  )} x ${month}`;
+}
