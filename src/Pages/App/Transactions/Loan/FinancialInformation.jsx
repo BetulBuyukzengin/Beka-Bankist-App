@@ -33,8 +33,7 @@ export default function FinancialInformation() {
       <Grid item xs={6}>
         <StyledTextField
           id="outlined-basic"
-          label="Total Income Amount
-          "
+          label="Total Income"
           fullWidth
           InputLabelProps={{
             shrink: true,
@@ -46,7 +45,7 @@ export default function FinancialInformation() {
         <StyledTextField
           type="text"
           id="outlined-basic"
-          label="Total Expense Price"
+          label="Total Expense"
           variant="outlined"
           fullWidth
           InputLabelProps={{
