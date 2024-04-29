@@ -28,7 +28,7 @@ import AppLayout from "../../Pages/App/AppLayout";
 import Protected from "../../Components/Protected/Protected";
 import { ListItemIcon, ListItemText } from "@mui/material";
 import { CurrencyExchange } from "@mui/icons-material";
-
+import SettingsSuggestIcon from "@mui/icons-material/SettingsSuggest";
 const drawerWidth = 240;
 
 const StyledLink = styled.a`
@@ -261,6 +261,19 @@ export default function DashboardLayout() {
                 </ListItemIcon>
                 <ListItemText
                   primary="Transactions"
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
+              </ListIconButton>
+              <ListIconButton path={"/applayout/settings"}>
+                <ListItemIcon>
+                  <SettingsSuggestIcon
+                    sx={{
+                      color: "var(--color-text)",
+                    }}
+                  />
+                </ListItemIcon>
+                <ListItemText
+                  primary="Settings"
                   sx={{ opacity: open ? 1 : 0 }}
                 />
               </ListIconButton>
