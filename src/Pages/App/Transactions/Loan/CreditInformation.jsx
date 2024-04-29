@@ -23,7 +23,7 @@ const StyledTextField = styled(TextField)`
 `;
 
 export default function CreditInformation() {
-  const [paymentPlan, setPaymentPlan] = useState(1);
+  const [paymentPlan, setPaymentPlan] = useState("");
   const [loanAmount, setLoanAmount] = useState();
 
   const handlePlanChange = (event) => {
@@ -46,6 +46,7 @@ export default function CreditInformation() {
     >
       <Grid item xs={6}>
         <StyledTextField
+          type="number"
           value={loanAmount}
           onChange={handleLoanAmountChange}
           id="outlined-basic"
@@ -85,6 +86,7 @@ export default function CreditInformation() {
             },
           }}
           id="demo-customized-select-native"
+          disabled={!loanAmount}
           value={paymentPlan}
           onChange={handlePlanChange}
           fullWidth
