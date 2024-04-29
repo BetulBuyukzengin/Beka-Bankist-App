@@ -45,7 +45,7 @@ export default function BusinessInformation() {
         <StyledTextField
           type="text"
           id="outlined-basic"
-          label="Working condition"
+          label="Sector of Work"
           variant="outlined"
           fullWidth
           InputLabelProps={{
@@ -69,7 +69,7 @@ export default function BusinessInformation() {
         <StyledTextField
           type="number"
           id="outlined-basic"
-          label="Income Amount"
+          label="Income"
           variant="outlined"
           fullWidth
           InputLabelProps={{
