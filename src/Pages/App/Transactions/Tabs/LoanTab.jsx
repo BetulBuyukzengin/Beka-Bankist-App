@@ -1,5 +1,7 @@
 import StepperComponent from "../../../../Components/StepperComponent/StepperComponent";
 import BusinessInformation from "../Loan/BusinessInformation";
+import CreditInformation from "../Loan/CreditInformation";
+import FinancialInformation from "../Loan/FinancialInformation";
 import PersonalInformation from "../Loan/PersonalInformation";
 
 const transactionSteps = [
@@ -11,14 +13,14 @@ const transactionSteps = [
     label: "Business Information",
     component: <BusinessInformation />,
   },
-  // {
-  //   label: "Amount Determination",
-  //   component: <AmountDetermination />,
-  // },
-  // {
-  //   label: "Detail Determination",
-  //   component: <DetailDetermination />,
-  // },
+  {
+    label: "Financial Information",
+    component: <FinancialInformation />,
+  },
+  {
+    label: "Credit Information",
+    component: <CreditInformation />,
+  },
 ];
 function LoanTab() {
   return <StepperComponent transactionSteps={transactionSteps} />;
