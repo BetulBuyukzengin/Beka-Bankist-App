@@ -3,6 +3,7 @@ import DetailDetermination from "../DetailDetermination";
 import AmountDetermination from "../AmountDetermination";
 import SenderAccount from "../SenderAccount";
 import StepperComponent from "../../../../Components/StepperComponent/StepperComponent";
+import TransactionControl from "./TransactionControl";
 
 const transactionSteps = [
   {
@@ -20,6 +21,10 @@ const transactionSteps = [
   {
     label: "Detail Determination",
     component: <DetailDetermination />,
+  },
+  {
+    label: "Transaction Control",
+    component: <TransactionControl />,
   },
 ];
 export default function TransferMoneyTab() {
