@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
 import styled from "styled-components";
+import { useUser } from "../../../services/userServices";
 
 const StyledGrid = styled(Grid)`
   justify-content: center;
@@ -18,6 +19,16 @@ const StyledGrid = styled(Grid)`
 function DetailDetermination() {
   const [money, setMoney] = useState("");
   const [date, setDate] = useState(new Date());
+
+  const [showUsernameInDescription, setShowUsernameInDescription] =
+    useState(false);
+  // const [username, setUsername] = useState("");
+  const { user } = useUser();
+
+  const handleSwitchChange = () => {
+    setShowUsernameInDescription((prev) => !prev);
+  };
+
   const handleChange = (event) => {
     setMoney(event.target.value);
   };
@@ -28,7 +39,6 @@ function DetailDetermination() {
         container
         spacing={2}
         sx={{
-          // border: "1px solid var(--color-border-2)",
           paddingBottom: "1rem",
           paddingRight: "1rem",
           marginTop: "1rem",
@@ -83,10 +93,43 @@ function DetailDetermination() {
               }}
               value={10}
             >
-              Ten
+              Other payment
+            </MenuItem>
+            <MenuItem
+              sx={{
+                ":hover": { backgroundColor: " rgba(25, 118, 210, 0.08)" },
+              }}
+              value="Housing rent"
+            >
+              Housing rent
+            </MenuItem>
+            <MenuItem
+              sx={{
+                ":hover": { backgroundColor: " rgba(25, 118, 210, 0.08)" },
+              }}
+              value="Workplace rent"
+            >
+              Workplace rent
+            </MenuItem>
+            <MenuItem
+              sx={{
+                ":hover": { backgroundColor: " rgba(25, 118, 210, 0.08)" },
+              }}
+              value="Other rents"
+            >
+              Other rents
+            </MenuItem>
+            <MenuItem
+              sx={{
+                ":hover": { backgroundColor: " rgba(25, 118, 210, 0.08)" },
+              }}
+              value="E Commerce payment"
+            >
+              E Commerce payment
             </MenuItem>
           </Select>
         </StyledGrid>
+
         <StyledGrid item xs={12}>
           <TextField
             sx={{
@@ -104,6 +147,9 @@ function DetailDetermination() {
                 },
               },
             }}
+            value={
+              showUsernameInDescription ? user?.user_metadata?.fullName : ""
+            }
             id="outlined-basic"
             label="Açıklama"
             fullWidth
@@ -113,6 +159,7 @@ function DetailDetermination() {
             }}
           />
         </StyledGrid>
+
         <StyledGrid item xs={12}>
           <DatePicker
             label="Controlled picker"
@@ -138,8 +185,13 @@ function DetailDetermination() {
         <StyledGrid item xs={12}>
           <FormControlLabel
             sx={{ width: "40%" }}
-            control={<Switch />}
-            label="Açıklamaya gönderenin adı soyadı ilave edilsin"
+            control={
+              <Switch
+                // checked={showUsernameInDescription}
+                onChange={handleSwitchChange}
+              />
+            }
+            label="Show username in description"
           />
         </StyledGrid>
       </Grid>
