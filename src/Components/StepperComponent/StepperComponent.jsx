@@ -80,7 +80,7 @@ export default function StepperComponent({ transactionSteps }) {
             Back
           </Button>
           <Button onClick={handleNext}>
-            {activeStep === transactionSteps.length - 1 ? "Finish" : "Next"}
+            {activeStep === transactionSteps.length - 1 ? "Confirm" : "Next"}
           </Button>
         </Box>
       </React.Fragment>
