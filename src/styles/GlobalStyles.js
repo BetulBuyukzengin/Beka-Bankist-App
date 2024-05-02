@@ -12,7 +12,6 @@ const GlobalStyles = createGlobalStyle`
         --color-accent: #00466A;
         --color-border: rgba(0, 0, 0, 0.03);
         --color-border-2: rgba(0, 0, 0, 0.1);
-
         --color-gray: #6c757d;
 
         --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
@@ -143,6 +142,10 @@ svg{
 }
 .MuiSwitch-track{
   background-color: var(--color-text)!important;
+}
+
+.MuiButtonBase-root:hover{
+background-color:var( --color-text-2)!important;
 }
 img {
   max-width: 100%;
