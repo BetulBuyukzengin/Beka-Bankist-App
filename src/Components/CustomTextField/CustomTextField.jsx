@@ -28,6 +28,7 @@ function CustomTextField({
   type = "text",
   defaultValue,
   onChange,
+  disabled,
 }) {
   return (
     <StyledTextField
@@ -39,6 +40,7 @@ function CustomTextField({
       type={type}
       label={label}
       fullWidth
+      disabled={disabled}
       variant="outlined"
       InputLabelProps={{
         shrink: true,
