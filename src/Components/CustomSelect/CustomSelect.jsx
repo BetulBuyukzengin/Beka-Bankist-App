@@ -1,7 +1,15 @@
 /* eslint-disable react/prop-types */
 import { MenuItem, Select } from "@mui/material";
 
-function CustomSelect({ value, handleChange, data, width, disabled }) {
+function CustomSelect({
+  value,
+  handleChange,
+  data,
+  width,
+  disabled,
+  register,
+  ref,
+}) {
   return (
     <Select
       sx={{
@@ -28,6 +36,8 @@ function CustomSelect({ value, handleChange, data, width, disabled }) {
       onChange={handleChange}
       fullWidth
       displayEmpty
+      ref={ref}
+      {...register}
       disabled={disabled}
       MenuProps={{
         anchorOrigin: {
@@ -38,7 +48,7 @@ function CustomSelect({ value, handleChange, data, width, disabled }) {
           vertical: "top",
           horizontal: "center",
         },
-        getContentAnchorEl: null,
+        // getContentAnchorEl: null,
         PaperProps: {
           style: {
             maxHeight: 200,
@@ -47,10 +57,6 @@ function CustomSelect({ value, handleChange, data, width, disabled }) {
             horizontal: "center",
             backgroundColor: "var(--color-background-2)",
             color: "var(--color-text)",
-            "& > .MuiList-root ": {
-              padding: "5rem!important",
-              backgroundColor: "red!important",
-            },
           },
         },
       }}

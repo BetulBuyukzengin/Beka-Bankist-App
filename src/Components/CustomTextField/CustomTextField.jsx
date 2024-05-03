@@ -29,9 +29,11 @@ function CustomTextField({
   defaultValue,
   onChange,
   disabled,
+  register,
 }) {
   return (
     <StyledTextField
+      {...register}
       onChange={onChange}
       defaultValue={defaultValue}
       width={width}

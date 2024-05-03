@@ -1,7 +1,8 @@
 import { FormControlLabel, Grid, Switch } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CustomSelect from "../../../../../Components/CustomSelect/CustomSelect";
 import CustomTextField from "../../../../../Components/CustomTextField/CustomTextField";
+import { useFormContext } from "react-hook-form";
 
 const bankContent = [
   {
@@ -34,6 +35,7 @@ const branchContent = [
 ];
 
 function AccountNumberTab() {
+  const { register, setValue } = useFormContext();
   const [bank, setBank] = useState("");
   const [branch, setBranch] = useState("");
 
@@ -49,6 +51,13 @@ function AccountNumberTab() {
   const handleSwitchChange = () => {
     setShowShortNameBox((prev) => !prev);
   };
+  useEffect(
+    function () {
+      setValue("bankName", "");
+      setValue("bankBranch", "");
+    },
+    [setValue]
+  );
 
   return (
     <>
@@ -65,6 +74,15 @@ function AccountNumberTab() {
             data={bankContent}
             handleChange={handleBankChange}
             value={bank}
+            ref={{
+              ...register("bankName"),
+            }}
+            // ref={{
+            //   ...register("bankName", {
+            //     value: bank,
+            //     onChange: handleBankChange,
+            //   }),
+            // }}
           />
         </Grid>
         <Grid item xs={6}>
@@ -72,18 +90,39 @@ function AccountNumberTab() {
             data={branchContent}
             handleChange={handleBranchChange}
             value={branch}
+            ref={{
+              ...register("bankBranch"),
+            }}
+            // ref={{
+            //   ...register("bankBranch", {
+            //     value: branch,
+            //     onChange: handleBranchChange,
+            //   }),
+            // }}
           />
         </Grid>
         <Grid item xs={6}>
-          <CustomTextField id="accountNumber" label="Account Number" />
+          <CustomTextField
+            id="accountNumber"
+            label="Account Number"
+            register={{ ...register("accountNumber") }}
+          />
         </Grid>
         <Grid item xs={6}>
-          <CustomTextField id="fullName" label="Full Name" />
+          <CustomTextField
+            id="fullName"
+            label="Full Name"
+            register={{ ...register("fullName") }}
+          />
         </Grid>
 
         {showShortNameBox && (
           <Grid item xs={6}>
-            <CustomTextField id="shortName" label="Short Name" />
+            <CustomTextField
+              id="shortName"
+              label="Short Name"
+              register={{ ...register("shortName") }}
+            />
           </Grid>
         )}
         <Grid
@@ -94,6 +133,7 @@ function AccountNumberTab() {
           <FormControlLabel
             control={<Switch onChange={handleSwitchChange} />}
             label="Add as registered recipient"
+            register={{ ...register("registeredRecipient") }}
           />
         </Grid>
       </Grid>

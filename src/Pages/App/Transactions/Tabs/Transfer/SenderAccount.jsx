@@ -2,6 +2,7 @@
 import { NavigateNext } from "@mui/icons-material";
 import { Box, FormControlLabel, Grid, Radio, RadioGroup } from "@mui/material";
 import React from "react";
+import { useFormContext } from "react-hook-form";
 import styled from "styled-components";
 
 const StyledH6 = styled.h6`
@@ -44,6 +45,8 @@ function AccountCheckComp() {
 }
 
 function SenderAccount() {
+  const { register } = useFormContext();
+
   const [value, setValue] = React.useState("female");
 
   const handleChange = (event) => {
@@ -71,6 +74,7 @@ function SenderAccount() {
               sx={{ marginLeft: "0", marginRight: "0" }}
               control={
                 <Radio
+                  {...register("accountCheckCompRadio")}
                   sx={{
                     // opacity: "0",
                     height: "20%",
@@ -84,6 +88,7 @@ function SenderAccount() {
                 />
               }
               value="AccountCheckComp"
+              {...register("accountCheckComp")}
               label={<AccountCheckComp />}
             />
           </RadioGroup>

@@ -3,6 +3,7 @@ import { formatCurrency } from "../../../../../utils/utils";
 
 import CustomTextField from "../../../../../Components/CustomTextField/CustomTextField";
 import { useState } from "react";
+import { useFormContext } from "react-hook-form";
 const GridStyle = {
   display: "flex",
   justifyContent: "center",
@@ -22,6 +23,8 @@ const frequentlyAmount = 500;
 const remainingLimit = 1000000000;
 
 function AmountDetermination() {
+  const { register } = useFormContext();
+
   const [showFrequentlyAmount, setShowFrequentlyAmount] = useState();
   const [showRemainingLimit, setShowRemainingLimit] = useState(remainingLimit);
 
@@ -68,6 +71,7 @@ function AmountDetermination() {
             value={showFrequentlyAmount || ""}
             onChange={(e) => handleChange(e)}
             disabled={showRemainingLimit <= 0}
+            register={{ ...register("amountToSent") }}
           />
         </Box>
       </Grid>
