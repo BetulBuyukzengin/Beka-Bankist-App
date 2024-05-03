@@ -1,8 +1,8 @@
-import CustomTabs from "./Tabs/CustomTabs";
-import DepositTab from "./Tabs/DepositTab";
-import LoanTab from "./Tabs/LoanTab";
-import TransferMoneyTab from "./Tabs/TransferMoneyTab";
-import WithdrawTab from "./Tabs/WithdrawTab";
+import CustomTabs from "../../../Components/CustomTabs/CustomTabs";
+import DepositTab from "./Tabs/Deposit/DepositTab";
+import LoanTab from "./Tabs/Loan/LoanTab";
+import TransferMoneyTab from "./Tabs/Transfer/TransferMoneyTab";
+import WithdrawTab from "./Tabs/Withdraw/WithdrawTab";
 
 const content = [
   {

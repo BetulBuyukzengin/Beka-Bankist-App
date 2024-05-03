@@ -48,7 +48,7 @@ export default function StepperComponent({ transactionSteps }) {
       </Stepper>
       <React.Fragment>
         {transactionSteps.map((transaction, index) => (
-          <>
+          <React.Fragment key={index}>
             {index === activeStep && (
               <Box
                 sx={{
@@ -56,13 +56,13 @@ export default function StepperComponent({ transactionSteps }) {
                   overflowY: "auto",
                 }}
               >
-                <Typography key={index} sx={{ mt: 2, mb: 1 }}>
+                <Typography sx={{ mt: 2, mb: 1 }}>
                   {transaction.label}
                 </Typography>
                 <Box>{transaction.component}</Box>
               </Box>
             )}
-          </>
+          </React.Fragment>
         ))}
         <Box
           sx={{

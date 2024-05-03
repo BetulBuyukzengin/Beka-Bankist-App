@@ -4,7 +4,7 @@ import CustomTextField from "../../../../../Components/CustomTextField/CustomTex
 export default function FinancialInformation() {
   return (
     <Grid
-      xs={12}
+   
       container
       spacing={3}
       sx={{

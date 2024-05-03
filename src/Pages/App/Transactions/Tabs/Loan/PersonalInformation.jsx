@@ -8,7 +8,6 @@ export default function PersonalInformation() {
 
   return (
     <Grid
-      xs={12}
       container
       spacing={3}
       sx={{

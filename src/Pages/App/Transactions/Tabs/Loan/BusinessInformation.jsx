@@ -4,7 +4,6 @@ import CustomTextField from "../../../../../Components/CustomTextField/CustomTex
 export default function BusinessInformation() {
   return (
     <Grid
-      xs={12}
       container
       spacing={3}
       sx={{

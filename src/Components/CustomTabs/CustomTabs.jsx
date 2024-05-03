@@ -12,11 +12,10 @@ import styled from "styled-components";
 const StyledSwipeableViews = styled(SwipeableViews)`
   width: 100%;
 `;
-const StyledTabPanel = styled(TabPanel)`
-  & > .MuiBox-root {
-    padding: 13px !important;
-  }
+const StyledDiv = styled.div`
+  padding: 13px 8px;
 `;
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -86,7 +85,7 @@ export default function CustomTabs({ content, orientation }) {
         value={value}
         onChange={handleChange}
         indicatorColor="primary"
-        textColor="var(--color-text)"
+        textColor="inherit"
         orientation={orientation ? orientation : "horizontal"}
         // variant="fullWidth
         aria-label="full width tabs example"
@@ -111,21 +110,15 @@ export default function CustomTabs({ content, orientation }) {
         ))}
       </Tabs>
 
-      {/* // </AppBar> */}
       <StyledSwipeableViews
         axis={theme.direction === "rtl" ? "x-reverse" : "x"}
         index={value}
         onChangeIndex={handleChangeIndex}
       >
         {content.map((tab, index) => (
-          <StyledTabPanel
-            key={index}
-            value={value}
-            index={index}
-            dir={theme.direction}
-          >
-            {tab.component}
-          </StyledTabPanel>
+          <StyledDiv key={index} value={value} dir={theme.direction}>
+            <span>{tab.component}</span>
+          </StyledDiv>
         ))}
       </StyledSwipeableViews>
     </Box>

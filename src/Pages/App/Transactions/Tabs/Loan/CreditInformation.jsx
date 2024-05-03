@@ -6,7 +6,7 @@ import CustomTextField from "../../../../../Components/CustomTextField/CustomTex
 
 export default function CreditInformation() {
   const [paymentPlan, setPaymentPlan] = useState("");
-  const [loanAmount, setLoanAmount] = useState();
+  const [loanAmount, setLoanAmount] = useState("");
 
   const loanPaymentPlan = [
     {
@@ -33,10 +33,10 @@ export default function CreditInformation() {
 
   function handleLoanAmountChange(e) {
     setLoanAmount(e.target.value);
+    if (!e.target.value) setPaymentPlan("");
   }
   return (
     <Grid
-      xs={12}
       container
       spacing={3}
       sx={{
