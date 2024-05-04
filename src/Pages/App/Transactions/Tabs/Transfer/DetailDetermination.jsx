@@ -5,6 +5,7 @@ import { useUser } from "../../../../../services/userServices";
 import CustomSelect from "../../../../../Components/CustomSelect/CustomSelect";
 import CustomTextField from "../../../../../Components/CustomTextField/CustomTextField";
 import CustomDatePicker from "../../../../../Components/CustomDatePicker/CustomDatePicker";
+import { useFormContext } from "react-hook-form";
 
 const StyledGrid = styled(Grid)`
   justify-content: center;
@@ -37,6 +38,7 @@ function DetailDetermination() {
   const [showUsernameInDescription, setShowUsernameInDescription] =
     useState(false);
   const { user } = useUser();
+  const { register } = useFormContext();
 
   const handleSwitchChange = () => {
     setShowUsernameInDescription((prev) => !prev);
@@ -66,6 +68,9 @@ function DetailDetermination() {
             data={paymentMethod}
             handleChange={handleChangeMoney}
             value={money}
+            // name="paymentMethod"
+            // register={{ ...register(name) }}
+            ref={register("paymentMethod")}
           />
         </StyledGrid>
 
@@ -77,6 +82,7 @@ function DetailDetermination() {
               showUsernameInDescription ? user?.user_metadata?.fullName : ""
             }`}
             id="description"
+            register={register("transferDescription")}
             label="Description"
             onChange={(e) => handleChangeDescription(e)}
           />
@@ -87,6 +93,7 @@ function DetailDetermination() {
             label="Controlled picker"
             value={date}
             onChange={(newValue) => setDate(newValue)}
+            register={register("controlledPicker")}
           />
         </StyledGrid>
         <StyledGrid item xs={12}>
@@ -94,6 +101,7 @@ function DetailDetermination() {
             sx={{ width: "40%" }}
             control={<Switch onChange={handleSwitchChange} />}
             label="Show username in description"
+            {...register("showUsername")}
           />
         </StyledGrid>
       </Grid>

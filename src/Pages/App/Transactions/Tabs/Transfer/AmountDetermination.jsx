@@ -2,8 +2,8 @@ import { Box, Grid } from "@mui/material";
 import { formatCurrency } from "../../../../../utils/utils";
 
 import CustomTextField from "../../../../../Components/CustomTextField/CustomTextField";
-import { useState } from "react";
-import { useFormContext } from "react-hook-form";
+import { useEffect, useState } from "react";
+import { useForm, useFormContext } from "react-hook-form";
 const GridStyle = {
   display: "flex",
   justifyContent: "center",
@@ -23,33 +23,31 @@ const frequentlyAmount = 500;
 const remainingLimit = 1000000000;
 
 function AmountDetermination() {
-  const { register } = useFormContext();
+  const { register, setValue, watch } = useForm();
+  const [newRemainingLimit, setNewRemainingLimit] = useState();
 
-  const [showFrequentlyAmount, setShowFrequentlyAmount] = useState();
-  const [showRemainingLimit, setShowRemainingLimit] = useState(remainingLimit);
+  // const [showFrequentlyAmount, setShowFrequentlyAmount] = useState();
+  // const [showRemainingLimit, setShowRemainingLimit] = useState(remainingLimit);
+  const watchAmountToSend = watch("amountToSend");
+  console.log(watchAmountToSend);
 
   function handleClick() {
-    setShowFrequentlyAmount(frequentlyAmount);
-    const newRemainingLimit = remainingLimit - frequentlyAmount;
-    setShowRemainingLimit(newRemainingLimit);
-  }
-  function handleChange(e) {
-    setShowFrequentlyAmount(e.target.value);
-
-    const newRemainingLimit = remainingLimit - e.target.value;
-    setShowRemainingLimit(newRemainingLimit);
+    setValue("amountToSend", frequentlyAmount);
   }
 
-  // function handleChangeRemainingLimit(){
-  //  const newRemainingLimit= remainingLimit-
-  // }
+  useEffect(
+    function () {
+      setNewRemainingLimit(remainingLimit - watchAmountToSend);
+    },
+    [watchAmountToSend]
+  );
 
   return (
     <Grid container spacing={2}>
       <Grid item xs={12} sx={GridStyle}>
         <Box sx={BoxStyle}>
           <label>Remaining transfer limit:</label>
-          <label>{formatCurrency(showRemainingLimit)}</label>
+          <label>{formatCurrency(newRemainingLimit || remainingLimit)}</label>
         </Box>
       </Grid>
 
@@ -65,13 +63,13 @@ function AmountDetermination() {
       <Grid item xs={12} sx={GridStyle}>
         <Box sx={{ ...BoxStyle, padding: "0", border: "none" }}>
           <CustomTextField
-            id="amountToSent"
+            id="amountToSend"
             width="tall"
-            label="Amount to sent"
-            value={showFrequentlyAmount || ""}
-            onChange={(e) => handleChange(e)}
-            disabled={showRemainingLimit <= 0}
-            register={{ ...register("amountToSent") }}
+            label="Amount to send"
+            // value={showFrequentlyAmount || ""}
+            // onChange={(e) => handleChange(e)}
+            // disabled={showRemainingLimit <= 0}
+            register={{ ...register("amountToSend") }}
           />
         </Box>
       </Grid>
