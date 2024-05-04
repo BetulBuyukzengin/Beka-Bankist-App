@@ -1,12 +1,13 @@
 import { DatePicker } from "@mui/x-date-pickers";
 
 /* eslint-disable react/prop-types */
-function CustomDatePicker({ value, onChange, label, width }) {
+function CustomDatePicker({ value, onChange, label, width, register }) {
   return (
     <DatePicker
       label={label}
       value={value}
       onChange={onChange}
+      {...register}
       sx={{
         width: width ? "100%" : "40%",
         "&:hover > div > fieldset": {
