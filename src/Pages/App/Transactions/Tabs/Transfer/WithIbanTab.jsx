@@ -26,14 +26,14 @@ function WithIbanTab() {
           <CustomTextField
             id="fullName"
             label="Full Name"
-            register={{ ...register("fullName") }}
+            register={{ ...register("fullNameWithIban") }}
           />
         </Grid>
         <Grid item xs={12} sx={{ display: "flex", justifyContent: "end" }}>
           <FormControlLabel
             control={<Switch />}
             label="Add as registered recipient"
-            {...register("saveAsRegistered")}
+            {...register("saveAsRegisteredWithIban")}
           />
         </Grid>
       </Grid>
