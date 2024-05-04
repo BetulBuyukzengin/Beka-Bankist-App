@@ -8,7 +8,7 @@ function CustomSelect({
   width,
   disabled,
   register,
-  ref,
+  defaultValue,
 }) {
   return (
     <Select
@@ -36,8 +36,8 @@ function CustomSelect({
       onChange={handleChange}
       fullWidth
       displayEmpty
-      ref={ref}
       {...register}
+      defaultValue={defaultValue}
       disabled={disabled}
       MenuProps={{
         anchorOrigin: {
