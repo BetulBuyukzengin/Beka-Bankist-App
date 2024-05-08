@@ -1,11 +1,11 @@
 import CustomTabs from "../../../../../Components/CustomTabs/CustomTabs";
-import SavedRecipientTab from "./RegisteredRecipientTab";
 import NewRecipientTab from "./NewRecipientTab";
+import RegisteredRecipientsTab from "./RegisteredRecipientsTab";
 
 const content = [
   {
-    label: "Saved Recipients",
-    component: <SavedRecipientTab />,
+    label: "Registered Recipients",
+    component: <RegisteredRecipientsTab />,
   },
   {
     label: "New Recipient",
@@ -13,7 +13,7 @@ const content = [
   },
 ];
 function RecipientAccount() {
-  return <CustomTabs content={content} />;
+  return <CustomTabs tabName="recipientAccountTab" content={content} />;
 }
 
 export default RecipientAccount;
