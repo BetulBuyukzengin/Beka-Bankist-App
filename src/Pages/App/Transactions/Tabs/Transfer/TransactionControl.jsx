@@ -3,6 +3,8 @@ import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import styled from "styled-components";
+import { useFormContext } from "react-hook-form";
+import { formatCurrency } from "../../../../../utils/utils";
 const Item = styledMui(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
@@ -38,6 +40,24 @@ const StyledItem = styled(Item)`
   width: 100%;
 `;
 export default function TransactionControl() {
+  const { getValues } = useFormContext();
+  const {
+    accountNumber,
+    amountToSend,
+    bankBranch,
+    bankName,
+    transactionDate,
+    fullNameWithAccount,
+    fullNameWithIban,
+    iban,
+    paymentMethod,
+    saveAsRegisteredWithAccount,
+    saveAsRegisteredWithIban,
+    selectedAccount,
+    showUsernameDescription,
+    transferDescription,
+  } = getValues();
+
   return (
     <Box
       sx={{
@@ -56,42 +76,42 @@ export default function TransactionControl() {
         }}
       >
         <StyledGrid item xs={8}>
-          <StyledItem>Alıcı Hesap</StyledItem>
+          <StyledItem>Recipient Account</StyledItem>
           <StyledBox>
-            <h6>Kadir Karabacak</h6>
-            <div>Ziraat Bankası</div>
-            <div>TR93840923840928</div>
+            <h6>{fullNameWithAccount || fullNameWithIban}</h6>
+            <div>{bankName}</div>
+            <div>{accountNumber || iban}</div>
           </StyledBox>
         </StyledGrid>
         <StyledGrid item xs={8}>
-          <StyledItem>Gönderen Hesap</StyledItem>
+          <StyledItem>Sender Account</StyledItem>
           <StyledBox>
-            <h6>Meram-501</h6>
+            <h6>{bankBranch}</h6>
             <div>
-              <label>Bakiye:</label>
+              <label>Balance:</label>
               <label>125</label>
             </div>
           </StyledBox>
         </StyledGrid>
         <StyledGrid item xs={8}>
-          <StyledItem>Tutar</StyledItem>
-          <StyledLabel>10,00 TL</StyledLabel>
+          <StyledItem>Amount: </StyledItem>
+          <StyledLabel>{formatCurrency(amountToSend)}</StyledLabel>
         </StyledGrid>
         <StyledGrid item xs={8}>
-          <StyledItem>Para Gönderim Tipi</StyledItem>
-          <StyledLabel>İş yeri kirası</StyledLabel>
+          <StyledItem>Payment Method: </StyledItem>
+          <StyledLabel>{paymentMethod}</StyledLabel>
         </StyledGrid>
         <StyledGrid item xs={8}>
-          <StyledItem>Açıklama</StyledItem>
-          <StyledLabel></StyledLabel>
+          <StyledItem>Description: </StyledItem>
+          <StyledLabel>{transferDescription}</StyledLabel>
         </StyledGrid>
         <StyledGrid item xs={8}>
-          <StyledItem>Para Transfer ücreti</StyledItem>
+          <StyledItem>Transfer Price</StyledItem>
           <StyledLabel>2,00TL</StyledLabel>
         </StyledGrid>
         <StyledGrid item xs={8}>
-          <StyledItem>İşlem Tarihi</StyledItem>
-          <StyledLabel>30/05/2024</StyledLabel>
+          <StyledItem>Transaction Date:</StyledItem>
+          <StyledLabel>{transactionDate}</StyledLabel>
         </StyledGrid>
       </Grid>
     </Box>
