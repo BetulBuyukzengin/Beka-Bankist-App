@@ -11,6 +11,5 @@ export function useMovements() {
     queryFn: getMovements,
     queryKey: ["movements"],
   });
-  console.log(movements);
   return { movements, isLoading };
 }
