@@ -3,7 +3,9 @@ import CustomTextField from "../../../../../Components/CustomTextField/CustomTex
 import { useFormContext } from "react-hook-form";
 
 function WithIbanTab() {
-  const { register } = useFormContext();
+  const { register, watch } = useFormContext();
+  const watchSaveAsRegisteredWithIban = watch("saveAsRegisteredWithIban");
+
   return (
     <>
       <Grid
@@ -29,7 +31,21 @@ function WithIbanTab() {
             register={{ ...register("fullNameWithIban") }}
           />
         </Grid>
-        <Grid item xs={12} sx={{ display: "flex", justifyContent: "end" }}>
+
+        {watchSaveAsRegisteredWithIban && (
+          <Grid item xs={6}>
+            <CustomTextField
+              id="shortName"
+              label="Short Name"
+              register={{ ...register("shortName") }}
+            />
+          </Grid>
+        )}
+        <Grid
+          item
+          xs={watchSaveAsRegisteredWithIban ? 6 : 12}
+          sx={{ display: "flex", justifyContent: "end" }}
+        >
           <FormControlLabel
             control={<Switch />}
             label="Add as registered recipient"
