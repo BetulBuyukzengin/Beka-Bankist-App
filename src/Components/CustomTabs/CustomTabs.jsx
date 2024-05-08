@@ -8,6 +8,8 @@ import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import styled from "styled-components";
+import { useSearchParams } from "react-router-dom";
+import { useEffect } from "react";
 
 const StyledSwipeableViews = styled(SwipeableViews)`
   width: 100%;
@@ -66,9 +68,10 @@ const tabHorizontalStyle = {
   },
 };
 
-export default function CustomTabs({ content, orientation }) {
+export default function CustomTabs({ content, orientation, tabName }) {
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -78,16 +81,39 @@ export default function CustomTabs({ content, orientation }) {
     setValue(index);
   };
 
+  useEffect(
+    function () {
+      if (
+        tabName === "transactionsTab" &&
+        searchParams.get("transactions-tab")
+      ) {
+        setValue(+searchParams.get("transactions-tab"));
+      }
+
+      if (
+        tabName === "recipientAccountTab" &&
+        searchParams.get("recipient-account-tab")
+      ) {
+        setValue(+searchParams.get("recipient-account-tab"));
+      }
+      if (
+        tabName === "newRecipientTab" &&
+        searchParams.get("new-recipient-tab")
+      ) {
+        setValue(+searchParams.get("new-recipient-tab"));
+      }
+    },
+    [searchParams, tabName]
+  );
+
   return (
     <Box sx={orientation && boxStyle}>
-      {/* <AppBar position="static"> */}
       <Tabs
         value={value}
         onChange={handleChange}
         indicatorColor="primary"
         textColor="inherit"
         orientation={orientation ? orientation : "horizontal"}
-        // variant="fullWidth
         aria-label="full width tabs example"
         sx={{
           backgroundColor: "transparent",
@@ -98,6 +124,21 @@ export default function CustomTabs({ content, orientation }) {
       >
         {content.map((tab, index) => (
           <Tab
+            onClick={() => {
+              if (tabName === "transactionsTab") {
+                searchParams.set("transactions-tab", index);
+                setSearchParams(searchParams);
+              }
+              if (tabName === "recipientAccountTab") {
+                searchParams.set("recipient-account-tab", index);
+                setSearchParams(searchParams);
+              }
+
+              if (tabName === "newRecipientTab") {
+                searchParams.set("new-recipient-tab", index);
+                setSearchParams(searchParams);
+              }
+            }}
             key={index}
             sx={
               orientation

@@ -1,8 +1,10 @@
+import { useEffect } from "react";
 import CustomTabs from "../../../Components/CustomTabs/CustomTabs";
 import DepositTab from "./Tabs/Deposit/DepositTab";
 import LoanTab from "./Tabs/Loan/LoanTab";
 import TransferMoneyTab from "./Tabs/Transfer/TransferMoneyTab";
 import WithdrawTab from "./Tabs/Withdraw/WithdrawTab";
+import { useLocation, useSearchParams } from "react-router-dom";
 
 const content = [
   {
@@ -23,9 +25,20 @@ const content = [
   },
 ];
 function Transactions() {
+  const { pathname } = useLocation();
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  useEffect(function () {
+    if (pathname === "/applayout/transactions") {
+      searchParams.set("transactions-tab", 0);
+      searchParams.set("recipient-account-tab", 0);
+      setSearchParams(searchParams);
+    }
+  }, []);
+
   return (
     <div style={{ height: "78dvh" }}>
-      <CustomTabs content={content} />
+      <CustomTabs tabName="transactionsTab" content={content} />
     </div>
   );
 }

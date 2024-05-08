@@ -4,6 +4,7 @@ import { formatCurrency } from "../../../../../utils/utils";
 import CustomTextField from "../../../../../Components/CustomTextField/CustomTextField";
 import { useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
+import { useSearchParams } from "react-router-dom";
 
 const GridStyle = {
   display: "flex",
@@ -27,14 +28,21 @@ function AmountDetermination() {
   const { register, setValue } = useFormContext();
   const [amountToSendValue, setAmountToSendValue] = useState("");
   const [newRemainingLimit, setNewRemainingLimit] = useState();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   function handleClick() {
     setAmountToSendValue(frequentlyAmount);
     setValue("amountToSend", frequentlyAmount);
+
+    //! Keep values between steps
+    searchParams.set("amount-to-send", frequentlyAmount);
+    setSearchParams(searchParams);
   }
 
   function handleAmountChange(value) {
     setAmountToSendValue(value);
+    searchParams.set("amount-to-send", value);
+    setSearchParams(searchParams);
   }
 
   useEffect(
@@ -45,8 +53,10 @@ function AmountDetermination() {
   );
 
   useEffect(() => {
-    setValue("amountToSend", amountToSendValue);
-  }, [amountToSendValue, setValue]);
+    if (searchParams.get("amount-to-send")) {
+      setAmountToSendValue(searchParams.get("amount-to-send"));
+    } else setValue("amountToSend", amountToSendValue);
+  }, [amountToSendValue, setValue, searchParams]);
 
   return (
     <Grid container spacing={2}>
@@ -72,9 +82,6 @@ function AmountDetermination() {
             id="amountToSend"
             width="tall"
             label="Amount to send"
-            // value={showFrequentlyAmount || ""}
-            // onChange={(e) => handleChange(e)}
-            // disabled={showRemainingLimit <= 0}
             value={amountToSendValue}
             onChange={(e) => handleAmountChange(e.target.value)}
             register={{ ...register("amountToSend") }}

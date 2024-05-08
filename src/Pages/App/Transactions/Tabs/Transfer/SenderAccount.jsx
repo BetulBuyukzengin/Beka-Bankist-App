@@ -3,6 +3,7 @@ import { Box, Grid } from "@mui/material";
 import { useFormContext } from "react-hook-form";
 import styled from "styled-components";
 import CustomRadio from "../../../../../Components/CustomRadio/CustomRadio";
+import { useSearchParams } from "react-router-dom";
 
 const StyledBox = styled(Box)`
   background-color: transparent;
@@ -15,7 +16,12 @@ const StyledBox = styled(Box)`
 
 function SenderAccount() {
   const { register } = useFormContext();
+  const [searchParams, setSearchParams] = useSearchParams();
 
+  function handleChange(value) {
+    searchParams.set("selectedAccount", value);
+    setSearchParams(searchParams);
+  }
   return (
     <Grid container spacing={2}>
       <Grid
@@ -27,7 +33,11 @@ function SenderAccount() {
         }}
       >
         <StyledBox>
-          <CustomRadio register={{ ...register("selectedAccount") }} />
+          <CustomRadio
+            value={searchParams.get("selectedAccount")}
+            onChange={(e) => handleChange(e.target.value)}
+            register={{ ...register("selectedAccount") }}
+          />
         </StyledBox>
       </Grid>
     </Grid>

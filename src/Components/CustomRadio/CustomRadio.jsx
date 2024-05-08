@@ -52,11 +52,13 @@ function AccountCheckComp({ account }) {
   );
 }
 
-export default function CustomRadio({ register }) {
+export default function CustomRadio({ register, onChange, value }) {
   return (
     <RadioGroup
       aria-labelledby="selected-account-aria-label"
       name="selected-account-radio-group"
+      value={value}
+      onChange={onChange}
     >
       {accounts.map((account) => (
         <FormControlLabel

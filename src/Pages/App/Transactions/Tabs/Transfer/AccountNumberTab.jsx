@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import CustomSelect from "../../../../../Components/CustomSelect/CustomSelect";
 import CustomTextField from "../../../../../Components/CustomTextField/CustomTextField";
 import { useFormContext } from "react-hook-form";
+import { useSearchParams } from "react-router-dom";
 
 const bankContent = [
   {
@@ -35,15 +36,24 @@ const branchContent = [
 ];
 
 function AccountNumberTab() {
-  const { register, setValue, watch } = useFormContext();
+  const { register, watch } = useFormContext();
   const watchSaveAsRegisteredWithAccount = watch("saveAsRegisteredWithAccount");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const watchBankName = watch("bankName");
+  const watchBankBranch = watch("bankBranch");
 
   useEffect(
     function () {
-      setValue("bankName", "");
-      setValue("bankBranch", "");
+      if (watchBankName !== "" && watchBankName !== undefined) {
+        searchParams.set("selected-bank", watchBankName);
+        setSearchParams(searchParams);
+      }
+      if (watchBankBranch !== "" && watchBankBranch !== undefined) {
+        searchParams.set("selected-branch", watchBankBranch);
+        setSearchParams(searchParams);
+      }
     },
-    [setValue]
+    [searchParams, setSearchParams, watchBankName, watchBankBranch]
   );
 
   return (
@@ -59,15 +69,17 @@ function AccountNumberTab() {
         <Grid item xs={6}>
           <CustomSelect
             data={bankContent}
+            value={searchParams.get("selected-bank") || ""}
             defaultValue=""
-            register={{ ...register("bankName") }}
+            register={{
+              ...register("bankName"),
+            }}
           />
         </Grid>
         <Grid item xs={6}>
           <CustomSelect
             data={branchContent}
-            // handleChange={handleBranchChange}
-            // value={branch}
+            value={searchParams.get("selected-branch") || ""}
             defaultValue=""
             register={{
               ...register("bankBranch"),

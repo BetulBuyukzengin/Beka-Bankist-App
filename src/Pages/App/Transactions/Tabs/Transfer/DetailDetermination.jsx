@@ -6,6 +6,7 @@ import CustomSelect from "../../../../../Components/CustomSelect/CustomSelect";
 import CustomTextField from "../../../../../Components/CustomTextField/CustomTextField";
 import CustomDatePicker from "../../../../../Components/CustomDatePicker/CustomDatePicker";
 import { useFormContext } from "react-hook-form";
+import { useSearchParams } from "react-router-dom";
 
 const StyledGrid = styled(Grid)`
   justify-content: center;
@@ -33,15 +34,20 @@ const paymentMethod = [
 
 function DetailDetermination() {
   const [date, setDate] = useState(new Date());
-  const [description, setDescription] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [description, setDescription] = useState(
+    searchParams.get("description") || ""
+  );
   const [showUsernameInDescription, setShowUsernameInDescription] =
     useState(false);
   const { user } = useUser();
-  const { register, setValue } = useFormContext();
+  const { register, setValue, watch } = useFormContext();
+  const watchPaymentMethod = watch("paymentMethod");
 
   const handleSwitchChange = () => {
     setShowUsernameInDescription((prev) => !prev);
   };
+
   //! ters çalışıyor
   useEffect(
     function () {
@@ -50,15 +56,39 @@ function DetailDetermination() {
           "transferDescription",
           `${description} ${user?.user_metadata?.fullName}`
         );
-      } else
+        searchParams.set(
+          "description",
+          `${description} ${user?.user_metadata?.fullName}`
+        );
+        setSearchParams(searchParams);
+      } else {
         setValue(
           "transferDescription",
           description.slice(-user?.user_metadata?.fullName.length - 1)
         );
+        searchParams.set(
+          "description",
+          description.slice(-user?.user_metadata?.fullName.length - 1)
+        );
+        setSearchParams(searchParams);
+      }
     },
-    [showUsernameInDescription]
+    [showUsernameInDescription, searchParams, setSearchParams]
   );
 
+  useEffect(
+    function () {
+      if (watchPaymentMethod !== "" && watchPaymentMethod !== undefined) {
+        searchParams.set("payment-method", watchPaymentMethod);
+        setSearchParams(searchParams);
+      }
+      // if (watchPaymentMethod !== "" && watchBankName !== undefined) {
+      //   searchParams.set("payment-method", watchPaymentMethod);
+      //   setSearchParams(searchParams);
+      // }
+    },
+    [searchParams, setSearchParams, watchPaymentMethod]
+  );
   const handleChangeDescription = (e) => {
     if (!showUsernameInDescription) setDescription(e.target.value);
   };
@@ -75,6 +105,7 @@ function DetailDetermination() {
       >
         <StyledGrid item xs={12}>
           <CustomSelect
+            value={searchParams.get("payment-method") || ""}
             width="short"
             data={paymentMethod}
             defaultValue=""
