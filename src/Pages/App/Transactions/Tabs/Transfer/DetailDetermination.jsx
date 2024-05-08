@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FormControlLabel, Grid, Switch } from "@mui/material";
 import styled from "styled-components";
 import { useUser } from "../../../../../services/userServices";
@@ -32,24 +32,35 @@ const paymentMethod = [
 ];
 
 function DetailDetermination() {
-  const [money, setMoney] = useState("");
   const [date, setDate] = useState(new Date());
   const [description, setDescription] = useState("");
   const [showUsernameInDescription, setShowUsernameInDescription] =
     useState(false);
   const { user } = useUser();
-  const { register } = useFormContext();
+  const { register, setValue } = useFormContext();
 
   const handleSwitchChange = () => {
     setShowUsernameInDescription((prev) => !prev);
   };
-
-  const handleChangeMoney = (event) => {
-    setMoney(event.target.value);
-  };
+  //! ters çalışıyor
+  useEffect(
+    function () {
+      if (showUsernameInDescription) {
+        setValue(
+          "transferDescription",
+          `${description} ${user?.user_metadata?.fullName}`
+        );
+      } else
+        setValue(
+          "transferDescription",
+          description.slice(-user?.user_metadata?.fullName.length - 1)
+        );
+    },
+    [showUsernameInDescription]
+  );
 
   const handleChangeDescription = (e) => {
-    setDescription(e.target.value);
+    if (!showUsernameInDescription) setDescription(e.target.value);
   };
   return (
     <>
@@ -66,11 +77,8 @@ function DetailDetermination() {
           <CustomSelect
             width="short"
             data={paymentMethod}
-            handleChange={handleChangeMoney}
-            value={money}
-            // name="paymentMethod"
-            // register={{ ...register(name) }}
-            ref={register("paymentMethod")}
+            defaultValue=""
+            register={register("paymentMethod")}
           />
         </StyledGrid>
 
@@ -78,22 +86,19 @@ function DetailDetermination() {
           <CustomTextField
             disabled={showUsernameInDescription}
             width="short"
-            value={`${description || ""} ${
-              showUsernameInDescription ? user?.user_metadata?.fullName : ""
-            }`}
+            value={description}
             id="description"
             register={register("transferDescription")}
             label="Description"
             onChange={(e) => handleChangeDescription(e)}
           />
         </StyledGrid>
-
         <StyledGrid item xs={12}>
           <CustomDatePicker
-            label="Controlled picker"
+            label="Transaction date"
             value={date}
             onChange={(newValue) => setDate(newValue)}
-            register={register("controlledPicker")}
+            register={register("transactionDate")}
           />
         </StyledGrid>
         <StyledGrid item xs={12}>
@@ -101,12 +106,11 @@ function DetailDetermination() {
             sx={{ width: "40%" }}
             control={<Switch onChange={handleSwitchChange} />}
             label="Show username in description"
-            {...register("showUsername")}
+            {...register("showUsernameDescription")}
           />
         </StyledGrid>
       </Grid>
     </>
   );
 }
-
 export default DetailDetermination;
