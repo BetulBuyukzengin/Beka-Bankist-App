@@ -22,3 +22,7 @@ Application Features
  - Crypto-Borsa: Table / https://mui.com/material-ui/react-table/#sticky-header
  - Support navigation
  - Settings: update user feature / import SettingsApplicationsIcon from '@mui/icons-material/SettingsApplications';
+
+
+## Investigate again
+ - Account number tab ve with iban tab içerisindeki switchlerin resetField ile kullanımı
