@@ -36,7 +36,6 @@ const StyledCarouselControl = styled(CarouselControl)`
 
 function AppSlider() {
   const { isLoading, accounts } = useAccounts();
-  console.log(accounts);
   const [activeIndex, setActiveIndex] = useState(0);
   const [animating, setAnimating] = useState(false);
   const { isDarkMode } = useDarkMode();
