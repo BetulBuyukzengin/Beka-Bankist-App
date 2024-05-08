@@ -3,7 +3,8 @@ import { formatCurrency } from "../../../../../utils/utils";
 
 import CustomTextField from "../../../../../Components/CustomTextField/CustomTextField";
 import { useEffect, useState } from "react";
-import { useForm, useFormContext } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
+
 const GridStyle = {
   display: "flex",
   justifyContent: "center",
@@ -23,24 +24,29 @@ const frequentlyAmount = 500;
 const remainingLimit = 1000000000;
 
 function AmountDetermination() {
-  const { register, setValue, watch } = useForm();
+  const { register, setValue } = useFormContext();
+  const [amountToSendValue, setAmountToSendValue] = useState("");
   const [newRemainingLimit, setNewRemainingLimit] = useState();
 
-  // const [showFrequentlyAmount, setShowFrequentlyAmount] = useState();
-  // const [showRemainingLimit, setShowRemainingLimit] = useState(remainingLimit);
-  const watchAmountToSend = watch("amountToSend");
-  console.log(watchAmountToSend);
-
   function handleClick() {
+    setAmountToSendValue(frequentlyAmount);
     setValue("amountToSend", frequentlyAmount);
+  }
+
+  function handleAmountChange(value) {
+    setAmountToSendValue(value);
   }
 
   useEffect(
     function () {
-      setNewRemainingLimit(remainingLimit - watchAmountToSend);
+      setNewRemainingLimit(remainingLimit - amountToSendValue);
     },
-    [watchAmountToSend]
+    [amountToSendValue]
   );
+
+  useEffect(() => {
+    setValue("amountToSend", amountToSendValue);
+  }, [amountToSendValue, setValue]);
 
   return (
     <Grid container spacing={2}>
@@ -69,6 +75,8 @@ function AmountDetermination() {
             // value={showFrequentlyAmount || ""}
             // onChange={(e) => handleChange(e)}
             // disabled={showRemainingLimit <= 0}
+            value={amountToSendValue}
+            onChange={(e) => handleAmountChange(e.target.value)}
             register={{ ...register("amountToSend") }}
           />
         </Box>
