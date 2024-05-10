@@ -28,3 +28,9 @@ export function calculateAndFormatLoan(loanAmount, interest, month) {
     (loanAmount * interest + Number(loanAmount)) / month
   )} x ${month}`;
 }
+
+export function generatePaymentMethod(method) {
+  if (method === "housingRent") return "Housing Rent";
+  if (method === "workplaceRent") return "Workplace Rent";
+  if (method === "eCommercePayment") return "E-Commerce Payment";
+}
