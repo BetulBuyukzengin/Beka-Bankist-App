@@ -5,6 +5,9 @@ import Grid from "@mui/material/Grid";
 import styled from "styled-components";
 import { useFormContext } from "react-hook-form";
 import { formatCurrency } from "../../../../../utils/utils";
+import CustomDatePicker from "../../../../../Components/CustomDatePicker/CustomDatePicker";
+import { useState } from "react";
+import { DatePicker } from "@mui/x-date-pickers";
 const Item = styledMui(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
@@ -39,8 +42,26 @@ const StyledLabel = styled.label`
 const StyledItem = styled(Item)`
   width: 100%;
 `;
+// const dateStyle = {
+//   width: width ? "100%" : "40%",
+//   "&:hover > div > fieldset": {
+//     borderColor: "var(--color-text)!important",
+//   },
+//   "&>label": {
+//     color: "var(--color-text)",
+//   },
+//   "& > div": {
+//     color: "var(--color-text)",
+
+//     "& > fieldset": {
+//       borderColor: "var(--color-border-2)!important",
+//     },
+//   },
+// };
 export default function TransactionControl() {
-  const { getValues } = useFormContext();
+  const [date, setDate] = useState(new Date());
+
+  const { getValues, setValue } = useFormContext();
   const {
     accountNumber,
     amountToSend,
@@ -111,7 +132,16 @@ export default function TransactionControl() {
         </StyledGrid>
         <StyledGrid item xs={8}>
           <StyledItem>Transaction Date:</StyledItem>
-          <StyledLabel>{transactionDate}</StyledLabel>
+          <CustomDatePicker
+            width
+            margin="small"
+            value={date}
+            onChange={(newValue) => {
+              setDate(newValue);
+              setValue("transactionDate", newValue);
+            }}
+            // register={register("transactionDate")}
+          />
         </StyledGrid>
       </Grid>
     </Box>
