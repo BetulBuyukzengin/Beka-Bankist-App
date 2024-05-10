@@ -64,25 +64,27 @@ export default function StepperComponent({ transactionSteps }) {
             )}
           </React.Fragment>
         ))}
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "end",
-          }}
-        >
-          <Button
-            color="inherit"
-            disabled={activeStep === 0}
-            onClick={handleBack}
-            sx={{ mr: 1 }}
+        {activeStep < transactionSteps.length && (
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "end",
+            }}
           >
-            Back
-          </Button>
-          <Button onClick={handleNext}>
-            {activeStep === transactionSteps.length - 1 ? "Confirm" : "Next"}
-          </Button>
-        </Box>
+            <Button
+              color="inherit"
+              disabled={activeStep === 0}
+              onClick={handleBack}
+              sx={{ mr: 1 }}
+            >
+              Back
+            </Button>
+            <Button onClick={handleNext}>
+              {activeStep === transactionSteps.length - 1 ? "Confirm" : "Next"}
+            </Button>
+          </Box>
+        )}
       </React.Fragment>
     </Box>
   );
