@@ -18,15 +18,15 @@ const paymentMethod = [
     value: "",
   },
   {
-    content: "Housing rent",
+    content: "Housing Rent",
     value: "housingRent",
   },
   {
-    content: "Workplace rent",
+    content: "Workplace Rent",
     value: "workplaceRent",
   },
   {
-    content: "E Commerce payment",
+    content: "E-Commerce Payment",
     value: "eCommercePayment",
   },
 ];
@@ -157,7 +157,7 @@ function DetailDetermination() {
             sx={{ width: "40%" }}
             control={
               <Switch
-                // checked={showUsernameInDescription}
+                checked={showUsernameInDescription}
                 // defaultChecked={showUsernameInDescription}
                 onChange={handleChangeSwitch}
               />
