@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { NavigateNext } from "@mui/icons-material";
 import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
+import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 
 const StyledH6 = styled.h6`
@@ -16,9 +17,9 @@ const StyledAccountCheckComponent = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 7% 9%;
+  margin: 1rem 0;
   border: 1px solid var(--color-border-2);
 `;
-//! Seçilen label ın background color ını ayarla
 const accounts = [
   {
     branch: "Meram-500",
@@ -37,8 +38,17 @@ const accounts = [
   },
 ];
 function AccountCheckComp({ account }) {
+  const [searchParams] = useSearchParams();
+  const selectedAccount = searchParams.get("selectedAccount");
+
   return (
-    <StyledAccountCheckComponent>
+    <StyledAccountCheckComponent
+      style={{
+        backgroundColor:
+          account.accountNumber === +selectedAccount &&
+          "var(--color-background-3)",
+      }}
+    >
       <div>
         <StyledH6>{account.branch}</StyledH6>
         <StyledTitleLabel>
@@ -63,7 +73,10 @@ export default function CustomRadio({ register, onChange, value }) {
       {accounts.map((account) => (
         <FormControlLabel
           key={account.accountNumber}
-          sx={{ marginLeft: "0", marginRight: "0" }}
+          sx={{
+            marginLeft: "0",
+            marginRight: "0",
+          }}
           {...register}
           control={
             <Radio
@@ -72,7 +85,7 @@ export default function CustomRadio({ register, onChange, value }) {
                 width: "21.5%",
                 position: "absolute",
                 borderRadius: "0px",
-                // opacity: "0",
+                opacity: "0",
                 "&+span": {
                   width: "17rem",
                 },

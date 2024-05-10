@@ -10,7 +10,7 @@ function CustomDatePicker({ value, onChange, label, width, register, margin }) {
       {...register}
       sx={{
         marginTop: margin === "small" && "1rem",
-        width: width ? "100%" : "40%",
+        width: width === "small" ? "70%" : "100%",
         "&:hover > div > fieldset": {
           borderColor: "var(--color-text)!important",
         },
