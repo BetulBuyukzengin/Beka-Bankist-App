@@ -18,7 +18,7 @@ const StyledAccountCheckComponent = styled.div`
   padding: 7% 9%;
   border: 1px solid var(--color-border-2);
 `;
-
+//! Seçilen label ın background color ını ayarla
 const accounts = [
   {
     branch: "Meram-500",
@@ -72,6 +72,7 @@ export default function CustomRadio({ register, onChange, value }) {
                 width: "21.5%",
                 position: "absolute",
                 borderRadius: "0px",
+                // opacity: "0",
                 "&+span": {
                   width: "17rem",
                 },

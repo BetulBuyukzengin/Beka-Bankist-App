@@ -10,12 +10,23 @@ const StyledTextField = styled(TextField)`
     border-color: var(--color-gray) !important;
   }
   & > label {
-    color: var(--color-text);
+    color: var(--color-text) !important;
   }
   & > div {
     color: var(--color-text);
     & > fieldset {
+      /* background-color: var(--color-background-3); */
       border-color: var(--color-border-2);
+    }
+  }
+  & div > input {
+    &:disabled {
+      -webkit-text-fill-color: var(--color-text) !important;
+      color: var(--color-text) !important;
+    }
+    &:disabled + fieldset {
+      border-color: var(--color-border-2) !important;
+      background-color: var(--color-background-3);
     }
   }
 `;
