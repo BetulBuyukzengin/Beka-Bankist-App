@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { useUser } from "../../../../../services/userServices";
 import CustomSelect from "../../../../../Components/CustomSelect/CustomSelect";
 import CustomTextField from "../../../../../Components/CustomTextField/CustomTextField";
-import CustomDatePicker from "../../../../../Components/CustomDatePicker/CustomDatePicker";
 import { useFormContext } from "react-hook-form";
 import { useSearchParams } from "react-router-dom";
 
@@ -33,7 +32,6 @@ const paymentMethod = [
 ];
 
 function DetailDetermination() {
-  const [date, setDate] = useState(new Date());
   const [searchParams, setSearchParams] = useSearchParams();
   const [description, setDescription] = useState(
     searchParams.get("description") || ""
@@ -44,37 +42,70 @@ function DetailDetermination() {
   const { register, setValue, watch } = useFormContext();
   const watchPaymentMethod = watch("paymentMethod");
 
-  const handleSwitchChange = () => {
+  const handleChangeSwitch = () => {
     setShowUsernameInDescription((prev) => !prev);
   };
 
+  // const handleChangeSwitch = () => {
+  //   setShowUsernameInDescription((prev) => !prev);
+  //   const updatedDescription = !showUsernameInDescription
+  //     ? `${description} ${user?.user_metadata?.fullName}`
+  //     : description.slice(-user?.user_metadata?.fullName.length - 1);
+  //   setValue("transferDescription", updatedDescription);
+  //   searchParams.set("description", updatedDescription);
+  //   setSearchParams(searchParams);
+  // };
+
   //! ters çalışıyor
-  useEffect(
-    function () {
-      if (showUsernameInDescription) {
-        setValue(
-          "transferDescription",
-          `${description} ${user?.user_metadata?.fullName}`
-        );
-        searchParams.set(
-          "description",
-          `${description} ${user?.user_metadata?.fullName}`
-        );
-        setSearchParams(searchParams);
-      } else {
-        setValue(
-          "transferDescription",
-          description.slice(-user?.user_metadata?.fullName.length - 1)
-        );
-        searchParams.set(
-          "description",
-          description.slice(-user?.user_metadata?.fullName.length - 1)
-        );
-        setSearchParams(searchParams);
-      }
-    },
-    [showUsernameInDescription, searchParams, setSearchParams]
-  );
+  // useEffect(
+  //   function () {
+  //     if (showUsernameInDescription) {
+  //       setValue(
+  //         "transferDescription",
+  //         `${description} ${user?.user_metadata?.fullName}`
+  //       );
+  //       searchParams.set(
+  //         "description",
+  //         `${description} ${user?.user_metadata?.fullName}`
+  //       );
+  //       setSearchParams(searchParams);
+  //     } else {
+  //       setValue(
+  //         "transferDescription",
+  //         description.slice(-user?.user_metadata?.fullName.length - 1)
+  //       );
+  //       searchParams.set(
+  //         "description",
+  //         description.slice(-user?.user_metadata?.fullName.length - 1)
+  //       );
+  //       setSearchParams(searchParams);
+  //     }
+  //   },
+  //   [
+  //     showUsernameInDescription,
+  //     searchParams,
+  //     setSearchParams,
+  //     description,
+  //     setValue,
+  //     user?.user_metadata?.fullName,
+  //   ]
+  // );
+
+  useEffect(() => {
+    const updatedDescription = showUsernameInDescription
+      ? `${description} ${user?.user_metadata?.fullName}`
+      : description;
+    setValue("transferDescription", updatedDescription);
+    searchParams.set("description", updatedDescription);
+    setSearchParams(searchParams);
+  }, [
+    showUsernameInDescription,
+    description,
+    setValue,
+    searchParams,
+    setSearchParams,
+    user?.user_metadata?.fullName,
+  ]);
 
   useEffect(
     function () {
@@ -82,16 +113,13 @@ function DetailDetermination() {
         searchParams.set("payment-method", watchPaymentMethod);
         setSearchParams(searchParams);
       }
-      // if (watchPaymentMethod !== "" && watchBankName !== undefined) {
-      //   searchParams.set("payment-method", watchPaymentMethod);
-      //   setSearchParams(searchParams);
-      // }
     },
     [searchParams, setSearchParams, watchPaymentMethod]
   );
   const handleChangeDescription = (e) => {
     if (!showUsernameInDescription) setDescription(e.target.value);
   };
+
   return (
     <>
       <Grid
@@ -117,7 +145,7 @@ function DetailDetermination() {
           <CustomTextField
             disabled={showUsernameInDescription}
             width="short"
-            value={description}
+            value={searchParams.get("description") || ""}
             id="description"
             register={register("transferDescription")}
             label="Description"
@@ -125,17 +153,15 @@ function DetailDetermination() {
           />
         </StyledGrid>
         <StyledGrid item xs={12}>
-          <CustomDatePicker
-            label="Transaction date"
-            value={date}
-            onChange={(newValue) => setDate(newValue)}
-            register={register("transactionDate")}
-          />
-        </StyledGrid>
-        <StyledGrid item xs={12}>
           <FormControlLabel
             sx={{ width: "40%" }}
-            control={<Switch onChange={handleSwitchChange} />}
+            control={
+              <Switch
+                // checked={showUsernameInDescription}
+                // defaultChecked={showUsernameInDescription}
+                onChange={handleChangeSwitch}
+              />
+            }
             label="Show username in description"
             {...register("showUsernameDescription")}
           />
