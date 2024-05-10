@@ -40,6 +40,7 @@ export default function TransferMoneyTab() {
       <form onSubmit={methods.handleSubmit(onSubmit)}>
         <StepperComponent transactionSteps={transactionSteps} />;
         <button type="submit">add</button>
+        <div>Transfer transaction was successfully ...</div>
       </form>
     </FormProvider>
   );
