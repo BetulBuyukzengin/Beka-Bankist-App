@@ -9,21 +9,16 @@ const GlobalStyles = createGlobalStyle`
         --color-background-2: rgba(245, 245, 245, 1);
         --color-background-3:rgba(152,146,146,0.1);
         --color-background-4:rgba(245, 245, 245, 1);
-
         --color-primary: #011d98;
         --color-secondary: #5067CE;
         --color-accent: #00466A;
         --color-border: rgba(0, 0, 0, 0.03);
         --color-border-2: rgba(0, 0, 0, 0.1);
-     
         --color-gray: #6c757d;
-
         --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
         --shadow-md: 0px 0.6rem 2.4rem rgba(0, 0, 0, 0.06);
         --shadow-lg: 0 2.4rem 3.2rem rgba(0, 0, 0, 0.12);
-
         --backdrop-color: rgba(255, 255, 255, 0.1);
-
         --image-grayscale: 0;
         --image-opacity: 100%;
     }
@@ -35,20 +30,16 @@ const GlobalStyles = createGlobalStyle`
         --color-background-2: rgba(10, 10, 10, 1);
         --color-background-3:rgba(239,239,239,0.1);
         --color-background-4:rgba(152,146,146,0.1);
-
         --color-primary: #98aafb;
         --color-secondary: #6783fe;
         --color-accent: #c3eafe;
         --color-border: rgba(255, 255, 255, 0.03);
         --color-border-2: rgba(255, 255, 255, 0.1);
         --color-gray: #a0a0a0;
-
         --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
         --shadow-md: 0px 0.6rem 2.4rem rgba(0, 0, 0, 0.3);
         --shadow-lg: 0 2.4rem 3.2rem rgba(0, 0, 0, 0.4);
-
         --backdrop-color: rgba(0, 0, 0, 0.3);
-
         --image-grayscale: 10%;
         --image-opacity: 90%;
     }
@@ -86,7 +77,6 @@ const GlobalStyles = createGlobalStyle`
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-
   /* Creating animations for dark mode */
   transition: all 50ms;
   scroll-behavior: smooth;
