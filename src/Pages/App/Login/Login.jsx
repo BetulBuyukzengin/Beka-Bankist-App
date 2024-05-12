@@ -82,13 +82,12 @@ const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function Login() {
   const { isDarkMode } = useDarkMode();
-  const { register, handleSubmit, formState, reset } = useForm();
+  const { register, handleSubmit, formState } = useForm();
   const { errors } = formState;
   const { mutateAsync: login, isLoading } = useLogin();
 
   function onSubmit(data) {
     login(data);
-    // reset();
   }
   return (
     <StyledForm onSubmit={handleSubmit(onSubmit)}>
@@ -106,6 +105,7 @@ function Login() {
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <StyledTextField
+              disabled={isLoading}
               label="Email"
               variant={isDarkMode ? "filled" : "outlined"}
               {...register("email", {
@@ -121,6 +121,7 @@ function Login() {
 
           <Grid item xs={12}>
             <StyledTextField
+              disabled={isLoading}
               type="password"
               label="Password"
               variant={isDarkMode ? "filled" : "outlined"}
@@ -133,9 +134,13 @@ function Login() {
             />
           </Grid>
         </Grid>
-        <StyledLoginBtn type="submit">Login</StyledLoginBtn>
+        <StyledLoginBtn disabled={isLoading} type="submit">
+          Login
+        </StyledLoginBtn>
         <StyledLink to="/createaccount">
-          <StyledCreateAccountButton>Create Account</StyledCreateAccountButton>
+          <StyledCreateAccountButton disabled={isLoading}>
+            Create Account
+          </StyledCreateAccountButton>
         </StyledLink>
       </Paper>
     </StyledForm>

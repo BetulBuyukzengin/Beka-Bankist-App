@@ -18,8 +18,6 @@ function Loader() {
         secondaryColor="var(--color-secondary)"
         radius="12.5"
         ariaLabel="mutating-dots-loading"
-        wrapperStyle={{}}
-        wrapperClass=""
       />
     </StyledLoader>
   );

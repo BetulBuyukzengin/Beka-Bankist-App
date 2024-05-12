@@ -62,14 +62,10 @@ const StyledButton = styled.button`
   }
 `;
 
-const openedMixin = (theme) => ({
+const openedMixin = () => ({
   width: drawerWidth,
   backgroundColor: "var(--color-background-2)",
   color: "var(--color-text)",
-  // transition: theme.create("width", {
-  //   easing: theme.transitions.easing.sharp,
-  //   duration: theme.transitions.duration.enteringScreen,
-  // }),
   overflowX: "hidden",
 });
 
@@ -92,7 +88,6 @@ const DrawerHeader = muiStyled("div")(({ theme }) => ({
   alignItems: "center",
   justifyContent: "flex-end",
   padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
   ...theme.mixins.toolbar,
 }));
 
@@ -107,7 +102,6 @@ const AppBar = muiStyled(MuiAppBar, {
   ...(open && {
     marginLeft: drawerWidth,
     width: `calc(100% - ${drawerWidth}px)`,
-    // display: "block",
     transition: theme.transitions?.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
@@ -135,7 +129,7 @@ const Drawer = muiStyled(MuiDrawer, {
 
 export default function DashboardLayout() {
   const { toggleDarkMode, isDarkMode } = useDarkMode();
-  const { isLoading, mutateAsync: logout } = useLogout();
+  const { mutateAsync: logout } = useLogout();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 

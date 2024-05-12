@@ -48,7 +48,6 @@ function CustomSelect({
           vertical: "top",
           horizontal: "center",
         },
-        // getContentAnchorEl: null,
         PaperProps: {
           style: {
             maxHeight: 200,

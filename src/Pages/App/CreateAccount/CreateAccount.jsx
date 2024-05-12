@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { useDarkMode } from "../../../Contexts/DarkModeContext";
 import { Link } from "react-router-dom";
 import { useSignUp } from "../../../services/userServices";
+
 const StyledForm = styled.form`
   width: 100%;
   height: 100dvh;
@@ -89,6 +90,7 @@ function CreateAccount() {
     signUp(data);
     reset();
   }
+
   return (
     <StyledForm onSubmit={handleSubmit(onSubmit)}>
       <Paper
@@ -105,6 +107,7 @@ function CreateAccount() {
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <StyledTextField
+              disabled={isLoading}
               label="Full Name"
               variant={isDarkMode ? "filled" : "outlined"}
               {...register("fullName", {
@@ -118,6 +121,7 @@ function CreateAccount() {
 
           <Grid item xs={12}>
             <StyledTextField
+              disabled={isLoading}
               label="Email"
               variant={isDarkMode ? "filled" : "outlined"}
               {...register("email", {
@@ -133,6 +137,7 @@ function CreateAccount() {
 
           <Grid item xs={12}>
             <StyledTextField
+              disabled={isLoading}
               type="password"
               label="Password"
               variant={isDarkMode ? "filled" : "outlined"}
@@ -151,6 +156,7 @@ function CreateAccount() {
           </Grid>
           <Grid item xs={12}>
             <StyledTextField
+              disabled={isLoading}
               type="password"
               label="Repeat password"
               variant={isDarkMode ? "filled" : "outlined"}
@@ -170,12 +176,11 @@ function CreateAccount() {
             />
           </Grid>
         </Grid>
-        <StyledCreateAccountButton type="submit">
+        <StyledCreateAccountButton type="submit" disabled={isLoading}>
           Create Account
         </StyledCreateAccountButton>
-
         <StyledLink to="/login">
-          <StyledButton> Login </StyledButton>
+          <StyledButton disabled={isLoading}> Login </StyledButton>
         </StyledLink>
       </Paper>
     </StyledForm>

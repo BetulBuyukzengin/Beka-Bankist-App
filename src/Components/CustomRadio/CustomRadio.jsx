@@ -39,6 +39,7 @@ const accounts = [
 ];
 function AccountCheckComp({ account }) {
   const [searchParams] = useSearchParams();
+
   const selectedAccount = searchParams.get("selectedAccount");
 
   return (

@@ -5,7 +5,6 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import styled from "styled-components";
-import { useDarkMode } from "../../Contexts/DarkModeContext";
 
 const options = ["Download (pdf)", "Send by email (pdf)"];
 
@@ -54,7 +53,6 @@ export default function MenuIcon({ toPDF }) {
         }}
       >
         {options.map((option) => (
-          // <button key={option}>
           <MenuItem
             key={option}
             selected={option === "Download (pdf)"}
@@ -65,7 +63,6 @@ export default function MenuIcon({ toPDF }) {
           >
             {option}
           </MenuItem>
-          // </button>
         ))}
       </Menu>
     </StyledMenu>

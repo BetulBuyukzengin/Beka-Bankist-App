@@ -2,31 +2,30 @@
 import styled from "styled-components";
 
 const StyledHeading = styled.h1`
-    color: var(--color-secondary);
-    font-size: 3.8rem;
-    /* margin-top: 6rem; */
-    padding-top: 6rem;
-    text-align: center;
-    filter: drop-shadow(var(--shadow-md));
+  color: var(--color-secondary);
+  font-size: 3.8rem;
+  padding-top: 6rem;
+  text-align: center;
+  filter: drop-shadow(var(--shadow-md));
 `;
 
 const StyledParagraph = styled.p`
-    width: 60%;
-    color: var(--color-text);
-    font-size: 1.2rem;
-    font-family: var(--font-texts);
-    line-height: 2rem;
-    letter-spacing: 0.00938em;
-    margin-bottom: 3rem;
+  width: 60%;
+  color: var(--color-text);
+  font-size: 1.2rem;
+  font-family: var(--font-texts);
+  line-height: 2rem;
+  letter-spacing: 0.00938em;
+  margin-bottom: 3rem;
 `;
 
 function Heading({ head, text }) {
-    return (
-        <>
-            <StyledHeading>{head}</StyledHeading>
-            <StyledParagraph>{text}</StyledParagraph>
-        </>
-    );
+  return (
+    <>
+      <StyledHeading>{head}</StyledHeading>
+      <StyledParagraph>{text}</StyledParagraph>
+    </>
+  );
 }
 
 export default Heading;

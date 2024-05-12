@@ -15,7 +15,6 @@ const StyledTextField = styled(TextField)`
   & > div {
     color: var(--color-text);
     & > fieldset {
-      /* background-color: var(--color-background-3); */
       border-color: var(--color-border-2);
     }
   }
@@ -41,6 +40,7 @@ function CustomTextField({
   onChange,
   disabled,
   register,
+  required,
 }) {
   return (
     <StyledTextField
@@ -52,6 +52,7 @@ function CustomTextField({
       id={id}
       type={type}
       label={label}
+      required={required}
       fullWidth
       disabled={disabled}
       variant="outlined"

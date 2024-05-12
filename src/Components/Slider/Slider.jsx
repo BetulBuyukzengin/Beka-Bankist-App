@@ -26,7 +26,6 @@ const StyledImg = styled.img`
 `;
 // PROPS : 1) data // 2) isHead // 3) isAvatar
 export default function Slider({ data, isHead, isAvatar, selectedImage }) {
-  // const theme = useTheme();
   const [isAutoPlay, setAutoPlay] = useState(true);
 
   const [activeStep, setActiveStep] = useState(0);
@@ -52,10 +51,6 @@ export default function Slider({ data, isHead, isAvatar, selectedImage }) {
     setAutoPlay(true);
   };
 
-  // (selectedImage);
-  // (selectedIndex);
-  // (data);
-
   return (
     <Box
       sx={{
@@ -68,7 +63,6 @@ export default function Slider({ data, isHead, isAvatar, selectedImage }) {
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         interval={3000}
-        // axis={theme.direction === "rtl" ? "x-reverse" : "x"}
         index={activeStep}
         onChangeIndex={handleStepChange}
         enableMouseEvents
