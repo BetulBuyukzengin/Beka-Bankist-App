@@ -1,5 +1,5 @@
 import { supabase } from "../Supabase/supabase";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 
 export async function getAccounts() {
   let { data: accounts, error } = await supabase.from("accounts").select("*");
@@ -11,7 +11,6 @@ export function useAccounts() {
     queryFn: () => getAccounts(),
     queryKey: ["accounts"],
   });
-  console.log(accounts);
   return {
     isLoading,
     accounts,
