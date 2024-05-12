@@ -9,9 +9,10 @@ import {
 } from "@mui/material";
 import Table from "@mui/material/Table";
 import DetailTableHead from "./TableHeads/DetailTableHead";
-import { formatCurrency, formatIBAN } from "../../../utils/utils";
+import { formatCurrency } from "../../../utils/utils";
 
 function DetailTableRow({ row, open }) {
+  console.log(row);
   return (
     <TableRow>
       <TableCell
@@ -30,41 +31,32 @@ function DetailTableRow({ row, open }) {
             <Table size="small" aria-label="purchases">
               <DetailTableHead row={row} />
               <TableBody>
-                <TableRow key={row.date}>
+                <TableRow>
                   <TableCell
                     sx={{ color: "var(--color-text)", borderBottom: "none" }}
                   >
-                    {formatCurrency(row.currentBalance)}
+                    {formatCurrency(150000)}
                   </TableCell>
                   <TableCell
                     sx={{ color: "var(--color-text)", borderBottom: "none" }}
                   >
-                    {row.sender}
-                  </TableCell>
-                  {/* <TableCell
-                    sx={{ color: "var(--color-text)", borderBottom: "none" }}
-                  >
-                    {formatIBAN(row.senderIban)}
-                  </TableCell> */}
-                  <TableCell
-                    sx={{ color: "var(--color-text)", borderBottom: "none" }}
-                  >
-                    {row.senderBranch}
+                    {/* gönderen ve alıcıya göre ısım degısecek 2 taraflı dusun */}
+                    {row.fullNameWithIban || row.fullNameWithAccount}
                   </TableCell>
                   <TableCell
                     sx={{ color: "var(--color-text)", borderBottom: "none" }}
                   >
-                    {row.recipient}
+                    {row.bankBranch}
                   </TableCell>
-                  {/* <TableCell
-                    sx={{ color: "var(--color-text)", borderBottom: "none" }}
-                  >
-                    {formatIBAN(row.recipientIban)}
-                  </TableCell> */}
                   <TableCell
                     sx={{ color: "var(--color-text)", borderBottom: "none" }}
                   >
-                    {row.recipientBranch}
+                    {row.bankName}
+                  </TableCell>
+                  <TableCell
+                    sx={{ color: "var(--color-text)", borderBottom: "none" }}
+                  >
+                    {row.amountToSend}
                   </TableCell>
                 </TableRow>
               </TableBody>
