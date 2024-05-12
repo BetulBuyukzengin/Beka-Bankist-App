@@ -46,51 +46,6 @@ function DetailDetermination() {
     setShowUsernameInDescription((prev) => !prev);
   };
 
-  // const handleChangeSwitch = () => {
-  //   setShowUsernameInDescription((prev) => !prev);
-  //   const updatedDescription = !showUsernameInDescription
-  //     ? `${description} ${user?.user_metadata?.fullName}`
-  //     : description.slice(-user?.user_metadata?.fullName.length - 1);
-  //   setValue("transferDescription", updatedDescription);
-  //   searchParams.set("description", updatedDescription);
-  //   setSearchParams(searchParams);
-  // };
-
-  //! ters çalışıyor
-  // useEffect(
-  //   function () {
-  //     if (showUsernameInDescription) {
-  //       setValue(
-  //         "transferDescription",
-  //         `${description} ${user?.user_metadata?.fullName}`
-  //       );
-  //       searchParams.set(
-  //         "description",
-  //         `${description} ${user?.user_metadata?.fullName}`
-  //       );
-  //       setSearchParams(searchParams);
-  //     } else {
-  //       setValue(
-  //         "transferDescription",
-  //         description.slice(-user?.user_metadata?.fullName.length - 1)
-  //       );
-  //       searchParams.set(
-  //         "description",
-  //         description.slice(-user?.user_metadata?.fullName.length - 1)
-  //       );
-  //       setSearchParams(searchParams);
-  //     }
-  //   },
-  //   [
-  //     showUsernameInDescription,
-  //     searchParams,
-  //     setSearchParams,
-  //     description,
-  //     setValue,
-  //     user?.user_metadata?.fullName,
-  //   ]
-  // );
-
   useEffect(() => {
     const updatedDescription = showUsernameInDescription
       ? `${description} ${user?.user_metadata?.fullName}`
@@ -158,7 +113,6 @@ function DetailDetermination() {
             control={
               <Switch
                 checked={showUsernameInDescription}
-                // defaultChecked={showUsernameInDescription}
                 onChange={handleChangeSwitch}
               />
             }

@@ -25,7 +25,7 @@ function MainTableRow({ open, setOpen, row }) {
         </IconButton>
       </TableCell>
       <TableCell component="th" scope="row" sx={{ color: "var(--color-text)" }}>
-        <Chip
+        {/* <Chip
           label={
             row.status.slice(0, 1).toUpperCase() +
             row.status.slice(1).toLowerCase()
@@ -37,14 +37,14 @@ function MainTableRow({ open, setOpen, row }) {
               ? "warning"
               : "error"
           }
-        />
+        /> */}
       </TableCell>
       <TableCell align="center" sx={{ color: "var(--color-text)" }}>
-        {formatDate(row.created_at)}
+        {/* {formatDate(row.created_at)} */}
       </TableCell>
       <TableCell align="center" sx={{ color: "var(--color-text)" }}>
-        {row.status === "withdraw" || row.status === "transfer" ? "-  " : ""}
-        {formatCurrency(row.movements)}
+        {/* {row.status === "withdraw" || row.status === "transfer" ? "-  " : ""} */}
+        {/* {formatCurrency(row.movements)} */}
       </TableCell>
     </TableRow>
   );

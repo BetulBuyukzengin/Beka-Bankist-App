@@ -6,7 +6,6 @@ import MenuIcon from "../../../Components/MenuIcon/MenuIcon";
 import { usePDF } from "react-to-pdf";
 import { useUser } from "../../../services/userServices";
 import { formatDate, formatIBAN } from "../../../utils/utils";
-import { useDarkMode } from "../../../Contexts/DarkModeContext";
 
 const StyledLabelTitle = styled.label`
   width: 40%;
@@ -30,9 +29,8 @@ const StyledDescription = styled.p`
 `;
 
 export default function ReceiptContent({ row }) {
-  const { user, isLoading } = useUser();
+  const { user } = useUser();
   const fullName = user.user_metadata.fullName;
-  // const { targetRef, toLightPDF } = useDarkMode();
   const { toPDF, targetRef } = usePDF({ filename: "page.pdf" });
   return (
     <StyledBox sx={{ flexGrow: 1, width: "78% " }} ref={targetRef}>

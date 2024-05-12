@@ -11,7 +11,6 @@ const content = [
   },
   { label: "With Account Numbers", component: <AccountNumberTab /> },
 ];
-// can make with use qr code
 
 function NewRecipientTab() {
   const orientation = "vertical";
@@ -24,7 +23,6 @@ function NewRecipientTab() {
         resetField("iban", { defaultValue: "" });
         resetField("fullNameWithIban", { defaultValue: "" });
         resetField("shortName", { defaultValue: "" });
-        // resetField("saveAsRegisteredWithAccount", { defaultValue: false });
       }
       if (searchParams.get("new-recipient-tab") === "0") {
         resetField("bankName", { defaultValue: "" });
@@ -34,10 +32,10 @@ function NewRecipientTab() {
         resetField("accountNumber", { defaultValue: "" });
         resetField("fullNameWithAccount", { defaultValue: "" });
         resetField("shortName", { defaultValue: "" });
-        // resetField("saveAsRegisteredWithIban", { defaultValue: false });
         setSearchParams(searchParams);
       }
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [searchParams, resetField]
   );
 

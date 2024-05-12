@@ -1,19 +1,19 @@
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import "react-toastify/dist/ReactToastify.css";
+
 import { DarkModeProvider } from "./Contexts/DarkModeContext.jsx";
 import GlobalStyles from "./styles/GlobalStyles";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Login from "./Pages/App/Login/Login.jsx";
 import Presentational from "./Pages/Presentational/Presentational.jsx";
 import CreateAccount from "./Pages/App/CreateAccount/CreateAccount.jsx";
 import DashboardLayout from "./Components/DashboardLayout/DashboardLayout.jsx";
 import Accounts from "./Pages/App/Account/Accounts.jsx";
-import { ToastContainer } from "react-toastify";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import "react-toastify/dist/ReactToastify.css";
 import Movements from "./Pages/App/Movements/Movements.jsx";
 import Transactions from "./Pages/App/Transactions/Transactions.jsx";
-
-import { LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3";
 
 const router = createBrowserRouter([
   {

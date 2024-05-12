@@ -20,18 +20,13 @@ function DetailTableHead({ row }) {
   return (
     <TableHead>
       <TableRow>
-        {/* <TableCell sx={{ color: "var(--color-text)" }}>Time</TableCell> */}
-        {/* <TableCell sx={{ color: "var(--color-text)" }}>Movements</TableCell> */}
+      
         <TableCell sx={{ color: "var(--color-text)" }}>
           Current Balance
         </TableCell>
         <TableCell sx={{ color: "var(--color-text)" }}>Sender</TableCell>
-        {/* <TableCell sx={{ color: "var(--color-text)" }}>Sender Iban</TableCell> */}
         <TableCell sx={{ color: "var(--color-text)" }}>Sender Branch</TableCell>
         <TableCell sx={{ color: "var(--color-text)" }}>Recipient</TableCell>
-        {/* <TableCell sx={{ color: "var(--color-text)" }}>
-          Recipient Iban
-        </TableCell> */}
         <TableCell sx={{ color: "var(--color-text)" }}>
           Recipient Branch
         </TableCell>
