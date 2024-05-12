@@ -7,10 +7,12 @@ import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
-export default function StepperComponent({ transactionSteps }) {
-  const [activeStep, setActiveStep] = React.useState(0);
+export default function StepperComponent({
+  transactionSteps,
+  activeStep,
+  setActiveStep,
+}) {
   const [skipped, setSkipped] = React.useState(new Set());
-
   const isStepSkipped = (step) => {
     return skipped.has(step);
   };
@@ -21,7 +23,6 @@ export default function StepperComponent({ transactionSteps }) {
       newSkipped = new Set(newSkipped.values());
       newSkipped.delete(activeStep);
     }
-
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
     setSkipped(newSkipped);
   };
@@ -41,7 +42,14 @@ export default function StepperComponent({ transactionSteps }) {
           }
           return (
             <Step key={index} {...stepProps}>
-              <StepLabel {...labelProps}></StepLabel>
+              <StepLabel
+                {...labelProps}
+                sx={{
+                  "& > span > svg > text": {
+                    fill: "var(--color-background)!important",
+                  },
+                }}
+              ></StepLabel>
             </Step>
           );
         })}
@@ -64,27 +72,28 @@ export default function StepperComponent({ transactionSteps }) {
             )}
           </React.Fragment>
         ))}
-        {activeStep < transactionSteps.length && (
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "end",
-            }}
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "end",
+          }}
+        >
+          <Button
+            color="inherit"
+            disabled={activeStep === 0}
+            onClick={handleBack}
+            sx={{ mr: 1 }}
           >
-            <Button
-              color="inherit"
-              disabled={activeStep === 0}
-              onClick={handleBack}
-              sx={{ mr: 1 }}
-            >
-              Back
-            </Button>
-            <Button onClick={handleNext}>
-              {activeStep === transactionSteps.length - 1 ? "Confirm" : "Next"}
-            </Button>
-          </Box>
-        )}
+            Back
+          </Button>
+          <Button
+            onClick={handleNext}
+            type={activeStep === transactionSteps.length ? "submit" : "button"}
+          >
+            {activeStep === transactionSteps.length - 1 ? "Confirm" : "Next"}
+          </Button>
+        </Box>
       </React.Fragment>
     </Box>
   );
