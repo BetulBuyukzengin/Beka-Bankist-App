@@ -15,12 +15,3 @@ export default function Rows(props) {
     </React.Fragment>
   );
 }
-
-// Rows.propTypes = {
-//   row: PropTypes.shape({
-//     date: PropTypes.string.isRequired,
-//     movements: PropTypes.number.isRequired,
-//     currentBalance: PropTypes.number.isRequired,
-//     status: PropTypes.string.isRequired,
-//   }).isRequired,
-// };
