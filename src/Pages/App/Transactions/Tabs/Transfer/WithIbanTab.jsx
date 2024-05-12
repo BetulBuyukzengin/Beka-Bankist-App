@@ -21,14 +21,22 @@ function WithIbanTab() {
             id="iban"
             label="IBAN"
             defaultValue="TR"
-            register={{ ...register("iban") }}
+            register={{
+              ...register("iban", {
+                required: true,
+              }),
+            }}
           />
         </Grid>
         <Grid item xs={6} sx={{ display: "flex", gap: "1rem" }}>
           <CustomTextField
             id="fullName"
             label="Full Name"
-            register={{ ...register("fullNameWithIban") }}
+            register={{
+              ...register("fullNameWithIban", {
+                required: true,
+              }),
+            }}
           />
         </Grid>
 
