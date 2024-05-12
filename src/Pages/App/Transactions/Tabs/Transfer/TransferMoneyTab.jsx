@@ -6,6 +6,8 @@ import StepperComponent from "../../../../../Components/StepperComponent/Stepper
 import TransactionControl from "./TransactionControl";
 
 import { useForm, FormProvider } from "react-hook-form";
+import React from "react";
+import { useCreateMovements } from "../../../../../services/movementsServices";
 
 const transactionSteps = [
   {
@@ -30,17 +32,30 @@ const transactionSteps = [
   },
 ];
 export default function TransferMoneyTab() {
-  const methods = useForm();
-  const onSubmit = (data) => {
-    console.log("All Form Data:", data);
-  };
+  const [activeStep, setActiveStep] = React.useState(0);
 
+  const { createMovement, isCreating } = useCreateMovements();
+
+  const methods = useForm();
+  const onSubmit = async (data) => {
+    await createMovement(data);
+  };
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
-        <StepperComponent transactionSteps={transactionSteps} />;
+        <StepperComponent
+          transactionSteps={transactionSteps}
+          activeStep={activeStep}
+          setActiveStep={setActiveStep}
+        />
+        {activeStep === transactionSteps.length && (
+          <div style={{ margin: "3rem", textAlign: "center" }}>
+            {isCreating
+              ? "Transfer transaction is in progress"
+              : "Transfer was successfully completed ..."}
+          </div>
+        )}
         <button type="submit">add</button>
-        <div>Transfer transaction was successfully ...</div>
       </form>
     </FormProvider>
   );
