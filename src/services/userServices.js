@@ -3,26 +3,26 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
-async function login(credentials) {
+async function signIn(credentials) {
   let { data, error } = await supabase.auth.signInWithPassword(credentials);
   if (error) throw new Error(error.message);
   return data;
 }
 
-export function useLogin() {
+export function useSignIn() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
   const { mutateAsync, isLoading } = useMutation({
-    mutationFn: ({ email, password }) => login({ email, password }),
+    mutationFn: ({ email, password }) => signIn({ email, password }),
     onSuccess: (user) => {
-      toast.success("Login successful");
+      toast.success("Sign in successful");
       // navigate("/applayout");
       queryClient.setQueryData(["user", user.user]);
       navigate("/applayout/accounts", { replace: true });
     },
     onError: () => {
-      toast.error("Login failed");
+      toast.error("Sign in failed");
     },
   });
   return { mutateAsync, isLoading };
@@ -38,7 +38,7 @@ export function useLogout() {
     mutationFn: logout,
     onSuccess: () => {
       toast.success("Logout successful");
-      navigate("/login");
+      navigate("/signIn");
     },
     onError: () => {
       toast.error("Logout failed");
@@ -76,7 +76,7 @@ async function signUp(data) {
     },
   });
   if (error) throw new Error(error.message);
-  if (user) await login({ email: data.email, password: data.password });
+  if (user) await signIn({ email: data.email, password: data.password });
   return user;
 }
 

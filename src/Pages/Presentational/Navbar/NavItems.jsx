@@ -99,7 +99,7 @@ function NavItem() {
         </StyledLink>
       </StyledLi>
       <StyledLi>
-        <StyledLinkTo to="/login">
+        <StyledLinkTo to="/signIn">
           <LoginIcon />
         </StyledLinkTo>
       </StyledLi>

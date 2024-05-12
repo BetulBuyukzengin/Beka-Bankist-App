@@ -7,9 +7,9 @@ import "react-toastify/dist/ReactToastify.css";
 
 import { DarkModeProvider } from "./Contexts/DarkModeContext.jsx";
 import GlobalStyles from "./styles/GlobalStyles";
-import Login from "./Pages/App/Login/Login.jsx";
+import SignIn from "./Pages/App/SignIn/SignIn.jsx";
 import Presentational from "./Pages/Presentational/Presentational.jsx";
-import CreateAccount from "./Pages/App/CreateAccount/CreateAccount.jsx";
+import SignUp from "./Pages/App/SignUp/SignUp.jsx";
 import DashboardLayout from "./Components/DashboardLayout/DashboardLayout.jsx";
 import Accounts from "./Pages/App/Account/Accounts.jsx";
 import Movements from "./Pages/App/Movements/Movements.jsx";
@@ -21,12 +21,12 @@ const router = createBrowserRouter([
     Component: Presentational,
   },
   {
-    path: "/login",
-    Component: Login,
+    path: "/signIn",
+    Component: SignIn,
   },
   {
-    path: "/createaccount",
-    Component: CreateAccount,
+    path: "/signup",
+    Component: SignUp,
   },
   {
     path: "/applayout",
@@ -74,8 +74,8 @@ function App() {
           {/* <BrowserRouter>
         <Routes>
           <Route path="/" element={<Presentational />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/createaccount" Component={CreateAccount} />
+          <Route path="/signIn" element={<SignIn />} />
+          <Route path="/signup" Component={SignUp} />
           </Routes>
         </BrowserRouter> */}
         </DarkModeProvider>

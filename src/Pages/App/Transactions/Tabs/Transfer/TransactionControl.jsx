@@ -58,7 +58,7 @@ export default function TransactionControl() {
   const [date, setDate] = useState(new Date());
 
   const { getValues, setValue, handleSubmit } = useFormContext();
-
+  console.log(getValues());
   const { createMovement } = useCreateMovements();
   function onSubmit(data) {
     createMovement(data);

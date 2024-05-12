@@ -73,8 +73,8 @@ export default function CustomTabs({ content, orientation, tabName }) {
   const theme = useTheme();
   const [tabIndex, setTabIndex] = React.useState(0);
   const [searchParams, setSearchParams] = useSearchParams();
-  const formContext = useFormContext();
-
+  // const formContext = useFormContext();
+  // const getStatus = searchParams.get("status");
   const handleChange = (event, newValue) => {
     setTabIndex(newValue);
   };
@@ -128,7 +128,9 @@ export default function CustomTabs({ content, orientation, tabName }) {
           <Tab
             onClick={() => {
               if (tabName === "transactionsTab") {
-                searchParams.set("status", tab.label);
+                // if (tab.label) {
+                //   searchParams.set("status", tab.label);
+                // }
                 searchParams.set("transactions-tab", index);
                 setSearchParams(searchParams);
               }
@@ -141,7 +143,7 @@ export default function CustomTabs({ content, orientation, tabName }) {
                 searchParams.set("new-recipient-tab", index);
                 setSearchParams(searchParams);
               }
-              formContext.setValue("status", searchParams.get("status"));
+              // if (getStatus) formContext.setValue("status", getStatus);
             }}
             key={index}
             sx={

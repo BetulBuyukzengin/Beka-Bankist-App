@@ -34,7 +34,7 @@ const StyledTextField = styled(TextField)`
     }
   }
 `;
-const StyledLoginFormTitle = styled.h2`
+const StyledSignInFormTitle = styled.h2`
   margin-bottom: 1rem;
   letter-spacing: 0.1rem;
   color: var(--color-text);
@@ -60,7 +60,7 @@ const StyledButton = styled.button`
 const StyledLink = styled(Link)`
   align-self: center;
 `;
-const StyledCreateAccountButton = styled.button`
+const StyledSignUpButton = styled.button`
   color: var(--color-text);
   background-color: var(--color-secondary);
   padding: 0.6rem 1rem;
@@ -80,7 +80,7 @@ const StyledCreateAccountButton = styled.button`
 `;
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-function CreateAccount() {
+function SignUp() {
   const { isDarkMode } = useDarkMode();
   const { register, handleSubmit, formState, reset, getValues } = useForm();
   const { errors } = formState;
@@ -103,7 +103,7 @@ function CreateAccount() {
           flexDirection: "column",
         }}
       >
-        <StyledLoginFormTitle>Create Account</StyledLoginFormTitle>
+        <StyledSignInFormTitle>Sign Up</StyledSignInFormTitle>
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <StyledTextField
@@ -176,15 +176,15 @@ function CreateAccount() {
             />
           </Grid>
         </Grid>
-        <StyledCreateAccountButton type="submit" disabled={isLoading}>
-          Create Account
-        </StyledCreateAccountButton>
-        <StyledLink to="/login">
-          <StyledButton disabled={isLoading}> Login </StyledButton>
+        <StyledSignUpButton type="submit" disabled={isLoading}>
+          Sign Up
+        </StyledSignUpButton>
+        <StyledLink to="/signIn">
+          <StyledButton disabled={isLoading}> Sign In </StyledButton>
         </StyledLink>
       </Paper>
     </StyledForm>
   );
 }
 
-export default CreateAccount;
+export default SignUp;

@@ -5,7 +5,7 @@ import Grid from "@mui/material/Grid";
 import { useForm } from "react-hook-form";
 import { useDarkMode } from "../../../Contexts/DarkModeContext";
 import { Link } from "react-router-dom";
-import { useLogin } from "../../../services/userServices";
+import { useSignIn } from "../../../services/userServices";
 
 const StyledForm = styled.form`
   width: 100%;
@@ -34,12 +34,12 @@ const StyledTextField = styled(TextField)`
     }
   }
 `;
-const StyledLoginFormTitle = styled.h2`
+const StyledSignInFormTitle = styled.h2`
   margin-bottom: 1rem;
   letter-spacing: 0.1rem;
   color: var(--color-text);
 `;
-const StyledLoginBtn = styled.button`
+const StyledSignInBtn = styled.button`
   color: var(--color-text);
   background-color: var(--color-secondary);
   padding: 0.6rem 1rem;
@@ -60,7 +60,7 @@ const StyledLoginBtn = styled.button`
 const StyledLink = styled(Link)`
   align-self: center;
 `;
-const StyledCreateAccountButton = styled.button`
+const StyledSignUpButton = styled.button`
   color: var(--color-text);
   background-color: var(--color-secondary);
   padding: 0.6rem 1rem;
@@ -80,14 +80,14 @@ const StyledCreateAccountButton = styled.button`
 `;
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-function Login() {
+function SignIn() {
   const { isDarkMode } = useDarkMode();
   const { register, handleSubmit, formState } = useForm();
   const { errors } = formState;
-  const { mutateAsync: login, isLoading } = useLogin();
+  const { mutateAsync: signIn, isLoading } = useSignIn();
 
   function onSubmit(data) {
-    login(data);
+    signIn(data);
   }
   return (
     <StyledForm onSubmit={handleSubmit(onSubmit)}>
@@ -101,7 +101,7 @@ function Login() {
           flexDirection: "column",
         }}
       >
-        <StyledLoginFormTitle>Login</StyledLoginFormTitle>
+        <StyledSignInFormTitle>Sign In</StyledSignInFormTitle>
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <StyledTextField
@@ -134,17 +134,15 @@ function Login() {
             />
           </Grid>
         </Grid>
-        <StyledLoginBtn disabled={isLoading} type="submit">
-          Login
-        </StyledLoginBtn>
-        <StyledLink to="/createaccount">
-          <StyledCreateAccountButton disabled={isLoading}>
-            Create Account
-          </StyledCreateAccountButton>
+        <StyledSignInBtn disabled={isLoading} type="submit">
+          Sign in
+        </StyledSignInBtn>
+        <StyledLink to="/signup">
+          <StyledSignUpButton disabled={isLoading}>Sign Up</StyledSignUpButton>
         </StyledLink>
       </Paper>
     </StyledForm>
   );
 }
 
-export default Login;
+export default SignIn;

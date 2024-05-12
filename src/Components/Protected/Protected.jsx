@@ -8,7 +8,7 @@ function Protected({ children }) {
   const { isAuthenticated, isLoading, user } = useUser();
   useEffect(
     function () {
-      if (!user && !isLoading) navigate("/login");
+      if (!user && !isLoading) navigate("/signIn");
     },
     [user, navigate, isLoading]
   );
