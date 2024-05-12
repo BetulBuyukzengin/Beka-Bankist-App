@@ -10,6 +10,7 @@ import Box from "@mui/material/Box";
 import styled from "styled-components";
 import { useSearchParams } from "react-router-dom";
 import { useEffect } from "react";
+import { useFormContext } from "react-hook-form";
 
 const StyledSwipeableViews = styled(SwipeableViews)`
   width: 100%;
@@ -70,15 +71,16 @@ const tabHorizontalStyle = {
 
 export default function CustomTabs({ content, orientation, tabName }) {
   const theme = useTheme();
-  const [value, setValue] = React.useState(0);
+  const [tabIndex, setTabIndex] = React.useState(0);
   const [searchParams, setSearchParams] = useSearchParams();
+  const formContext = useFormContext();
 
   const handleChange = (event, newValue) => {
-    setValue(newValue);
+    setTabIndex(newValue);
   };
 
   const handleChangeIndex = (index) => {
-    setValue(index);
+    setTabIndex(index);
   };
 
   useEffect(
@@ -87,20 +89,20 @@ export default function CustomTabs({ content, orientation, tabName }) {
         tabName === "transactionsTab" &&
         searchParams.get("transactions-tab")
       ) {
-        setValue(+searchParams.get("transactions-tab"));
+        setTabIndex(+searchParams.get("transactions-tab"));
       }
 
       if (
         tabName === "recipientAccountTab" &&
         searchParams.get("recipient-account-tab")
       ) {
-        setValue(+searchParams.get("recipient-account-tab"));
+        setTabIndex(+searchParams.get("recipient-account-tab"));
       }
       if (
         tabName === "newRecipientTab" &&
         searchParams.get("new-recipient-tab")
       ) {
-        setValue(+searchParams.get("new-recipient-tab"));
+        setTabIndex(+searchParams.get("new-recipient-tab"));
       }
     },
     [searchParams, tabName]
@@ -109,7 +111,7 @@ export default function CustomTabs({ content, orientation, tabName }) {
   return (
     <Box sx={orientation && boxStyle}>
       <Tabs
-        value={value}
+        value={tabIndex}
         onChange={handleChange}
         indicatorColor="primary"
         textColor="inherit"
@@ -126,6 +128,7 @@ export default function CustomTabs({ content, orientation, tabName }) {
           <Tab
             onClick={() => {
               if (tabName === "transactionsTab") {
+                searchParams.set("status", tab.label);
                 searchParams.set("transactions-tab", index);
                 setSearchParams(searchParams);
               }
@@ -138,6 +141,7 @@ export default function CustomTabs({ content, orientation, tabName }) {
                 searchParams.set("new-recipient-tab", index);
                 setSearchParams(searchParams);
               }
+              formContext.setValue("status", searchParams.get("status"));
             }}
             key={index}
             sx={
@@ -153,11 +157,11 @@ export default function CustomTabs({ content, orientation, tabName }) {
 
       <StyledSwipeableViews
         axis={theme.direction === "rtl" ? "x-reverse" : "x"}
-        index={value}
+        index={tabIndex}
         onChangeIndex={handleChangeIndex}
       >
         {content.map((tab, index) => (
-          <StyledDiv key={index} value={value} dir={theme.direction}>
+          <StyledDiv key={index} value={tabIndex} dir={theme.direction}>
             <span>{tab.component}</span>
           </StyledDiv>
         ))}
