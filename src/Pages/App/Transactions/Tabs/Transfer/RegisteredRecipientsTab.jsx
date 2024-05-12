@@ -21,8 +21,7 @@ const BoxStyle = {
 };
 function RegisteredRecipientsTab() {
   const { getValues } = useFormContext();
-  const { saveAsRegisteredWithAccount, saveAsRegisteredWithIban, shortName } =
-    getValues();
+  const { shortName } = getValues();
 
   return (
     <Grid
