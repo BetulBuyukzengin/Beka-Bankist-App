@@ -9,6 +9,7 @@ import {
 } from "../../../../../utils/utils";
 import CustomDatePicker from "../../../../../Components/CustomDatePicker/CustomDatePicker";
 import { useState } from "react";
+import { useCreateMovements } from "../../../../../services/movementsServices";
 
 const StyledBox = styled(Box)`
   background-color: transparent;
@@ -49,25 +50,31 @@ const StyledItem = styled(Paper)`
   padding: 0.5rem 0rem;
   text-align: center;
 `;
+const styleMarginRight = {
+  marginRight: "1rem",
+};
+
 export default function TransactionControl() {
   const [date, setDate] = useState(new Date());
 
-  const { getValues, setValue } = useFormContext();
+  const { getValues, setValue, handleSubmit } = useFormContext();
+
+  const { createMovement } = useCreateMovements();
+  function onSubmit(data) {
+    createMovement(data);
+  }
+
   const {
     accountNumber,
-    amountToSend,
-    bankBranch,
-    bankName,
-    transactionDate,
+    iban,
     fullNameWithAccount,
     fullNameWithIban,
-    iban,
+    bankBranch,
+    bankName,
     paymentMethod,
-    saveAsRegisteredWithAccount,
-    saveAsRegisteredWithIban,
     selectedAccount,
-    showUsernameDescription,
     transferDescription,
+    amountToSend,
   } = getValues();
 
   return (
@@ -90,10 +97,17 @@ export default function TransactionControl() {
         <StyledGrid item xs={8}>
           <StyledItem>Recipient Account</StyledItem>
           <StyledBox>
-            <div>Full Name: {fullNameWithAccount || fullNameWithIban}</div>
-            {bankName && <div>Bank Name: {bankName}</div>}
+            <div style={styleMarginRight}>
+              Full Name: {fullNameWithAccount || fullNameWithIban}
+            </div>
+            {bankName && (
+              <div style={styleMarginRight}>Bank Name: {bankName}</div>
+            )}
+            {bankBranch && (
+              <div style={styleMarginRight}>Bank Branch: {bankBranch}</div>
+            )}
             <div>
-              {accountNumber ? "Account Number" : "Iban"}:
+              {accountNumber ? "Account Number" : "Iban"}:{" "}
               {accountNumber || iban}
             </div>
           </StyledBox>
@@ -102,9 +116,8 @@ export default function TransactionControl() {
         <StyledGrid item xs={8}>
           <StyledItem>Sender Account</StyledItem>
           <StyledBox>
-            <div>Bank Branch: {bankBranch}</div>
-            <div>Selected Account:{selectedAccount}</div>
-            <div>Balance:125</div>
+            <div>Selected Account: {selectedAccount}</div>
+            <div>Balance: 125</div>
           </StyledBox>
         </StyledGrid>
         <StyledGrid item xs={8}>
@@ -114,13 +127,13 @@ export default function TransactionControl() {
           </StyledBox>
         </StyledGrid>
         <StyledGrid item xs={8}>
-          <StyledItem>Payment Method: </StyledItem>
+          <StyledItem>Payment Method </StyledItem>
           <StyledBox>
             <StyledLabel>{generatePaymentMethod(paymentMethod)}</StyledLabel>
           </StyledBox>
         </StyledGrid>
         <StyledGrid item xs={8}>
-          <StyledItem>Description: </StyledItem>
+          <StyledItem>Description </StyledItem>
           <StyledBox>
             <StyledLabel>{transferDescription}</StyledLabel>
           </StyledBox>
@@ -132,7 +145,7 @@ export default function TransactionControl() {
           </StyledBox>
         </StyledGrid>
         <StyledGrid item xs={8}>
-          <StyledItem>Transaction Date:</StyledItem>
+          <StyledItem>Transaction Date</StyledItem>
           <CustomDatePicker
             width="small"
             margin="small"
@@ -141,8 +154,10 @@ export default function TransactionControl() {
               setDate(newValue);
               setValue("transactionDate", newValue);
             }}
-            // register={register("transactionDate")}
           />
+        </StyledGrid>
+        <StyledGrid item xs={8}>
+          <button onSubmit={handleSubmit(onSubmit)}>CONFIRM</button>
         </StyledGrid>
       </Grid>
     </Box>
