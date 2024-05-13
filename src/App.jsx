@@ -14,6 +14,7 @@ import DashboardLayout from "./Components/DashboardLayout/DashboardLayout.jsx";
 import Accounts from "./Pages/App/Account/Accounts.jsx";
 import Movements from "./Pages/App/Movements/Movements.jsx";
 import Transactions from "./Pages/App/Transactions/Transactions.jsx";
+import BankAccountCreate from "./Pages/App/Account/BankAccountCreate.jsx";
 
 const router = createBrowserRouter([
   {
@@ -33,9 +34,12 @@ const router = createBrowserRouter([
     Component: DashboardLayout,
     children: [
       {
-        path: "/applayout/accounts",
-        Component: Accounts,
-        index: true,
+        // path: "/applayout/accounts",
+        // Component: Accounts,
+        // index: true,
+        path: "/applayout/accountCreate",
+        Component: BankAccountCreate,
+        // index: true,
       },
       {
         path: "/applayout/movements",

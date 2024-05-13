@@ -219,7 +219,8 @@ export default function DashboardLayout() {
                 display: "block",
               }}
             >
-              <ListIconButton path={"/applayout/accounts"}>
+              {/* <ListIconButton path={"/applayout/accounts"}> */}
+              <ListIconButton path={"/applayout/accountCreate"}>
                 <ListItemIcon>
                   <AccountBalanceWalletIcon
                     sx={{
@@ -228,7 +229,8 @@ export default function DashboardLayout() {
                   />
                 </ListItemIcon>
                 <ListItemText
-                  primary="Accounts"
+                  // primary="Accounts"
+                  primary="Account Create"
                   sx={{ opacity: open ? 1 : 0 }}
                 />
               </ListIconButton>
