@@ -7,6 +7,7 @@ function CustomDatePicker({ value, onChange, label, width, register, margin }) {
       label={label}
       value={value}
       onChange={onChange}
+      slotProps={{ popper: { placement: "right-start" } }}
       {...register}
       sx={{
         marginTop: margin === "small" && "1rem",
