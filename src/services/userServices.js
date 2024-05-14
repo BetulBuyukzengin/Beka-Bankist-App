@@ -19,7 +19,7 @@ export function useSignIn() {
       toast.success("Sign in successful");
       // navigate("/applayout");
       queryClient.setQueryData(["user", user.user]);
-      navigate("/applayout/accountCreate", { replace: true });
+      navigate("/applayout/account", { replace: true });
     },
     onError: () => {
       toast.error("Sign in failed");
