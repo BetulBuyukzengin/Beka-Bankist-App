@@ -220,7 +220,7 @@ export default function DashboardLayout() {
               }}
             >
               {/* <ListIconButton path={"/applayout/accounts"}> */}
-              <ListIconButton path={"/applayout/accountCreate"}>
+              <ListIconButton path={"/applayout/account"}>
                 <ListItemIcon>
                   <AccountBalanceWalletIcon
                     sx={{

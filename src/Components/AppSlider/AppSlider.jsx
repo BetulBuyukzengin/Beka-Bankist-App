@@ -8,7 +8,7 @@ import {
   CarouselIndicators,
   CarouselCaption,
 } from "reactstrap";
-import { useAccounts } from "../../services/accountServices";
+import { useGetAccounts } from "../../services/accountServices";
 import Loader from "../Loader/Loader";
 import { useDarkMode } from "../../Contexts/DarkModeContext";
 
@@ -35,7 +35,7 @@ const StyledCarouselControl = styled(CarouselControl)`
 `;
 
 function AppSlider() {
-  const { isLoading, accounts } = useAccounts();
+  const { isLoading, accounts } = useGetAccounts();
   const [activeIndex, setActiveIndex] = useState(0);
   const [animating, setAnimating] = useState(false);
   const { isDarkMode } = useDarkMode();

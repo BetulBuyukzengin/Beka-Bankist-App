@@ -11,10 +11,10 @@ import SignIn from "./Pages/App/SignIn/SignIn.jsx";
 import Presentational from "./Pages/Presentational/Presentational.jsx";
 import SignUp from "./Pages/App/SignUp/SignUp.jsx";
 import DashboardLayout from "./Components/DashboardLayout/DashboardLayout.jsx";
-import Accounts from "./Pages/App/Account/Accounts.jsx";
 import Movements from "./Pages/App/Movements/Movements.jsx";
 import Transactions from "./Pages/App/Transactions/Transactions.jsx";
 import BankAccountCreate from "./Pages/App/Account/BankAccountCreate.jsx";
+import Account from "./Pages/App/Account/Account.jsx";
 
 const router = createBrowserRouter([
   {
@@ -34,12 +34,8 @@ const router = createBrowserRouter([
     Component: DashboardLayout,
     children: [
       {
-        // path: "/applayout/accounts",
-        // Component: Accounts,
-        // index: true,
-        path: "/applayout/accountCreate",
-        Component: BankAccountCreate,
-        // index: true,
+        path: "/applayout/account",
+        Component: Account,
       },
       {
         path: "/applayout/movements",

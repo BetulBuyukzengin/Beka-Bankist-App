@@ -1,9 +1,9 @@
 import { Button } from "@mui/material";
 
-function CustomButton({ buttonName, type }) {
+function CustomButton({ buttonText, type }) {
   return (
     <Button type={type} variant="outlined">
-      {buttonName}
+      {buttonText}
     </Button>
   );
 }
