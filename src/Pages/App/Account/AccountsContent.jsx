@@ -7,6 +7,7 @@ import {
   formatCurrency,
   formatIBAN,
 } from "../../../utils/utils";
+import { useGetAccounts } from "../../../services/accountServices";
 const StyledTitle = styled.h4`
   font-size: 1.3rem;
 `;
@@ -17,14 +18,17 @@ const StyledImg = styled.img`
   width: 10%;
 `;
 function AccountsContent({ item }) {
+  console.log(item);
   return (
     <Grid container gap={5}>
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          <h6>{item.branch}</h6>
+          <h6>
+            {item.bankBranch}-{item.bankName}
+          </h6>
         </Grid>
         <Grid item xs={12}>
-          <h6>{formatBankAccountNumber(item.accountNo)}</h6>
+          <h6>{formatBankAccountNumber(item.accountNumber)}</h6>
         </Grid>
         <Grid item xs={12}>
           <StyledImg src="../../../../public/img/card.png" />
