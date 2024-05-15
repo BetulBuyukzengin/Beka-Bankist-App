@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Heading from "../Heading/Heading";
 import SearchIcon from "@mui/icons-material/Search";
-import Modal from "../Modal/Modal";
+import GalleryModal from "../GalleryModal/GalleryModal";
 import { useState } from "react";
 
 const StyledGaleryContainer = styled.div`
@@ -105,7 +105,7 @@ export default function Gallery() {
           </StyledGridItem>
         ))}
       </StyledGridContainer>
-      <Modal
+      <GalleryModal
         handleClose={handleClose}
         open={open}
         imagesList={images}
