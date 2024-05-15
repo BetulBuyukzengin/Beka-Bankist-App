@@ -1,8 +1,14 @@
+/* eslint-disable react/prop-types */
 import { Button } from "@mui/material";
 
-function CustomButton({ buttonText, type, onClick }) {
+function CustomButton({ buttonText, type, onClick, disabled }) {
   return (
-    <Button type={type} onClick={onClick} variant="outlined">
+    <Button
+      disabled={disabled}
+      type={type}
+      onClick={onClick}
+      variant="outlined"
+    >
       {buttonText}
     </Button>
   );
