@@ -8,6 +8,8 @@ function CustomSelect({
   width,
   disabled,
   register,
+  helperText,
+  error,
   defaultValue,
 }) {
   return (
@@ -35,6 +37,8 @@ function CustomSelect({
       value={value}
       onChange={handleChange}
       fullWidth
+      helperText={helperText}
+      error={error}
       displayEmpty
       {...register}
       defaultValue={defaultValue}

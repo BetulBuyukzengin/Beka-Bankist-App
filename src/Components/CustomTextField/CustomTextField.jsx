@@ -41,6 +41,8 @@ function CustomTextField({
   disabled,
   register,
   required,
+  helperText,
+  error,
 }) {
   return (
     <StyledTextField
@@ -56,6 +58,8 @@ function CustomTextField({
       fullWidth
       disabled={disabled}
       variant="outlined"
+      helperText={helperText}
+      error={error}
       InputLabelProps={{
         shrink: true,
       }}
