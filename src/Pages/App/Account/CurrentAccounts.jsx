@@ -1,26 +1,31 @@
 import { useState } from "react";
 import AppSlider from "../../../Components/AppSlider/AppSlider";
-import CustomButton from "../../../Components/CustomButton/CustomButton";
 import CustomModal from "../../../Components/CustomModal/CustomModal";
 import AccountCreate from "./AccountCreate";
+import { Box } from "@mui/material";
+import CustomMenuIcon from "../../../Components/CustomMenuIcon/CustomMenuIcon";
 
 function CurrentAccounts() {
   const [open, setOpen] = useState(false);
   return (
     <>
-      <h3
-        style={{
-          backgroundColor: "var(--color-background)",
-          color: "var(--color-text)",
-          textAlign: "center",
-          marginBottom: 0,
-          paddingTop: "1rem",
-        }}
+      <Box
+        sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
       >
-        MY ACCOUNTS
-      </h3>
+        <h3
+          style={{
+            backgroundColor: "var(--color-background)",
+            color: "var(--color-text)",
+            marginRight: "auto",
+            marginLeft: "auto",
+            marginBottom: 0,
+          }}
+        >
+          MY ACCOUNTS
+        </h3>
+        <CustomMenuIcon setOpen={setOpen} />
+      </Box>
       <AppSlider />
-      <CustomButton onClick={() => setOpen(true)} buttonText="New Account" />
       <CustomModal open={open} setOpen={setOpen}>
         <AccountCreate />
       </CustomModal>
