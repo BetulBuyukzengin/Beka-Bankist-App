@@ -1,7 +1,7 @@
 import CustomTextField from "../../../Components/CustomTextField/CustomTextField";
 import CustomDatePicker from "../../../Components/CustomDatePicker/CustomDatePicker";
 import { useState } from "react";
-import { Box, Checkbox, Grid, Modal, Typography } from "@mui/material";
+import { Checkbox, Grid } from "@mui/material";
 import CustomButton from "../../../Components/CustomButton/CustomButton";
 import CustomSelect from "../../../Components/CustomSelect/CustomSelect";
 import { FormProvider, useForm } from "react-hook-form";
@@ -13,13 +13,11 @@ import {
 import { toast } from "react-toastify";
 import { MuiTelInput } from "mui-tel-input";
 import styled from "styled-components";
-import {
-  useCreateAccount,
-  useGetAccounts,
-} from "../../../services/accountServices";
+import { useCreateAccount } from "../../../services/accountServices";
 import Loader from "../../../Components/Loader/Loader";
 import CustomModal from "../../../Components/CustomModal/CustomModal";
 import AccountConsentForm from "./AccountConsentForm";
+import { useUser } from "../../../services/userServices";
 
 const bankContent = [
   {
@@ -67,22 +65,34 @@ const StyledLabel = styled.label``;
 
 function AccountCreate() {
   const methods = useForm();
-  // const { register, handleSubmit, setValue } = useForm();
   const [birthday, setBirthday] = useState(new Date());
   const [phoneNumber, setPhoneNumber] = useState();
   const [open, setOpen] = useState(false);
+  const { user } = useUser();
   const { isLoading, mutateAsync } = useCreateAccount();
+  const [checked, setChecked] = useState(false);
+
+  const { errors } = methods.formState;
 
   function handleChangePhone(phone) {
     setPhoneNumber(phone);
   }
   async function onSubmit(data) {
     const iban = generateRandomIBAN();
-    //hesaplar tablosundan ibanları, hesap no kıyasla
+    //! Hesaplar tablosundan ibanları, hesap no kıyasla
     const accountNumber = generateRandomBankAccountNumber();
-    const formDatas = { ...data, phoneNumber, iban, accountNumber, balance: 0 };
+    const formDatas = {
+      ...data,
+      phoneNumber,
+      iban,
+      accountNumber,
+      balance: 0,
+      isFormApproved: checked || "",
+    };
+    console.log(formDatas);
     await mutateAsync(formDatas);
   }
+
   if (isLoading) return <Loader />;
   return (
     <>
@@ -101,33 +111,51 @@ function AccountCreate() {
               <CustomTextField
                 id="fullName"
                 label="Full Name"
-                register={methods.register("fullName")}
+                defaultValue={user.user_metadata.fullName}
+                register={methods.register("fullName", {
+                  required: "This field is required!",
+                })}
+                helperText={errors?.fullName?.message}
+                error={errors?.fullName}
               />
             </Grid>
             <Grid item xs={6}>
               <CustomTextField
                 id="address"
                 label="Address"
-                register={methods.register("address")}
+                register={methods.register("address", {
+                  required: "This field is required!",
+                })}
+                helperText={errors?.address?.message}
+                error={errors?.address}
               />
             </Grid>
             <Grid item xs={6}>
               <CustomSelect
                 data={bankContent}
                 defaultValue=""
-                register={methods.register("bankName")}
+                register={methods.register("bankName", {
+                  required: "This field is required!",
+                })}
+                helperText={errors?.bankName?.message}
+                error={errors?.bankName}
               />
             </Grid>
             <Grid item xs={6}>
               <CustomSelect
                 data={branchContent}
                 defaultValue=""
-                register={methods.register("bankBranch")}
+                register={methods.register("bankBranch", {
+                  required: "This field is required!",
+                })}
+                helperText={errors?.bankBranch?.message}
+                error={errors?.bankBranch}
               />
             </Grid>
 
             <Grid item xs={6}>
               <CustomDatePicker
+                //! required ekle
                 width="tall"
                 label="Birthday"
                 value={birthday}
@@ -146,6 +174,7 @@ function AccountCreate() {
                 defaultCountry="TR"
                 value={phoneNumber}
                 onChange={(phone) => handleChangePhone(phone)}
+                //! required ekle
               />
             </Grid>
             <Grid
@@ -159,12 +188,22 @@ function AccountCreate() {
               }}
             >
               <StyledContainer>
-                <Checkbox />
+                <Checkbox
+                  checked={checked}
+                  onChange={(e) => setChecked(e.target.checked)}
+                />
                 <StyledLabel onClick={() => setOpen(true)}>
-                  ASRŞLSKSAFŞSKMFŞ
+                  <strong>
+                    I approve the bank account opening information and approval
+                    form
+                  </strong>
                 </StyledLabel>
               </StyledContainer>
-              <CustomButton type="submit" buttonText="create" />
+              <CustomButton
+                disabled={!checked}
+                type="submit"
+                buttonText="create"
+              />
             </Grid>
           </Grid>
           <CustomModal
@@ -172,7 +211,11 @@ function AccountCreate() {
             setOpen={setOpen}
             title="Bank Account Opening Disclosure and Approval Form"
           >
-            <AccountConsentForm phoneNumber={phoneNumber} />
+            <AccountConsentForm
+              setOpen={setOpen}
+              phoneNumber={phoneNumber}
+              setChecked={setChecked}
+            />
           </CustomModal>
         </form>
       </FormProvider>
