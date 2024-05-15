@@ -1,7 +1,11 @@
+import { useState } from "react";
 import AppSlider from "../../../Components/AppSlider/AppSlider";
 import CustomButton from "../../../Components/CustomButton/CustomButton";
+import CustomModal from "../../../Components/CustomModal/CustomModal";
+import AccountCreate from "./AccountCreate";
 
 function CurrentAccounts() {
+  const [open, setOpen] = useState(false);
   return (
     <>
       <h3
@@ -16,7 +20,10 @@ function CurrentAccounts() {
         MY ACCOUNTS
       </h3>
       <AppSlider />
-      <CustomButton buttonText="New Account" />
+      <CustomButton onClick={() => setOpen(true)} buttonText="New Account" />
+      <CustomModal open={open} setOpen={setOpen}>
+        <AccountCreate />
+      </CustomModal>
     </>
   );
 }
