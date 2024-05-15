@@ -3,6 +3,7 @@ import { Grid, List, ListItem, ListItemText, Typography } from "@mui/material";
 import { useFormContext } from "react-hook-form";
 import { useUser } from "../../../services/userServices";
 import { formatDate } from "../../../utils/utils";
+import CustomButton from "../../../Components/CustomButton/CustomButton";
 
 const formContents = [
   {
@@ -44,20 +45,29 @@ function Text({ content, type }) {
     </Grid>
   );
 }
-export default function AccountConsentForm({ phoneNumber }) {
+export default function AccountConsentForm({
+  phoneNumber,
+  setChecked,
+  setOpen,
+}) {
   const { getValues } = useFormContext();
   console.log(getValues());
   const { fullName, address } = getValues();
   const { user } = useUser();
   const date = new Date();
-  console.log(formatDate(date));
+
   const accountHoldersInformations = [
     { title: "Name - Surname", description: fullName },
     { title: "Address", description: address },
     { title: "Phone Number", description: phoneNumber },
     { title: "E-mail Address", description: user.email },
   ];
-  
+  function handleClick() {
+    setChecked(true);
+    setOpen(false);
+  }
+  //   check box state, modalda ve hesap yokken create işleminde loader gelmiyor
+  // buton submit yaparken loader gelebilir, required form
   return (
     <Grid container spacing={3}>
       <Grid item xs={12}>
@@ -132,6 +142,9 @@ export default function AccountConsentForm({ phoneNumber }) {
           opening for the necessary approval.
         </Typography>
         <Typography variant="body1">{formatDate(date)}</Typography>
+      </Grid>
+      <Grid item xs={12} sx={{ justifyContent: "center", display: "flex" }}>
+        <CustomButton buttonText="Read and Understood" onClick={handleClick} />
       </Grid>
     </Grid>
   );
