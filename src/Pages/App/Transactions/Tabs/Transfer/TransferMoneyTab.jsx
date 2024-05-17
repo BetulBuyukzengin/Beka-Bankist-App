@@ -8,6 +8,7 @@ import TransactionControl from "./TransactionControl";
 import { useForm, FormProvider } from "react-hook-form";
 import React from "react";
 import { useCreateMovements } from "../../../../../services/movementsServices";
+import { useUser } from "../../../../../services/userServices";
 
 const transactionSteps = [
   {
@@ -35,11 +36,12 @@ export default function TransferMoneyTab() {
   const [activeStep, setActiveStep] = React.useState(0);
 
   const { createMovement, isCreating } = useCreateMovements();
-
+  const { user } = useUser();
   const methods = useForm();
+  const senderFullName = user.user_metadata.fullName;
 
   const onSubmit = async (data) => {
-    await createMovement(data);
+    await createMovement({ ...data, senderFullName });
   };
   return (
     <FormProvider {...methods}>
