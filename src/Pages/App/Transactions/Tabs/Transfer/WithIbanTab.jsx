@@ -18,11 +18,11 @@ function WithIbanTab() {
       >
         <Grid item xs={6} sx={{ display: "flex", gap: "1rem" }}>
           <CustomTextField
-            id="iban"
-            label="IBAN"
+            id="recipientIban"
+            label="Recipient Iban"
             defaultValue="TR"
             register={{
-              ...register("iban", {
+              ...register("recipientIban", {
                 required: true,
               }),
             }}
@@ -30,10 +30,10 @@ function WithIbanTab() {
         </Grid>
         <Grid item xs={6} sx={{ display: "flex", gap: "1rem" }}>
           <CustomTextField
-            id="fullName"
-            label="Full Name"
+            id="recipientFullName"
+            label="Recipient Full Name"
             register={{
-              ...register("fullNameWithIban", {
+              ...register("recipientFullNameWithIban", {
                 required: true,
               }),
             }}
