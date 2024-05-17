@@ -11,18 +11,18 @@ const bankContent = [
     value: "",
   },
   {
-    content: "Ziraat Bank",
-    value: "ziraatBank",
+    content: "Ziraat ",
+    value: "ziraat",
   },
   {
-    content: "Akbank Bank",
-    value: "akbankBank",
+    content: "Akbank ",
+    value: "akbank",
   },
 ];
 
 const branchContent = [
   {
-    content: "Select Branch",
+    content: "Select Recipient Branch",
     value: "",
   },
   {
@@ -39,13 +39,16 @@ function AccountNumberTab() {
   const { register, watch } = useFormContext();
   const watchSaveAsRegisteredWithAccount = watch("saveAsRegisteredWithAccount");
   const [searchParams, setSearchParams] = useSearchParams();
-  const watchBankName = watch("bankName");
-  const watchBankBranch = watch("bankBranch");
+  const watchRecipientBankName = watch("recipientBankName");
+  const watchBankBranch = watch("recipientBankBranch");
 
   useEffect(
     function () {
-      if (watchBankName !== "" && watchBankName !== undefined) {
-        searchParams.set("selected-bank", watchBankName);
+      if (
+        watchRecipientBankName !== "" &&
+        watchRecipientBankName !== undefined
+      ) {
+        searchParams.set("selected-bank", watchRecipientBankName);
         setSearchParams(searchParams);
       }
       if (watchBankBranch !== "" && watchBankBranch !== undefined) {
@@ -53,7 +56,7 @@ function AccountNumberTab() {
         setSearchParams(searchParams);
       }
     },
-    [searchParams, setSearchParams, watchBankName, watchBankBranch]
+    [searchParams, setSearchParams, watchRecipientBankName, watchBankBranch]
   );
 
   return (
@@ -72,7 +75,7 @@ function AccountNumberTab() {
             value={searchParams.get("selected-bank") || ""}
             defaultValue=""
             register={{
-              ...register("bankName"),
+              ...register("recipientBankName"),
             }}
           />
         </Grid>
@@ -82,22 +85,22 @@ function AccountNumberTab() {
             value={searchParams.get("selected-branch") || ""}
             defaultValue=""
             register={{
-              ...register("bankBranch"),
+              ...register("recipientBankBranch"),
             }}
           />
         </Grid>
         <Grid item xs={6}>
           <CustomTextField
-            id="accountNumber"
-            label="Account Number"
-            register={{ ...register("accountNumber") }}
+            id="recipientAccountNumber"
+            label="Recipient Account Number"
+            register={{ ...register("recipientAccountNumber") }}
           />
         </Grid>
         <Grid item xs={6}>
           <CustomTextField
-            id="fullName"
-            label="Full Name"
-            register={{ ...register("fullNameWithAccount") }}
+            id="recipientFullNameAccount"
+            label="Recipient Full Name"
+            register={{ ...register("recipientFullNameWithAccount") }}
           />
         </Grid>
 
