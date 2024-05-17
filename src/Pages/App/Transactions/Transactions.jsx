@@ -32,6 +32,7 @@ function Transactions() {
     if (pathname === "/applayout/transactions") {
       searchParams.set("transactions-tab", 0);
       searchParams.set("recipient-account-tab", 0);
+      searchParams.set("status", content[0].label);
       setSearchParams(searchParams);
     }
   }, []);
