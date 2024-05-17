@@ -10,9 +10,12 @@ import {
 import Table from "@mui/material/Table";
 import DetailTableHead from "./TableHeads/DetailTableHead";
 import { formatCurrency } from "../../../utils/utils";
+import { useUser } from "../../../services/userServices";
 
 function DetailTableRow({ row, open }) {
-  console.log(row);
+  // const { user } = useUser();
+  const senderAccountNumber = JSON.parse(row.selectedAccount).accountNumber;
+
   return (
     <TableRow>
       <TableCell
@@ -37,26 +40,28 @@ function DetailTableRow({ row, open }) {
                   >
                     {formatCurrency(150000)}
                   </TableCell>
+
+                  <TableCell
+                    sx={{ color: "var(--color-text)", borderBottom: "none" }}
+                  >
+                    {row.senderFullName}
+                  </TableCell>
+                  <TableCell
+                    sx={{ color: "var(--color-text)", borderBottom: "none" }}
+                  >
+                    {senderAccountNumber}
+                  </TableCell>
                   <TableCell
                     sx={{ color: "var(--color-text)", borderBottom: "none" }}
                   >
                     {/* gönderen ve alıcıya göre ısım degısecek 2 taraflı dusun */}
-                    {row.fullNameWithIban || row.fullNameWithAccount}
+                    {row.recipientFullNameWithIban ||
+                      row.recipientFullNameWithAccount}
                   </TableCell>
                   <TableCell
                     sx={{ color: "var(--color-text)", borderBottom: "none" }}
                   >
-                    {row.bankBranch}
-                  </TableCell>
-                  <TableCell
-                    sx={{ color: "var(--color-text)", borderBottom: "none" }}
-                  >
-                    {row.bankName}
-                  </TableCell>
-                  <TableCell
-                    sx={{ color: "var(--color-text)", borderBottom: "none" }}
-                  >
-                    {row.amountToSend}
+                    {row.recipientIban || row.recipientAccountNumber}
                   </TableCell>
                 </TableRow>
               </TableBody>
