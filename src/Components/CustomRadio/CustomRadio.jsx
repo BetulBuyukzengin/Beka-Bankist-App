@@ -3,6 +3,9 @@ import { NavigateNext } from "@mui/icons-material";
 import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
 import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
+import { useGetAccounts } from "../../services/accountServices";
+import { formatCurrency, formatWord } from "../../utils/utils";
+import Loader from "../Loader/Loader";
 
 const StyledH6 = styled.h6`
   text-align: start;
@@ -20,40 +23,28 @@ const StyledAccountCheckComponent = styled.div`
   margin: 1rem 0;
   border: 1px solid var(--color-border-2);
 `;
-const accounts = [
-  {
-    branch: "Meram-500",
-    balance: 500,
-    accountNumber: 416465464156,
-  },
-  {
-    branch: "Acıpayam-500",
-    balance: 50,
-    accountNumber: 111514654156,
-  },
-  {
-    branch: "Selçuklu-500",
-    balance: 100,
-    accountNumber: 200054654156,
-  },
-];
-function AccountCheckComp({ account }) {
-  const [searchParams] = useSearchParams();
 
-  const selectedAccount = searchParams.get("selectedAccount");
+function AccountCheckComp({ account }) {
+  console.log(account);
+  const [searchParams] = useSearchParams();
+  const selectedAccount = JSON.parse(searchParams.get("selectedAccount"));
 
   return (
     <StyledAccountCheckComponent
       style={{
         backgroundColor:
-          account.accountNumber === +selectedAccount &&
+          account?.accountNumber === selectedAccount?.accountNumber &&
           "var(--color-background-3)",
       }}
     >
       <div>
-        <StyledH6>{account.branch}</StyledH6>
+        <StyledH6>
+          {`${formatWord(account.bankName)} - ${formatWord(
+            account.bankBranch
+          )}`}
+        </StyledH6>
         <StyledTitleLabel>
-          Kullanılabilir bakiye: {account.balance}
+          Kullanılabilir bakiye: {formatCurrency(account.balance)}
         </StyledTitleLabel>
       </div>
       <div>
@@ -64,12 +55,15 @@ function AccountCheckComp({ account }) {
 }
 
 export default function CustomRadio({ register, onChange, value }) {
+  const { isLoading, accounts } = useGetAccounts();
+  if (isLoading) return <Loader />;
   return (
     <RadioGroup
       aria-labelledby="selected-account-aria-label"
       name="selected-account-radio-group"
       value={value}
       onChange={onChange}
+      sx={{ display: "flex", gap: "1rem", cursor: "default" }}
     >
       {accounts.map((account) => (
         <FormControlLabel
@@ -82,18 +76,20 @@ export default function CustomRadio({ register, onChange, value }) {
           control={
             <Radio
               sx={{
-                height: "20%",
-                width: "21.5%",
-                position: "absolute",
+                height: "7rem",
+                width: "17rem",
+                position: "fixed",
                 borderRadius: "0px",
-                opacity: "0",
+
+                // opacity: "0",
                 "&+span": {
                   width: "17rem",
+                  height: "10rem!important",
                 },
               }}
             />
           }
-          value={account.accountNumber}
+          value={JSON.stringify(account)}
           label={<AccountCheckComp account={account} />}
         />
       ))}
