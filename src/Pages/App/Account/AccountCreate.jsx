@@ -18,6 +18,7 @@ import Loader from "../../../Components/Loader/Loader";
 import CustomModal from "../../../Components/CustomModal/CustomModal";
 import AccountConsentForm from "./AccountConsentForm";
 import { useUser } from "../../../services/userServices";
+import { DatePicker } from "@mui/x-date-pickers";
 
 const bankContent = [
   {
@@ -25,12 +26,12 @@ const bankContent = [
     value: "",
   },
   {
-    content: "Ziraat Bank",
-    value: "ziraatBank",
+    content: "Ziraat ",
+    value: "ziraat",
   },
   {
-    content: "Akbank Bank",
-    value: "akbankBank",
+    content: "Akbank ",
+    value: "akbank",
   },
 ];
 
@@ -65,15 +66,14 @@ const StyledLabel = styled.label``;
 
 function AccountCreate() {
   const methods = useForm();
-  const [birthday, setBirthday] = useState(new Date());
+  const [birthday, setBirthday] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState();
   const [open, setOpen] = useState(false);
   const { user } = useUser();
   const { isLoading, mutateAsync } = useCreateAccount();
   const [checked, setChecked] = useState(false);
-
   const { errors } = methods.formState;
-
+  const isError = errors?.birthday || !birthday;
   function handleChangePhone(phone) {
     setPhoneNumber(phone);
   }
@@ -86,13 +86,15 @@ function AccountCreate() {
       phoneNumber,
       iban,
       accountNumber,
+      birthday,
       balance: 0,
       isFormApproved: checked || "",
     };
-    console.log(formDatas);
+
+    if (calcAge(formDatas.birthday) < 18)
+      return toast.error("You are younger than 18");
     await mutateAsync(formDatas);
   }
-
   if (isLoading) return <Loader />;
   return (
     <>
@@ -154,17 +156,54 @@ function AccountCreate() {
             </Grid>
 
             <Grid item xs={6}>
-              <CustomDatePicker
+              <DatePicker
                 //! required ekle
                 width="tall"
                 label="Birthday"
                 value={birthday}
+                {...methods.register("birthday", {
+                  required: "This field is required!",
+                })}
+                slotProps={{
+                  popper: { placement: "right-start" },
+                  textField: {
+                    required: "This field is required!",
+                    // helperText: helperText,
+
+                    // required: required ? "This field is required!" : undefined,
+                    // error: isError,
+                  },
+                }}
+                // register={{
+                //   ...methods.register("birthday", {
+                //     required: "This field is required!",
+                //   }),
+                // }}
+
+                helperText={errors?.birthday?.message}
+                error={errors}
                 onChange={(date) => {
                   setBirthday(date);
-                  methods.setValue("birthday", date);
-                  if (calcAge(date) < 18) {
-                    toast.error("You are younger than 18 ");
-                  }
+                }}
+                sx={{
+                  // marginTop: margin === "small" && "1rem",
+                  // width: width === "small" ? "70%" : "100%",
+                  "&:hover > div > fieldset": {
+                    borderColor: "var(--color-text)!important",
+                  },
+                  "&>label": {
+                    color: "var(--color-text)",
+                  },
+                  "& > div": {
+                    color: "var(--color-text)",
+
+                    "& > fieldset": {
+                      borderColor: isError
+                        ? "red !important"
+                        : "var(--color-border-2) !important",
+                      // borderColor: "var(--color-border-2)!important",
+                    },
+                  },
                 }}
               />
             </Grid>
@@ -173,6 +212,9 @@ function AccountCreate() {
                 preferredCountries={["TR", "US", "KR"]}
                 defaultCountry="TR"
                 value={phoneNumber}
+                {...methods.register("phoneNumber", {
+                  required: "This field is required!",
+                })}
                 onChange={(phone) => handleChangePhone(phone)}
                 //! required ekle
               />
