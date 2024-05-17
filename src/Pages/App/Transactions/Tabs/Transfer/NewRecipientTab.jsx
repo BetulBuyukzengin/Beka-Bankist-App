@@ -20,17 +20,18 @@ function NewRecipientTab() {
   useEffect(
     function () {
       if (searchParams.get("new-recipient-tab") === "1") {
-        resetField("iban", { defaultValue: "" });
-        resetField("fullNameWithIban", { defaultValue: "" });
+        resetField("recipientIban", { defaultValue: "" });
+        resetField("recipientFullNameWithIban", { defaultValue: "" });
         resetField("shortName", { defaultValue: "" });
       }
+      //recipientBankName yazdım bakName yerine !!!!!!!!!!!!!!!!!
       if (searchParams.get("new-recipient-tab") === "0") {
-        resetField("bankName", { defaultValue: "" });
+        resetField("recipientBankName", { defaultValue: "" });
         searchParams.delete("selected-bank");
-        resetField("bankBranch", { defaultValue: "" });
+        resetField("recipientBankBranch", { defaultValue: "" });
         searchParams.delete("selected-branch");
-        resetField("accountNumber", { defaultValue: "" });
-        resetField("fullNameWithAccount", { defaultValue: "" });
+        resetField("recipientAccountNumber", { defaultValue: "" });
+        resetField("recipientFullNameWithAccount", { defaultValue: "" });
         resetField("shortName", { defaultValue: "" });
         setSearchParams(searchParams);
       }
