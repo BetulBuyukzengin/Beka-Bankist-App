@@ -51,7 +51,6 @@ export default function AccountConsentForm({
   setOpen,
 }) {
   const { getValues } = useFormContext();
-  console.log(getValues());
   const { fullName, address } = getValues();
   const { user } = useUser();
   const date = new Date();

@@ -20,15 +20,20 @@ function DetailTableHead({ row }) {
   return (
     <TableHead>
       <TableRow>
-      
         <TableCell sx={{ color: "var(--color-text)" }}>
           Current Balance
         </TableCell>
-        <TableCell sx={{ color: "var(--color-text)" }}>Sender</TableCell>
-        <TableCell sx={{ color: "var(--color-text)" }}>Sender Branch</TableCell>
-        <TableCell sx={{ color: "var(--color-text)" }}>Recipient</TableCell>
+        <TableCell sx={{ color: "var(--color-text)" }}>Sender Name</TableCell>
         <TableCell sx={{ color: "var(--color-text)" }}>
-          Recipient Branch
+          Sender Account Number
+        </TableCell>
+        <TableCell sx={{ color: "var(--color-text)" }}>
+          Recipient Name
+        </TableCell>
+        <TableCell sx={{ color: "var(--color-text)" }}>
+          {row.recipientFullNameWithAccount
+            ? "Recipient Account Number"
+            : "Recipient Iban"}
         </TableCell>
         <TableCell sx={{ color: "var(--color-text)", borderBottom: "none" }}>
           <StyledButton onClick={handleOpen}>

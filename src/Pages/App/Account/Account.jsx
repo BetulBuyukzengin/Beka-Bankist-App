@@ -5,7 +5,6 @@ import CurrentAccounts from "./CurrentAccounts";
 
 function Account() {
   const { accounts, isLoading } = useGetAccounts();
-  //   console.log(accounts);
   if (isLoading) return <Loader />;
   return (
     <>{accounts.length > 0 ? <CurrentAccounts /> : <BankAccountCreate />}</>

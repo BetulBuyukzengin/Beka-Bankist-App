@@ -18,7 +18,6 @@ const StyledImg = styled.img`
   width: 10%;
 `;
 function AccountsContent({ item }) {
-  console.log(item);
   return (
     <Grid container gap={5}>
       <Grid container spacing={2}>
