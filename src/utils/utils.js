@@ -90,3 +90,7 @@ export function generateRandomBankAccountNumber() {
 
   return bankCode + formattedAccountNumber;
 }
+
+export function formatWord(word) {
+  return word.slice(0, 1).toUpperCase() + word.slice(1).toLowerCase();
+}
