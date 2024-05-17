@@ -25,26 +25,23 @@ function MainTableRow({ open, setOpen, row }) {
         </IconButton>
       </TableCell>
       <TableCell component="th" scope="row" sx={{ color: "var(--color-text)" }}>
-        {/* <Chip
-          label={
-            row.status.slice(0, 1).toUpperCase() +
-            row.status.slice(1).toLowerCase()
-          }
+        <Chip
+          label={row.status}
           color={
-            row.status === "deposit"
+            row.status === "Deposit"
               ? "success"
-              : row.status === "transfer"
+              : row.status === "Transfer"
               ? "warning"
               : "error"
           }
-        /> */}
+        />
       </TableCell>
       <TableCell align="center" sx={{ color: "var(--color-text)" }}>
-        {/* {formatDate(row.created_at)} */}
+        {formatDate(row.createdAt)}
       </TableCell>
       <TableCell align="center" sx={{ color: "var(--color-text)" }}>
-        {/* {row.status === "withdraw" || row.status === "transfer" ? "-  " : ""} */}
-        {/* {formatCurrency(row.movements)} */}
+        {row.status === "Withdraw" || row.status === "Transfer" ? "-  " : ""}
+        {formatCurrency(row.amountToSend)}
       </TableCell>
     </TableRow>
   );
