@@ -5,11 +5,13 @@ import styled from "styled-components";
 import { useFormContext } from "react-hook-form";
 import {
   formatCurrency,
+  formatWord,
   generatePaymentMethod,
 } from "../../../../../utils/utils";
 import CustomDatePicker from "../../../../../Components/CustomDatePicker/CustomDatePicker";
 import { useState } from "react";
 import { useCreateMovements } from "../../../../../services/movementsServices";
+import { useSearchParams } from "react-router-dom";
 
 const StyledBox = styled(Box)`
   background-color: transparent;
@@ -57,26 +59,32 @@ const styleMarginRight = {
 export default function TransactionControl() {
   const [date, setDate] = useState(new Date());
 
-  const { getValues, setValue, handleSubmit } = useFormContext();
+  const { getValues, setValue } = useFormContext();
+  const [searchParams] = useSearchParams();
+
+  const getStatus = searchParams.get("status");
+  setValue("status", getStatus);
   console.log(getValues());
   const { createMovement } = useCreateMovements();
+
   function onSubmit(data) {
     createMovement(data);
   }
 
   const {
-    accountNumber,
-    iban,
-    fullNameWithAccount,
-    fullNameWithIban,
-    bankBranch,
-    bankName,
+    recipientAccountNumber,
+    recipientIban,
+    recipientFullNameWithAccount,
+    recipientFullNameWithIban,
+    recipientBankBranch,
+    recipientBankName,
     paymentMethod,
     selectedAccount,
     transferDescription,
     amountToSend,
   } = getValues();
-
+  const { accountNumber, bankName } = JSON.parse(selectedAccount);
+  // console.log(accountNumber, bankName);
   return (
     <Box
       sx={{
@@ -98,17 +106,22 @@ export default function TransactionControl() {
           <StyledItem>Recipient Account</StyledItem>
           <StyledBox>
             <div style={styleMarginRight}>
-              Full Name: {fullNameWithAccount || fullNameWithIban}
+              Full Name:
+              {recipientFullNameWithAccount || recipientFullNameWithIban}
             </div>
-            {bankName && (
-              <div style={styleMarginRight}>Bank Name: {bankName}</div>
+            {recipientBankName && (
+              <div style={styleMarginRight}>
+                Bank Name: {formatWord(recipientBankName)}
+              </div>
             )}
-            {bankBranch && (
-              <div style={styleMarginRight}>Bank Branch: {bankBranch}</div>
+            {recipientBankBranch && (
+              <div style={styleMarginRight}>
+                Bank Branch: {formatWord(recipientBankBranch)}
+              </div>
             )}
             <div>
-              {accountNumber ? "Account Number" : "Iban"}:{" "}
-              {accountNumber || iban}
+              {recipientAccountNumber ? "Account Number" : "Iban"}:{" "}
+              {recipientAccountNumber || recipientIban}
             </div>
           </StyledBox>
         </StyledGrid>
@@ -116,7 +129,7 @@ export default function TransactionControl() {
         <StyledGrid item xs={8}>
           <StyledItem>Sender Account</StyledItem>
           <StyledBox>
-            <div>Selected Account: {selectedAccount}</div>
+            <div>Selected Account: {accountNumber}</div>
             <div>Balance: 125</div>
           </StyledBox>
         </StyledGrid>
@@ -155,9 +168,6 @@ export default function TransactionControl() {
               setValue("transactionDate", newValue);
             }}
           />
-        </StyledGrid>
-        <StyledGrid item xs={8}>
-          <button onSubmit={handleSubmit(onSubmit)}>CONFIRM</button>
         </StyledGrid>
       </Grid>
     </Box>
