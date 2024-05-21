@@ -30,6 +30,14 @@ function AmountDetermination() {
   const [newRemainingLimit, setNewRemainingLimit] = useState();
   const [searchParams, setSearchParams] = useSearchParams();
 
+  const selectRemainingBalance = JSON.parse(
+    searchParams.get("selectedAccount")
+  )?.balance;
+
+  const [remainingBalance, setRemainingBalance] = useState(
+    selectRemainingBalance
+  );
+
   function handleClick() {
     setAmountToSendValue(frequentlyAmount);
     setValue("amountToSend", frequentlyAmount);
@@ -51,7 +59,12 @@ function AmountDetermination() {
     },
     [amountToSendValue]
   );
-
+  useEffect(
+    function () {
+      setRemainingBalance(selectRemainingBalance - amountToSendValue);
+    },
+    [amountToSendValue]
+  );
   useEffect(() => {
     if (searchParams.get("amount-to-send")) {
       setAmountToSendValue(searchParams.get("amount-to-send"));
@@ -66,16 +79,25 @@ function AmountDetermination() {
           <label>{formatCurrency(newRemainingLimit || remainingLimit)}</label>
         </Box>
       </Grid>
-
+      <Grid item xs={12} sx={GridStyle}>
+        <Box
+          sx={{ ...BoxStyle, cursor: "pointer" }}
+          // onClick={handleClickBalance}
+        >
+          <label style={{ cursor: "pointer" }}>Remaining balance: </label>
+          <label style={{ cursor: "pointer" }}>
+            {formatCurrency(remainingBalance)}
+          </label>
+        </Box>
+      </Grid>
       <Grid item xs={12} sx={GridStyle}>
         <Box sx={{ ...BoxStyle, cursor: "pointer" }} onClick={handleClick}>
-          <label style={{ cursor: "pointer" }}>Frequently sent amount:</label>
+          <label style={{ cursor: "pointer" }}>Frequently sent amount: </label>
           <label style={{ cursor: "pointer" }}>
             {formatCurrency(frequentlyAmount)}
           </label>
         </Box>
       </Grid>
-
       <Grid item xs={12} sx={GridStyle}>
         <Box sx={{ ...BoxStyle, padding: "0", border: "none" }}>
           <CustomTextField
