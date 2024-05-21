@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+/* eslint-disable react/prop-types */
 import { NavigateNext } from "@mui/icons-material";
 import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
 import { useSearchParams } from "react-router-dom";
@@ -63,7 +64,11 @@ export default function CustomRadio({ register, onChange, value }) {
       name="selected-account-radio-group"
       value={value}
       onChange={onChange}
-      sx={{ display: "flex", gap: "1rem", cursor: "default" }}
+      sx={{
+        display: "flex",
+        gap: "1rem",
+        cursor: "default",
+      }}
     >
       {accounts.map((account) => (
         <FormControlLabel
@@ -78,9 +83,8 @@ export default function CustomRadio({ register, onChange, value }) {
               sx={{
                 height: "7rem",
                 width: "17rem",
-                position: "fixed",
+                // position: "fixed",
                 borderRadius: "0px",
-
                 // opacity: "0",
                 "&+span": {
                   width: "17rem",
