@@ -1,6 +1,11 @@
+import { useMovements } from "../../../services/movementsServices";
+import MovementsNotification from "./MovementsNotification";
 import MovementsTable from "./MovementsTable";
+import Loader from "../../../Components/Loader/Loader";
 
 function Movements() {
+  const { isLoading, movements } = useMovements();
+  if (isLoading) return <Loader />;
   return (
     <>
       <h3
@@ -14,7 +19,7 @@ function Movements() {
       >
         MOVEMENTS
       </h3>
-      <MovementsTable />
+      {movements.length ? <MovementsTable /> : <MovementsNotification />}
     </>
   );
 }
