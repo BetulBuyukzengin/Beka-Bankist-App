@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+// /* eslint-disable react/prop-types */
 import { Box, Grid } from "@mui/material";
 import { useFormContext } from "react-hook-form";
 import styled from "styled-components";
@@ -44,5 +44,4 @@ function SenderAccount() {
     </Grid>
   );
 }
-
 export default SenderAccount;

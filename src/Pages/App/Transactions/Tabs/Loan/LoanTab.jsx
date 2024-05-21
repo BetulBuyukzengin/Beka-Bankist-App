@@ -23,7 +23,11 @@ const transactionSteps = [
   },
 ];
 function LoanTab() {
-  return <StepperComponent transactionSteps={transactionSteps} />;
+  return (
+    <>
+      <StepperComponent transactionSteps={transactionSteps} />
+    </>
+  );
 }
 
 export default LoanTab;
