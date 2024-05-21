@@ -94,3 +94,10 @@ export function generateRandomBankAccountNumber() {
 export function formatWord(word) {
   return word.slice(0, 1).toUpperCase() + word.slice(1).toLowerCase();
 }
+
+export function formatArrayWord(words) {
+  const arrayWords = words.split(" ");
+  return arrayWords
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(" ");
+}
