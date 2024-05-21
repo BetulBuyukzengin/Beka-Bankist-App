@@ -4,6 +4,7 @@ import Grid from "@mui/material/Grid";
 import styled from "styled-components";
 import { useFormContext } from "react-hook-form";
 import {
+  formatArrayWord,
   formatCurrency,
   formatWord,
   generatePaymentMethod,
@@ -12,6 +13,7 @@ import CustomDatePicker from "../../../../../Components/CustomDatePicker/CustomD
 import { useState } from "react";
 import { useCreateMovements } from "../../../../../services/movementsServices";
 import { useSearchParams } from "react-router-dom";
+import { DatePicker } from "@mui/x-date-pickers";
 
 const StyledBox = styled(Box)`
   background-color: transparent;
@@ -65,11 +67,6 @@ export default function TransactionControl() {
   const getStatus = searchParams.get("status");
   setValue("status", getStatus);
   console.log(getValues());
-  const { createMovement } = useCreateMovements();
-
-  function onSubmit(data) {
-    createMovement(data);
-  }
 
   const {
     recipientAccountNumber,
@@ -83,8 +80,8 @@ export default function TransactionControl() {
     transferDescription,
     amountToSend,
   } = getValues();
+
   const { accountNumber, bankName } = JSON.parse(selectedAccount);
-  // console.log(accountNumber, bankName);
   return (
     <Box
       sx={{
@@ -107,7 +104,8 @@ export default function TransactionControl() {
           <StyledBox>
             <div style={styleMarginRight}>
               Full Name:
-              {recipientFullNameWithAccount || recipientFullNameWithIban}
+              {formatArrayWord(recipientFullNameWithAccount) ||
+                formatArrayWord(recipientFullNameWithIban)}
             </div>
             {recipientBankName && (
               <div style={styleMarginRight}>
@@ -148,7 +146,7 @@ export default function TransactionControl() {
         <StyledGrid item xs={8}>
           <StyledItem>Description </StyledItem>
           <StyledBox>
-            <StyledLabel>{transferDescription}</StyledLabel>
+            <StyledLabel>{formatArrayWord(transferDescription)}</StyledLabel>
           </StyledBox>
         </StyledGrid>
         <StyledGrid item xs={8}>
@@ -159,13 +157,29 @@ export default function TransactionControl() {
         </StyledGrid>
         <StyledGrid item xs={8}>
           <StyledItem>Transaction Date</StyledItem>
-          <CustomDatePicker
-            width="small"
-            margin="small"
+
+          <DatePicker
             value={date}
             onChange={(newValue) => {
               setDate(newValue);
               setValue("transactionDate", newValue);
+            }}
+            sx={{
+              marginTop: "1rem",
+              width: "70%",
+              "&:hover > div > fieldset": {
+                borderColor: "var(--color-text)!important",
+              },
+              "&>label": {
+                color: "var(--color-text)",
+              },
+              "& > div": {
+                color: "var(--color-text)",
+
+                "& > fieldset": {
+                  borderColor: "var(--color-border-2) !important",
+                },
+              },
             }}
           />
         </StyledGrid>
