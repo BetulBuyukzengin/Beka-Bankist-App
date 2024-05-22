@@ -9,6 +9,8 @@ import { useForm, FormProvider } from "react-hook-form";
 import React from "react";
 import { useCreateMovements } from "../../../../../services/movementsServices";
 import { useUser } from "../../../../../services/userServices";
+import { useUpdateBalance } from "../../../../../services/accountServices";
+import { useSearchParams } from "react-router-dom";
 
 const transactionSteps = [
   {
@@ -36,12 +38,24 @@ export default function TransferMoneyTab() {
   const [activeStep, setActiveStep] = React.useState(0);
 
   const { createMovement, isCreating } = useCreateMovements();
+  // const { isLoading, mutateAsync } = useCreateAccount();
   const { user } = useUser();
   const methods = useForm();
   const senderFullName = user.user_metadata.fullName;
+  const [searchParams] = useSearchParams();
+  const selectedAccount = JSON.parse(searchParams.get("selectedAccount"));
+  const id = selectedAccount?.id;
+  const { isLoading, mutateAsync: updateBalance } = useUpdateBalance();
 
   const onSubmit = async (data) => {
+    const updatedBalance = selectedAccount.balance - +data.amountToSend;
+    console.log(data);
     await createMovement({ ...data, senderFullName });
+    const updatedAccount = {
+      ...selectedAccount,
+      balance: updatedBalance,
+    };
+    await updateBalance({ id, account: updatedAccount });
   };
   return (
     <FormProvider {...methods}>

@@ -37,3 +37,22 @@ export function useCreateAccount() {
   });
   return { mutateAsync, isLoading };
 }
+
+async function updateBalance(id, account) {
+  const { data, error } = await supabase
+    .from("accounts")
+    .update(account)
+    .eq("id", id)
+    .select();
+
+  if (error) throw new Error(error.message);
+  return data;
+}
+
+export function useUpdateBalance() {
+  const { mutateAsync, isLoading } = useMutation({
+    mutationFn: ({ id, account }) => updateBalance(id, account),
+    // onError: () => toast.error("Balance updated"),
+  });
+  return { mutateAsync, isLoading };
+}
