@@ -6,6 +6,7 @@ import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import { useSearchParams } from "react-router-dom";
 
 export default function StepperComponent({
   transactionSteps,
@@ -13,6 +14,8 @@ export default function StepperComponent({
   setActiveStep,
 }) {
   const [skipped, setSkipped] = React.useState(new Set());
+  const [searchParams] = useSearchParams();
+  const tabIndex = searchParams.get("transactions-tab");
   const isStepSkipped = (step) => {
     return skipped.has(step);
   };
@@ -30,7 +33,7 @@ export default function StepperComponent({
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
-
+  console.log(transactionSteps);
   return (
     <Box sx={{ width: "100%" }}>
       <Stepper activeStep={activeStep}>
@@ -56,8 +59,11 @@ export default function StepperComponent({
       </Stepper>
       <React.Fragment>
         {transactionSteps.map((transaction, index) => {
+          console.log(index, activeStep);
           return (
             <React.Fragment key={index}>
+              {/* {index === +tabIndex && ( */}
+
               {index === activeStep && (
                 <Box
                   sx={{
