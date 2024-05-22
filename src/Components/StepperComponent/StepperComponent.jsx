@@ -55,23 +55,25 @@ export default function StepperComponent({
         })}
       </Stepper>
       <React.Fragment>
-        {transactionSteps.map((transaction, index) => (
-          <React.Fragment key={index}>
-            {index === activeStep && (
-              <Box
-                sx={{
-                  height: "22rem",
-                  overflowY: "auto",
-                }}
-              >
-                <Typography sx={{ mt: 2, mb: 1 }}>
-                  {transaction.label}
-                </Typography>
-                <Box>{transaction.component}</Box>
-              </Box>
-            )}
-          </React.Fragment>
-        ))}
+        {transactionSteps.map((transaction, index) => {
+          return (
+            <React.Fragment key={index}>
+              {index === activeStep && (
+                <Box
+                  sx={{
+                    height: "22rem",
+                    overflowY: "auto",
+                  }}
+                >
+                  <Typography sx={{ mt: 2, mb: 1 }}>
+                    {transaction.label}
+                  </Typography>
+                  <Box>{transaction.component}</Box>
+                </Box>
+              )}
+            </React.Fragment>
+          );
+        })}
         <Box
           sx={{
             display: "flex",

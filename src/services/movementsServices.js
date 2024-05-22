@@ -26,7 +26,9 @@ export async function createMovements(newMovement) {
 export function useCreateMovements() {
   const queryClient = useQueryClient();
   const { mutateAsync: createMovement, isLoading: isCreating } = useMutation({
-    mutationFn: (data) => createMovements(data),
+    mutationFn: (data) => {
+      createMovements(data);
+    },
     onSuccess: () => {
       toast.success("Transfer was successfully completed");
       queryClient.invalidateQueries({ queryKey: ["movements"] });

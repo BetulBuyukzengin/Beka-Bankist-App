@@ -26,7 +26,6 @@ const StyledAccountCheckComponent = styled.div`
 `;
 
 function AccountCheckComp({ account }) {
-  console.log(account);
   const [searchParams] = useSearchParams();
   const selectedAccount = JSON.parse(searchParams.get("selectedAccount"));
 

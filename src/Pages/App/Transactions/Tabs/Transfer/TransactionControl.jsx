@@ -66,7 +66,6 @@ export default function TransactionControl() {
 
   const getStatus = searchParams.get("status");
   setValue("status", getStatus);
-  console.log(getValues());
 
   const {
     recipientAccountNumber,
