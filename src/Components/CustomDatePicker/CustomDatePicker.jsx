@@ -23,9 +23,7 @@ function CustomDatePicker({
       slotProps={{
         popper: { placement: "right-start" },
         textField: {
-          // required: "This field is required!",
           helperText: helperText,
-          // required: required ? "This field is required!" : undefined,
           error: isError,
         },
       }}
@@ -46,7 +44,6 @@ function CustomDatePicker({
             borderColor: isError
               ? "red !important"
               : "var(--color-border-2) !important",
-            // borderColor: "var(--color-border-2)!important",
           },
         },
       }}
