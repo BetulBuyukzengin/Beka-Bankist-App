@@ -33,7 +33,6 @@ export default function StepperComponent({
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
-  console.log(transactionSteps);
   return (
     <Box sx={{ width: "100%" }}>
       <Stepper activeStep={activeStep}>
@@ -59,7 +58,6 @@ export default function StepperComponent({
       </Stepper>
       <React.Fragment>
         {transactionSteps.map((transaction, index) => {
-          console.log(index, activeStep);
           return (
             <React.Fragment key={index}>
               {/* {index === +tabIndex && ( */}
