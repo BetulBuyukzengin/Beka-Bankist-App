@@ -9,9 +9,7 @@ import {
   formatWord,
   generatePaymentMethod,
 } from "../../../../../utils/utils";
-import CustomDatePicker from "../../../../../Components/CustomDatePicker/CustomDatePicker";
 import { useState } from "react";
-import { useCreateMovements } from "../../../../../services/movementsServices";
 import { useSearchParams } from "react-router-dom";
 import { DatePicker } from "@mui/x-date-pickers";
 
@@ -80,7 +78,7 @@ export default function TransactionControl() {
     amountToSend,
   } = getValues();
 
-  const { accountNumber, bankName } = JSON.parse(selectedAccount);
+  const { accountNumber } = JSON.parse(selectedAccount);
   return (
     <Box
       sx={{

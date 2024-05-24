@@ -73,9 +73,11 @@ function AccountCreate() {
   const [checked, setChecked] = useState(false);
   const { errors } = methods.formState;
   const isError = errors?.birthday || !birthday;
+
   function handleChangePhone(phone) {
     setPhoneNumber(phone);
   }
+
   async function onSubmit(data) {
     const iban = generateRandomIBAN();
     //! Hesaplar tablosundan ibanları, hesap no kıyasla
@@ -167,18 +169,8 @@ function AccountCreate() {
                   popper: { placement: "right-start" },
                   textField: {
                     required: "This field is required!",
-                    // helperText: helperText,
-
-                    // required: required ? "This field is required!" : undefined,
-                    // error: isError,
                   },
                 }}
-                // register={{
-                //   ...methods.register("birthday", {
-                //     required: "This field is required!",
-                //   }),
-                // }}
-
                 helperText={errors?.birthday?.message}
                 error={errors}
                 onChange={(date) => {
