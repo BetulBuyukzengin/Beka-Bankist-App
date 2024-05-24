@@ -43,7 +43,6 @@ function LoanTab() {
           activeStep={activeStep}
           setActiveStep={setActiveStep}
         />
-        <button type="submit">add</button>
       </form>
     </FormProvider>
   );
