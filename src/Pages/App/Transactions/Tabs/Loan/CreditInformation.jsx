@@ -1,13 +1,31 @@
 import { Grid } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { calculateAndFormatLoan } from "../../../../../utils/utils";
 import CustomSelect from "../../../../../Components/CustomSelect/CustomSelect";
 import CustomTextField from "../../../../../Components/CustomTextField/CustomTextField";
+import { useFormContext } from "react-hook-form";
+import { useSearchParams } from "react-router-dom";
 
 export default function CreditInformation() {
   const [paymentPlan, setPaymentPlan] = useState("");
   const [loanAmount, setLoanAmount] = useState("");
-
+  const { register, formState, watch } = useFormContext();
+  const { errors } = formState;
+  const [searchParams, setSearchParams] = useSearchParams();
+  const watchApplicantPaymentPlan = watch("applicantPaymentPlan");
+  console.log(watchApplicantPaymentPlan);
+  useEffect(
+    function () {
+      if (
+        watchApplicantPaymentPlan !== "" &&
+        watchApplicantPaymentPlan !== undefined
+      ) {
+        searchParams.set("applicantPaymentPlan", watchApplicantPaymentPlan);
+        setSearchParams(searchParams);
+      }
+    },
+    [searchParams, setSearchParams, watchApplicantPaymentPlan]
+  );
   const loanPaymentPlan = [
     {
       content: "Loan Payment Plan",
@@ -52,17 +70,37 @@ export default function CreditInformation() {
           onChange={handleLoanAmountChange}
           id="loanAmount"
           label="Loan Amount"
+          register={{
+            ...register("applicantLoanAmount", {
+              required: "This field is required!",
+            }),
+          }}
+          helperText={errors?.applicantLoanAmount?.message}
+          error={errors?.applicantLoanAmount}
         />
       </Grid>
       <Grid item xs={6}>
-        <CustomTextField id="loanPurpose" label="Loan Purpose" />
+        <CustomTextField
+          id="loanPurpose"
+          label="Loan Purpose"
+          register={{
+            ...register("applicantLoanPurpose", {
+              required: "This field is required!",
+            }),
+          }}
+          helperText={errors?.applicantLoanPurpose?.message}
+          error={errors?.applicantLoanPurpose}
+        />
       </Grid>
       <Grid item xs={6}>
         <CustomSelect
           data={loanPaymentPlan}
           handleChange={handlePlanChange}
-          value={paymentPlan}
+          value={searchParams.get("applicantPaymentPlan") || paymentPlan}
           disabled={!loanAmount}
+          register={{
+            ...register("applicantPaymentPlan"),
+          }}
         />
       </Grid>
     </Grid>
