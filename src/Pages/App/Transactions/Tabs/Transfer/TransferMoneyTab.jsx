@@ -11,6 +11,7 @@ import { useCreateMovements } from "../../../../../services/movementsServices";
 import { useUser } from "../../../../../services/userServices";
 import { useUpdateBalance } from "../../../../../services/accountServices";
 import { useSearchParams } from "react-router-dom";
+import Loader from "../../../../../Components/Loader/Loader";
 
 const transactionSteps = [
   {
@@ -49,7 +50,6 @@ export default function TransferMoneyTab() {
 
   const onSubmit = async (data) => {
     const updatedBalance = selectedAccount.balance - +data.amountToSend;
-    console.log(data);
     await createMovement({ ...data, senderFullName });
     const updatedAccount = {
       ...selectedAccount,
@@ -57,6 +57,7 @@ export default function TransferMoneyTab() {
     };
     await updateBalance({ id, account: updatedAccount });
   };
+  if (isLoading) return <Loader />;
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
@@ -72,7 +73,6 @@ export default function TransferMoneyTab() {
               : "Transfer was successfully completed ..."}
           </div>
         )}
-        <button type="submit">add</button>
       </form>
     </FormProvider>
   );
