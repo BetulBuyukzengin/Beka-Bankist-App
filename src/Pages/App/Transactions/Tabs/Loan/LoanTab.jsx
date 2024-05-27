@@ -2,7 +2,7 @@ import React from "react";
 import StepperComponent from "../../../../../Components/StepperComponent/StepperComponent";
 import BusinessInformation from "./BusinessInformation";
 import CreditInformation from "./CreditInformation";
-import FinancialInformation from "./FinancialInformation";
+import LoanInformation from "./LoanInformation";
 import PersonalInformation from "./PersonalInformation";
 import { FormProvider, useForm } from "react-hook-form";
 import { useCreateLoan } from "../../../../../services/loanServices";
@@ -18,8 +18,8 @@ const transactionSteps = [
     component: <BusinessInformation />,
   },
   {
-    label: "Financial Information",
-    component: <FinancialInformation />,
+    label: "Loan Information",
+    component: <LoanInformation />,
   },
   {
     label: "Credit Information",

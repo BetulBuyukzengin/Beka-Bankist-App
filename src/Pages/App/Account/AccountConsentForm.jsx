@@ -65,8 +65,7 @@ export default function AccountConsentForm({
     setChecked(true);
     setOpen(false);
   }
-  //   check box state, modalda ve hesap yokken create işleminde loader gelmiyor
-  // buton submit yaparken loader gelebilir, required form
+
   return (
     <Grid container spacing={3}>
       <Grid item xs={12}>
