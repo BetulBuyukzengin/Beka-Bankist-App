@@ -19,6 +19,8 @@ const StyledTextField = styled(TextField)`
     }
   }
   & div > input {
+    text-transform: capitalize;
+
     &:disabled {
       -webkit-text-fill-color: var(--color-text) !important;
       color: var(--color-text) !important;
