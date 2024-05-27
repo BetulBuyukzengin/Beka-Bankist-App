@@ -101,3 +101,15 @@ export function formatArrayWord(words) {
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
     .join(" ");
 }
+export function calculateAvailableMonthlyPayment(income, expense) {
+  return +income - +expense;
+}
+export function calculateLoanAmount(monthlyPayment, paymentPeriod) {
+  if (!paymentPeriod) return;
+  const { value, interest } = paymentPeriod;
+  const months = value * 12;
+  const loanWithoutInterest = monthlyPayment * 0.8 * months;
+  // const interestAmount = monthlyPayment * 0.8 * months * interest;
+  // return loanWithoutInterest + interestAmount;
+  return loanWithoutInterest;
+}
