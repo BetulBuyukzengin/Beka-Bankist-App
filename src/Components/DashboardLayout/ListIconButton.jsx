@@ -6,7 +6,7 @@ import { useGetAccounts } from "../../services/accountServices.js";
 function ListIconButton({ children, path }) {
   const navigate = useNavigate();
   const { accounts } = useGetAccounts();
-  const isAccounts = accounts.length > 0 ? false : true;
+  const isAccounts = accounts?.length > 0 ? false : true;
   return (
     <>
       <ListItemButton
