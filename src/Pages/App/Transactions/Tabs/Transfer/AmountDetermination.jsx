@@ -5,6 +5,7 @@ import CustomTextField from "../../../../../Components/CustomTextField/CustomTex
 import { useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { useSearchParams } from "react-router-dom";
+import { useUser } from "../../../../../services/userServices";
 
 const GridStyle = {
   display: "flex",
@@ -22,20 +23,26 @@ const BoxStyle = {
 };
 
 const frequentlyAmount = 500;
-const remainingLimit = 1000000000;
 
 function AmountDetermination() {
-  const { register, setValue } = useFormContext();
-  const [amountToSendValue, setAmountToSendValue] = useState("");
+  const {
+    register,
+    setValue,
+    formState: { errors },
+  } = useFormContext();
+  const [amountToSendValue, setAmountToSendValue] = useState(0);
   const [newRemainingLimit, setNewRemainingLimit] = useState();
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const selectRemainingBalance = JSON.parse(
+  const selectedAccRemainingBalance = JSON.parse(
     searchParams.get("selectedAccount")
   )?.balance;
-
+  const selectedAccRemainingTransferLimit = JSON.parse(
+    searchParams.get("selectedAccount")
+  )?.remainingTransferLimit;
+  console.log(selectedAccRemainingTransferLimit);
   const [remainingBalance, setRemainingBalance] = useState(
-    selectRemainingBalance
+    selectedAccRemainingBalance
   );
 
   function handleClick() {
@@ -55,13 +62,15 @@ function AmountDetermination() {
 
   useEffect(
     function () {
-      setNewRemainingLimit(remainingLimit - amountToSendValue);
+      setNewRemainingLimit(
+        selectedAccRemainingTransferLimit - amountToSendValue
+      );
     },
     [amountToSendValue]
   );
   useEffect(
     function () {
-      setRemainingBalance(selectRemainingBalance - amountToSendValue);
+      setRemainingBalance(selectedAccRemainingBalance - amountToSendValue);
     },
     [amountToSendValue]
   );
@@ -76,7 +85,11 @@ function AmountDetermination() {
       <Grid item xs={12} sx={GridStyle}>
         <Box sx={BoxStyle}>
           <label>Remaining transfer limit:</label>
-          <label>{formatCurrency(newRemainingLimit || remainingLimit)}</label>
+          <label>
+            {formatCurrency(
+              newRemainingLimit || selectedAccRemainingTransferLimit
+            )}
+          </label>
         </Box>
       </Grid>
       <Grid item xs={12} sx={GridStyle}>
@@ -107,6 +120,8 @@ function AmountDetermination() {
             value={amountToSendValue}
             onChange={(e) => handleAmountChange(e.target.value)}
             register={{ ...register("amountToSend") }}
+            helperText={errors?.amountToSend?.message}
+            error={errors?.amountToSend}
           />
         </Box>
       </Grid>
