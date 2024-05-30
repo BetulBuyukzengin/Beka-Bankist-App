@@ -45,10 +45,13 @@ function CustomTextField({
   required,
   helperText,
   error,
+  placeholder,
+  inputProps,
 }) {
   return (
     <StyledTextField
       {...register}
+      placeholder={placeholder}
       onChange={onChange}
       defaultValue={defaultValue}
       width={width}
@@ -56,6 +59,7 @@ function CustomTextField({
       id={id}
       type={type}
       label={label}
+      inputProps={inputProps}
       required={required}
       fullWidth
       disabled={disabled}
