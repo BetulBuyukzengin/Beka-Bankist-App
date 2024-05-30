@@ -3,7 +3,7 @@ import CustomTextField from "../../../../../Components/CustomTextField/CustomTex
 import { useFormContext } from "react-hook-form";
 import CustomSelect from "../../../../../Components/CustomSelect/CustomSelect";
 import { useSearchParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   calculateAndFormatLoan,
   calculateAvailableMonthlyPayment,
@@ -11,6 +11,11 @@ import {
 } from "../../../../../utils/utils";
 
 const paymentPeriods = [
+  {
+    value: "",
+    interest: 0,
+    content: "Select payment period",
+  },
   {
     value: 1,
     interest: 0.3,
@@ -40,57 +45,41 @@ const paymentPeriods = [
 ];
 
 export default function LoanInformation() {
-  const { register, formState, watch } = useFormContext();
-  const [paymentPlan, setPaymentPlan] = useState("");
-  const [loanAmount, setLoanAmount] = useState("");
-  const watchApplicantPaymentPlan = watch("applicantPaymentPlan");
+  const {
+    register,
+    formState: { errors },
+    watch,
+  } = useFormContext();
 
-  const { errors } = formState;
+  const [loanAmount, setLoanAmount] = useState(0);
   const [searchParams, setSearchParams] = useSearchParams();
   const watchSelectedPaymentPeriod = watch("selectedPaymentPeriod");
   const [totalIncome, setTotalIncome] = useState();
   const [totalExpense, setTotalExpense] = useState();
-
-  console.log(watchApplicantPaymentPlan);
-  useEffect(
-    function () {
-      if (
-        watchApplicantPaymentPlan !== "" &&
-        watchApplicantPaymentPlan !== undefined
-      ) {
-        searchParams.set("applicantPaymentPlan", watchApplicantPaymentPlan);
-        setSearchParams(searchParams);
-      }
-    },
-    [searchParams, setSearchParams, watchApplicantPaymentPlan]
-  );
-  const loanPaymentPlan = [
-    {
-      content: "Loan Payment Plan",
-      value: "",
-    },
-    {
-      content: calculateAndFormatLoan(loanAmount, 0.02, 1 * 12),
-      value: "1",
-    },
-    {
-      content: calculateAndFormatLoan(loanAmount, 0.02, 2 * 12),
-      value: "2",
-    },
-    {
-      content: calculateAndFormatLoan(loanAmount, 0.02, 3 * 12),
-      value: "3",
-    },
-  ];
-
-  const handlePlanChange = (event) => {
-    setPaymentPlan(event.target.value);
-  };
+  const isTotalIncomeExpense = totalExpense && totalIncome;
+  const watchApplicantLoanAmount = watch("applicantLoanAmount");
 
   function handleLoanAmountChange(e) {
-    setLoanAmount(e.target.value);
-    if (!e.target.value) setPaymentPlan("");
+    setLoanAmount(+e.target.value);
   }
+
+  const monthlyPayment = useMemo(
+    () => calculateAvailableMonthlyPayment(totalIncome, totalExpense),
+    [totalIncome, totalExpense]
+  );
+
+  const selectedPeriod = useMemo(
+    () =>
+      paymentPeriods.find(
+        (period) => period.value == watchSelectedPaymentPeriod
+      ),
+    [watchSelectedPaymentPeriod]
+  );
+
+  const maxLoanAmount = useMemo(
+    () => calculateLoanAmount(monthlyPayment, selectedPeriod),
+    [monthlyPayment, selectedPeriod]
+  );
 
   //! current debs e default olarak değer gelsin databaseden varsa eger
   function handleChangeExpense(e) {
@@ -99,26 +88,34 @@ export default function LoanInformation() {
   function handleChangeIncome(e) {
     setTotalIncome(+e);
   }
+
+  useEffect(() => {
+    if (watchApplicantLoanAmount) {
+      searchParams.set("applicantPaymentPlan", watchApplicantLoanAmount);
+      setSearchParams(searchParams);
+    }
+  }, [searchParams, setSearchParams, watchApplicantLoanAmount]);
+
   useEffect(
     function () {
-      if (
-        watchSelectedPaymentPeriod !== undefined &&
-        watchSelectedPaymentPeriod !== ""
-      ) {
+      if (watchSelectedPaymentPeriod !== undefined) {
         searchParams.set("selectedPaymentPeriod", watchSelectedPaymentPeriod);
         setSearchParams(searchParams);
       }
     },
     [searchParams, setSearchParams, watchSelectedPaymentPeriod]
   );
-  const monthlyPayment = calculateAvailableMonthlyPayment(
-    totalIncome,
-    totalExpense
-  );
-  const selectedPeriod = paymentPeriods.find(
-    (period) => period.value === watchSelectedPaymentPeriod
+
+  useEffect(
+    function () {
+      searchParams.set("max-loan-amount", maxLoanAmount || 0);
+      setLoanAmount(maxLoanAmount || 0);
+      setSearchParams(searchParams);
+    },
+    [maxLoanAmount, searchParams, setSearchParams]
   );
 
+  console.log(watchApplicantLoanAmount);
   return (
     <Grid
       container
@@ -136,13 +133,14 @@ export default function LoanInformation() {
           onChange={(e) => handleChangeIncome(e.target.value)}
           register={{
             ...register("applicantTotalIncome", {
-              required: "This field is required!",
+              // required: "This field is required!",
             }),
           }}
           helperText={errors?.applicantTotalIncome?.message}
           error={errors?.applicantTotalIncome}
         />
       </Grid>
+
       <Grid item xs={6}>
         <CustomTextField
           type="text"
@@ -151,32 +149,31 @@ export default function LoanInformation() {
           label="Total Expense"
           register={{
             ...register("applicantTotalExpense", {
-              required: "This field is required!",
+              //required: "This field is //required!",
             }),
           }}
           helperText={errors?.applicantTotalExpense?.message}
           error={errors?.applicantTotalExpense}
         />
       </Grid>
-      <Grid item xs={6}>
+      <Grid item xs={12}>
         <CustomTextField
-          type="text"
-          id="-basic"
-          label="Current Debts"
+          id="loanPurpose"
+          label="Loan Purpose"
           register={{
-            ...register("applicantCurrentDepts", {
-              required: "This field is required",
+            ...register("applicantLoanPurpose", {
+              //required: "This field is required!",
             }),
           }}
-          helperText={errors?.applicantCurrentDepts?.message}
-          error={errors?.applicantCurrentDepts}
+          helperText={errors?.applicantLoanPurpose?.message}
+          error={errors?.applicantLoanPurpose}
         />
       </Grid>
 
       <Grid item xs={3}>
         <CustomSelect
           data={paymentPeriods}
-          value={searchParams.get("selectedPaymentPeriod") || 1}
+          value={searchParams.get("selectedPaymentPeriod") || ""}
           defaultValue=""
           register={{
             ...register("selectedPaymentPeriod"),
@@ -186,56 +183,24 @@ export default function LoanInformation() {
       <Grid item xs={3}>
         <CustomTextField
           id="-basic"
-          label="Loan Amount"
-          value={calculateLoanAmount(monthlyPayment, selectedPeriod)}
-          // disabled={}
-          // register={{
-          //   ...register("applicantCurrentDepts", {
-          //     required: "This field is required",
-          //   }),
-          // }}
-          // helperText={errors?.applicantCurrentDepts?.message}
-          // error={errors?.applicantCurrentDepts}
+          label="Maximum Loan Amount"
+          disabled
+          value={isTotalIncomeExpense ? maxLoanAmount : 0}
         />
       </Grid>
       <Grid item xs={6}>
         <CustomTextField
+          placeholder={isTotalIncomeExpense ? maxLoanAmount : 0}
           type="number"
           value={loanAmount}
           onChange={handleLoanAmountChange}
           id="loanAmount"
           label="Loan Amount"
           register={{
-            ...register("applicantLoanAmount", {
-              required: "This field is required!",
-            }),
+            ...register("applicantLoanAmount"),
           }}
           helperText={errors?.applicantLoanAmount?.message}
           error={errors?.applicantLoanAmount}
-        />
-      </Grid>
-      <Grid item xs={6}>
-        <CustomTextField
-          id="loanPurpose"
-          label="Loan Purpose"
-          register={{
-            ...register("applicantLoanPurpose", {
-              required: "This field is required!",
-            }),
-          }}
-          helperText={errors?.applicantLoanPurpose?.message}
-          error={errors?.applicantLoanPurpose}
-        />
-      </Grid>
-      <Grid item xs={6}>
-        <CustomSelect
-          data={loanPaymentPlan}
-          handleChange={handlePlanChange}
-          value={searchParams.get("applicantPaymentPlan") || paymentPlan}
-          disabled={!loanAmount}
-          register={{
-            ...register("applicantPaymentPlan"),
-          }}
         />
       </Grid>
     </Grid>
