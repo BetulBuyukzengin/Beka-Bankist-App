@@ -39,56 +39,18 @@ export function generatePaymentMethod(method) {
 export function calcAge(birthday) {
   return differenceInDays(new Date(), birthday) / 365;
 }
-
 export function generateRandomIBAN() {
-  const bankCodes = ["TR"];
-  const countryCode = bankCodes[Math.floor(Math.random() * bankCodes.length)];
+  const countryCode = "TR";
+  const checksum = Math.floor(10 + Math.random() * 90).toString(); // 10-99 arası rastgele iki haneli sayı
+  const bankCode = Math.floor(100 + Math.random() * 900)
+    .toString()
+    .padStart(4, "0"); // 4 haneli banka kodu
+  const branchCode = Math.floor(1000 + Math.random() * 9000).toString(); // 4 haneli şube kodu
+  const accountNumber = Math.floor(Math.random() * 1e13)
+    .toString()
+    .padStart(14, "0"); // 16 haneli hesap numarası
 
-  const trBankCodes = [
-    "001",
-    "002",
-    "003",
-    "004",
-    "005",
-    "006",
-    "007",
-    "008",
-    "009",
-    "010",
-  ];
-  const bankCode = trBankCodes[Math.floor(Math.random() * trBankCodes.length)];
-
-  const accountNumber = Math.floor(
-    1000000000000000 + Math.random() * 9000000000000000
-  );
-
-  const iban = countryCode + bankCode + accountNumber;
-
-  return iban;
-}
-
-export function generateRandomBankAccountNumber() {
-  const bankCodes = [
-    "001",
-    "002",
-    "003",
-    "004",
-    "005",
-    "006",
-    "007",
-    "008",
-    "009",
-    "010",
-  ];
-  const bankCode = bankCodes[Math.floor(Math.random() * bankCodes.length)];
-
-  // Rastgele 10 haneli rakam üretme
-  const accountNumber = Math.floor(1000000000 + Math.random() * 9000000000);
-
-  // Banka hesap numarasını formatlama
-  const formattedAccountNumber = ("0000000000" + accountNumber).slice(-10); // 10 haneli olacak şekilde formatla
-
-  return bankCode + formattedAccountNumber;
+  return `${countryCode}${checksum}${bankCode}${branchCode}${accountNumber}`;
 }
 
 export function formatWord(word) {
