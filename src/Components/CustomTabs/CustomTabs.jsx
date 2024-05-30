@@ -10,13 +10,12 @@ import Box from "@mui/material/Box";
 import styled from "styled-components";
 import { useSearchParams } from "react-router-dom";
 import { useEffect } from "react";
-import { useForm, useFormContext } from "react-hook-form";
 
 const StyledSwipeableViews = styled(SwipeableViews)`
   width: 100%;
 `;
 const StyledDiv = styled.div`
-  padding: 13px 8px;
+  /* padding: 13px 8px; */
 `;
 
 function TabPanel(props) {
