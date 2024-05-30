@@ -1,21 +1,55 @@
-import { Grid } from "@mui/material";
+import { FormHelperText, Grid } from "@mui/material";
 import { useState } from "react";
 import CustomTextField from "../../../../../Components/CustomTextField/CustomTextField";
 import { useFormContext } from "react-hook-form";
 import { DatePicker } from "@mui/x-date-pickers";
 import styled from "styled-components";
 import { MuiTelInput } from "mui-tel-input";
+import { useUser } from "../../../../../services/userServices";
 
 const StyledMuiTelInput = styled(MuiTelInput)`
   width: 100%;
+  & > label {
+    color: var(--color-text) !important;
+  }
+
   & > div {
     color: var(--color-text);
   }
+
   & > div > fieldset {
     border-color: var(--color-border-2) !important;
   }
   &:hover > div > fieldset {
     border-color: var(--color-gray) !important;
+  }
+  //! conditional style
+  ${({ error }) =>
+    error &&
+    `
+    & > div > fieldset {
+      border-color: red !important;
+    }
+  `}
+`;
+const DatePickerWrapper = styled.div`
+  width: 100%;
+  .MuiOutlinedInput-root {
+    width: 100%;
+    & fieldset {
+      border-color: ${({ error }) =>
+        error ? "red !important" : "var(--color-border-2) !important"};
+    }
+    &:hover fieldset {
+      border-color: ${({ error }) =>
+        error ? "red !important" : "var(--color-gray) !important"};
+    }
+  }
+  .MuiInputLabel-root {
+    color: var(--color-text);
+  }
+  .MuiInputBase-input {
+    color: var(--color-text);
   }
 `;
 export default function PersonalInformation() {
@@ -23,10 +57,12 @@ export default function PersonalInformation() {
   const { register, setValue, formState } = useFormContext();
   const { errors } = formState;
   const [phoneNumber, setPhoneNumber] = useState();
+  const { user } = useUser();
 
   function handleChangePhone(phone) {
     setPhoneNumber(phone);
   }
+
   return (
     <Grid
       container
@@ -41,10 +77,9 @@ export default function PersonalInformation() {
         <CustomTextField
           id="fullName"
           label="Full Name"
+          defaultValue={user.user_metadata.fullName}
           register={{
-            ...register("applicantFullName", {
-              required: "This field is required!",
-            }),
+            ...register("applicantFullName", {}),
           }}
           helperText={errors?.applicantFullName?.message}
           error={errors?.applicantFullName}
@@ -55,9 +90,7 @@ export default function PersonalInformation() {
           id="identificationNumber"
           label="Identification number"
           register={{
-            ...register("applicantIdentificationNumber", {
-              required: "This field is required!",
-            }),
+            ...register("applicantIdentificationNumber", {}),
           }}
           helperText={errors?.applicantIdentificationNumber?.message}
           error={errors?.applicantIdentificationNumber}
@@ -68,65 +101,61 @@ export default function PersonalInformation() {
           id="adress"
           label="Adress"
           register={{
-            ...register("applicantAdress", {
-              required: "This field is requied!",
-            }),
+            ...register("applicantAdress", {}),
           }}
           helperText={errors?.applicantAdress?.message}
           error={errors?.applicantAdress}
         />
       </Grid>
       <Grid item xs={6}>
-        {/* <CustomTextField
-          id="phoneNumber"
-          label="Phone number"
-          register={{ ...register("applicantPhoneNumber") }}
-        /> */}
         <StyledMuiTelInput
+          label="Phone number"
           preferredCountries={["TR", "US", "KR"]}
           defaultCountry="TR"
           value={phoneNumber}
-          {...register("applicantPhoneNumber", {
-            required: "This field is required!",
-          })}
+          {...register("applicantPhoneNumber")}
+          helperText={errors?.applicantPhoneNumber?.message}
+          error={errors?.applicantPhoneNumber}
           onChange={(phone) => handleChangePhone(phone)}
-          //! required ekle
         />
       </Grid>
       <Grid item xs={6}>
-        <DatePicker
-          label="Birthday"
-          value={date}
-          onChange={(newDate) => {
-            setDate(newDate);
-            setValue("applicantBirthday", newDate);
-          }}
-          // slotProps={{
-          //   popper: { placement: "right-start" },
-          //   textField: {
-          //     required: "This field is required!",
-          //   },
-          // }}
-          sx={{
-            marginTop: "1rem",
-            width: "100%",
-            "&:hover > div > fieldset": {
-              borderColor: "var(--color-text)!important",
-            },
-            "&>label": {
-              color: "var(--color-text)",
-            },
-            "& > div": {
-              color: "var(--color-text)",
-
-              "& > fieldset": {
-                // borderColor: isError
-                // ? "red !important"
-                borderColor: "var(--color-border-2) !important",
+        <DatePickerWrapper error={errors?.applicantBirthday}>
+          <DatePicker
+            label="Birthday"
+            value={date}
+            onChange={(newDate) => {
+              setDate(newDate);
+              setValue("applicantBirthday", newDate);
+            }}
+            sx={{
+              width: "100%",
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderColor: errors?.applicantBirthday
+                    ? "red !important"
+                    : "var(--color-border-2) !important",
+                },
+                "&:hover fieldset": {
+                  borderColor: errors?.applicantBirthday
+                    ? "red !important"
+                    : "var(--color-gray) !important",
+                },
               },
-            },
-          }}
-        />
+              "& .MuiInputLabel-root": {
+                color: "var(--color-text)",
+              },
+              "& .MuiInputBase-input": {
+                color: "var(--color-text)",
+              },
+            }}
+          />
+          {errors?.applicantBirthday && (
+            <FormHelperText error>
+              {errors?.applicantBirthday?.message || "This field is required"}
+            </FormHelperText>
+          )}
+        </DatePickerWrapper>
       </Grid>
     </Grid>
   );
