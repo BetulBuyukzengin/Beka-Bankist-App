@@ -5,7 +5,7 @@ import { useFormContext } from "react-hook-form";
 export default function BusinessInformation() {
   const { register, formState } = useFormContext();
   const { errors } = formState;
-  //! register ve required ekledim ama 2.stepe gcınce hata veriyor
+
   return (
     <Grid
       container
@@ -21,9 +21,7 @@ export default function BusinessInformation() {
           id="businessName"
           label="Business Name"
           register={{
-            ...register("applicantBusinessName", {
-              required: "Th,s field is required!",
-            }),
+            ...register("applicantBusinessName"),
           }}
           helperText={errors?.applicantBusinessName?.message}
           error={errors?.applicantBusinessName}
@@ -34,9 +32,7 @@ export default function BusinessInformation() {
           id="sectorofWork"
           label="Sector of Work"
           register={{
-            ...register("applicantSectorOfWork", {
-              required: "This field is required!",
-            }),
+            ...register("applicantSectorOfWork"),
           }}
           helperText={errors?.applicantSectorOfWork?.message}
           error={errors?.applicantSectorOfWork}
@@ -47,9 +43,7 @@ export default function BusinessInformation() {
           id="job"
           label="Job"
           register={{
-            ...register("applicantJob", {
-              required: "This field is required!",
-            }),
+            ...register("applicantJob"),
           }}
           helperText={errors?.applicantJob?.message}
           error={errors?.applicantJob}
@@ -62,9 +56,7 @@ export default function BusinessInformation() {
           id="income"
           label="Income"
           register={{
-            ...register("applicantIncome", {
-              required: "This field is required!",
-            }),
+            ...register("applicantIncome"),
           }}
           helperText={errors?.applicantIncome?.message}
           error={errors?.applicantIncome}
