@@ -4,11 +4,7 @@ import { Checkbox, Grid } from "@mui/material";
 import CustomButton from "../../../Components/CustomButton/CustomButton";
 import CustomSelect from "../../../Components/CustomSelect/CustomSelect";
 import { FormProvider, useForm } from "react-hook-form";
-import {
-  calcAge,
-  generateRandomBankAccountNumber,
-  generateRandomIBAN,
-} from "../../../utils/utils";
+import { calcAge, generateRandomIBAN } from "../../../utils/utils";
 import { toast } from "react-toastify";
 import { MuiTelInput } from "mui-tel-input";
 import styled from "styled-components";
@@ -18,6 +14,10 @@ import CustomModal from "../../../Components/CustomModal/CustomModal";
 import AccountConsentForm from "./AccountConsentForm";
 import { useUser } from "../../../services/userServices";
 import { DatePicker } from "@mui/x-date-pickers";
+import {
+  starterBalance,
+  dailyTransferLimit,
+} from "../../../Constants/constants";
 
 const bankContent = [
   {
@@ -73,7 +73,6 @@ function AccountCreate() {
   const [checked, setChecked] = useState(false);
   const { errors } = methods.formState;
   const isError = errors?.birthday || !birthday;
-
   function handleChangePhone(phone) {
     setPhoneNumber(phone);
   }
@@ -81,14 +80,14 @@ function AccountCreate() {
   async function onSubmit(data) {
     const iban = generateRandomIBAN();
     //! Hesaplar tablosundan ibanları, hesap no kıyasla
-    const accountNumber = generateRandomBankAccountNumber();
     const formDatas = {
       ...data,
       phoneNumber,
       iban,
-      accountNumber,
+      accountNumber: iban.slice(-16),
       birthday,
-      balance: 0,
+      balance: starterBalance,
+      remainingTransferLimit: dailyTransferLimit,
       isFormApproved: checked || "",
     };
 
