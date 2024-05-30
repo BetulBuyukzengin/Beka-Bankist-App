@@ -22,7 +22,6 @@ function SenderAccount() {
     searchParams.set("selectedAccount", value);
     setSearchParams(searchParams);
   }
-
   return (
     <Grid container spacing={2}>
       <Grid
@@ -36,7 +35,10 @@ function SenderAccount() {
         <StyledBox>
           <CustomRadio
             value={searchParams.get("selectedAccount")}
-            onChange={(e) => handleChange(e.target.value)}
+            onChange={(e) => {
+              console.log(e.target.value);
+              handleChange(e.target.value);
+            }}
             register={{ ...register("selectedAccount") }}
           />
         </StyledBox>
