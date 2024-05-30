@@ -3,6 +3,7 @@ import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
 import styled from "styled-components";
 import {
+  formatArrayWord,
   formatBankAccountNumber,
   formatCurrency,
   formatIBAN,
@@ -23,7 +24,7 @@ function AccountsContent({ item }) {
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <h6>
-            {item.bankBranch}-{item.bankName}
+            {formatArrayWord(item.bankBranch)}-{formatArrayWord(item.bankName)}
           </h6>
         </Grid>
         <Grid item xs={12}>
