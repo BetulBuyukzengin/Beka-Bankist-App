@@ -5,53 +5,41 @@ import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import { useSearchParams } from "react-router-dom";
+import { useFormContext } from "react-hook-form";
+import { useCreateLoan } from "../../services/loanServices";
+import Loader from "../Loader/Loader";
 
 export default function StepperComponent({
   transactionSteps,
   activeStep,
   setActiveStep,
 }) {
-  const [skipped, setSkipped] = React.useState(new Set());
-  const [searchParams] = useSearchParams();
-  const tabIndex = searchParams.get("transactions-tab");
-  const isStepSkipped = (step) => {
-    return skipped.has(step);
-  };
-
-  const handleNext = () => {
-    let newSkipped = skipped;
-    if (isStepSkipped(activeStep)) {
-      newSkipped = new Set(newSkipped.values());
-      newSkipped.delete(activeStep);
-    }
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setSkipped(newSkipped);
+  const { trigger } = useFormContext();
+  const handleNext = async () => {
+    const result = await trigger();
+    console.log("result", result);
+    if (result) setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
+  const { isLoading } = useCreateLoan();
   return (
     <Box sx={{ width: "100%" }}>
-      <Stepper activeStep={activeStep}>
+      <Stepper activeStep={activeStep} sx={{ paddingTop: "1rem" }}>
         {transactionSteps.map((label, index) => {
-          const stepProps = {};
-          const labelProps = {};
-          if (isStepSkipped(index)) {
-            stepProps.completed = false;
-          }
           return (
-            <Step key={index} {...stepProps}>
+            <Step key={index}>
               <StepLabel
-                {...labelProps}
                 sx={{
                   "& > span > svg > text": {
                     fill: "var(--color-background)!important",
                   },
                 }}
-              ></StepLabel>
+              >
+                {label.label}
+              </StepLabel>
             </Step>
           );
         })}
@@ -60,46 +48,61 @@ export default function StepperComponent({
         {transactionSteps.map((transaction, index) => {
           return (
             <React.Fragment key={index}>
-              {/* {index === +tabIndex && ( */}
-
               {index === activeStep && (
                 <Box
                   sx={{
-                    height: "22rem",
+                    paddingTop: "2rem",
+                    marginBottom: "auto",
+                    height: "auto",
                     overflowY: "auto",
                   }}
                 >
-                  <Typography sx={{ mt: 2, mb: 1 }}>
-                    {transaction.label}
-                  </Typography>
                   <Box>{transaction.component}</Box>
                 </Box>
               )}
             </React.Fragment>
           );
         })}
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "end",
-          }}
-        >
-          <Button
-            color="inherit"
-            disabled={activeStep === 0}
-            onClick={handleBack}
-            sx={{ mr: 1 }}
+        {/*! loan işşlemi yapldıktan sonra btonlar  kaldırılacak,
+        son stepi göstermek istemezsen navıgate ıle yonlendır sfngkdsfnf programmatic navitaion yap yanı submıtten sonra olur bu cocugummm  */}
+        {!isLoading ? (
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "end",
+            }}
           >
-            Back
-          </Button>
-          <Button
-            onClick={handleNext}
-            type={activeStep === transactionSteps.length ? "submit" : "button"}
-          >
-            {activeStep === transactionSteps.length - 1 ? "Confirm" : "Next"}
-          </Button>
-        </Box>
+            <Button
+              color="inherit"
+              disabled={activeStep === 0}
+              onClick={handleBack}
+              sx={{ mr: 1 }}
+            >
+              Back
+            </Button>
+            {activeStep !== transactionSteps.length - 1 && (
+              <Button
+                type="button"
+                onClick={handleNext}
+                // type={
+                //   activeStep === transactionSteps.length ? "submit" : "button"
+                // }
+              >
+                Next
+              </Button>
+            )}
+            {(activeStep === transactionSteps.length - 1 ||
+              activeStep === transactionSteps.length) && (
+              <Button type="submit" onClick={handleNext}>
+                Confirm
+              </Button>
+            )}
+          </Box>
+        ) : (
+          <Loader />
+        )}
+        {/* )} */}
       </React.Fragment>
     </Box>
   );
