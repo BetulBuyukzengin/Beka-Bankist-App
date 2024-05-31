@@ -36,7 +36,11 @@ const branchContent = [
 ];
 
 function AccountNumberTab() {
-  const { register, watch } = useFormContext();
+  const {
+    register,
+    watch,
+    formState: { errors },
+  } = useFormContext();
   const watchSaveAsRegisteredWithAccount = watch("saveAsRegisteredWithAccount");
   const [searchParams, setSearchParams] = useSearchParams();
   const watchRecipientBankName = watch("recipientBankName");
@@ -94,6 +98,8 @@ function AccountNumberTab() {
             id="recipientAccountNumber"
             label="Recipient Account Number"
             register={{ ...register("recipientAccountNumber") }}
+            helperText={errors?.recipientAccountNumber?.message}
+            error={errors?.recipientAccountNumber}
           />
         </Grid>
         <Grid item xs={6}>
@@ -101,6 +107,8 @@ function AccountNumberTab() {
             id="recipientFullNameAccount"
             label="Recipient Full Name"
             register={{ ...register("recipientFullNameWithAccount") }}
+            helperText={errors?.recipientAccountNumber?.message}
+            error={errors?.recipientAccountNumber}
           />
         </Grid>
 
@@ -110,6 +118,8 @@ function AccountNumberTab() {
               id="shortName"
               label="Short Name"
               register={{ ...register("shortName") }}
+              // helperText={errors?.recipientAccountNumber?.message}
+              // error={errors?.recipientAccountNumber}
             />
           </Grid>
         )}
@@ -122,6 +132,8 @@ function AccountNumberTab() {
             control={<Switch />}
             label="Add as registered recipient"
             {...register("saveAsRegisteredWithAccount")}
+            // helperText={errors?.recipientAccountNumber?.message}
+            // error={errors?.recipientAccountNumber}
           />
         </Grid>
       </Grid>
