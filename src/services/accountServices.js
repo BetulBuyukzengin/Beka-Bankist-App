@@ -56,3 +56,21 @@ export function useUpdateBalance() {
   });
   return { mutateAsync, isLoading };
 }
+
+async function updateDailyRemainingLimit(id, account) {
+  const { data, error } = await supabase
+    .from("accounts")
+    .update(account)
+    .eq("id", id)
+    .select();
+  if (error) throw new Error(error.message);
+  return data;
+}
+
+export function useDailyRemainingLimit() {
+  const { mutateAsync, isLoading } = useMutation({
+    mutationFn: ({ id, account }) => updateDailyRemainingLimit(id, account),
+    // onError: () => toast.error("Balance updated"),
+  });
+  return { mutateAsync, isLoading };
+}
