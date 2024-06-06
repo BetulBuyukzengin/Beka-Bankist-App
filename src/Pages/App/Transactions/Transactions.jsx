@@ -60,7 +60,7 @@ function Transactions() {
   }, []);
 
   return (
-    <div style={{ height: "78dvh" }}>
+    <div style={{ height: "78dvh", overflowY: "scroll" }}>
       <CustomTabs tabName="transactionsTab" content={content} />
     </div>
   );
