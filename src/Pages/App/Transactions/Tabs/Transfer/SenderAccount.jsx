@@ -23,7 +23,7 @@ function SenderAccount() {
     setSearchParams(searchParams);
   }
   return (
-    <Grid container spacing={2}>
+    <Grid container>
       <Grid
         item
         xs={12}
