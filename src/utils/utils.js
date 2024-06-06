@@ -7,6 +7,7 @@ export const formatCurrency = (value) =>
   );
 
 export function formatIBAN(iban) {
+  if (!iban) return;
   iban = iban.replace(/ /g, "").replace(/-/g, "");
   const formattedIBAN = iban.match(/.{1,4}/g).join(" ");
   return formattedIBAN;
@@ -75,3 +76,8 @@ export function calculateLoanAmount(monthlyPayment, paymentPeriod) {
   // return loanWithoutInterest + interestAmount;
   return loanWithoutInterest;
 }
+export const convertToBoolean = (str) => {
+  if (str === "true") return true;
+  if (str === "false") return false;
+  return null;
+};
