@@ -16,6 +16,7 @@ const StyledSwipeableViews = styled(SwipeableViews)`
 `;
 const StyledDiv = styled.div`
   /* padding: 13px 8px; */
+  /* padding: 1rem 0rem; */
 `;
 
 function TabPanel(props) {
