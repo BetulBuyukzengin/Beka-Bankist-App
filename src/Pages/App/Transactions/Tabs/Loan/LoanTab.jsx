@@ -7,8 +7,9 @@ import { FormProvider, useForm } from "react-hook-form";
 import { useCreateLoan } from "../../../../../services/loanServices";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { matchIsValidTel } from "mui-tel-input";
+import { identificationNumberDigit } from "../../../../../Constants/constants";
 
 const transactionSteps = [
   {
@@ -27,13 +28,21 @@ const transactionSteps = [
 
 function LoanTab() {
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
 
   const validationSchema = [
     //validation for step 1
     yup.object({
       applicantFullName: yup.string().required("This field is required!"),
       // prettier-ignore
-      applicantIdentificationNumber: yup.string().required("This field is required!"),
+
+      applicantIdentificationNumber: yup.string().required("This field is required!")
+      .test(
+        "is-valid-identification",
+        "Identification number must be exactly 11 characters!",
+        (value) => value && value.length === identificationNumberDigit
+      ),
+      // .length(identificationNumberDigit,"Identification number must be exactly 11 characters!"),
       applicantAdress: yup.string().required("This field is required!"),
       applicantPhoneNumber: yup
         .string()
@@ -86,7 +95,11 @@ function LoanTab() {
   const { mutateAsync } = useCreateLoan();
 
   const onSubmit = async (data) => {
+    console.log(data);
+    // remainingTransferLimit: dailyTransferLimit,
+
     await mutateAsync(data);
+    navigate("/applayout/account");
   };
   return (
     <FormProvider {...methods}>
