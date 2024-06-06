@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FormControlLabel, Grid, Switch } from "@mui/material";
+import { FormControlLabel, FormHelperText, Grid, Switch } from "@mui/material";
 import styled from "styled-components";
 import { useUser } from "../../../../../services/userServices";
 import CustomSelect from "../../../../../Components/CustomSelect/CustomSelect";
@@ -7,11 +7,14 @@ import CustomTextField from "../../../../../Components/CustomTextField/CustomTex
 import { useFormContext } from "react-hook-form";
 import { useSearchParams } from "react-router-dom";
 
-const StyledGrid = styled(Grid)`
-  justify-content: center;
-  display: flex;
-`;
-
+// const StyledGrid = styled(Grid)`
+//   display: flex;
+//   justify-content: center;
+// `;
+const StyleGrid = {
+  display: "flex",
+  justifyContent: "center",
+};
 const paymentMethod = [
   {
     content: "Select Payment Method",
@@ -39,7 +42,12 @@ function DetailDetermination() {
   const [showUsernameInDescription, setShowUsernameInDescription] =
     useState(false);
   const { user } = useUser();
-  const { register, setValue, watch } = useFormContext();
+  const {
+    register,
+    setValue,
+    watch,
+    formState: { errors },
+  } = useFormContext();
   const watchPaymentMethod = watch("paymentMethod");
 
   const handleChangeSwitch = () => {
@@ -84,19 +92,31 @@ function DetailDetermination() {
           paddingBottom: "1rem",
           paddingRight: "1rem",
           marginTop: "1rem",
+          // flexDirection: "column!important",
+          // alignItems: "center",
         }}
       >
-        <StyledGrid item xs={12}>
+        <Grid
+          item
+          xs={12}
+          sx={{ ...StyleGrid, flexDirection: "column", alignItems: "center" }}
+        >
           <CustomSelect
             value={searchParams.get("payment-method") || ""}
             width="short"
             data={paymentMethod}
             defaultValue=""
             register={register("paymentMethod")}
+            error={errors?.paymentMethod}
           />
-        </StyledGrid>
+          {errors?.paymentMethod && (
+            <FormHelperText error sx={{ width: "40%", marginLeft: ".8rem" }}>
+              {errors?.paymentMethod?.message}
+            </FormHelperText>
+          )}
+        </Grid>
 
-        <StyledGrid item xs={12}>
+        <Grid item xs={12} sx={StyleGrid}>
           <CustomTextField
             disabled={showUsernameInDescription}
             width="short"
@@ -106,8 +126,8 @@ function DetailDetermination() {
             label="Description"
             onChange={(e) => handleChangeDescription(e)}
           />
-        </StyledGrid>
-        <StyledGrid item xs={12}>
+        </Grid>
+        <Grid item xs={12} sx={StyleGrid}>
           <FormControlLabel
             sx={{ width: "40%" }}
             control={
@@ -119,7 +139,7 @@ function DetailDetermination() {
             label="Show username in description"
             {...register("showUsernameDescription")}
           />
-        </StyledGrid>
+        </Grid>
       </Grid>
     </>
   );
