@@ -7,6 +7,7 @@ import styled from "styled-components";
 import { useGetAccounts } from "../../services/accountServices";
 import { formatCurrency, formatWord } from "../../utils/utils";
 import Loader from "../Loader/Loader";
+import { useFormContext } from "react-hook-form";
 
 const StyledH6 = styled.h6`
   text-align: start;
@@ -21,13 +22,16 @@ const StyledAccountCheckComponent = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 7% 9%;
-  margin: 1rem 0;
+  /* margin: 1rem 0; */
   border: 1px solid var(--color-border-2);
 `;
 
 function AccountCheckComp({ account }) {
   const [searchParams] = useSearchParams();
   const selectedAccount = JSON.parse(searchParams.get("selectedAccount"));
+  const {
+    formState: { errors },
+  } = useFormContext();
 
   return (
     <StyledAccountCheckComponent
@@ -35,6 +39,7 @@ function AccountCheckComp({ account }) {
         backgroundColor:
           account?.accountNumber === selectedAccount?.accountNumber &&
           "var(--color-background-3)",
+        border: errors?.selectedAccount && "1px solid var(--color-error)",
       }}
     >
       <div>
@@ -75,6 +80,8 @@ export default function CustomRadio({ register, onChange, value }) {
           sx={{
             marginLeft: "0",
             marginRight: "0",
+            justifyContent: "center",
+            // margin: "1rem 0",
           }}
           {...register}
           control={
@@ -82,12 +89,13 @@ export default function CustomRadio({ register, onChange, value }) {
               sx={{
                 height: "7rem",
                 width: "17rem",
-                // position: "fixed",
+                position: "relative",
                 borderRadius: "0px",
-                // opacity: "0",
+                opacity: "0",
                 "&+span": {
                   width: "17rem",
-                  height: "10rem!important",
+                  // height: "10rem!important",
+                  position: "absolute",
                 },
               }}
             />
