@@ -1,9 +1,10 @@
 import { FormControlLabel, Grid, Switch } from "@mui/material";
 import CustomTextField from "../../../../../Components/CustomTextField/CustomTextField";
 import { useFormContext } from "react-hook-form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { formatIBAN } from "../../../../../utils/utils";
 import { maxIbanLength } from "../../../../../Constants/constants";
+import { useSearchParams } from "react-router-dom";
 
 function WithIbanTab() {
   const {
@@ -14,20 +15,29 @@ function WithIbanTab() {
   } = useFormContext();
   const watchSaveAsRegisteredWithIban = watch("saveAsRegisteredWithIban");
   const [iban, setIban] = useState("TR"); // IBAN durumunu saklayın
-  console.log(iban);
-  console.log(getValues()?.recipientIban);
+  const [searchParams, setSearchParams] = useSearchParams();
   const handleChange = (event) => {
     const formattedIban = formatIBAN(event.target.value);
     setIban(formattedIban); // Formatlanmış IBAN'ı duruma ayarlayın
   };
+
+  useEffect(
+    function () {
+      searchParams.set(
+        "saveAsRegisteredWithIban",
+        watchSaveAsRegisteredWithIban
+      );
+      setSearchParams(searchParams);
+    },
+    [watchSaveAsRegisteredWithIban]
+  );
   return (
     <>
       <Grid
         container
         spacing={2}
         sx={{
-          paddingBottom: "1rem",
-          paddingRight: "1rem",
+          padding: "1rem",
         }}
       >
         <Grid item xs={6} sx={{ display: "flex", gap: "1rem" }}>
