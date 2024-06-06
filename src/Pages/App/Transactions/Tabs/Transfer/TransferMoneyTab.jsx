@@ -9,15 +9,20 @@ import { useForm, FormProvider } from "react-hook-form";
 import React from "react";
 import { useCreateMovements } from "../../../../../services/movementsServices";
 import { useUser } from "../../../../../services/userServices";
-import { useUpdateBalance } from "../../../../../services/accountServices";
-import { useSearchParams } from "react-router-dom";
+import {
+  useDailyRemainingLimit,
+  useUpdateBalance,
+} from "../../../../../services/accountServices";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import Loader from "../../../../../Components/Loader/Loader";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import {
+  dailyTransferLimit,
   maxIbanLength,
   minAmountToSend,
 } from "../../../../../Constants/constants";
+import { convertToBoolean, formatCurrency } from "../../../../../utils/utils";
 const transactionSteps = [
   {
     label: "Recipient Account",
@@ -51,141 +56,119 @@ export default function TransferMoneyTab() {
   const selectedAccount = JSON.parse(searchParams.get("selectedAccount"));
   const id = selectedAccount?.id;
   const { isLoading, mutateAsync: updateBalance } = useUpdateBalance();
+  const { mutateAsync: updateDailyRemainingLimit } = useDailyRemainingLimit();
+
   const recipientTab = searchParams.get("new-recipient-tab");
+  const isSaveAsRegisteredWithIban = convertToBoolean(
+    searchParams.get("saveAsRegisteredWithIban")
+  );
+  const isSaveAsRegisteredAccountNumber = convertToBoolean(
+    searchParams.get("watchSaveAsRegisteredWithAccount")
+  );
+  const remainingBalance = JSON.parse(
+    searchParams.get("selectedAccount")
+  )?.balance;
 
-  console.log(recipientTab);
-
+  const navigate = useNavigate();
   const validationSchema = [
-    yup.object().shape({
-      recipientIban: yup.string().when([], {
-        is: () => recipientTab === 0,
-        then: yup
-          .string()
-          .required("This field is required!")
-          .test(
-            "is-valid-iban",
-            "Iban is invalid, should be 26 characters long!",
-            (value) => value && value.length === maxIbanLength
-          ),
-      }),
-      recipientFullNameWithIban: yup.string().when([], {
-        is: () => recipientTab === 0,
-        then: yup.string().required("This field is required!"),
-      }),
-      // recipientBankName: yup.string().when([], {
-      //   is: () => recipientTab === 1,
-      //   then: yup.string().required("This field is required!"),
-      // }),
-      // recipientBankBranch: yup.string().when([], {
-      //   is: () => recipientTab === 1,
-      //   then: yup.string().required("This field is required!"),
-      // }),
-      recipientAccountNumber: yup.string().when([], {
-        is: () => recipientTab === 1,
-        then: yup.string().required("This field is required!"),
-      }),
-      recipientFullNameWithAccount: yup.string().when([], {
-        is: () => recipientTab === 1,
-        then: yup.string().required("This field is required!"),
-      }),
-    }),
+    yup.object(
+      +recipientTab === 0
+        ? {
+            recipientIban: yup
+              .string()
+              .required("This field is required!")
+              .test(
+                "is-valid-iban",
+                "Iban is invalid, should be 26 characters long!",
+                (value) => value && value.length === maxIbanLength
+              ),
 
-    yup.object().shape({
+            recipientFullNameWithIban: yup
+              .string()
+              .required("This field is required!"),
+            shortName:
+              isSaveAsRegisteredWithIban &&
+              yup.string().required("This field is required!"),
+          }
+        : {
+            recipientBankName: yup.string().required("This field is required!"),
+            recipientBankBranch: yup
+              .string()
+              .required("This field is required!"),
+            recipientAccountNumber: yup
+              .string()
+              .required("This field is required!"),
+            recipientFullNameWithAccount: yup
+              .string()
+              .required("This field is required!"),
+            shortName:
+              isSaveAsRegisteredAccountNumber &&
+              yup.string().required("This field is required!"),
+          }
+    ),
+
+    yup.object({
       selectedAccount: yup.string().required("This field is required!"),
     }),
-    yup.object().shape({
+    yup.object({
       amountToSend: yup
         .number()
         .min(
           minAmountToSend,
           `Send amount should be greater than ${minAmountToSend}!`
         )
+
+        .test("max-check", function (value) {
+          if (value > dailyTransferLimit) {
+            return this.createError({
+              message: `Günlük para gönderme limitiniz toplam ${formatCurrency(
+                dailyTransferLimit
+              )}`,
+            });
+          }
+          if (value > remainingBalance) {
+            return this.createError({
+              message: "Bakiyeniz yetersiz",
+            });
+          }
+          return true;
+        })
         .required("This field is required!"),
     }),
-    yup.object().shape({
+    yup.object({
       paymentMethod: yup.string().required("This field is required!"),
-      transferDescription: yup.string().required("This field is required!"),
+      transferDescription: yup.string(),
       showUsernameDescription: yup.boolean(),
     }),
-    yup.object().shape({
-      transactionDate: yup.string().required("This field is required!"),
+    yup.object({
+      transactionDate: yup.string(),
     }),
-    yup.object().shape({}),
+    yup.object({}),
   ];
 
-  // const validationSchema = [
-  //   //validation for step 1 iban
-
-  //   // //////////////////////
-  //   // yup.object({
-  //   //   recipientIban: yup
-  //   //     .string()
-  //   //     .required("This field is required!")
-  //   //     .test(
-  //   //       "is-valid-iban",
-  //   //       "Iban is invalid, should be 26 characters long!",
-  //   //       (value) => value.length === maxIbanLength
-  //   //     ),
-  //   //   // prettier-ignore
-  //   //   recipientFullNameWithIban: yup.string().required("This field is required!"),
-  //   //   // shortName: yup.string().required("This field is required!"),
-  //   //   // saveAsRegisteredWithIban: yup
-  //   //   //   .boolean()
-  //   //   //   .required("This field is required!"),
-  //   // }),
-
-  //   // validation for step 1 account number tab
-  //   // yup.object({
-  //   //   recipientBankName: yup.string().required("This field is required!"),
-  //   //   recipientBankBranch: yup.string().required("This field is required!"),
-  //   //   recipientAccountNumber: yup.string().required("This field is required!"),
-  //   //   recipientFullNameWithAccount: yup
-  //   //     .string()
-  //   //     .required("This field is required!"),
-  //   //   shortName: yup.string().required("This field is required!"),
-  //   //   saveAsRegisteredWithAccount: yup
-  //   //     .string()
-  //   //     .required("This field is required!"),
-  //   // }),
-
-  //   //validation for step 3 sender account
-  //   yup.object().shape({
-  //     selectedAccount: yup.string().required("This field is required!"),
-  //   }),
-  //   //validation for step 4 amount determinationda kaldım
-  //   yup.object().shape({
-  //     amountToSend: yup
-  //       .number()
-  //       .min(
-  //         minAmountToSend,
-  //         `Send amount should be grater than ${minAmountToSend}!`
-  //       )
-  //       .required("This field is required!"),
-  //   }),
-  //   yup.object().shape({
-  //     paymentMethod: yup.string().required("This field is required!"),
-  //     transferDescription: yup.string().required("This field is required!"),
-  //     showUsernameDescription: yup.boolean(),
-  //   }),
-  //   yup.object().shape({
-  //     transactionDate: yup.string().required("This field is required!"),
-  //   }),
-  //   yup.object().shape({}),
-  // ];
   const currentValidationSchema = validationSchema[activeStep];
 
   const methods = useForm({
     resolver: yupResolver(currentValidationSchema),
     mode: "onChange",
   });
+  // console.log(saveAsRegisteredWithAccount);
   const onSubmit = async (data) => {
     const updatedBalance = selectedAccount.balance - +data.amountToSend;
+    const updatedRemainingLimit =
+      selectedAccount.remainingTransferLimit - +data.amountToSend;
     await createMovement({ ...data, senderFullName });
     const updatedAccount = {
       ...selectedAccount,
       balance: updatedBalance,
+      remainingTransferLimit: updatedRemainingLimit,
     };
     await updateBalance({ id, account: updatedAccount });
+    navigate("/applayout/account");
+    await updateDailyRemainingLimit({
+      id,
+      account: updatedAccount,
+    });
   };
   if (isLoading) return <Loader />;
   return (
