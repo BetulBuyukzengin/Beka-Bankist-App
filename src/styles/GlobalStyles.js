@@ -21,7 +21,7 @@ const GlobalStyles = createGlobalStyle`
         --backdrop-color: rgba(255, 255, 255, 0.1);
         --image-grayscale: 0;
         --image-opacity: 100%;
-    }
+            }
 
     &.dark-mode {
         --color-text: #f7f7f7;
@@ -57,7 +57,7 @@ const GlobalStyles = createGlobalStyle`
     --radialPrimarySecondary: radial-gradient(#475ad4, #6e7eec);
     --radialPrimaryAccent: radial-gradient(#475ad4, #808fef);
     --radialSecondaryAccent: radial-gradient(#6e7eec, #808fef);
-
+    --color-error:#d32f2f;
     /* Belki kullanırız */
     /*
     --color-brand-50: #eef2ff;
