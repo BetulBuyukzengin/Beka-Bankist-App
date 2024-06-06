@@ -63,8 +63,6 @@ export default function StepperComponent({
             </React.Fragment>
           );
         })}
-        {/*! loan işşlemi yapldıktan sonra btonlar  kaldırılacak,
-        son stepi göstermek istemezsen navıgate ıle yonlendır sfngkdsfnf programmatic navitaion yap yanı submıtten sonra olur bu cocugummm  */}
         {!isLoading ? (
           <Box
             sx={{
