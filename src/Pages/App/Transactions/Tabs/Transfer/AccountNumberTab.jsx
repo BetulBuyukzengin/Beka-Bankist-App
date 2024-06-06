@@ -1,4 +1,4 @@
-import { FormControlLabel, Grid, Switch } from "@mui/material";
+import { FormControlLabel, FormHelperText, Grid, Switch } from "@mui/material";
 import { useEffect } from "react";
 import CustomSelect from "../../../../../Components/CustomSelect/CustomSelect";
 import CustomTextField from "../../../../../Components/CustomTextField/CustomTextField";
@@ -62,15 +62,23 @@ function AccountNumberTab() {
     },
     [searchParams, setSearchParams, watchRecipientBankName, watchBankBranch]
   );
-
+  useEffect(
+    function () {
+      searchParams.set(
+        "watchSaveAsRegisteredWithAccount",
+        watchSaveAsRegisteredWithAccount
+      );
+      setSearchParams(searchParams);
+    },
+    [watchSaveAsRegisteredWithAccount]
+  );
   return (
     <>
       <Grid
         container
         spacing={2}
         sx={{
-          paddingBottom: "1rem",
-          paddingRight: "1rem",
+          padding: "1rem",
         }}
       >
         <Grid item xs={6}>
@@ -81,7 +89,14 @@ function AccountNumberTab() {
             register={{
               ...register("recipientBankName"),
             }}
+            helperText={errors?.recipientBankName?.message}
+            error={errors?.recipientBankName}
           />
+          {errors?.recipientBankName && (
+            <FormHelperText error sx={{ marginLeft: ".8rem" }}>
+              {errors?.recipientBankName?.message}
+            </FormHelperText>
+          )}
         </Grid>
         <Grid item xs={6}>
           <CustomSelect
@@ -91,7 +106,13 @@ function AccountNumberTab() {
             register={{
               ...register("recipientBankBranch"),
             }}
+            error={errors?.recipientBankBranch}
           />
+          {errors?.recipientBankBranch && (
+            <FormHelperText error sx={{ marginLeft: ".8rem" }}>
+              {errors?.recipientBankBranch?.message}
+            </FormHelperText>
+          )}
         </Grid>
         <Grid item xs={6}>
           <CustomTextField
@@ -107,8 +128,8 @@ function AccountNumberTab() {
             id="recipientFullNameAccount"
             label="Recipient Full Name"
             register={{ ...register("recipientFullNameWithAccount") }}
-            helperText={errors?.recipientAccountNumber?.message}
-            error={errors?.recipientAccountNumber}
+            helperText={errors?.recipientFullNameWithAccount?.message}
+            error={errors?.recipientFullNameWithAccount}
           />
         </Grid>
 
@@ -118,9 +139,10 @@ function AccountNumberTab() {
               id="shortName"
               label="Short Name"
               register={{ ...register("shortName") }}
-              // helperText={errors?.recipientAccountNumber?.message}
-              // error={errors?.recipientAccountNumber}
+              helperText={errors?.shortName?.message}
+              error={errors?.shortName}
             />
+            {}
           </Grid>
         )}
         <Grid
@@ -132,8 +154,6 @@ function AccountNumberTab() {
             control={<Switch />}
             label="Add as registered recipient"
             {...register("saveAsRegisteredWithAccount")}
-            // helperText={errors?.recipientAccountNumber?.message}
-            // error={errors?.recipientAccountNumber}
           />
         </Grid>
       </Grid>
