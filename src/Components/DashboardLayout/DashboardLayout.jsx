@@ -284,6 +284,7 @@ export default function DashboardLayout() {
             backgroundColor: "var(--color-background)",
             color: "var(--color-text)",
             minHeight: "100dvh",
+            width: "100dvh",
           }}
         >
           <DrawerHeader />
