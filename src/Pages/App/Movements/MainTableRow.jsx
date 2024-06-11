@@ -41,7 +41,11 @@ function MainTableRow({ open, setOpen, row }) {
       </TableCell>
       <TableCell align="center" sx={{ color: "var(--color-text)" }}>
         {row.status === "Withdraw" || row.status === "Transfer" ? "-  " : ""}
-        {formatCurrency(row.amountToSend)}
+        {formatCurrency(
+          row.amountToSend ||
+            row.amountToBeDepositMyAccount ||
+            row.amountToWithdrawMyAccount
+        )}
       </TableCell>
     </TableRow>
   );
