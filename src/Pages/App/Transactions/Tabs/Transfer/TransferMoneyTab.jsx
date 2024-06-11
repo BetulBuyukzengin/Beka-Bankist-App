@@ -48,14 +48,13 @@ const transactionSteps = [
 export default function TransferMoneyTab() {
   const [activeStep, setActiveStep] = React.useState(0);
   const { createMovement, isCreating } = useCreateMovements();
-  // const { isLoading, mutateAsync } = useCreateAccount();
   const { user } = useUser();
 
   const senderFullName = user.user_metadata.fullName;
   const [searchParams] = useSearchParams();
   const selectedAccount = JSON.parse(searchParams.get("selectedAccount"));
   const id = selectedAccount?.id;
-  const { isLoading, mutateAsync: updateBalance } = useUpdateBalance();
+  const { mutateAsync: updateBalance } = useUpdateBalance();
   const { mutateAsync: updateDailyRemainingLimit } = useDailyRemainingLimit();
 
   const recipientTab = searchParams.get("new-recipient-tab");
@@ -65,9 +64,8 @@ export default function TransferMoneyTab() {
   const isSaveAsRegisteredAccountNumber = convertToBoolean(
     searchParams.get("watchSaveAsRegisteredWithAccount")
   );
-  const remainingBalance = JSON.parse(
-    searchParams.get("selectedAccount")
-  )?.balance;
+  const remainingBalance = selectedAccount?.balance;
+  const remainingTransferLimit = selectedAccount?.remainingTransferLimit;
 
   const navigate = useNavigate();
   const validationSchema = [
@@ -119,10 +117,10 @@ export default function TransferMoneyTab() {
         )
 
         .test("max-check", function (value) {
-          if (value > dailyTransferLimit) {
+          if (value > remainingTransferLimit) {
             return this.createError({
-              message: `Günlük para gönderme limitiniz toplam ${formatCurrency(
-                dailyTransferLimit
+              message: `Daily transfer limit is ${formatCurrency(
+                remainingTransferLimit
               )}`,
             });
           }
@@ -152,8 +150,8 @@ export default function TransferMoneyTab() {
     resolver: yupResolver(currentValidationSchema),
     mode: "onChange",
   });
-  // console.log(saveAsRegisteredWithAccount);
   const onSubmit = async (data) => {
+    console.log(data);
     const updatedBalance = selectedAccount.balance - +data.amountToSend;
     const updatedRemainingLimit =
       selectedAccount.remainingTransferLimit - +data.amountToSend;
@@ -170,7 +168,7 @@ export default function TransferMoneyTab() {
       account: updatedAccount,
     });
   };
-  if (isLoading) return <Loader />;
+  if (isCreating) return <Loader />;
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
