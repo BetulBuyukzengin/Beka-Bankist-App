@@ -1,5 +1,9 @@
-import { format } from "date-fns";
-import { differenceInDays } from "date-fns";
+import {
+  differenceInDays,
+  format,
+  differenceInMilliseconds,
+  addDays,
+} from "date-fns";
 
 export const formatCurrency = (value) =>
   new Intl.NumberFormat("tr", { style: "currency", currency: "TRY" }).format(
@@ -22,7 +26,7 @@ export function formatBankAccountNumber(accountNumber) {
   return formattedAccountNumber;
 }
 export function formatDate(date) {
-  return format(date, "dd/MM/yyyy HH:mm:s");
+  return format(date, "dd/MM/yyyy HH:mm:ss");
 }
 
 export function calculateAndFormatLoan(loanAmount, interest, month) {
@@ -81,3 +85,34 @@ export const convertToBoolean = (str) => {
   if (str === "false") return false;
   return null;
 };
+
+export const showDailyLimitMessage = (status, time) => {
+  return `Daily ${status} limit is surpassed, please try again after ${time}`;
+};
+
+export function calcRemainingLimitResetTime() {
+  // Kullanıcının şu anki saatini al
+  const now = new Date();
+
+  // Gece yarısını belirle (bugünkü gece yarısı)
+  let midnight = new Date();
+  midnight.setHours(0, 0, 0, 0);
+
+  // Eğer şuanki saat gece yarısından sonra ise, bir sonraki günün gece yarısını ayarla
+  if (now > midnight) {
+    midnight = addDays(midnight, 1);
+  }
+
+  // İki tarih arasındaki farkı milisaniye cinsinden hesapla
+  const diffInMs = differenceInMilliseconds(midnight, now);
+
+  // Milisaniyeden saat, dakika ve saniyeye çevirme
+  const diffInSeconds = Math.floor(diffInMs / 1000);
+  const hours = Math.floor(diffInSeconds / 3600).toString();
+  const minutes = Math.floor((diffInSeconds % 3600) / 60)
+    .toString()
+    .padStart(2, "0");
+  const seconds = (diffInSeconds % 60).toString().padStart(2, "0");
+
+  return `${hours} hours ${minutes} minutes ${seconds} seconds`;
+}
