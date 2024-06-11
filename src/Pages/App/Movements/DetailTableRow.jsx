@@ -13,8 +13,8 @@ import { formatCurrency } from "../../../utils/utils";
 
 function DetailTableRow({ row, open }) {
   // const { user } = useUser();
-  const senderAccountNumber = JSON.parse(row.selectedAccount).accountNumber;
-
+  const selectedAccount = JSON.parse(row.selectedAccount);
+  console.log(row.status);
   return (
     <TableRow>
       <TableCell
@@ -37,31 +37,80 @@ function DetailTableRow({ row, open }) {
                   <TableCell
                     sx={{ color: "var(--color-text)", borderBottom: "none" }}
                   >
-                    {formatCurrency(150000)}
+                    {formatCurrency(selectedAccount.balance)}
                   </TableCell>
+                  {row.status === "Deposit" || row.status === "Withdraw" ? (
+                    <>
+                      {selectedAccount?.fullName && (
+                        <TableCell
+                          sx={{
+                            color: "var(--color-text)",
+                            borderBottom: "none",
+                          }}
+                        >
+                          {selectedAccount?.fullName}
+                        </TableCell>
+                      )}
+                      {selectedAccount?.accountNumber && (
+                        <TableCell
+                          sx={{
+                            color: "var(--color-text)",
+                            borderBottom: "none",
+                          }}
+                        >
+                          {selectedAccount?.accountNumber}
+                        </TableCell>
+                      )}
+                      {selectedAccount?.iban && (
+                        <TableCell
+                          sx={{
+                            color: "var(--color-text)",
+                            borderBottom: "none",
+                          }}
+                        >
+                          {selectedAccount?.iban}
+                        </TableCell>
+                      )}
+                    </>
+                  ) : (
+                    <>
+                      {row?.senderFullName && (
+                        <TableCell
+                          sx={{
+                            color: "var(--color-text)",
+                            borderBottom: "none",
+                          }}
+                        >
+                          {row?.senderFullName}
+                        </TableCell>
+                      )}
+                      {selectedAccount?.accountNumber && (
+                        <TableCell
+                          sx={{
+                            color: "var(--color-text)",
+                            borderBottom: "none",
+                          }}
+                        >
+                          {selectedAccount?.accountNumber}
+                        </TableCell>
+                      )}
+                      {row?.recipientFullNameWithIban && (
+                        <TableCell>{row?.recipientFullNameWithIban}</TableCell>
+                      )}
+                      {row?.recipientFullNameWithAccount && (
+                        <TableCell>
+                          {row?.recipientFullNameWithAccount}
+                        </TableCell>
+                      )}
 
-                  <TableCell
-                    sx={{ color: "var(--color-text)", borderBottom: "none" }}
-                  >
-                    {row.senderFullName}
-                  </TableCell>
-                  <TableCell
-                    sx={{ color: "var(--color-text)", borderBottom: "none" }}
-                  >
-                    {senderAccountNumber}
-                  </TableCell>
-                  <TableCell
-                    sx={{ color: "var(--color-text)", borderBottom: "none" }}
-                  >
-                    {/* gönderen ve alıcıya göre ısım degısecek 2 taraflı dusun */}
-                    {row.recipientFullNameWithIban ||
-                      row.recipientFullNameWithAccount}
-                  </TableCell>
-                  <TableCell
-                    sx={{ color: "var(--color-text)", borderBottom: "none" }}
-                  >
-                    {row.recipientIban || row.recipientAccountNumber}
-                  </TableCell>
+                      {row?.recipientAccountNumber && (
+                        <TableCell>{row?.recipientAccountNumber}</TableCell>
+                      )}
+                      {row?.recipientIban && (
+                        <TableCell>{row?.recipientIban}</TableCell>
+                      )}
+                    </>
+                  )}
                 </TableRow>
               </TableBody>
             </Table>
