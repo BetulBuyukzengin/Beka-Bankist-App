@@ -5,7 +5,12 @@ import styled from "styled-components";
 import MenuIcon from "../../../Components/MenuIcon/MenuIcon";
 import { usePDF } from "react-to-pdf";
 import { useUser } from "../../../services/userServices";
-import { formatDate, formatIBAN } from "../../../utils/utils";
+import {
+  formatCurrency,
+  formatDate,
+  formatIBAN,
+  formatWord,
+} from "../../../utils/utils";
 
 const StyledLabelTitle = styled.label`
   width: 40%;
@@ -32,8 +37,17 @@ export default function ReceiptContent({ row }) {
   const { user } = useUser();
   const fullName = user.user_metadata.fullName;
   const { toPDF, targetRef } = usePDF({ filename: "page.pdf" });
+  const selectedMyAccount = JSON.parse(row.selectedAccount);
+  console.log(row);
   return (
-    <StyledBox sx={{ flexGrow: 1, width: "78% " }} ref={targetRef}>
+    <StyledBox
+      sx={{
+        flexGrow: 1,
+        width:
+          row.status === "Deposit" || row.status === "Withdraw" ? "50%" : "90%",
+      }}
+      ref={targetRef}
+    >
       <MenuIcon toPDF={toPDF} />
       <Box mb={4}>
         <h5>BEKA BANKİST</h5>
@@ -44,107 +58,209 @@ export default function ReceiptContent({ row }) {
           gap: "1rem",
         }}
       >
-        <Grid
-          container
-          spacing={2}
-          sx={{
-            marginBottom: "2rem",
-            border: "1px solid var(--color-text)",
-            padding: "1rem",
-            borderRadius: "5px",
-            marginLeft: "0!important",
-          }}
-        >
+        {row.status === "Deposit" || row.status === "Withdraw" ? (
           <Grid
-            item
-            xs={12}
+            container
+            spacing={2}
             sx={{
-              paddingLeft: "0!important",
-              display: "flex",
+              marginBottom: "2rem",
+              border: "1px solid var(--color-text)",
+              padding: "1rem",
+              borderRadius: "5px",
+              marginLeft: "0!important",
             }}
           >
-            <StyledLabelTitle>RECIPIENT: </StyledLabelTitle>
-            <StyledLabelDesc>{row.recipient}</StyledLabelDesc>
+            <Grid
+              item
+              xs={12}
+              sx={{
+                paddingLeft: "0!important",
+                display: "flex",
+              }}
+            >
+              <StyledLabelTitle>Account Holder: </StyledLabelTitle>
+              <StyledLabelDesc>{selectedMyAccount?.fullName}</StyledLabelDesc>
+            </Grid>
+            <Grid
+              item
+              xs={12}
+              sx={{
+                paddingLeft: "0!important",
+                display: "flex",
+              }}
+            >
+              <StyledLabelTitle>Account Iban: </StyledLabelTitle>
+              <StyledLabelDesc>{selectedMyAccount?.iban}</StyledLabelDesc>
+            </Grid>
+            <Grid
+              item
+              xs={12}
+              sx={{
+                paddingLeft: "0!important",
+                display: "flex",
+              }}
+            >
+              <StyledLabelTitle>Account Number: </StyledLabelTitle>
+              <StyledLabelDesc>
+                {selectedMyAccount?.accountNumber}
+              </StyledLabelDesc>
+            </Grid>
+            <Grid
+              item
+              xs={12}
+              sx={{
+                paddingLeft: "0!important",
+                display: "flex",
+              }}
+            >
+              <StyledLabelTitle>Amount: </StyledLabelTitle>
+              <StyledLabelDesc>
+                {formatCurrency(row?.amountToBeDepositMyAccount) ||
+                  formatCurrency(row?.amountToWithdrawMyAccount)}
+              </StyledLabelDesc>
+            </Grid>
           </Grid>
-          <Grid
-            item
-            xs={12}
-            sx={{
-              paddingLeft: "0!important",
-              display: "flex",
-            }}
-          >
-            <StyledLabelTitle>RECIPIENT BRANCH: </StyledLabelTitle>
-            <StyledLabelDesc>{row.recipientBranch}</StyledLabelDesc>
-          </Grid>
-          <Grid
-            item
-            xs={12}
-            sx={{
-              paddingLeft: "0!important",
-              display: "flex",
-            }}
-          >
-            <StyledLabelTitle> RECIPIENT IBAN: </StyledLabelTitle>
-            <StyledLabelDesc>{formatIBAN(row.recipientIban)}</StyledLabelDesc>
-          </Grid>
-          <Grid
-            item
-            xs={12}
-            sx={{
-              paddingLeft: "0!important",
-              display: "flex",
-            }}
-          >
-            <StyledLabelTitle>OPERATION DATE: </StyledLabelTitle>
-            <StyledLabelDesc>{formatDate(row.created_at)}</StyledLabelDesc>
-          </Grid>
-        </Grid>
-        <Grid
-          container
-          spacing={2}
-          sx={{
-            marginBottom: "2rem",
-            border: "1px solid var(--color-text)",
-            padding: "1rem",
-            borderRadius: "5px",
-            marginLeft: "0!important",
-          }}
-        >
-          <Grid
-            item
-            xs={12}
-            sx={{
-              paddingLeft: "0!important",
-              display: "flex",
-            }}
-          >
-            <StyledLabelTitle>SENDER: </StyledLabelTitle>
-            <StyledLabelDesc>{row.sender}</StyledLabelDesc>
-          </Grid>
-          <Grid
-            item
-            xs={12}
-            sx={{
-              paddingLeft: "0!important",
-              display: "flex",
-            }}
-          >
-            <StyledLabelTitle>SENDER BRANCH: </StyledLabelTitle>
-            <StyledLabelDesc>{row.senderBranch}</StyledLabelDesc>
-          </Grid>
-          <Grid
-            item
-            xs={12}
-            sx={{
-              paddingLeft: "0!important",
-              display: "flex",
-            }}
-          >
-            <StyledLabelTitle>SENDER IBAN: </StyledLabelTitle>
-            <StyledLabelDesc>{formatIBAN(row.senderIban)}</StyledLabelDesc>
-          </Grid>
-        </Grid>
+        ) : (
+          <>
+            <Grid
+              container
+              spacing={2}
+              sx={{
+                marginBottom: "2rem",
+                border: "1px solid var(--color-text)",
+                padding: "1rem",
+                borderRadius: "5px",
+                marginLeft: "0!important",
+              }}
+            >
+              <Grid
+                item
+                xs={12}
+                sx={{
+                  paddingLeft: "0!important",
+                  display: "flex",
+                }}
+              >
+                <StyledLabelTitle>RECIPIENT: </StyledLabelTitle>
+                <StyledLabelDesc>
+                  {row?.recipientFullNameWithIban}
+                </StyledLabelDesc>
+              </Grid>
+              {row.recipientBankBranch && (
+                <Grid
+                  item
+                  xs={12}
+                  sx={{
+                    paddingLeft: "0!important",
+                    display: "flex",
+                  }}
+                >
+                  <StyledLabelTitle>RECIPIENT BRANCH: </StyledLabelTitle>
+                  <StyledLabelDesc>{row?.recipientBankBranch}</StyledLabelDesc>
+                </Grid>
+              )}
+              <Grid
+                item
+                xs={12}
+                sx={{
+                  paddingLeft: "0!important",
+                  display: "flex",
+                }}
+              >
+                {row.recipientIban && (
+                  <>
+                    <StyledLabelTitle> REIPIENT IBAN: </StyledLabelTitle>
+                    <StyledLabelDesc>
+                      {formatIBAN(row?.recipientIban)}
+                    </StyledLabelDesc>
+                  </>
+                )}
+                {row.recipientAccountNumber && (
+                  <>
+                    <StyledLabelTitle> RECIPIENT ACCOUNT NO: </StyledLabelTitle>
+                    <StyledLabelDesc>
+                      {formatIBAN(row?.recipientAccountNumber)}
+                    </StyledLabelDesc>
+                  </>
+                )}
+              </Grid>
+              <Grid
+                item
+                xs={12}
+                sx={{
+                  paddingLeft: "0!important",
+                  display: "flex",
+                }}
+              >
+                <StyledLabelTitle>OPERATION DATE: </StyledLabelTitle>
+                <StyledLabelDesc>{formatDate(row?.createdAt)}</StyledLabelDesc>
+              </Grid>
+              <Grid
+                item
+                xs={12}
+                sx={{
+                  paddingLeft: "0!important",
+                  display: "flex",
+                }}
+              >
+                <StyledLabelTitle>Amount: </StyledLabelTitle>
+                <StyledLabelDesc>
+                  {formatCurrency(row?.amountToSend)}
+                </StyledLabelDesc>
+              </Grid>
+            </Grid>
+
+            <Grid
+              container
+              spacing={2}
+              sx={{
+                marginBottom: "2rem",
+                border: "1px solid var(--color-text)",
+                padding: "1rem",
+                borderRadius: "5px",
+                marginLeft: "0!important",
+              }}
+            >
+              <Grid
+                item
+                xs={12}
+                sx={{
+                  paddingLeft: "0!important",
+                  display: "flex",
+                }}
+              >
+                <StyledLabelTitle>SENDER: </StyledLabelTitle>
+                <StyledLabelDesc>{row?.senderFullName}</StyledLabelDesc>
+              </Grid>
+              <Grid
+                item
+                xs={12}
+                sx={{
+                  paddingLeft: "0!important",
+                  display: "flex",
+                }}
+              >
+                <StyledLabelTitle>SENDER BRANCH: </StyledLabelTitle>
+                <StyledLabelDesc>
+                  {formatWord(selectedMyAccount?.bankBranch)}
+                </StyledLabelDesc>
+              </Grid>
+              <Grid
+                item
+                xs={12}
+                sx={{
+                  paddingLeft: "0!important",
+                  display: "flex",
+                }}
+              >
+                <StyledLabelTitle>SENDER IBAN: </StyledLabelTitle>
+                <StyledLabelDesc>
+                  {formatIBAN(selectedMyAccount?.iban)}
+                </StyledLabelDesc>
+              </Grid>
+            </Grid>
+          </>
+        )}
       </Box>
       <Grid container>
         <Grid
