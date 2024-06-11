@@ -17,6 +17,8 @@ import { DatePicker } from "@mui/x-date-pickers";
 import {
   starterBalance,
   dailyTransferLimit,
+  dailyDepositLimit,
+  dailyWithdrawLimit,
 } from "../../../Constants/constants";
 
 const bankContent = [
@@ -88,6 +90,8 @@ function AccountCreate() {
       birthday,
       balance: starterBalance,
       remainingTransferLimit: dailyTransferLimit,
+      remainingDepositLimit: dailyDepositLimit,
+      remainingWithdrawLimit: dailyWithdrawLimit,
       isFormApproved: checked || "",
     };
 
