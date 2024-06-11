@@ -23,18 +23,36 @@ function DetailTableHead({ row }) {
         <TableCell sx={{ color: "var(--color-text)" }}>
           Current Balance
         </TableCell>
-        <TableCell sx={{ color: "var(--color-text)" }}>Sender Name</TableCell>
-        <TableCell sx={{ color: "var(--color-text)" }}>
-          Sender Account Number
-        </TableCell>
-        <TableCell sx={{ color: "var(--color-text)" }}>
-          Recipient Name
-        </TableCell>
-        <TableCell sx={{ color: "var(--color-text)" }}>
-          {row.recipientFullNameWithAccount
-            ? "Recipient Account Number"
-            : "Recipient Iban"}
-        </TableCell>
+        {row?.status === "Deposit" || row?.status === "Withdraw" ? (
+          <>
+            <TableCell sx={{ color: "var(--color-text)" }}>
+              Account Holder
+            </TableCell>
+            <TableCell sx={{ color: "var(--color-text)" }}>
+              Account Number
+            </TableCell>
+            <TableCell sx={{ color: "var(--color-text)" }}>
+              Account IBAN
+            </TableCell>
+          </>
+        ) : (
+          <>
+            <TableCell sx={{ color: "var(--color-text)" }}>
+              Sender Name
+            </TableCell>
+            <TableCell sx={{ color: "var(--color-text)" }}>
+              Sender Account Number
+            </TableCell>
+            <TableCell sx={{ color: "var(--color-text)" }}>
+              Recipient Name
+            </TableCell>
+            <TableCell sx={{ color: "var(--color-text)" }}>
+              {row?.recipientFullNameWithAccount
+                ? "Recipient Account Number"
+                : "Recipient Iban"}
+            </TableCell>
+          </>
+        )}
         <TableCell sx={{ color: "var(--color-text)", borderBottom: "none" }}>
           <StyledButton onClick={handleOpen}>
             <Receipt />
