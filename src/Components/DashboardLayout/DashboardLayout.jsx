@@ -29,6 +29,17 @@ import Protected from "../../Components/Protected/Protected";
 import { ListItemIcon, ListItemText } from "@mui/material";
 import { CurrencyExchange } from "@mui/icons-material";
 import SettingsSuggestIcon from "@mui/icons-material/SettingsSuggest";
+import { calcRemainingLimitResetTime } from "../../utils/utils";
+import {
+  useDailyRemainingLimit,
+  useGetAccounts,
+} from "../../services/accountServices";
+import {
+  dailyDepositLimit,
+  dailyTransferLimit,
+  dailyWithdrawLimit,
+} from "../../Constants/constants";
+import { useEffect } from "react";
 const drawerWidth = 240;
 
 const StyledLink = styled.a`
@@ -132,7 +143,9 @@ export default function DashboardLayout() {
   const { mutateAsync: logout } = useLogout();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-
+  const { accounts, isLoading } = useGetAccounts();
+  const { mutateAsync: updateDailyLimits } = useDailyRemainingLimit();
+  const [endTime, setEndTime] = React.useState(false);
   const { user } = useUser();
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -142,6 +155,131 @@ export default function DashboardLayout() {
     setOpen(false);
   };
 
+  console.log(calcRemainingLimitResetTime());
+  console.log(accounts?.map((account) => account.remainingDepositLimit));
+
+  // React.useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     const remainingResetTime = calcRemainingLimitResetTime();
+  //     console.log(remainingResetTime);
+  //     console.log(accounts.map((account) => account.remainingDepositLimit));
+
+  //     if (remainingResetTime == "0 hours 00 minutes 00 seconds") {
+  //       accounts.map((account) => {
+  //         const updatedAccount = {
+  //           ...account,
+  //           remainingDepositLimit: dailyDepositLimit,
+  //           remainingTransferLimit: dailyTransferLimit,
+  //           remainingWithdrawLimit: dailyWithdrawLimit,
+  //         };
+  //         const id = account?.id;
+  //         updateDailyLimits({ id, account: updatedAccount });
+  //       });
+  //       console.log("her sanıye");
+  //     }
+  //   }, 1000); // Her saniye kontrol et
+
+  //   return () => clearInterval(interval);
+  // }, [accounts, updateDailyLimits, isLimitResetTimeOver]);
+
+  // React.useEffect(() => {
+  //   let intervalId;
+
+  //   const updateLimits = async () => {
+  //     const remainingResetTime = calcRemainingLimitResetTime();
+  //     console.log(remainingResetTime);
+  //     console.log(accounts.map((account) => account.remainingDepositLimit));
+  //     if (remainingResetTime === "0 hours 00 minutes 00 seconds") {
+  //       const id = account?.id;
+  //       const updatedAccounts = accounts.map((account) => ({
+  //         ...account,
+  //         remainingDepositLimit: dailyDepositLimit,
+  //         remainingTransferLimit: dailyTransferLimit,
+  //         remainingWithdrawLimit: dailyWithdrawLimit,
+  //       }));
+  //       await updateDailyLimits({ id, updatedAccounts });
+  //       console.log("Günlük limitler güncellendi.");
+  //     }
+  //   };
+
+  //   const startInterval = () => {
+  //     intervalId = setInterval(updateLimits, 1000);
+  //   };
+
+  //   startInterval();
+
+  //   return () => {
+  //     clearInterval(intervalId);
+  //   };
+  // }, [accounts, updateDailyLimits]);
+
+  React.useEffect(() => {
+    let intervalId;
+
+    const updateLimits = () => {
+      const remainingResetTime = calcRemainingLimitResetTime();
+      if (remainingResetTime === "0 hours 00 minutes 00 seconds") {
+        setEndTime(true);
+        // for (const account of accounts) {
+        //   const updatedAccount = {
+        //     ...account,
+        //     remainingDepositLimit: dailyDepositLimit,
+        //     remainingTransferLimit: dailyTransferLimit,
+        //     remainingWithdrawLimit: dailyWithdrawLimit,
+        //   };
+        //   await updateDailyLimits({ id: account.id, account: updatedAccount });
+        // }
+        // console.log("Günlük limitler güncellendi.");
+      } else setEndTime(false);
+    };
+
+    const startInterval = () => {
+      intervalId = setInterval(updateLimits, 1000);
+    };
+
+    startInterval();
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, []);
+  useEffect(
+    function () {
+      async function updateLimits() {
+        //!1- map dene
+        //!2-foreach dene
+        //!3-await siz dene for ile
+        //! hesap seçerken lımit yetersız uyarısı versın
+        //! alternatif olarak hesapların tamamını alan ve guncelleyen hook yapmayı dene
+        // for (const account of accounts) {
+        //   const updatedAccount = {
+        //     ...account,
+        //     remainingDepositLimit: dailyDepositLimit,
+        //     remainingTransferLimit: dailyTransferLimit,
+        //     remainingWithdrawLimit: dailyWithdrawLimit,
+        //   };
+        //   await updateDailyLimits({ id: account.id, account: updatedAccount });
+        // }
+
+        await Promise.all(
+          accounts?.map(async (account) => {
+            const updatedAccount = {
+              ...account,
+              remainingDepositLimit: dailyDepositLimit,
+              remainingTransferLimit: dailyTransferLimit,
+              remainingWithdrawLimit: dailyWithdrawLimit,
+            };
+            await updateDailyLimits({
+              id: account.id,
+              account: updatedAccount,
+            });
+          })
+        );
+      }
+      if (endTime) updateLimits();
+    },
+    [endTime, accounts, updateDailyLimits] //!3 ü varken loopa giriyor
+  );
   return (
     <Protected>
       <Box
