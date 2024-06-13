@@ -22,45 +22,60 @@ const StyledAccountCheckComponent = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 7% 9%;
-  /* margin: 1rem 0; */
   border: 1px solid var(--color-border-2);
 `;
 
 function AccountCheckComp({ account }) {
   const [searchParams] = useSearchParams();
+
   const selectedAccount = JSON.parse(searchParams.get("selectedAccount"));
   const {
     formState: { errors },
   } = useFormContext();
 
+  const showErrorMessage =
+    account?.accountNumber === selectedAccount?.accountNumber &&
+    errors?.selectedAccount;
+
   return (
-    <StyledAccountCheckComponent
-      style={{
-        backgroundColor:
-          account?.accountNumber === selectedAccount?.accountNumber &&
-          "var(--color-background-3)",
-        border: errors?.selectedAccount && "1px solid var(--color-error)",
-      }}
-    >
-      <div>
-        <StyledH6>
-          {`${formatWord(account.bankName)} - ${formatWord(
-            account.bankBranch
-          )}`}
-        </StyledH6>
-        <StyledTitleLabel>
-          Kullanılabilir bakiye: {formatCurrency(account.balance)}
-        </StyledTitleLabel>
-      </div>
-      <div>
-        <NavigateNext />
-      </div>
-    </StyledAccountCheckComponent>
+    <>
+      <StyledAccountCheckComponent
+        style={{
+          backgroundColor:
+            account?.accountNumber === selectedAccount?.accountNumber &&
+            "var(--color-background-3)",
+          border:
+            showErrorMessage &&
+            errors?.selectedAccount &&
+            "1px solid var(--color-error)",
+        }}
+      >
+        <div>
+          <StyledH6>
+            {`${formatWord(account.bankName)} - ${formatWord(
+              account.bankBranch
+            )}`}
+          </StyledH6>
+          <StyledTitleLabel>
+            Kullanılabilir bakiye: {formatCurrency(account.balance)}
+          </StyledTitleLabel>
+        </div>
+        <div>
+          <NavigateNext />
+        </div>
+      </StyledAccountCheckComponent>
+      {/* {showErrorMessage && (
+        <FormHelperText error>
+          {errors?.selectedAccount?.message}
+        </FormHelperText>
+      )} */}
+    </>
   );
 }
 
 export default function CustomRadio({ register, onChange, value }) {
   const { isLoading, accounts } = useGetAccounts();
+
   if (isLoading) return <Loader />;
   return (
     <RadioGroup
@@ -81,7 +96,6 @@ export default function CustomRadio({ register, onChange, value }) {
             marginLeft: "0",
             marginRight: "0",
             justifyContent: "center",
-            // margin: "1rem 0",
           }}
           {...register}
           control={
@@ -94,7 +108,6 @@ export default function CustomRadio({ register, onChange, value }) {
                 opacity: "0",
                 "&+span": {
                   width: "17rem",
-                  // height: "10rem!important",
                   position: "absolute",
                 },
               }}
