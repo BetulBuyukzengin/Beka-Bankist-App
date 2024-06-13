@@ -14,6 +14,8 @@ import {
   showDailyLimitMessage,
 } from "../../../../../utils/utils";
 import { useCreateMovements } from "../../../../../services/movementsServices";
+import { dailyDepositLimit } from "../../../../../Constants/constants";
+import { toast } from "react-toastify";
 
 const transactionSteps = [
   {
@@ -38,7 +40,21 @@ function DepositTab() {
   const { createMovement, isCreating } = useCreateMovements();
   const validationSchema = [
     yup.object({
-      selectedAccount: yup.string().required("This field is required!"),
+      selectedAccount: yup
+        .string()
+        .test("limit-check", function (value) {
+          if (
+            JSON.parse(value).remainingDepositLimit === 0 &&
+            JSON.parse(value).id === id
+          )
+            return this.createError({
+              message: toast.error(
+                showDailyLimitMessage("deposit", calcRemainingLimitResetTime())
+              ),
+            });
+          else return true;
+        })
+        .required("This field is required!"),
     }),
     yup.object({
       amountToBeDepositMyAccount: yup
@@ -73,16 +89,28 @@ function DepositTab() {
   });
 
   const getStatus = searchParams.get("status");
-
+  // const isLimitResetTimeOver =
+  //   calcRemainingLimitResetTime() === "0 hours 00 minutes 00 seconds";
+  console.log(currentDepositLimit);
+  // console.log(isLimitResetTimeOver, currentDepositLimit, dailyDepositLimit);
   const onSubmit = async (data) => {
+    // let updatedRemainingDepositLimit = currentDepositLimit;
+
+    // if (isLimitResetTimeOver) {
+    //   updatedRemainingDepositLimit = dailyDepositLimit;
+    // } else {
+    //   updatedRemainingDepositLimit -= Number(amountToBeDepositMyAccount);
+    // }
+
+    // console.log(updatedRemainingDepositLimit);
     const { amountToBeDepositMyAccount } = data;
     const updatedAccount = {
       ...selectedAccount,
+      // remainingDepositLimit: updatedRemainingDepositLimit,
       remainingDepositLimit:
         currentDepositLimit - Number(amountToBeDepositMyAccount),
       balance: currentBalance + Number(amountToBeDepositMyAccount),
     };
-    console.log(updatedAccount);
     await depositMoney({ id, account: updatedAccount });
     await createMovement({
       selectedAccount: updatedAccount,
