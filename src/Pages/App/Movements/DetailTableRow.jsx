@@ -95,19 +95,45 @@ function DetailTableRow({ row, open }) {
                         </TableCell>
                       )}
                       {row?.recipientFullNameWithIban && (
-                        <TableCell>{row?.recipientFullNameWithIban}</TableCell>
+                        <TableCell
+                          sx={{
+                            color: "var(--color-text)",
+                            borderBottom: "none",
+                          }}
+                        >
+                          {row?.recipientFullNameWithIban}
+                        </TableCell>
                       )}
                       {row?.recipientFullNameWithAccount && (
-                        <TableCell>
+                        <TableCell
+                          sx={{
+                            color: "var(--color-text)",
+                            borderBottom: "none",
+                          }}
+                        >
                           {row?.recipientFullNameWithAccount}
                         </TableCell>
                       )}
 
                       {row?.recipientAccountNumber && (
-                        <TableCell>{row?.recipientAccountNumber}</TableCell>
+                        <TableCell
+                          sx={{
+                            color: "var(--color-text)",
+                            borderBottom: "none",
+                          }}
+                        >
+                          {row?.recipientAccountNumber}
+                        </TableCell>
                       )}
                       {row?.recipientIban && (
-                        <TableCell>{row?.recipientIban}</TableCell>
+                        <TableCell
+                          sx={{
+                            color: "var(--color-text)",
+                            borderBottom: "none",
+                          }}
+                        >
+                          {row?.recipientIban}
+                        </TableCell>
                       )}
                     </>
                   )}
