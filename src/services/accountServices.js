@@ -68,9 +68,10 @@ async function updateDailyRemainingLimit(id, account) {
 }
 
 export function useDailyRemainingLimit() {
+  const queryClient = useQueryClient();
   const { mutateAsync, isLoading } = useMutation({
     mutationFn: ({ id, account }) => updateDailyRemainingLimit(id, account),
-    // onError: () => toast.error("Balance updated"),
+    onSuccess: queryClient.invalidateQueries(),
   });
   return { mutateAsync, isLoading };
 }
