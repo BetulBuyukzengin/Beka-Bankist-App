@@ -46,4 +46,10 @@
 - Prop types
 
 # Kullanılan React Özellikleri :
--
+- Yeni verilerin database işlenmesi ve var olan verilerin güncellenmesi veya silinmesi için tanstack query nin sağladığı useMutation hookunu kullandım. Böylece devam eden asenkron işlemler hakkında kullancıyı bilgilendirdim (loader gibi).
+- Database de var olan verileri getirmek ve kullanıcıya göstermek için tanstack query nin sağladığı useQuery hookunu kullandım. Böylece veriler gösterilmeye hazırlanana kadar kullanıcıyı bilgilendirdim (loader gibi).
+- Tanstack query nin sağladığı useQueryClient hookunu kullanarak mutasyon işlemlerinin başarılı olduğu durumlarda cache deki verilerin yeniden doğrulanmasını ve sayfanın yeniden renderlanmasını sağladım.
+  (Arayüzü database ile senkronize hale getirdim).
+- Hesaba giriş yapıldığında veya hesap oluşturulduğunda programlı navigasyon ( programmatic navigation) yöntemi ile useNavigation hooku kullanarak hesaplar sayfasına yönlendirme yaptım.
+- Önbelleği (cache) temizlemek için removeQueries i kullandım. Böylece her girişte hesaplar tekrar getirilebilir oldu.
+- Stepler arası sorun yaşamamak adına trigger
