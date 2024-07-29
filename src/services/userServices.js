@@ -15,10 +15,9 @@ export function useSignIn() {
 
   const { mutateAsync, isLoading } = useMutation({
     mutationFn: ({ email, password }) => signIn({ email, password }),
-    onSuccess: (user) => {
+    onSuccess: () => {
       toast.success("Sign in successful");
-      // navigate("/applayout");
-      queryClient.setQueryData(["user", user.user]);
+      queryClient.setQueryData(["user"]);
       navigate("/applayout/account", { replace: true });
     },
     onError: () => {
@@ -34,11 +33,14 @@ async function logout() {
 }
 export function useLogout() {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const { mutateAsync, isLoading } = useMutation({
     mutationFn: logout,
     onSuccess: () => {
       toast.success("Logout successful");
       navigate("/signIn");
+      //! Use removeQueries to clear cache. So in every login accounts can be fetch again.
+      queryClient.removeQueries("accounts");
     },
     onError: () => {
       toast.error("Logout failed");
@@ -75,8 +77,20 @@ async function signUp(data) {
       },
     },
   });
+
   if (error) throw new Error(error.message);
-  if (user) await signIn({ email: data.email, password: data.password });
+
+  if (user) {
+    // const { error } = await supabase.from("users").insert([
+    await supabase.from("users").insert([
+      {
+        id: user.user.id,
+        email: user.user.email,
+        fullName: user.user.user_metadata.fullName,
+      },
+    ]);
+    await signIn({ email: data.email, password: data.password });
+  }
   return user;
 }
 
@@ -86,7 +100,8 @@ export function useSignUp() {
     mutationFn: signUp,
     onSuccess: (user) => {
       toast.success("Successfully sign up ");
-      user && navigate("/applayout");
+      user && navigate("/applayout/account");
+      // navigate("/applayout/account", { replace: true });
     },
     onError: (error) => {
       error.message;
