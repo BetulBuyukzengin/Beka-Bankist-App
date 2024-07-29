@@ -14,7 +14,7 @@ const StyledBox = styled(Box)`
   cursor: pointer;
 `;
 
-function SenderAccount() {
+function SenderAccount({ border, monthlyPayment }) {
   const { register } = useFormContext();
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -34,9 +34,10 @@ function SenderAccount() {
       >
         <StyledBox>
           <CustomRadio
+            border={border}
             value={searchParams.get("selectedAccount")}
+            monthlyPayment={monthlyPayment}
             onChange={(e) => {
-              console.log(e.target.value);
               handleChange(e.target.value);
             }}
             register={{ ...register("selectedAccount") }}
