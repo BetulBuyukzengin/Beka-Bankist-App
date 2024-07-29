@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { useDarkMode } from "../../../Contexts/DarkModeContext";
 import { Link } from "react-router-dom";
 import { useSignUp } from "../../../services/userServices";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 const StyledForm = styled.form`
   width: 100%;
@@ -78,6 +79,32 @@ const StyledSignUpButton = styled.button`
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   }
 `;
+const StyledLinkTo = styled(Link)`
+  border: none;
+  color: var(--color-text);
+  background-color: transparent;
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: end;
+
+  &:hover {
+    color: var(--color-primary);
+    transform: translateY(-2px);
+    cursor: pointer;
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+`;
+const StyledNavbar = styled.nav`
+  width: 100%;
+  position: fixed;
+  z-index: 111;
+  backdrop-filter: blur(5px);
+  top: 0;
+`;
+
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function SignUp() {
@@ -93,6 +120,11 @@ function SignUp() {
 
   return (
     <StyledForm onSubmit={handleSubmit(onSubmit)}>
+      <StyledNavbar>
+        <StyledLinkTo to="/">
+          <LogoutIcon />
+        </StyledLinkTo>
+      </StyledNavbar>
       <Paper
         elevation={2}
         sx={{
@@ -146,7 +178,7 @@ function SignUp() {
                 pattern: {
                   value: /^(?=.*[A-Z])(?=.*\d).+$/, // En az bir büyük harf ve bir sayı içermesi
                   message:
-                    "Password must contain at least one uppercase letter and one number",
+                    "Password must contain at least one uppercase letter, one number and English characters.",
                 },
               })}
               id="password"
@@ -165,7 +197,7 @@ function SignUp() {
                 pattern: {
                   value: /^(?=.*[A-Z])(?=.*\d).+$/, // En az bir büyük harf ve bir sayı içermesi
                   message:
-                    "Password must contain at least one uppercase letter and one number",
+                    "Password must contain at least one uppercase letter, one number and English characters.",
                 },
                 validate: (value) =>
                   getValues().password === value || "Passwords do not match",
