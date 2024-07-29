@@ -1,8 +1,8 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { supabase } from "../Supabase/supabase";
 import { toast } from "react-toastify";
 
-export async function getMovements() {
+async function getMovements() {
   let { data: movements, error } = await supabase.from("movements").select("*");
   if (error) throw new Error(error);
   return movements;
@@ -24,14 +24,12 @@ export async function createMovements(newMovement) {
 }
 
 export function useCreateMovements() {
-  const queryClient = useQueryClient();
   const { mutateAsync: createMovement, isLoading: isCreating } = useMutation({
     mutationFn: (data) => {
       createMovements(data);
     },
     onSuccess: () => {
       toast.success("Transfer was successfully completed");
-      queryClient.invalidateQueries({ queryKey: ["movements"] });
     },
     onError: () =>
       toast.error(
