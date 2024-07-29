@@ -12,9 +12,7 @@ import DetailTableHead from "./TableHeads/DetailTableHead";
 import { formatCurrency } from "../../../utils/utils";
 
 function DetailTableRow({ row, open }) {
-  // const { user } = useUser();
   const selectedAccount = JSON.parse(row.selectedAccount);
-  console.log(row.status);
   return (
     <TableRow>
       <TableCell
