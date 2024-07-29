@@ -5,7 +5,6 @@ import CustomSelect from "../../../../../Components/CustomSelect/CustomSelect";
 import { useSearchParams } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
 import {
-  calculateAndFormatLoan,
   calculateAvailableMonthlyPayment,
   calculateLoanAmount,
 } from "../../../../../utils/utils";
@@ -49,6 +48,7 @@ export default function LoanInformation() {
     register,
     formState: { errors },
     watch,
+    setValue,
   } = useFormContext();
 
   const [loanAmount, setLoanAmount] = useState(0);
@@ -89,21 +89,21 @@ export default function LoanInformation() {
     setTotalIncome(+e);
   }
 
-  useEffect(() => {
-    if (watchApplicantLoanAmount) {
-      searchParams.set("applicantPaymentPlan", watchApplicantLoanAmount);
-      setSearchParams(searchParams);
-    }
-  }, [searchParams, setSearchParams, watchApplicantLoanAmount]);
-
   useEffect(
     function () {
       if (watchSelectedPaymentPeriod !== undefined) {
         searchParams.set("selectedPaymentPeriod", watchSelectedPaymentPeriod);
         setSearchParams(searchParams);
+        setValue("applicantLoanAmount", loanAmount);
       }
     },
-    [searchParams, setSearchParams, watchSelectedPaymentPeriod]
+    [
+      searchParams,
+      setSearchParams,
+      watchSelectedPaymentPeriod,
+      setValue,
+      loanAmount,
+    ]
   );
 
   useEffect(
@@ -112,10 +112,9 @@ export default function LoanInformation() {
       setLoanAmount(maxLoanAmount || 0);
       setSearchParams(searchParams);
     },
-    [maxLoanAmount, searchParams, setSearchParams]
+    [maxLoanAmount, searchParams, setSearchParams, watchSelectedPaymentPeriod]
   );
 
-  console.log(watchApplicantLoanAmount);
   return (
     <Grid
       container
@@ -190,7 +189,7 @@ export default function LoanInformation() {
       </Grid>
       <Grid item xs={6}>
         <CustomTextField
-          placeholder={isTotalIncomeExpense ? maxLoanAmount : 0}
+          // placeholder={isTotalIncomeExpense ? maxLoanAmount : 0}
           type="number"
           value={loanAmount}
           onChange={handleLoanAmountChange}
