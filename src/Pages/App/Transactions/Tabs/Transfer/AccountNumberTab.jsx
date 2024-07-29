@@ -4,6 +4,7 @@ import CustomSelect from "../../../../../Components/CustomSelect/CustomSelect";
 import CustomTextField from "../../../../../Components/CustomTextField/CustomTextField";
 import { useFormContext } from "react-hook-form";
 import { useSearchParams } from "react-router-dom";
+import { maxAccountNumberLength } from "../../../../../Constants/constants";
 
 const bankContent = [
   {
@@ -121,6 +122,7 @@ function AccountNumberTab() {
             register={{ ...register("recipientAccountNumber") }}
             helperText={errors?.recipientAccountNumber?.message}
             error={errors?.recipientAccountNumber}
+            inputProps={{ maxLength: maxAccountNumberLength }}
           />
         </Grid>
         <Grid item xs={6}>
