@@ -12,10 +12,20 @@ const content = [
   { label: "With Account Numbers", component: <AccountNumberTab /> },
 ];
 
-function NewRecipientTab() {
+function NewRecipientTab({ iban, setIban }) {
   const orientation = "vertical";
   const [searchParams, setSearchParams] = useSearchParams();
   const { resetField } = useFormContext();
+
+  // const mainTabLabel = [];
+  // if (content.length === 4) {
+  //   content.map((tab) => {
+  //     mainTabLabel.push(tab.label);
+  //   });
+  // }
+  const mainTabLabel = content.map((tab) => {
+    return tab.label;
+  });
 
   useEffect(
     function () {
@@ -23,6 +33,7 @@ function NewRecipientTab() {
         resetField("recipientIban", { defaultValue: "" });
         resetField("recipientFullNameWithIban", { defaultValue: "" });
         resetField("shortName", { defaultValue: "" });
+        setIban("TR");
       }
       //recipientBankName yazdım bakName yerine !!!!!!!!!!!!!!!!!
       if (searchParams.get("new-recipient-tab") === "0") {
@@ -45,7 +56,15 @@ function NewRecipientTab() {
       <CustomTabs
         tabName="newRecipientTab"
         orientation={orientation}
-        content={content}
+        mainTabLabel={mainTabLabel}
+        content={content.map((cont) =>
+          cont.label === "With Iban"
+            ? {
+                ...cont,
+                component: <WithIbanTab iban={iban} setIban={setIban} />,
+              }
+            : cont
+        )}
       />
     </>
   );
