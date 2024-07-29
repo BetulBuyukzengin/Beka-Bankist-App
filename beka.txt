@@ -26,3 +26,134 @@ Application Features
 
 ## Investigate again
  - Account number tab ve with iban tab içerisindeki switchlerin resetField ile kullanımı
+ - presentationala gerı donus ekle app loginden
+ - işlem yapılmadıgında bellı sure sonra cıkıs yapılsın
+ - dil destegini ayarla
+ - account create te Hesaplar tablosundan ibanları, hesap no kıyasla
+ - deposit-withdraw işleminde limitim dolmuş ise gece 12 de güncelleniyor ama sayfayı değiştirip geldiğimde yansıyor 
+ - loan ınformatıopn ısımlerı degıssın
+
+ - hesaplarım kısmında daha once kredi cekilmişse göster
+ - hesap silme işlemi ekle
+ - check box state, modalda ve hesap yokken create işleminde loader gelmiyor
+ - buton submit yaparken loader gelebilir, required form
+ - helper text mesajlarını ozel olarak yaz ve hata mesajı doldugunda kaybolsun
+ - radiolarda hesap secerken bazen seımıyor yazı uzerınde ona bak!!
+ - loan tab da max cekilecek kredı ıcı otomatık 24 ay ı arka landa max tutar belırlıyor sanırım 12 ay secememe ragmen hata verıyor 12 aya cekınce duzlerıypr
+ - sender accountu my account yap ve 2 cmponentı farkı yererde kullan
+ - transferde ibanda bılgılerı doldurduktan sonra hesap secmeden loan taba gecıp gerı geldıgınde bılgıler sılınmıyor ve hesap secmeden ilerlenebiliyor!
+ - logine de şifre ya da mail yanlıs mesajı gosterilsin 
+ - loan amount daki hesaplanan kredi degerini yuvarla kusuratı yok et
+ - gunluk limit ertesı gun baktıgımda yenılememıs oluyor projenın kapalı olması etkıler mesaj?
+ - bank account create  tre date 1 gun öncesi tabloya gelıyor hatayı duzelt, NEW DATE VERİNCE BASŞANGIC DEĞERİNE DUZELIYOR
+ - take loan da max mın değerinde gereksız hata var
+ 
+ ??? tab geçişlerinde error
+ !!!!!!! transactions controlde iken başka taba gecildiğinde undefıned hatası alıyorum aynı zamanda geri donuldugunde de alıyordum onu cözmek adına tab deişiminde ilk stepe geçsin
+ 
+ İşlemler tabında url sıfırlama da hata var watch save as registered silinmeli*****
+
+
+
+
+
+!!!!!!!!!!!!!!!!!!!CUSTOM MENU ICON I CUSTOM YAP VE take out loanda da kullan
+url temizleme hatası var selected account oto secılı gelıyor geçmıyor duzelt
+ 
+ 
+ 
+ 
+ 
+
+
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ TRANSFER 
+ - Transaction controlde işlem tarihi seçebilmeyi ve işlemin o tarihte gerçekleşmesini sağla
+ - Frequently sent amount'u movementslara map yapacaksın ve en çok tekrar eden miktarları statuslarına da bağlı olarak alacaksın ve göstereceksin. bunu yaparken uyuklamayacaksın ve aklın 5 karış, götünde sinekler uçuşmayacak.
+ - Transaction controlde account numberıda formatla
+
+ PRESENTATIONAL
+ - Sayfanın text içeriğini düzenle
+- tek banka dan tek hesap acabılsın
+ - TAKE A LOAN 
+ - Çekilen kredi varsa yeniden o hesaptan talep edememeli
+ status u take a loan ise 1.step adı basvuran hesap olsn
+ - Kredi çekme talebi için telefondan onay alsın.
+ - Kredi çekilmiş ise çekme kısmı gozukmesın bılgı olsun ama cekılmedıyse cekme kısmı gelsın.
+
+ - Movements
+  - makbuz e maıl gonderme yap
+
+- Account Create
+- Kullanıcı banka hesabı olusturuken her hesap olusturmada tc sını aynı yapmalı
+-delete account butonunda acılan modalda siilme işlemini yap
+
+- Sign up
+- Burada tc yi de al. Account create ve loanda tcyı oto doldur ve dısabled ya
+
+-AccountCreate yerine CreateAccount şeklinde yapılabilir hepsını duzelt ıstersen
+
+- PAYMENT LOAN 
+- Yup ekle
+- Verileri form ile yönet, işlevselliği hallet
+- Confirme tıklanınca emin misiniz gibi bir uyarı mesajı göstereceksin
+
+  ----------------------
+ 2-.version:
+ - TC ile girişte farklı bankalardakı hesapları otomatık cekme (2.versiyon için yapılabilir)
+
+
+
+
+
+------------------------
+LOAN
+*Min çekilebilecek kredi miktarı vardır:
+* 12 aylık kredi çekme talebinde faiz uygulanmayacak diğerlerinde her bir seçenek için
+ayrı ayrı faiz miktarları ile toplam odeme hesaplanacak.
+* Business information step'inde income field'ı gereksiz.
+--------------------------------------------------
+ -RIZA ONAY FORMU:
+ Banka Hesabı Açılışı Aydınlatma ve Onay Formu
+
+Bu belge, aşağıda belirtilen kişi/kişilerin ("Hesap Sahibi") banka hesabı açılışıyla ilgili olarak bilgilendirilmesi ve onay vermesi için tasarlanmıştır. Hesap Sahibi, aşağıda belirtilen bilgileri anlamış ve kabul etmiştir.
+
+Hesap Sahibi Bilgileri:
+
+Adı Soyadı: [Hesap Sahibinin Adı Soyadı]
+Adres: [Hesap Sahibinin Adresi]
+Telefon Numarası: [Hesap Sahibinin Telefon Numarası]
+E-posta Adresi: [Hesap Sahibinin E-posta Adresi]
+Banka Hesabı Açılışı Bilgilendirmesi:
+
+Hesap Türü: Banka hesabı açılışı için Hesap Sahibi tarafından tercih edilen hesap türü belirtilmiştir. Banka, bu tercihe uygun olarak hesap açılış işlemini gerçekleştirecektir.
+
+Hesap Ücretleri ve Masraflar: Hesap Sahibi, banka hesabı açılışıyla birlikte uygulanabilecek tüm hesap ücretleri, masraflar ve faiz oranları hakkında bilgilendirilmiştir.
+
+Hesap Kullanımı ve İşlem Limitleri: Hesap Sahibi, banka hesabını kullanırken uygulanabilecek işlem limitleri, günlük para çekme sınırları ve diğer kısıtlamalar hakkında bilgilendirilmiştir.
+
+Hesap Güvenliği: Banka hesabının güvenliği konusunda alınması gereken önlemler ve hesap bilgilerinin korunmasıyla ilgili olarak Hesap Sahibi bilgilendirilmiştir. Hesap Sahibi, hesap bilgilerini güvende tutmayı ve yetkisiz erişimden korumayı kabul etmektedir.
+
+Yasal Sorumluluklar: Hesap Sahibi, banka hesabını kullanırken yasalara uymayı, yasalara aykırı hiçbir faaliyette bulunmamayı ve banka hesabını yasal amaçlar için kullanmayı kabul etmektedir.
+
+Onay:
+
+Yukarıdaki bilgilere dayanarak, Hesap Sahibi, banka hesabı açılışı için gerekli onayı vermektedir.
+
+......................................................................................
+[Hesap Sahibinin İmzası ve Tarihi]
+
