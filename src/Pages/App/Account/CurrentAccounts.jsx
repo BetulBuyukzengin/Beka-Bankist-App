@@ -4,9 +4,11 @@ import CustomModal from "../../../Components/CustomModal/CustomModal";
 import AccountCreate from "./AccountCreate";
 import { Box } from "@mui/material";
 import CustomMenuIcon from "../../../Components/CustomMenuIcon/CustomMenuIcon";
+import AccountDelete from "./AccountDelete";
 
 function CurrentAccounts() {
   const [open, setOpen] = useState(false);
+  const [openDeleteAccount, setOpenDeleteAccount] = useState(false);
   return (
     <>
       <Box
@@ -23,11 +25,17 @@ function CurrentAccounts() {
         >
           MY ACCOUNTS
         </h3>
-        <CustomMenuIcon setOpen={setOpen} />
+        <CustomMenuIcon
+          setOpen={setOpen}
+          setOpenDeleteAccount={setOpenDeleteAccount}
+        />
       </Box>
       <AppSlider />
       <CustomModal open={open} setOpen={setOpen}>
-        <AccountCreate />
+        <AccountCreate setOpenCreateModal={setOpen} />
+      </CustomModal>
+      <CustomModal open={openDeleteAccount} setOpen={setOpenDeleteAccount}>
+        <AccountDelete />
       </CustomModal>
     </>
   );
