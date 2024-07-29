@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FormControlLabel, FormHelperText, Grid, Switch } from "@mui/material";
 import styled from "styled-components";
 import { useUser } from "../../../../../services/userServices";
@@ -79,6 +79,21 @@ function DetailDetermination() {
     },
     [searchParams, setSearchParams, watchPaymentMethod]
   );
+
+  const prevStatus = useRef(null);
+  const currentStatus = searchParams.get("status");
+
+  //! setDescription, setShowUsernameInDescription yu lifting state yapabilirsin performansı etkilerse!!
+  useEffect(
+    function () {
+      if (currentStatus !== prevStatus.current) {
+        setDescription("");
+        setShowUsernameInDescription(false);
+      }
+    },
+    [currentStatus, setValue]
+  );
+
   const handleChangeDescription = (e) => {
     if (!showUsernameInDescription) setDescription(e.target.value);
   };
