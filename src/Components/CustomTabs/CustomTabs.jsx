@@ -10,6 +10,7 @@ import Box from "@mui/material/Box";
 import styled from "styled-components";
 import { useSearchParams } from "react-router-dom";
 import { useEffect } from "react";
+import { useForm, useFormContext } from "react-hook-form";
 
 const StyledSwipeableViews = styled(SwipeableViews)`
   width: 100%;
@@ -69,13 +70,18 @@ const tabHorizontalStyle = {
   },
 };
 
-export default function CustomTabs({ content, orientation, tabName }) {
-  const mainTabLabel = [];
-  if (content.length === 4) {
-    content.map((tab) => {
-      mainTabLabel.push(tab.label);
-    });
-  }
+export default function CustomTabs({
+  content,
+  orientation,
+  tabName,
+  mainTabLabel,
+}) {
+  // const mainTabLabel = [];
+  // if (content.length === 4) {
+  //   content.map((tab) => {
+  //     mainTabLabel.push(tab.label);
+  //   });
+  // }
 
   const theme = useTheme();
   const [tabIndex, setTabIndex] = React.useState(0);
