@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { useDarkMode } from "../../../Contexts/DarkModeContext";
 import { Link } from "react-router-dom";
 import { useSignIn } from "../../../services/userServices";
-import LogoutIcon from "@mui/icons-material/Logout";
+import LoginIcon from "@mui/icons-material/Login";
 
 const StyledForm = styled.form`
   width: 100%;
@@ -121,7 +121,7 @@ function SignIn() {
     <StyledForm onSubmit={handleSubmit(onSubmit)}>
       <StyledNavbar>
         <StyledLinkTo to="/">
-          <LogoutIcon />
+          <LoginIcon />
         </StyledLinkTo>
       </StyledNavbar>
       <Paper
