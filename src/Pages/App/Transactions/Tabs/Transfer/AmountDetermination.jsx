@@ -2,7 +2,7 @@ import { Box, Grid } from "@mui/material";
 import { formatCurrency } from "../../../../../utils/utils";
 
 import CustomTextField from "../../../../../Components/CustomTextField/CustomTextField";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { useSearchParams } from "react-router-dom";
 import { useUser } from "../../../../../services/userServices";
@@ -40,7 +40,6 @@ function AmountDetermination() {
   const selectedAccRemainingTransferLimit = JSON.parse(
     searchParams.get("selectedAccount")
   )?.remainingTransferLimit;
-  console.log(selectedAccRemainingTransferLimit);
   const [remainingBalance, setRemainingBalance] = useState(
     selectedAccRemainingBalance
   );
@@ -79,6 +78,18 @@ function AmountDetermination() {
       setAmountToSendValue(searchParams.get("amount-to-send"));
     } else setValue("amountToSend", amountToSendValue);
   }, [amountToSendValue, setValue, searchParams]);
+
+  const prevStatus = useRef(null);
+  const currentStatus = searchParams.get("status");
+
+  useEffect(
+    function () {
+      if (currentStatus !== prevStatus.current) {
+        setAmountToSendValue(0);
+      }
+    },
+    [currentStatus]
+  );
 
   return (
     <Grid container spacing={2}>
