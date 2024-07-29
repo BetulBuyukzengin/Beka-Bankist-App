@@ -10,7 +10,7 @@ const style = {
   bgcolor: "background.paper",
   boxShadow: 24,
   p: "3rem 2rem",
-
+  height: "50rem",
   scrollY: "auto",
   maxHeight: "30rem",
   maxWidth: "70rem",
