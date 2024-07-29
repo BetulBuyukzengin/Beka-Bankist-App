@@ -1,12 +1,13 @@
+/* eslint-disable react/prop-types */
 import CustomTextField from "../../../Components/CustomTextField/CustomTextField";
 import { useState } from "react";
-import { Checkbox, Grid } from "@mui/material";
+import { Checkbox, FormHelperText, Grid } from "@mui/material";
 import CustomButton from "../../../Components/CustomButton/CustomButton";
 import CustomSelect from "../../../Components/CustomSelect/CustomSelect";
 import { FormProvider, useForm } from "react-hook-form";
 import { calcAge, generateRandomIBAN } from "../../../utils/utils";
 import { toast } from "react-toastify";
-import { MuiTelInput } from "mui-tel-input";
+import { MuiTelInput, matchIsValidTel } from "mui-tel-input";
 import styled from "styled-components";
 import { useCreateAccount } from "../../../services/accountServices";
 import Loader from "../../../Components/Loader/Loader";
@@ -19,8 +20,10 @@ import {
   dailyTransferLimit,
   dailyDepositLimit,
   dailyWithdrawLimit,
+  identificationNumberCharacter,
 } from "../../../Constants/constants";
-
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 const bankContent = [
   {
     content: "Select Bank",
@@ -65,39 +68,74 @@ const StyledMuiTelInput = styled(MuiTelInput)`
 const StyledContainer = styled.div``;
 const StyledLabel = styled.label``;
 
-function AccountCreate() {
-  const methods = useForm();
-  const [birthday, setBirthday] = useState(false);
+function AccountCreate({ setOpenCreateModal }) {
+  const [birthday, setBirthday] = useState(new Date(99, 5, 24));
   const [phoneNumber, setPhoneNumber] = useState();
   const [open, setOpen] = useState(false);
   const { user } = useUser();
   const { isLoading, mutateAsync } = useCreateAccount();
   const [checked, setChecked] = useState(false);
-  const { errors } = methods.formState;
-  const isError = errors?.birthday || !birthday;
   function handleChangePhone(phone) {
     setPhoneNumber(phone);
   }
 
+  const validationSchema = yup.object({
+    fullName: yup.string().required("This field is required!"),
+    identificationNumber: yup
+      .string()
+      .required("This field is required!")
+      .test(
+        "is-valid-identificationNumber",
+        "Identification number is invalid, should be 11 characters long!",
+        (value) => value && value.length === identificationNumberCharacter
+      ),
+    address: yup.string().required("This field is required!"),
+    bankName: yup.string().required("This field is required!"),
+    bankBranch: yup.string().required("This field is required!"),
+    birthday: yup
+      .date()
+      .required("This field is required!")
+      //???????????? TEKRAR BAK !!!!!!!!!!!!!!!!!!!!!!
+      //? başlangıç değeri "MM/dd/yyyy   iken typeError her turlu hata gösteriyor o yüzden new Date verdim
+      //? AYRICA bu sayede bir gun öncesindeki tarih setleniyordu o hata cozulmus oldu
+      .typeError("Birthday must be a valid date in the format MM/DD/YYYY"),
+    phoneNumber: yup
+      .string()
+      .required("Phone number is required")
+      .test("is-valid-phone", "Phone number is invalid", (value) =>
+        matchIsValidTel(value)
+      ),
+  });
+
+  const methods = useForm({
+    resolver: yupResolver(validationSchema),
+    mode: "onChange",
+  });
+  const { errors } = methods.formState;
+  const isError = errors?.birthday || !birthday;
+
   async function onSubmit(data) {
     const iban = generateRandomIBAN();
     //! Hesaplar tablosundan ibanları, hesap no kıyasla
+
     const formDatas = {
       ...data,
       phoneNumber,
       iban,
       accountNumber: iban.slice(-16),
       birthday,
+      // deneme: birthday,
       balance: starterBalance,
       remainingTransferLimit: dailyTransferLimit,
       remainingDepositLimit: dailyDepositLimit,
       remainingWithdrawLimit: dailyWithdrawLimit,
       isFormApproved: checked || "",
+      user_id: user.id,
     };
-
     if (calcAge(formDatas.birthday) < 18)
       return toast.error("You are younger than 18");
     await mutateAsync(formDatas);
+    setOpenCreateModal(false);
   }
   if (isLoading) return <Loader />;
   return (
@@ -118,20 +156,26 @@ function AccountCreate() {
                 id="fullName"
                 label="Full Name"
                 defaultValue={user.user_metadata.fullName}
-                register={methods.register("fullName", {
-                  required: "This field is required!",
-                })}
+                register={methods.register("fullName")}
                 helperText={errors?.fullName?.message}
                 error={errors?.fullName}
               />
             </Grid>
             <Grid item xs={6}>
               <CustomTextField
+                id="identificationNumber"
+                label="Identification number"
+                register={methods.register("identificationNumber")}
+                helperText={errors?.identificationNumber?.message}
+                error={errors?.identificationNumber}
+                inputProps={{ maxLength: identificationNumberCharacter }}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <CustomTextField
                 id="address"
                 label="Address"
-                register={methods.register("address", {
-                  required: "This field is required!",
-                })}
+                register={methods.register("address")}
                 helperText={errors?.address?.message}
                 error={errors?.address}
               />
@@ -140,39 +184,38 @@ function AccountCreate() {
               <CustomSelect
                 data={bankContent}
                 defaultValue=""
-                register={methods.register("bankName", {
-                  required: "This field is required!",
-                })}
-                helperText={errors?.bankName?.message}
+                register={methods.register("bankName")}
                 error={errors?.bankName}
               />
+              {errors?.bankName && (
+                <FormHelperText error sx={{ marginLeft: ".8rem" }}>
+                  {errors?.bankName?.message}
+                </FormHelperText>
+              )}
             </Grid>
             <Grid item xs={6}>
               <CustomSelect
                 data={branchContent}
                 defaultValue=""
-                register={methods.register("bankBranch", {
-                  required: "This field is required!",
-                })}
+                register={methods.register("bankBranch")}
                 helperText={errors?.bankBranch?.message}
                 error={errors?.bankBranch}
               />
+              {errors?.bankBranch && (
+                <FormHelperText error sx={{ marginLeft: ".8rem" }}>
+                  {errors?.bankBranch?.message}
+                </FormHelperText>
+              )}
             </Grid>
 
             <Grid item xs={6}>
               <DatePicker
-                //! required ekle
                 width="tall"
                 label="Birthday"
                 value={birthday}
-                {...methods.register("birthday", {
-                  required: "This field is required!",
-                })}
+                {...methods.register("birthday")}
                 slotProps={{
                   popper: { placement: "right-start" },
-                  textField: {
-                    required: "This field is required!",
-                  },
                 }}
                 helperText={errors?.birthday?.message}
                 error={errors}
@@ -180,8 +223,7 @@ function AccountCreate() {
                   setBirthday(date);
                 }}
                 sx={{
-                  // marginTop: margin === "small" && "1rem",
-                  // width: width === "small" ? "70%" : "100%",
+                  width: "100%",
                   "&:hover > div > fieldset": {
                     borderColor: "var(--color-text)!important",
                   },
@@ -195,23 +237,29 @@ function AccountCreate() {
                       borderColor: isError
                         ? "red !important"
                         : "var(--color-border-2) !important",
-                      // borderColor: "var(--color-border-2)!important",
                     },
                   },
                 }}
               />
+              {errors?.birthday && (
+                <FormHelperText error sx={{ marginLeft: ".8rem" }}>
+                  {errors?.birthday?.message}
+                </FormHelperText>
+              )}
             </Grid>
             <Grid item xs={6}>
               <StyledMuiTelInput
                 preferredCountries={["TR", "US", "KR"]}
                 defaultCountry="TR"
                 value={phoneNumber}
-                {...methods.register("phoneNumber", {
-                  required: "This field is required!",
-                })}
+                {...methods.register("phoneNumber")}
                 onChange={(phone) => handleChangePhone(phone)}
-                //! required ekle
               />
+              {errors?.phoneNumber && (
+                <FormHelperText error sx={{ marginLeft: ".8rem" }}>
+                  {errors?.phoneNumber?.message}
+                </FormHelperText>
+              )}
             </Grid>
             <Grid
               item
