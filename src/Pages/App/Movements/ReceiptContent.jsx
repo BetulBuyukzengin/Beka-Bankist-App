@@ -6,6 +6,7 @@ import MenuIcon from "../../../Components/MenuIcon/MenuIcon";
 import { usePDF } from "react-to-pdf";
 import { useUser } from "../../../services/userServices";
 import {
+  formatArrayWord,
   formatCurrency,
   formatDate,
   formatIBAN,
@@ -38,7 +39,7 @@ export default function ReceiptContent({ row }) {
   const fullName = user.user_metadata.fullName;
   const { toPDF, targetRef } = usePDF({ filename: "page.pdf" });
   const selectedMyAccount = JSON.parse(row.selectedAccount);
-  console.log(row);
+
   return (
     <StyledBox
       sx={{
@@ -50,7 +51,7 @@ export default function ReceiptContent({ row }) {
     >
       <MenuIcon toPDF={toPDF} />
       <Box mb={4}>
-        <h5>BEKA BANKİST</h5>
+        <h5>{formatArrayWord("beka bankist")}</h5>
       </Box>
       <Box
         sx={{
@@ -143,7 +144,8 @@ export default function ReceiptContent({ row }) {
               >
                 <StyledLabelTitle>RECIPIENT: </StyledLabelTitle>
                 <StyledLabelDesc>
-                  {row?.recipientFullNameWithIban}
+                  {formatWord(row?.recipientFullNameWithIban) ||
+                    formatWord(row?.recipientFullNameWithAccount)}
                 </StyledLabelDesc>
               </Grid>
               {row.recipientBankBranch && (
@@ -156,7 +158,9 @@ export default function ReceiptContent({ row }) {
                   }}
                 >
                   <StyledLabelTitle>RECIPIENT BRANCH: </StyledLabelTitle>
-                  <StyledLabelDesc>{row?.recipientBankBranch}</StyledLabelDesc>
+                  <StyledLabelDesc>
+                    {formatWord(row?.recipientBankBranch)}
+                  </StyledLabelDesc>
                 </Grid>
               )}
               <Grid
@@ -273,7 +277,7 @@ export default function ReceiptContent({ row }) {
             marginLeft: "1rem",
           }}
         >
-          SAYIN {fullName.toUpperCase()}
+          DEAR {fullName.toUpperCase()}
           <StyledDescription>
             {row.status === "withdraw" &&
               `Withdrawn ${row.movements} from your account`}
