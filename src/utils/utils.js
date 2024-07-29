@@ -3,6 +3,7 @@ import {
   format,
   differenceInMilliseconds,
   addDays,
+  addMonths,
 } from "date-fns";
 
 export const formatCurrency = (value) =>
@@ -26,7 +27,9 @@ export function formatBankAccountNumber(accountNumber) {
   return formattedAccountNumber;
 }
 export function formatDate(date) {
-  return format(date, "dd/MM/yyyy HH:mm:ss");
+  return format(date, "MM/dd/yyyy");
+
+  // return format(date, "MM/dd/yyyy HH:mm:ss");
 }
 
 export function calculateAndFormatLoan(loanAmount, interest, month) {
@@ -115,4 +118,9 @@ export function calcRemainingLimitResetTime() {
   const seconds = (diffInSeconds % 60).toString().padStart(2, "0");
 
   return `${hours} hours ${minutes} minutes ${seconds} seconds`;
+}
+
+export function calcNextMonth(date, numberMonth) {
+  // return addMonths(new Date(date.year, date.month - 1, date.day), numberMonth);
+  return addMonths(date, numberMonth);
 }
