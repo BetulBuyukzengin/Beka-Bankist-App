@@ -39,6 +39,7 @@ function AppSlider() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [animating, setAnimating] = useState(false);
   const { isDarkMode } = useDarkMode();
+
   const next = () => {
     if (animating) return;
     const nextIndex = activeIndex === accounts.length - 1 ? 0 : activeIndex + 1;
@@ -56,6 +57,7 @@ function AppSlider() {
     setActiveIndex(newIndex);
   };
   if (isLoading) return <Loader />;
+
   const slides = accounts?.map((item) => {
     return (
       <CarouselItem
@@ -95,18 +97,22 @@ function AppSlider() {
           onClickHandler={goToIndex}
         />
         {slides}
-        <StyledCarouselControl
-          direction="prev"
-          directionText="Previous"
-          onClickHandler={previous}
-          isDarkMode={isDarkMode}
-        />
-        <StyledCarouselControl
-          direction="next"
-          directionText="Next"
-          onClickHandler={next}
-          isDarkMode={isDarkMode}
-        />
+        {accounts.length > 1 && (
+          <>
+            <StyledCarouselControl
+              direction="prev"
+              directionText="Previous"
+              onClickHandler={previous}
+              isDarkMode={isDarkMode}
+            />
+            <StyledCarouselControl
+              direction="next"
+              directionText="Next"
+              onClickHandler={next}
+              isDarkMode={isDarkMode}
+            />
+          </>
+        )}
       </Carousel>
     </div>
   );
