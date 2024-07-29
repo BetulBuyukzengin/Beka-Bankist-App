@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import { Grid } from "@mui/material";
-// import { useState } from "react";
 import CustomTextField from "../../../../../Components/CustomTextField/CustomTextField";
 import { useFormContext } from "react-hook-form";
 import styled from "styled-components";
@@ -34,33 +33,10 @@ const StyledMuiTelInput = styled(MuiTelInput)`
     }
   `}
 `;
-// const DatePickerWrapper = styled.div`
-//   width: 100%;
-//   .MuiOutlinedInput-root {
-//     width: 100%;
-//     & fieldset {
-//       border-color: ${({ error }) =>
-//         error ? "red !important" : "var(--color-border-2) !important"};
-//     }
-//     &:hover fieldset {
-//       border-color: ${({ error }) =>
-//         error ? "red !important" : "var(--color-gray) !important"};
-//     }
-//   }
-//   .MuiInputLabel-root {
-//     color: var(--color-text);
-//   }
-//   .MuiInputBase-input {
-//     color: var(--color-text);
-//   }
-// `;
-//????????  birthDate değerini varsayılan olarak ver ve date picker ı disabled yap
 
 export default function PersonalInformation({ phoneNumber, setPhoneNumber }) {
   const [searchParams] = useSearchParams();
   const selectedAccount = JSON.parse(searchParams.get("selectedAccount"));
-  // const birthDate = formatDate(selectedAccount?.birthday).split(" ").at(0);
-  // const [date, setDate] = useState();
   const { register, formState } = useFormContext();
   const { errors } = formState;
   const { user } = useUser();
@@ -81,14 +57,11 @@ export default function PersonalInformation({ phoneNumber, setPhoneNumber }) {
         <CustomTextField
           id="fullName"
           value={user.user_metadata.fullName}
-          // defaultValue={user.user_metadata.fullName}
           disabled={user.user_metadata.fullName ? true : false}
           label="Full Name"
           register={{
             ...register("applicantFullName"),
           }}
-          helperText={errors?.applicantFullName?.message}
-          error={errors?.applicantFullName}
         />
       </Grid>
       <Grid item xs={6}>
@@ -96,13 +69,10 @@ export default function PersonalInformation({ phoneNumber, setPhoneNumber }) {
           id="identificationNumber"
           label="Identification number"
           value={selectedAccount?.identificationNumber}
-          // defaultValue={selectedAccount?.identificationNumber}
           disabled={selectedAccount?.identificationNumber ? true : false}
           register={{
             ...register("applicantIdentificationNumber", {}),
           }}
-          helperText={errors?.applicantIdentificationNumber?.message}
-          error={errors?.applicantIdentificationNumber}
         />
       </Grid>
       <Grid item xs={6}>
@@ -124,64 +94,18 @@ export default function PersonalInformation({ phoneNumber, setPhoneNumber }) {
           defaultCountry="TR"
           value={phoneNumber || selectedAccount?.phoneNumber}
           defaultValue={selectedAccount?.phoneNumber}
-          // disabled={selectedAccount?.phoneNumber}
           {...register("applicantPhoneNumber")}
           onChange={(phone) => handleChangePhone(phone)}
           helperText={errors?.applicantPhoneNumber?.message}
           error={errors?.applicantPhoneNumber}
         />
       </Grid>
-      {/* <Grid item xs={6}>
-        <DatePickerWrapper error={errors?.applicantBirthday}>
-          <DatePicker
-            label="Birthday"
-            value={formatDate(selectedAccount?.birthday) || date}
-            // value={selectedAccount?.birthday}
-            defaultValue={selectedAccount?.birthday}
-            onChange={(newDate) => {
-              setDate(newDate);
-              setValue("applicantBirthday", newDate);
-            }}
-            sx={{
-              width: "100%",
-              "& .MuiOutlinedInput-root": {
-                "& fieldset": {
-                  borderColor: errors?.applicantBirthday
-                    ? "red !important"
-                    : "var(--color-border-2) !important",
-                },
-                "&:hover fieldset": {
-                  borderColor: errors?.applicantBirthday
-                    ? "red !important"
-                    : "var(--color-gray) !important",
-                },
-              },
-              "& .MuiInputLabel-root": {
-                color: "var(--color-text)",
-              },
-              "& .MuiInputBase-input": {
-                color: "var(--color-text)",
-              },
-            }}
-          />
-          {errors?.applicantBirthday && (
-            <FormHelperText error>
-              {errors?.applicantBirthday?.message || "This field is required"}
-            </FormHelperText>
-          )}
-        </DatePickerWrapper>
-      </Grid> */}
       <Grid item xs={6}>
         <CustomTextField
           id="birthday"
           label="Birthday"
           value={formatDate(selectedAccount?.birthday)}
-          disabled={selectedAccount?.birthday ? true : false}
-          // register={{
-          //   ...register("applicantBirthday"),
-          // }}
-          helperText={errors?.applicantBirthday?.message}
-          error={errors?.applicantBirthday}
+          disabled={!!selectedAccount?.birthday}
         />
       </Grid>
     </Grid>
