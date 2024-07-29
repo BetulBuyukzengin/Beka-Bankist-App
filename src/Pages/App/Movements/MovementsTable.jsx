@@ -9,7 +9,6 @@ import { useMovements } from "../../../services/movementsServices";
 export default function MovementsTable() {
   const { isLoading, movements } = useMovements();
   if (isLoading) return;
-
   return (
     <TableContainer
       component={Paper}
