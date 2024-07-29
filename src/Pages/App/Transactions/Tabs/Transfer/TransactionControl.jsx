@@ -12,6 +12,7 @@ import {
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { DatePicker } from "@mui/x-date-pickers";
+import { transferPrice } from "../../../../../Constants/constants";
 
 const StyledBox = styled(Box)`
   background-color: transparent;
@@ -78,7 +79,7 @@ export default function TransactionControl() {
     amountToSend,
   } = getValues();
 
-  const { accountNumber } = JSON.parse(selectedAccount);
+  const { accountNumber, balance } = JSON.parse(selectedAccount);
   return (
     <Box
       sx={{
@@ -125,7 +126,7 @@ export default function TransactionControl() {
           <StyledItem>Sender Account</StyledItem>
           <StyledBox>
             <div>Selected Account: {accountNumber}</div>
-            <div>Balance: 125</div>
+            <div>Balance: {formatCurrency(balance)}</div>
           </StyledBox>
         </StyledGrid>
         <StyledGrid item xs={8}>
@@ -149,7 +150,7 @@ export default function TransactionControl() {
         <StyledGrid item xs={8}>
           <StyledItem>Transfer Price</StyledItem>
           <StyledBox>
-            <StyledLabel>2,00TL</StyledLabel>
+            <StyledLabel>{formatCurrency(transferPrice)}</StyledLabel>
           </StyledBox>
         </StyledGrid>
         <StyledGrid item xs={8}>
