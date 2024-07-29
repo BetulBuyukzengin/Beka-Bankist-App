@@ -6,7 +6,7 @@ import StepperComponent from "../../../../../Components/StepperComponent/Stepper
 import TransactionControl from "./TransactionControl";
 
 import { useForm, FormProvider } from "react-hook-form";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useCreateMovements } from "../../../../../services/movementsServices";
 import { useUser } from "../../../../../services/userServices";
 import {
@@ -19,10 +19,18 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import {
   dailyTransferLimit,
+  maxAccountNumberLength,
   maxIbanLength,
   minAmountToSend,
 } from "../../../../../Constants/constants";
-import { convertToBoolean, formatCurrency } from "../../../../../utils/utils";
+import {
+  calcRemainingLimitResetTime,
+  convertToBoolean,
+  formatCurrency,
+  showDailyLimitMessage,
+} from "../../../../../utils/utils";
+import { toast } from "react-toastify";
+import { useCreateRegisteredRecipient } from "../../../../../services/registeredRecipientsServices";
 const transactionSteps = [
   {
     label: "Recipient Account",
@@ -46,8 +54,10 @@ const transactionSteps = [
   },
 ];
 export default function TransferMoneyTab() {
-  const [activeStep, setActiveStep] = React.useState(0);
+  const [activeStep, setActiveStep] = useState(0);
   const { createMovement, isCreating } = useCreateMovements();
+  const { isLoading, mutateAsync: createRegisteredRecipient } =
+    useCreateRegisteredRecipient();
   const { user } = useUser();
 
   const senderFullName = user.user_metadata.fullName;
@@ -66,6 +76,7 @@ export default function TransferMoneyTab() {
   );
   const remainingBalance = selectedAccount?.balance;
   const remainingTransferLimit = selectedAccount?.remainingTransferLimit;
+  const [iban, setIban] = useState("TR"); // IBAN durumunu saklayın
 
   const navigate = useNavigate();
   const validationSchema = [
@@ -95,7 +106,12 @@ export default function TransferMoneyTab() {
               .required("This field is required!"),
             recipientAccountNumber: yup
               .string()
-              .required("This field is required!"),
+              .required("This field is required!")
+              .test(
+                "is-valid-account-number",
+                "Account number is invalid, should be 16 characters long!",
+                (value) => value && value.length === maxAccountNumberLength
+              ),
             recipientFullNameWithAccount: yup
               .string()
               .required("This field is required!"),
@@ -106,7 +122,26 @@ export default function TransferMoneyTab() {
     ),
 
     yup.object({
-      selectedAccount: yup.string().required("This field is required!"),
+      selectedAccount: yup
+        .string()
+        .test("limit-check", function (value) {
+          if (JSON.parse(value).balance === 0)
+            return this.createError({
+              message: toast.error("Account's balance is insufficient"),
+            });
+          if (
+            JSON.parse(value).remainingTransferLimit === 0
+            // &&
+            // JSON.parse(value).id === id
+          )
+            return this.createError({
+              message: toast.error(
+                showDailyLimitMessage("transfer", calcRemainingLimitResetTime())
+              ),
+            });
+          else return true;
+        })
+        .required("This field is required!"),
     }),
     yup.object({
       amountToSend: yup
@@ -150,17 +185,50 @@ export default function TransferMoneyTab() {
     resolver: yupResolver(currentValidationSchema),
     mode: "onChange",
   });
+  const { reset } = methods;
+  const currentStatus = searchParams.get("status");
+  const prevStatus = React.useRef(null);
+
+  useEffect(() => {
+    if (currentStatus !== prevStatus.current) {
+      reset();
+      setIban("TR");
+    }
+    prevStatus.current = currentStatus;
+  }, [reset, currentStatus]);
+
   const onSubmit = async (data) => {
-    console.log(data);
+    const registeredRecipients = {
+      recipientFullNameWithAccount: data.recipientFullNameWithAccount,
+      recipientShortName: data.shortName,
+      recipientFullNameWithIban: data.recipientFullNameWithIban,
+      recipientIban: data.recipientIban,
+      recipientAccountNumber: data.recipientAccountNumber,
+      recipientBankName: data.recipientBankName,
+      saveAsRegisteredWithAccount: data.saveAsRegisteredWithAccount,
+      saveAsRegisteredWithIban: data.saveAsRegisteredWithIban,
+      recipientBankBranch: data.recipientBankBranch,
+      user_id: JSON.parse(data.selectedAccount).user_id,
+    };
+
     const updatedBalance = selectedAccount.balance - +data.amountToSend;
     const updatedRemainingLimit =
       selectedAccount.remainingTransferLimit - +data.amountToSend;
-    await createMovement({ ...data, senderFullName });
+    await createMovement({
+      ...data,
+      senderFullName,
+      user_id: JSON.parse(data.selectedAccount).user_id,
+    });
     const updatedAccount = {
       ...selectedAccount,
       balance: updatedBalance,
       remainingTransferLimit: updatedRemainingLimit,
     };
+
+    if (data.saveAsRegisteredWithIban || data.saveAsRegisteredWithAccount) {
+      await createRegisteredRecipient(registeredRecipients);
+    }
+
     await updateBalance({ id, account: updatedAccount });
     navigate("/applayout/account");
     await updateDailyRemainingLimit({
@@ -173,7 +241,14 @@ export default function TransferMoneyTab() {
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
         <StepperComponent
-          transactionSteps={transactionSteps}
+          transactionSteps={transactionSteps.map((step) =>
+            step.label === "Recipient Account"
+              ? {
+                  ...step,
+                  component: <RecipientAccount iban={iban} setIban={setIban} />,
+                }
+              : step
+          )}
           activeStep={activeStep}
           setActiveStep={setActiveStep}
         />
