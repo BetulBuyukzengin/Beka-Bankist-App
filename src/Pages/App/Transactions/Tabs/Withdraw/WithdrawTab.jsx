@@ -1,7 +1,7 @@
 import { FormProvider, useForm } from "react-hook-form";
 import StepperComponent from "../../../../../Components/StepperComponent/StepperComponent";
 import MyAccounts from "../Deposit/MyAccounts";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { useUpdateBalance } from "../../../../../services/accountServices";
 import Loader from "../../../../../Components/Loader/Loader";
 import { useNavigate, useSearchParams } from "react-router-dom";
@@ -14,6 +14,7 @@ import {
   showDailyLimitMessage,
 } from "../../../../../utils/utils";
 import { useCreateMovements } from "../../../../../services/movementsServices";
+import { toast } from "react-toastify";
 
 const transactionSteps = [
   {
@@ -35,18 +36,34 @@ function WithdrawTab() {
   const currentWithdrawLimit = +selectedAccount?.remainingWithdrawLimit;
   const id = selectedAccount?.id;
   const currentBalance = +selectedAccount?.balance;
-  const { createMovement, isCreating } = useCreateMovements();
+  const { createMovement } = useCreateMovements();
   const getStatus = searchParams.get("status");
+  const prevStatus = useRef(null);
+  const currentStatus = searchParams.get("status");
 
   const validationSchema = [
     yup.object({
-      selectedAccount: yup.string().required("This field is required!"),
+      selectedAccount: yup
+        .string()
+        .test("limit-check", function (value) {
+          if (JSON.parse(value).balance === 0)
+            return this.createError({
+              message: toast.error("Account's balance is insufficient"),
+            });
+          if (JSON.parse(value).remainingWithdrawLimit === 0)
+            return this.createError({
+              message: toast.error(
+                showDailyLimitMessage("withdraw", calcRemainingLimitResetTime())
+              ),
+            });
+          else return true;
+        })
+        .required("This field is required!"),
     }),
     yup.object({
       amountToWithdrawMyAccount: yup
         .string()
         .test("max-check", function (value) {
-          console.log(+value);
           if (+value > currentWithdrawLimit && 0 !== currentWithdrawLimit) {
             return this.createError({
               message: `Daily withdraw limit is ${formatCurrency(
@@ -74,10 +91,23 @@ function WithdrawTab() {
     mode: "onChange",
   });
 
+  const { reset } = methods;
+
+  useEffect(
+    function () {
+      if (currentStatus !== prevStatus.current) {
+        reset();
+      }
+    },
+    [reset, currentStatus]
+  );
+
   const onSubmit = async (data) => {
     const { amountToWithdrawMyAccount } = data;
     const updatedAccount = {
       ...selectedAccount,
+      remainingWithdrawLimit:
+        currentWithdrawLimit - Number(amountToWithdrawMyAccount),
       balance: currentBalance - Number(amountToWithdrawMyAccount),
     };
     await withdrawMoney({ id, account: updatedAccount });
@@ -85,6 +115,7 @@ function WithdrawTab() {
       selectedAccount: updatedAccount,
       status: getStatus,
       amountToWithdrawMyAccount,
+      user_id: JSON.parse(data.selectedAccount).user_id,
     });
     navigate("/applayout/account");
   };
