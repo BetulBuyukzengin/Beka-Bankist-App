@@ -60,6 +60,7 @@ const StyledLinkTo = styled(Link)`
     transform: translateY(0);
   }
 `;
+
 const StyledImg = styled.img`
   width: 4rem;
   height: 4rem;
