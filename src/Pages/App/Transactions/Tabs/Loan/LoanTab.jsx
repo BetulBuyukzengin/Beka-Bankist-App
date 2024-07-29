@@ -1,17 +1,34 @@
-import React from "react";
+import { matchIsValidTel } from "mui-tel-input";
+import React, { useEffect, useState } from "react";
+import { FormProvider, useForm } from "react-hook-form";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import * as yup from "yup";
+import CustomMenuIcon from "../../../../../Components/CustomMenuIcon/CustomMenuIcon";
+import Loader from "../../../../../Components/Loader/Loader";
 import StepperComponent from "../../../../../Components/StepperComponent/StepperComponent";
+import {
+  identificationNumberCharacter,
+  interestAmountConst,
+} from "../../../../../Constants/constants";
+import {
+  useCreateLoan,
+  useGetLoan,
+} from "../../../../../services/loanServices";
+import { useUser } from "../../../../../services/userServices";
+import { calcNextMonth } from "../../../../../utils/utils";
+import SenderAccount from "../Transfer/SenderAccount";
 import BusinessInformation from "./BusinessInformation";
 import LoanInformation from "./LoanInformation";
+import PaymentLoan from "./PaymentLoan";
 import PersonalInformation from "./PersonalInformation";
-import { FormProvider, useForm } from "react-hook-form";
-import { useCreateLoan } from "../../../../../services/loanServices";
-import * as yup from "yup";
+import styled from "styled-components";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import { matchIsValidTel } from "mui-tel-input";
-import { identificationNumberDigit } from "../../../../../Constants/constants";
 
 const transactionSteps = [
+  {
+    label: "Sender Account",
+    component: <SenderAccount />,
+  },
   {
     label: "Personal Information",
     component: <PersonalInformation />,
@@ -25,24 +42,51 @@ const transactionSteps = [
     component: <LoanInformation />,
   },
 ];
+const StyleDiv = styled.div`
+  display: flex;
+  justify-content: end;
+`;
 
 function LoanTab() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const selectedAccount = JSON.parse(searchParams.get("selectedAccount"));
+  // const id = selectedAccount?.id;
 
   const validationSchema = [
+    yup.object({
+      selectedAccount: yup
+        .string()
+        // .test("limit-check", function (value) {
+        //   if (
+        //     JSON.parse(value).remainingDepositLimit === 0 &&
+        //     JSON.parse(value).id === id
+        //   )
+        //     return this.createError({
+        //       message: toast.error(
+        //         showDailyLimitMessage("deposit", calcRemainingLimitResetTime())
+        //       ),
+        //     });
+        //   else return true;
+        // })
+        .required("This field is required!"),
+    }),
     //validation for step 1
     yup.object({
-      applicantFullName: yup.string().required("This field is required!"),
       // prettier-ignore
-
-      applicantIdentificationNumber: yup.string().required("This field is required!")
-      .test(
-        "is-valid-identification",
-        "Identification number must be exactly 11 characters!",
-        (value) => value && value.length === identificationNumberDigit
-      ),
-      // .length(identificationNumberDigit,"Identification number must be exactly 11 characters!"),
+      applicantFullName: yup.string(),
+      applicantIdentificationNumber: yup
+        .string()
+        // .test(
+        //   "is-valid-identification",
+        //   "Identification number must be exactly 11 characters!",
+        //   (value) => value && value.length === identificationNumberCharacter
+        // ),
+        .length(
+          identificationNumberCharacter,
+          "Identification number must be exactly 11 characters!"
+        ),
       applicantAdress: yup.string().required("This field is required!"),
       applicantPhoneNumber: yup
         .string()
@@ -51,7 +95,7 @@ function LoanTab() {
           matchIsValidTel(value)
         ),
 
-      applicantBirthday: yup.date().required("This field is required!"),
+      // applicantBirthday: yup.date().required("This field is required!"),
     }),
 
     //validation for step 2
@@ -86,29 +130,109 @@ function LoanTab() {
   ];
   const [activeStep, setActiveStep] = React.useState(0);
   const currentValidationSchema = validationSchema[activeStep];
-  console.log("aktif", activeStep);
 
   const methods = useForm({
     resolver: yupResolver(currentValidationSchema),
     mode: "onChange",
   });
-  const { mutateAsync } = useCreateLoan();
+  const { mutateAsync: createLoan } = useCreateLoan();
 
+  const currentStatus = searchParams.get("status");
+  // const selectedAccount = JSON.parse(searchParams.get("selectedAccount"));
+
+  const prevStatus = React.useRef(null);
+  const { reset } = methods;
+  const { user } = useUser();
+  useEffect(() => {
+    if (currentStatus !== prevStatus.current) {
+      reset();
+      setPhoneNumber("");
+    }
+    prevStatus.current = currentStatus;
+  }, [reset, currentStatus]);
+
+  const { data: loanData, isLoading } = useGetLoan();
+  let interestAmount = 0;
+  const todayDate = new Date();
+
+  function isInterestAmount(data) {
+    if (todayDate > data?.date && !data?.isPaid) {
+      return (interestAmount = interestAmount + interestAmountConst);
+    } else {
+      return (interestAmount = 0);
+    }
+  }
   const onSubmit = async (data) => {
-    console.log(data);
-    // remainingTransferLimit: dailyTransferLimit,
+    const calcAmountToPay =
+      data?.applicantLoanAmount / (data?.selectedPaymentPeriod * 12);
+    const dateObject = new Date();
+    let length = data?.selectedPaymentPeriod * 12;
+    const paymentData = new Array(length).fill(null).map((_, i) => ({
+      id: i,
+      date: calcNextMonth(dateObject, i + 1),
+      // paymentPeriod: formattedLoanData?.selectedPaymentPeriod,
+      interestAmount: 0,
+      amountToPay: calcAmountToPay,
+      totalAmountToPay: calcAmountToPay + interestAmount,
+      isInstallmentPaid: false,
+    }));
+    const formDatas = {
+      ...data,
+      applicantFullName: user.user_metadata.fullName,
+      applicantIdentificationNumber: selectedAccount?.identificationNumber,
+      applicantBirthday: selectedAccount?.birthday,
+      isCreditPaid: false,
+      user_id: JSON.parse(data.selectedAccount).user_id,
+      applicantPaymentPlan: paymentData?.map((data) => {
+        return {
+          ...data,
+          interestAmount: isInterestAmount(data),
+          totalAmountToPay: calcAmountToPay + interestAmount,
+        };
+      }),
+    };
 
-    await mutateAsync(data);
+    await createLoan(formDatas);
+    //? navigate to loan tab
     navigate("/applayout/account");
   };
+  const notPaidLoan = loanData?.find((data) => data?.isCreditPaid === false);
+
+  if (isLoading) return <Loader />;
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
-        <StepperComponent
-          transactionSteps={transactionSteps}
-          activeStep={activeStep}
-          setActiveStep={setActiveStep}
-        />
+        {notPaidLoan ? (
+          <PaymentLoan />
+        ) : (
+          <>
+            <StyleDiv>
+              <CustomMenuIcon buttonText="Show paid loans" />
+            </StyleDiv>
+            <StepperComponent
+              transactionSteps={transactionSteps.map((step) =>
+                step.label === "Personal Information"
+                  ? {
+                      ...step,
+                      component: (
+                        <PersonalInformation
+                          phoneNumber={phoneNumber}
+                          setPhoneNumber={setPhoneNumber}
+                        />
+                      ),
+                    }
+                  : step.label === "Sender Account"
+                  ? {
+                      ...step,
+                      component: <SenderAccount border="standard" />,
+                    }
+                  : step
+              )}
+              activeStep={activeStep}
+              setActiveStep={setActiveStep}
+            />
+          </>
+        )}
       </form>
     </FormProvider>
   );
