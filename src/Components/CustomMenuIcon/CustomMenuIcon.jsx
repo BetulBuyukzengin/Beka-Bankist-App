@@ -7,7 +7,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 const ITEM_HEIGHT = 48;
 
-export default function CustomMenuIcon({ setOpen }) {
+export default function CustomMenuIcon({ setOpen, setOpenDeleteAccount }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -18,6 +18,10 @@ export default function CustomMenuIcon({ setOpen }) {
   };
   const handleOpenModal = () => {
     setOpen(true);
+    handleClose();
+  };
+  const handleOpenModalDeleteAccount = () => {
+    setOpenDeleteAccount(true);
     handleClose();
   };
   return (
@@ -48,6 +52,9 @@ export default function CustomMenuIcon({ setOpen }) {
         }}
       >
         <MenuItem onClick={handleOpenModal}>New Account</MenuItem>
+        <MenuItem onClick={handleOpenModalDeleteAccount}>
+          Delete Account
+        </MenuItem>
       </Menu>
     </div>
   );
