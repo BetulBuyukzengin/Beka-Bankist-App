@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "../Supabase/supabase";
 import { toast } from "react-toastify";
 
@@ -7,8 +7,7 @@ async function createLoan(newLoan) {
     .from("loanRequest")
     .insert([newLoan])
     .select();
-  if (error) console.error(error);
-  console.log(data);
+  if (error) throw new Error(error.message);
   return data;
 }
 
@@ -20,4 +19,41 @@ export function useCreateLoan() {
     onError: () => toast.error("Loan withdrawal request could not be sent"),
   });
   return { mutateAsync, isLoading };
+}
+
+async function getLoan() {
+  let { data, error } = await supabase.from("loanRequest").select("*");
+  if (error) throw new Error(error.message);
+  return data;
+}
+export function useGetLoan() {
+  const { data, isLoading } = useQuery({
+    queryFn: getLoan,
+    queryKey: ["loan"],
+  });
+  return { isLoading, data };
+}
+
+async function updateLoanMonthlyPayment({ monthlyPayment, id, updateColumn }) {
+  const { data, error } = await supabase
+    .from("loanRequest")
+    .update({ [updateColumn]: monthlyPayment })
+    .eq("id", id)
+    .select();
+  if (error) throw new Error(error.message);
+  return data;
+}
+
+export function useUpdateLoanMonthlyPayment() {
+  const query = useQueryClient();
+  const { isLoading, mutateAsync, isPending } = useMutation({
+    mutationFn: updateLoanMonthlyPayment,
+    onSuccess: () => {
+      query.invalidateQueries();
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
+  return { isLoading, mutateAsync, isPending };
 }
