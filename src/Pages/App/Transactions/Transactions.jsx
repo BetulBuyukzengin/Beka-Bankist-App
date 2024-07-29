@@ -5,6 +5,8 @@ import LoanTab from "./Tabs/Loan/LoanTab";
 import TransferMoneyTab from "./Tabs/Transfer/TransferMoneyTab";
 import WithdrawTab from "./Tabs/Withdraw/WithdrawTab";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import Loader from "../../../Components/Loader/Loader";
+import { useGetRegisteredRecipient } from "../../../services/registeredRecipientsServices";
 
 const content = [
   {
@@ -31,6 +33,14 @@ function Transactions() {
   const prevParamValueRef = useRef(null);
   const navigate = useNavigate();
   const currentParamValue = searchParams.get("transactions-tab");
+  const { isLoading } = useGetRegisteredRecipient();
+  const mainTabLabel = [];
+
+  if (content.length === 4) {
+    content.map((tab) => {
+      mainTabLabel.push(tab.label);
+    });
+  }
 
   //! Important
   useEffect(
@@ -59,9 +69,14 @@ function Transactions() {
     setSearchParams(searchParams);
   }, []);
 
+  if (isLoading) return <Loader />;
   return (
     <div style={{ height: "78dvh", overflowY: "scroll" }}>
-      <CustomTabs tabName="transactionsTab" content={content} />
+      <CustomTabs
+        tabName="transactionsTab"
+        content={content}
+        mainTabLabel={mainTabLabel}
+      />
     </div>
   );
 }
