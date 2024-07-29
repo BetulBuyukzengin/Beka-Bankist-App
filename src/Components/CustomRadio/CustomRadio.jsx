@@ -25,17 +25,18 @@ const StyledAccountCheckComponent = styled.div`
   border: 1px solid var(--color-border-2);
 `;
 
-function AccountCheckComp({ account }) {
+function AccountCheckComp({ account, border, monthlyPayment }) {
   const [searchParams] = useSearchParams();
+  const status = searchParams.get("status");
 
   const selectedAccount = JSON.parse(searchParams.get("selectedAccount"));
   const {
     formState: { errors },
   } = useFormContext();
 
-  const showErrorMessage =
-    account?.accountNumber === selectedAccount?.accountNumber &&
-    errors?.selectedAccount;
+  const isBalanceNotEnough =
+    account?.id === selectedAccount?.id &&
+    monthlyPayment?.totalAmountToPay > selectedAccount?.balance;
 
   return (
     <>
@@ -45,9 +46,22 @@ function AccountCheckComp({ account }) {
             account?.accountNumber === selectedAccount?.accountNumber &&
             "var(--color-background-3)",
           border:
-            showErrorMessage &&
-            errors?.selectedAccount &&
-            "1px solid var(--color-error)",
+            border === "standard"
+              ? "none"
+              : !selectedAccount && errors?.selectedAccount
+              ? "1px solid var(--color-error)"
+              : selectedAccount?.accountNumber === account?.accountNumber &&
+                ((status === "Deposit" &&
+                  selectedAccount.remainingDepositLimit === 0) ||
+                  (status === "Withdraw" &&
+                    selectedAccount.remainingWithdrawLimit === 0) ||
+                  (status === "Transfer" &&
+                    selectedAccount.remainingTransferLimit === 0) ||
+                  (selectedAccount.balance === 0 && errors?.selectedAccount))
+              ? "1px solid var(--color-error)"
+              : isBalanceNotEnough
+              ? "1px solid var(--color-error)"
+              : "none",
         }}
       >
         <div>
@@ -64,16 +78,17 @@ function AccountCheckComp({ account }) {
           <NavigateNext />
         </div>
       </StyledAccountCheckComponent>
-      {/* {showErrorMessage && (
-        <FormHelperText error>
-          {errors?.selectedAccount?.message}
-        </FormHelperText>
-      )} */}
     </>
   );
 }
 
-export default function CustomRadio({ register, onChange, value }) {
+export default function CustomRadio({
+  register,
+  onChange,
+  value,
+  border,
+  monthlyPayment,
+}) {
   const { isLoading, accounts } = useGetAccounts();
 
   if (isLoading) return <Loader />;
@@ -114,7 +129,13 @@ export default function CustomRadio({ register, onChange, value }) {
             />
           }
           value={JSON.stringify(account)}
-          label={<AccountCheckComp account={account} />}
+          label={
+            <AccountCheckComp
+              account={account}
+              border={border}
+              monthlyPayment={monthlyPayment}
+            />
+          }
         />
       ))}
     </RadioGroup>
