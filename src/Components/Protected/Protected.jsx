@@ -2,6 +2,7 @@
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../../services/userServices";
 import { useEffect } from "react";
+import Loader from "../Loader/Loader";
 
 function Protected({ children }) {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ function Protected({ children }) {
     },
     [user, navigate, isLoading]
   );
-  if (isLoading) return <div>Loading</div>;
+  if (isLoading) return <Loader />;
   if (isAuthenticated && !isLoading) return children;
 }
 
