@@ -1,24 +1,23 @@
 import { FormControlLabel, Grid, Switch } from "@mui/material";
-import CustomTextField from "../../../../../Components/CustomTextField/CustomTextField";
+import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
-import { useEffect, useState } from "react";
-import { formatIBAN } from "../../../../../utils/utils";
-import { maxIbanLength } from "../../../../../Constants/constants";
 import { useSearchParams } from "react-router-dom";
+import CustomTextField from "../../../../../Components/CustomTextField/CustomTextField";
+import { maxIbanLength } from "../../../../../Constants/constants";
+import { formatIBAN } from "../../../../../utils/utils";
 
-function WithIbanTab() {
+function WithIbanTab({ iban, setIban }) {
   const {
     register,
-    getValues,
     watch,
     formState: { errors },
   } = useFormContext();
   const watchSaveAsRegisteredWithIban = watch("saveAsRegisteredWithIban");
-  const [iban, setIban] = useState("TR"); // IBAN durumunu saklayın
   const [searchParams, setSearchParams] = useSearchParams();
+
   const handleChange = (event) => {
     const formattedIban = formatIBAN(event.target.value);
-    setIban(formattedIban); // Formatlanmış IBAN'ı duruma ayarlayın
+    setIban(formattedIban);
   };
 
   useEffect(
@@ -31,6 +30,7 @@ function WithIbanTab() {
     },
     [watchSaveAsRegisteredWithIban]
   );
+
   return (
     <>
       <Grid
@@ -45,10 +45,10 @@ function WithIbanTab() {
             id="recipientIban"
             label="Recipient Iban"
             defaultValue="TR"
-            value={iban} // Değer olarak formatlanmış IBAN'ı kullanın
-            onChange={handleChange} // Değişiklik olduğunda formatIBAN fonksiyonunu çağırın
+            value={iban}
+            onChange={(event) => handleChange(event)}
             register={{
-              ...register("recipientIban"),
+              ...register("recipientIban", {}),
             }}
             inputProps={{ maxLength: maxIbanLength }}
             helperText={errors?.recipientIban?.message}
