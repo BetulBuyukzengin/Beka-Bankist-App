@@ -1,6 +1,7 @@
 import { toast } from "react-toastify";
 import { supabase } from "../Supabase/supabase";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useUser } from "./userServices";
 
 async function getAccounts() {
   let { data, error } = await supabase.from("accounts").select("*");
@@ -8,9 +9,10 @@ async function getAccounts() {
   return data;
 }
 export function useGetAccounts() {
+  const { user } = useUser();
   const { data: accounts, isLoading } = useQuery({
-    queryFn: () => getAccounts(),
-    queryKey: ["accounts"],
+    queryFn: getAccounts,
+    queryKey: ["accounts", user?.user_metadata?.fullName],
   });
   return {
     isLoading,
@@ -23,6 +25,7 @@ async function createAccount(newAccount) {
     .insert([newAccount])
     .select();
   if (error) throw new Error(error);
+
   return data;
 }
 export function useCreateAccount() {
@@ -52,7 +55,8 @@ async function updateBalance(id, account) {
 export function useUpdateBalance() {
   const { mutateAsync, isLoading } = useMutation({
     mutationFn: ({ id, account }) => updateBalance(id, account),
-    onError: () => toast.error("Balance updated"),
+    onSuccess: () => toast.success("Transaction successfully done"),
+    onError: () => toast.error("Transaction could not be performed"),
   });
   return { mutateAsync, isLoading };
 }
