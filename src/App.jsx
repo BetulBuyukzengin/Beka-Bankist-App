@@ -1,20 +1,21 @@
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3";
 import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "react-toastify/dist/ReactToastify.css";
 
-import { DarkModeProvider } from "./Contexts/DarkModeContext.jsx";
-import GlobalStyles from "./styles/GlobalStyles";
-import SignIn from "./Pages/App/SignIn/SignIn.jsx";
-import Presentational from "./Pages/Presentational/Presentational.jsx";
-import SignUp from "./Pages/App/SignUp/SignUp.jsx";
 import DashboardLayout from "./Components/DashboardLayout/DashboardLayout.jsx";
-import Movements from "./Pages/App/Movements/Movements.jsx";
-import Transactions from "./Pages/App/Transactions/Transactions.jsx";
-import BankAccountCreate from "./Pages/App/Account/BankAccountCreate.jsx";
+import { DarkModeProvider } from "./Contexts/DarkModeContext.jsx";
+import { LoanPaymentModalProvider } from "./Contexts/ModalContext.jsx";
 import Account from "./Pages/App/Account/Account.jsx";
+import Movements from "./Pages/App/Movements/Movements.jsx";
+import Settings from "./Pages/App/Settings/Settings.jsx";
+import SignIn from "./Pages/App/SignIn/SignIn.jsx";
+import SignUp from "./Pages/App/SignUp/SignUp.jsx";
+import Transactions from "./Pages/App/Transactions/Transactions.jsx";
+import Presentational from "./Pages/Presentational/Presentational.jsx";
+import GlobalStyles from "./styles/GlobalStyles";
 
 const router = createBrowserRouter([
   {
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
         path: "/applayout/transactions",
         Component: Transactions,
       },
+      {
+        path: "/applayout/settings",
+        Component: Settings,
+      },
     ],
   },
 ]);
@@ -68,16 +73,10 @@ function App() {
           theme="light"
         />
         <DarkModeProvider>
-          <GlobalStyles />
-
-          <RouterProvider router={router} />
-          {/* <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Presentational />} />
-          <Route path="/signIn" element={<SignIn />} />
-          <Route path="/signup" Component={SignUp} />
-          </Routes>
-        </BrowserRouter> */}
+          <LoanPaymentModalProvider>
+            <GlobalStyles />
+            <RouterProvider router={router} />
+          </LoanPaymentModalProvider>
         </DarkModeProvider>
       </LocalizationProvider>
     </QueryClientProvider>
