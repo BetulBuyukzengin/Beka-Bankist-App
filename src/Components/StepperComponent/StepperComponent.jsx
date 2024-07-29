@@ -17,7 +17,6 @@ export default function StepperComponent({
   const { trigger } = useFormContext();
   const handleNext = async () => {
     const result = await trigger();
-    console.log("result", result);
     if (result) setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
