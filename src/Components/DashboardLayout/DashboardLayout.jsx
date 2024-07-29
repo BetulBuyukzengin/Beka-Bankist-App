@@ -155,14 +155,9 @@ export default function DashboardLayout() {
     setOpen(false);
   };
 
-  console.log(calcRemainingLimitResetTime());
-  console.log(accounts?.map((account) => account.remainingDepositLimit));
-
   // React.useEffect(() => {
   //   const interval = setInterval(() => {
   //     const remainingResetTime = calcRemainingLimitResetTime();
-  //     console.log(remainingResetTime);
-  //     console.log(accounts.map((account) => account.remainingDepositLimit));
 
   //     if (remainingResetTime == "0 hours 00 minutes 00 seconds") {
   //       accounts.map((account) => {
@@ -175,7 +170,6 @@ export default function DashboardLayout() {
   //         const id = account?.id;
   //         updateDailyLimits({ id, account: updatedAccount });
   //       });
-  //       console.log("her sanıye");
   //     }
   //   }, 1000); // Her saniye kontrol et
 
@@ -187,8 +181,6 @@ export default function DashboardLayout() {
 
   //   const updateLimits = async () => {
   //     const remainingResetTime = calcRemainingLimitResetTime();
-  //     console.log(remainingResetTime);
-  //     console.log(accounts.map((account) => account.remainingDepositLimit));
   //     if (remainingResetTime === "0 hours 00 minutes 00 seconds") {
   //       const id = account?.id;
   //       const updatedAccounts = accounts.map((account) => ({
@@ -198,7 +190,6 @@ export default function DashboardLayout() {
   //         remainingWithdrawLimit: dailyWithdrawLimit,
   //       }));
   //       await updateDailyLimits({ id, updatedAccounts });
-  //       console.log("Günlük limitler güncellendi.");
   //     }
   //   };
 
@@ -229,7 +220,6 @@ export default function DashboardLayout() {
         //   };
         //   await updateDailyLimits({ id: account.id, account: updatedAccount });
         // }
-        // console.log("Günlük limitler güncellendi.");
       } else setEndTime(false);
     };
 
@@ -243,24 +233,10 @@ export default function DashboardLayout() {
       clearInterval(intervalId);
     };
   }, []);
+
   useEffect(
     function () {
       async function updateLimits() {
-        //!1- map dene
-        //!2-foreach dene
-        //!3-await siz dene for ile
-        //! hesap seçerken lımit yetersız uyarısı versın
-        //! alternatif olarak hesapların tamamını alan ve guncelleyen hook yapmayı dene
-        // for (const account of accounts) {
-        //   const updatedAccount = {
-        //     ...account,
-        //     remainingDepositLimit: dailyDepositLimit,
-        //     remainingTransferLimit: dailyTransferLimit,
-        //     remainingWithdrawLimit: dailyWithdrawLimit,
-        //   };
-        //   await updateDailyLimits({ id: account.id, account: updatedAccount });
-        // }
-
         await Promise.all(
           accounts?.map(async (account) => {
             const updatedAccount = {
@@ -278,7 +254,7 @@ export default function DashboardLayout() {
       }
       if (endTime) updateLimits();
     },
-    [endTime, accounts, updateDailyLimits] //!3 ü varken loopa giriyor
+    [endTime, accounts, updateDailyLimits]
   );
   return (
     <Protected>
