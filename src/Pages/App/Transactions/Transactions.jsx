@@ -29,18 +29,13 @@ const content = [
 const preserveParams = ["transactions-tab", "recipient-account-tab", "status"];
 function Transactions() {
   const { search, pathname } = useLocation();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const prevParamValueRef = useRef(null);
   const navigate = useNavigate();
   const currentParamValue = searchParams.get("transactions-tab");
   const { isLoading } = useGetRegisteredRecipient();
-  const mainTabLabel = [];
 
-  if (content.length === 4) {
-    content.map((tab) => {
-      mainTabLabel.push(tab.label);
-    });
-  }
+  const mainTabLabel = content.map((tab) => tab.label);
 
   //! Important
   useEffect(
@@ -62,12 +57,6 @@ function Transactions() {
     },
     [navigate, search, searchParams, currentParamValue, pathname]
   );
-  useEffect(function () {
-    searchParams.set("transactions-tab", 0);
-    searchParams.set("recipient-account-tab", 0);
-    searchParams.set("status", content[0].label);
-    setSearchParams(searchParams);
-  }, []);
 
   if (isLoading) return <Loader />;
   return (
