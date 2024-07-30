@@ -1,24 +1,20 @@
 /* eslint-disable react/prop-types */
-import * as React from "react";
-import PropTypes from "prop-types";
-import SwipeableViews from "react-swipeable-views";
-import { useTheme } from "@mui/material/styles";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import styled from "styled-components";
-import { useSearchParams } from "react-router-dom";
+import { useTheme } from "@mui/material/styles";
+import Tab from "@mui/material/Tab";
+import Tabs from "@mui/material/Tabs";
+import Typography from "@mui/material/Typography";
+import PropTypes from "prop-types";
+import * as React from "react";
 import { useEffect } from "react";
-import { useForm, useFormContext } from "react-hook-form";
+import { useSearchParams } from "react-router-dom";
+import SwipeableViews from "react-swipeable-views";
+import styled from "styled-components";
 
 const StyledSwipeableViews = styled(SwipeableViews)`
   width: 100%;
 `;
-const StyledDiv = styled.div`
-  /* padding: 13px 8px; */
-  /* padding: 1rem 0rem; */
-`;
+const StyledDiv = styled.div``;
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -148,6 +144,7 @@ export default function CustomTabs({
                 searchParams.set("transactions-tab", index);
                 setSearchParams(searchParams);
               }
+
               if (tabName === "recipientAccountTab") {
                 searchParams.set("recipient-account-tab", index);
                 setSearchParams(searchParams);
