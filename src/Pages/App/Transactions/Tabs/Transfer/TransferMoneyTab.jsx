@@ -1,36 +1,35 @@
-import RecipientAccount from "./RecipientAccount";
-import DetailDetermination from "./DetailDetermination";
-import AmountDetermination from "./AmountDetermination";
-import SenderAccount from "./SenderAccount";
 import StepperComponent from "../../../../../Components/StepperComponent/StepperComponent";
+import AmountDetermination from "./AmountDetermination";
+import DetailDetermination from "./DetailDetermination";
+import RecipientAccount from "./RecipientAccount";
+import SenderAccount from "./SenderAccount";
 import TransactionControl from "./TransactionControl";
 
-import { useForm, FormProvider } from "react-hook-form";
-import React, { useEffect, useState } from "react";
-import { useCreateMovements } from "../../../../../services/movementsServices";
-import { useUser } from "../../../../../services/userServices";
-import {
-  useDailyRemainingLimit,
-  useUpdateBalance,
-} from "../../../../../services/accountServices";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import Loader from "../../../../../Components/Loader/Loader";
-import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import React, { useEffect, useState } from "react";
+import { FormProvider, useForm } from "react-hook-form";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import * as yup from "yup";
+import Loader from "../../../../../Components/Loader/Loader";
 import {
-  dailyTransferLimit,
   maxAccountNumberLength,
   maxIbanLength,
   minAmountToSend,
 } from "../../../../../Constants/constants";
+import {
+  useDailyRemainingLimit,
+  useUpdateBalance,
+} from "../../../../../services/accountServices";
+import { useCreateMovements } from "../../../../../services/movementsServices";
+import { useCreateRegisteredRecipient } from "../../../../../services/registeredRecipientsServices";
+import { useUser } from "../../../../../services/userServices";
 import {
   calcRemainingLimitResetTime,
   convertToBoolean,
   formatCurrency,
   showDailyLimitMessage,
 } from "../../../../../utils/utils";
-import { toast } from "react-toastify";
-import { useCreateRegisteredRecipient } from "../../../../../services/registeredRecipientsServices";
 const transactionSteps = [
   {
     label: "Recipient Account",
@@ -72,7 +71,7 @@ export default function TransferMoneyTab() {
     searchParams.get("saveAsRegisteredWithIban")
   );
   const isSaveAsRegisteredAccountNumber = convertToBoolean(
-    searchParams.get("watchSaveAsRegisteredWithAccount")
+    searchParams.get("saveAsRegisteredWithAccount")
   );
   const remainingBalance = selectedAccount?.balance;
   const remainingTransferLimit = selectedAccount?.remainingTransferLimit;
