@@ -63,16 +63,22 @@ function AccountNumberTab() {
     },
     [searchParams, setSearchParams, watchRecipientBankName, watchBankBranch]
   );
-  useEffect(
-    function () {
-      searchParams.set(
-        "watchSaveAsRegisteredWithAccount",
-        watchSaveAsRegisteredWithAccount
-      );
-      setSearchParams(searchParams);
-    },
-    [watchSaveAsRegisteredWithAccount]
-  );
+  // useEffect(
+  //   function () {
+  //     if (searchParams.get("status") === "With Account Numbers") {
+  //       searchParams.set(
+  //         "saveAsRegisteredWithAccount",
+  //         watchSaveAsRegisteredWithAccount
+  //       );
+  //       setSearchParams(searchParams);
+  //     } else {
+  //       searchParams.delete("saveAsRegisteredWithAccount");
+  //       setSearchParams(searchParams);
+  //     }
+  //   },
+
+  //   [watchSaveAsRegisteredWithAccount, searchParams, setSearchParams]
+  // );
   return (
     <>
       <Grid

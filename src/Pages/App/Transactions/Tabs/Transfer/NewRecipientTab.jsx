@@ -15,7 +15,10 @@ const content = [
 function NewRecipientTab({ iban, setIban }) {
   const orientation = "vertical";
   const [searchParams, setSearchParams] = useSearchParams();
-  const { resetField } = useFormContext();
+  const { resetField, watch } = useFormContext();
+  const watchSaveAsRegisteredWithIban = watch("saveAsRegisteredWithIban");
+
+  const watchSaveAsRegisteredWithAccount = watch("saveAsRegisteredWithAccount");
 
   // const mainTabLabel = [];
   // if (content.length === 4) {
@@ -46,9 +49,39 @@ function NewRecipientTab({ iban, setIban }) {
         resetField("shortName", { defaultValue: "" });
         setSearchParams(searchParams);
       }
+
+      if (
+        searchParams.get("status") === "New Recipient" ||
+        searchParams.get("status") === "With Iban"
+      ) {
+        searchParams.set(
+          "saveAsRegisteredWithIban",
+          watchSaveAsRegisteredWithIban
+        );
+        setSearchParams(searchParams);
+      } else {
+        searchParams.delete("saveAsRegisteredWithIban");
+        setSearchParams(searchParams);
+      }
+
+      if (searchParams.get("status") === "With Account Numbers") {
+        searchParams.set(
+          "saveAsRegisteredWithAccount",
+          watchSaveAsRegisteredWithAccount
+        );
+        setSearchParams(searchParams);
+      } else {
+        searchParams.delete("saveAsRegisteredWithAccount");
+        setSearchParams(searchParams);
+      }
     },
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [searchParams, resetField]
+    [
+      searchParams,
+      watchSaveAsRegisteredWithAccount,
+      watchSaveAsRegisteredWithIban,
+    ]
   );
 
   return (

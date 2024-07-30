@@ -14,22 +14,29 @@ function WithIbanTab({ iban, setIban }) {
   } = useFormContext();
   const watchSaveAsRegisteredWithIban = watch("saveAsRegisteredWithIban");
   const [searchParams, setSearchParams] = useSearchParams();
+  const status = searchParams.get("status");
 
   const handleChange = (event) => {
     const formattedIban = formatIBAN(event.target.value);
     setIban(formattedIban);
   };
 
-  useEffect(
-    function () {
-      searchParams.set(
-        "saveAsRegisteredWithIban",
-        watchSaveAsRegisteredWithIban
-      );
-      setSearchParams(searchParams);
-    },
-    [watchSaveAsRegisteredWithIban]
-  );
+  // useEffect(
+  //   function () {
+  //     if (status === "New Recipient") {
+  //       searchParams.set(
+  //         "saveAsRegisteredWithIban",
+  //         watchSaveAsRegisteredWithIban
+  //       );
+  //       setSearchParams(searchParams);
+  //     }
+  //     // else {
+  //     //   searchParams.delete("saveAsRegisteredWithIban");
+  //     //   setSearchParams(searchParams);
+  //     // }
+  //   },
+  //   [watchSaveAsRegisteredWithIban, status, setSearchParams, searchParams]
+  // );
 
   return (
     <>
