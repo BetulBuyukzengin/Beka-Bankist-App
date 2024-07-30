@@ -156,55 +156,6 @@ export default function DashboardLayout() {
     setOpen(false);
   };
 
-  // React.useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     const remainingResetTime = calcRemainingLimitResetTime();
-
-  //     if (remainingResetTime == "0 hours 00 minutes 00 seconds") {
-  //       accounts.map((account) => {
-  //         const updatedAccount = {
-  //           ...account,
-  //           remainingDepositLimit: dailyDepositLimit,
-  //           remainingTransferLimit: dailyTransferLimit,
-  //           remainingWithdrawLimit: dailyWithdrawLimit,
-  //         };
-  //         const id = account?.id;
-  //         updateDailyLimits({ id, account: updatedAccount });
-  //       });
-  //     }
-  //   }, 1000); // Her saniye kontrol et
-
-  //   return () => clearInterval(interval);
-  // }, [accounts, updateDailyLimits, isLimitResetTimeOver]);
-
-  // React.useEffect(() => {
-  //   let intervalId;
-
-  //   const updateLimits = async () => {
-  //     const remainingResetTime = calcRemainingLimitResetTime();
-  //     if (remainingResetTime === "0 hours 00 minutes 00 seconds") {
-  //       const id = account?.id;
-  //       const updatedAccounts = accounts.map((account) => ({
-  //         ...account,
-  //         remainingDepositLimit: dailyDepositLimit,
-  //         remainingTransferLimit: dailyTransferLimit,
-  //         remainingWithdrawLimit: dailyWithdrawLimit,
-  //       }));
-  //       await updateDailyLimits({ id, updatedAccounts });
-  //     }
-  //   };
-
-  //   const startInterval = () => {
-  //     intervalId = setInterval(updateLimits, 1000);
-  //   };
-
-  //   startInterval();
-
-  //   return () => {
-  //     clearInterval(intervalId);
-  //   };
-  // }, [accounts, updateDailyLimits]);
-
   React.useEffect(() => {
     let intervalId;
 
@@ -212,15 +163,6 @@ export default function DashboardLayout() {
       const remainingResetTime = calcRemainingLimitResetTime();
       if (remainingResetTime === "0 hours 00 minutes 00 seconds") {
         setEndTime(true);
-        // for (const account of accounts) {
-        //   const updatedAccount = {
-        //     ...account,
-        //     remainingDepositLimit: dailyDepositLimit,
-        //     remainingTransferLimit: dailyTransferLimit,
-        //     remainingWithdrawLimit: dailyWithdrawLimit,
-        //   };
-        //   await updateDailyLimits({ id: account.id, account: updatedAccount });
-        // }
       } else setEndTime(false);
     };
 
