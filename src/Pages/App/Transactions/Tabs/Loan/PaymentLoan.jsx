@@ -10,6 +10,9 @@ import {
   formatCurrency,
   formatWord,
 } from "../../../../../utils/utils";
+import { useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
+import { useLoanPaymentModal } from "../../../../../Contexts/ModalContext";
 
 function PaymentLoan() {
   const { data: loanData, isLoading } = useGetLoan();
@@ -18,6 +21,17 @@ function PaymentLoan() {
     notPaidLoan?.selectedAccount
   );
   const { isPending: isUpdatingLoan } = useUpdateLoanMonthlyPayment();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const { open } = useLoanPaymentModal();
+  //! Status take out a loan ise yapsın.
+  const status = searchParams.get("status");
+  useEffect(() => {
+    if (status === "Take out a loan" && !open) {
+      searchParams.delete("selectedAccount");
+      searchParams.delete("paymentId");
+      setSearchParams(searchParams);
+    }
+  }, [status, searchParams, open, setSearchParams]);
 
   if (isLoading || isUpdatingLoan) return <Loader />;
   return (
