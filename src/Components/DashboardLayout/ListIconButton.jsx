@@ -1,12 +1,14 @@
 /* eslint-disable react/prop-types */
 import { Divider, ListItemButton } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useGetAccounts } from "../../services/accountServices.js";
 
-function ListIconButton({ children, path }) {
+function ListIconButton({ children, path, callback }) {
   const navigate = useNavigate();
+  const { pathname, search } = useLocation();
   const { accounts } = useGetAccounts();
   const isAccounts = accounts?.length > 0 ? false : true;
+  console.log(search);
   return (
     <>
       <ListItemButton
@@ -16,11 +18,15 @@ function ListIconButton({ children, path }) {
           px: 2.5,
         }}
         disabled={isAccounts}
-        onClick={() => navigate(path)}
+        onClick={() => {
+          if (path === pathname) return;
+          navigate(path);
+          callback();
+        }}
       >
         {children}
       </ListItemButton>
-      <Divider variant="fullWidth " sx={{ borderColor: "var(--color-text)" }} />
+      <Divider variant="fullWidth" sx={{ borderColor: "var(--color-text)" }} />
     </>
   );
 }

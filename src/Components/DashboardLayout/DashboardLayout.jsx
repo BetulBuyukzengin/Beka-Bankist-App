@@ -40,6 +40,7 @@ import {
   dailyWithdrawLimit,
 } from "../../Constants/constants";
 import { useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 const drawerWidth = 240;
 
 const StyledLink = styled.a`
@@ -256,6 +257,15 @@ export default function DashboardLayout() {
     },
     [endTime, accounts, updateDailyLimits]
   );
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const setUrlParams = () => {
+    searchParams.set("transactions-tab", 0);
+    searchParams.set("recipient-account-tab", 0);
+    searchParams.set("status", "Transfer");
+    setSearchParams(searchParams);
+  };
+
   return (
     <Protected>
       <Box
@@ -334,7 +344,7 @@ export default function DashboardLayout() {
               }}
             >
               {/* <ListIconButton path={"/applayout/accounts"}> */}
-              <ListIconButton path={"/applayout/account"}>
+              <ListIconButton path="/applayout/account">
                 <ListItemIcon>
                   <AccountBalanceWalletIcon
                     sx={{
@@ -361,7 +371,10 @@ export default function DashboardLayout() {
                   sx={{ opacity: open ? 1 : 0 }}
                 />
               </ListIconButton>
-              <ListIconButton path={"/applayout/transactions"}>
+              <ListIconButton
+                path={"/applayout/transactions"}
+                callback={setUrlParams}
+              >
                 <ListItemIcon>
                   <CurrencyExchange
                     sx={{
