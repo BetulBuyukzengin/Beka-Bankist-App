@@ -33,7 +33,6 @@ Application Features
  - deposit-withdraw işleminde limitim dolmuş ise gece 12 de güncelleniyor ama sayfayı değiştirip geldiğimde yansıyor 
  - loan ınformatıopn ısımlerı degıssın
 
- - hesaplarım kısmında daha once kredi cekilmişse göster
  - hesap silme işlemi ekle
  - check box state, modalda ve hesap yokken create işleminde loader gelmiyor
  - buton submit yaparken loader gelebilir, required form
@@ -46,7 +45,6 @@ Application Features
  - loan amount daki hesaplanan kredi degerini yuvarla kusuratı yok et
  - gunluk limit ertesı gun baktıgımda yenılememıs oluyor projenın kapalı olması etkıler mesaj?
  - bank account create  tre date 1 gun öncesi tabloya gelıyor hatayı duzelt, NEW DATE VERİNCE BASŞANGIC DEĞERİNE DUZELIYOR
- - take loan da max mın değerinde gereksız hata var
  
  ??? tab geçişlerinde error
  !!!!!!! transactions controlde iken başka taba gecildiğinde undefıned hatası alıyorum aynı zamanda geri donuldugunde de alıyordum onu cözmek adına tab deişiminde ilk stepe geçsin
@@ -57,9 +55,6 @@ Application Features
 
 
 
-!!!!!!!!!!!!!!!!!!!CUSTOM MENU ICON I CUSTOM YAP VE take out loanda da kullan
-url temizleme hatası var selected account oto secılı gelıyor geçmıyor duzelt
- 
  
  
  
@@ -107,11 +102,13 @@ url temizleme hatası var selected account oto secılı gelıyor geçmıyor duze
 
 -AccountCreate yerine CreateAccount şeklinde yapılabilir hepsını duzelt ıstersen
 
-- PAYMENT LOAN 
-- Yup ekle
-- Verileri form ile yönet, işlevselliği hallet
-- Confirme tıklanınca emin misiniz gibi bir uyarı mesajı göstereceksin
-
+- LOAN 
+  - Daha önce kredi çekilmişse göster
+  - Seçilen aya göre gelen kredi çekme miktarını azalttığımda uyarı alıyorum
+  - CUSTOM MENU ICON I CUSTOM YAP VE take out loanda da kullan
+  - Selected account oto secılı gelıyor geçmıyor url i temizle
+ 
+ saveAsRegisteredWithIban=undefined&watchSaveAsRegisteredWithAccount=false
   ----------------------
  2-.version:
  - TC ile girişte farklı bankalardakı hesapları otomatık cekme (2.versiyon için yapılabilir)
