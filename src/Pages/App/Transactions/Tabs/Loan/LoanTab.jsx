@@ -23,6 +23,8 @@ import PaymentLoan from "./PaymentLoan";
 import PersonalInformation from "./PersonalInformation";
 import styled from "styled-components";
 import { yupResolver } from "@hookform/resolvers/yup";
+import CustomModal from "../../../../../Components/CustomModal/CustomModal";
+import PaidLoans from "./PaidLoans";
 
 const transactionSteps = [
   {
@@ -50,9 +52,10 @@ const StyleDiv = styled.div`
 function LoanTab() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const { mutateAsync: createLoan } = useCreateLoan();
+  const { data: loanData, isLoading } = useGetLoan();
   const [phoneNumber, setPhoneNumber] = useState("");
   const selectedAccount = JSON.parse(searchParams.get("selectedAccount"));
-  // const id = selectedAccount?.id;
 
   const validationSchema = [
     yup.object({
@@ -94,8 +97,6 @@ function LoanTab() {
         .test("is-valid-phone", "Phone number is invalid", (value) =>
           matchIsValidTel(value)
         ),
-
-      // applicantBirthday: yup.date().required("This field is required!"),
     }),
 
     //validation for step 2
@@ -103,7 +104,6 @@ function LoanTab() {
       applicantBusinessName: yup.string().required("This field is required!"),
       applicantSectorOfWork: yup.string().required("This field is required!"),
       applicantJob: yup.string().required("This field is required!"),
-      applicantIncome: yup.string().required("This field is required!"),
     }),
 
     //validation for step 3
@@ -135,7 +135,6 @@ function LoanTab() {
     resolver: yupResolver(currentValidationSchema),
     mode: "onChange",
   });
-  const { mutateAsync: createLoan } = useCreateLoan();
 
   const currentStatus = searchParams.get("status");
   // const selectedAccount = JSON.parse(searchParams.get("selectedAccount"));
@@ -151,7 +150,6 @@ function LoanTab() {
     prevStatus.current = currentStatus;
   }, [reset, currentStatus]);
 
-  const { data: loanData, isLoading } = useGetLoan();
   let interestAmount = 0;
   const todayDate = new Date();
 
@@ -197,18 +195,38 @@ function LoanTab() {
     navigate("/applayout/account");
   };
   const notPaidLoan = loanData?.find((data) => data?.isCreditPaid === false);
+  const [openPaidLoansModal, setOpenPaidLoansModal] = useState(false);
+
+  const handleOpenPaidLoansModal = () => setOpenPaidLoansModal(true);
+
+  const menuIconContents = [
+    {
+      openModal: handleOpenPaidLoansModal,
+      label: "Display Paid Loans",
+    },
+  ];
 
   if (isLoading) return <Loader />;
+
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
+        <StyleDiv>
+          <CustomMenuIcon contents={menuIconContents} />
+        </StyleDiv>
         {notPaidLoan ? (
           <PaymentLoan />
         ) : (
           <>
-            <StyleDiv>
-              <CustomMenuIcon buttonText="Show paid loans" />
+            {/* <StyleDiv>
+              <CustomMenuIcon contents={menuIconContents} />
             </StyleDiv>
+            <CustomModal
+              open={openPaidLoansModal}
+              setOpen={setOpenPaidLoansModal}
+            >
+              <PaidLoans />
+            </CustomModal> */}
             <StepperComponent
               transactionSteps={transactionSteps.map((step) =>
                 step.label === "Personal Information"
@@ -233,6 +251,12 @@ function LoanTab() {
             />
           </>
         )}
+        {/* <StyleDiv>
+          <CustomMenuIcon contents={menuIconContents} />
+        </StyleDiv> */}
+        <CustomModal open={openPaidLoansModal} setOpen={setOpenPaidLoansModal}>
+          <PaidLoans />
+        </CustomModal>
       </form>
     </FormProvider>
   );
