@@ -34,7 +34,6 @@ function Transactions() {
   const navigate = useNavigate();
   const currentParamValue = searchParams.get("transactions-tab");
   const { isLoading } = useGetRegisteredRecipient();
-
   const mainTabLabel = content.map((tab) => tab.label);
 
   //! Important
@@ -59,6 +58,7 @@ function Transactions() {
   );
 
   if (isLoading) return <Loader />;
+
   return (
     <div style={{ height: "78dvh", overflowY: "scroll" }}>
       <CustomTabs
