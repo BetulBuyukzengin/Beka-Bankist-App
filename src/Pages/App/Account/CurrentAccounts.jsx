@@ -7,8 +7,26 @@ import CustomMenuIcon from "../../../Components/CustomMenuIcon/CustomMenuIcon";
 import AccountDelete from "./AccountDelete";
 
 function CurrentAccounts() {
-  const [open, setOpen] = useState(false);
+  const [openCreateAccount, setOpenCreateAccount] = useState(false);
   const [openDeleteAccount, setOpenDeleteAccount] = useState(false);
+
+  const handleOpenCreateAccountModal = () => {
+    setOpenCreateAccount(true);
+  };
+  const handleOpenDeleteAccountModal = () => {
+    setOpenDeleteAccount(true);
+  };
+  const menuIconContents = [
+    {
+      openModal: handleOpenCreateAccountModal,
+      label: "New Account",
+    },
+    {
+      openModal: handleOpenDeleteAccountModal,
+      label: "Delete Account",
+    },
+  ];
+
   return (
     <>
       <Box
@@ -25,14 +43,11 @@ function CurrentAccounts() {
         >
           MY ACCOUNTS
         </h3>
-        <CustomMenuIcon
-          setOpen={setOpen}
-          setOpenDeleteAccount={setOpenDeleteAccount}
-        />
+        <CustomMenuIcon contents={menuIconContents} />
       </Box>
       <AppSlider />
-      <CustomModal open={open} setOpen={setOpen}>
-        <AccountCreate setOpenCreateModal={setOpen} />
+      <CustomModal open={openCreateAccount} setOpen={setOpenCreateAccount}>
+        <AccountCreate setOpenCreateModal={setOpenCreateAccount} />
       </CustomModal>
       <CustomModal open={openDeleteAccount} setOpen={setOpenDeleteAccount}>
         <AccountDelete />
