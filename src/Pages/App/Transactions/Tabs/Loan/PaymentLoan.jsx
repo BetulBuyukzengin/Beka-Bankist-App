@@ -1,10 +1,6 @@
 import { Grid } from "@mui/material";
 import Table from "../../../../../Components/Table/Table";
-import Loader from "../../../../../Components/Loader/Loader";
-import {
-  useGetLoan,
-  useUpdateLoanMonthlyPayment,
-} from "../../../../../services/loanServices";
+import { useGetLoan } from "../../../../../services/loanServices";
 import {
   formatArrayWord,
   formatCurrency,
@@ -20,20 +16,17 @@ function PaymentLoan() {
   const { bankName, bankBranch, fullName } = JSON.parse(
     notPaidLoan?.selectedAccount
   );
-  const { isPending: isUpdatingLoan } = useUpdateLoanMonthlyPayment();
   const [searchParams, setSearchParams] = useSearchParams();
   const { open } = useLoanPaymentModal();
-  //! Status take out a loan ise yapsın.
+
   const status = searchParams.get("status");
   useEffect(() => {
     if (status === "Take out a loan" && !open) {
       searchParams.delete("selectedAccount");
-      searchParams.delete("paymentId");
       setSearchParams(searchParams);
     }
   }, [status, searchParams, open, setSearchParams]);
 
-  if (isLoading || isUpdatingLoan) return <Loader />;
   return (
     <Grid
       container
@@ -58,9 +51,10 @@ function PaymentLoan() {
           belirtilmiştir.
         </p>
       </Grid>
+
       <Grid item xs={12}>
         {/* <CustomTable data={paymentData} /> */}
-        <Table data={loanData?.at(0)?.applicantPaymentPlan} />
+        <Table />
       </Grid>
     </Grid>
   );
