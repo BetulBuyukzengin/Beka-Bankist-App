@@ -46,35 +46,8 @@ Application Features
  - gunluk limit ertesı gun baktıgımda yenılememıs oluyor projenın kapalı olması etkıler mesaj?
  - bank account create  tre date 1 gun öncesi tabloya gelıyor hatayı duzelt, NEW DATE VERİNCE BASŞANGIC DEĞERİNE DUZELIYOR
  
- ??? tab geçişlerinde error
- !!!!!!! transactions controlde iken başka taba gecildiğinde undefıned hatası alıyorum aynı zamanda geri donuldugunde de alıyordum onu cözmek adına tab deişiminde ilk stepe geçsin
- 
- İşlemler tabında url sıfırlama da hata var watch save as registered silinmeli*****
-
-
-
-
-
- 
- 
- 
- 
-
-
-
-
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
+ ?? tab geçişlerinde error
+ !! transactions controlde iken başka taba gecildiğinde undefıned hatası alıyorum aynı zamanda geri donuldugunde de alıyordum onu cözmek adına tab deişiminde ilk stepe geçsin
  
  TRANSFER 
  - Transaction controlde işlem tarihi seçebilmeyi ve işlemin o tarihte gerçekleşmesini sağla
@@ -84,31 +57,24 @@ Application Features
  PRESENTATIONAL
  - Sayfanın text içeriğini düzenle
 - tek banka dan tek hesap acabılsın
- - TAKE A LOAN 
- - Çekilen kredi varsa yeniden o hesaptan talep edememeli
- status u take a loan ise 1.step adı basvuran hesap olsn
+
+ TAKE A LOAN 
+ - Status u take a loan ise 1.step adı basvuran hesap olsn
  - Kredi çekme talebi için telefondan onay alsın.
- - Kredi çekilmiş ise çekme kısmı gozukmesın bılgı olsun ama cekılmedıyse cekme kısmı gelsın.
+ - Aylık kredi ödemesi gerçekleştikten sonra ödeme butonu geç güncelleniyor!!!! ÖNEMLİ
 
  - Movements
   - makbuz e maıl gonderme yap
 
-- Account Create
+ Account Create
 - Kullanıcı banka hesabı olusturuken her hesap olusturmada tc sını aynı yapmalı
 -delete account butonunda acılan modalda siilme işlemini yap
 
-- Sign up
+ Sign up
 - Burada tc yi de al. Account create ve loanda tcyı oto doldur ve dısabled ya
 
 -AccountCreate yerine CreateAccount şeklinde yapılabilir hepsını duzelt ıstersen
 
-- LOAN 
-  - Daha önce kredi çekilmişse göster
-  - Seçilen aya göre gelen kredi çekme miktarını azalttığımda uyarı alıyorum
-  - CUSTOM MENU ICON I CUSTOM YAP VE take out loanda da kullan
-  - Selected account oto secılı gelıyor geçmıyor url i temizle
- 
- saveAsRegisteredWithIban=undefined&watchSaveAsRegisteredWithAccount=false
   ----------------------
  2-.version:
  - TC ile girişte farklı bankalardakı hesapları otomatık cekme (2.versiyon için yapılabilir)
@@ -116,13 +82,6 @@ Application Features
 
 
 
-
-------------------------
-LOAN
-*Min çekilebilecek kredi miktarı vardır:
-* 12 aylık kredi çekme talebinde faiz uygulanmayacak diğerlerinde her bir seçenek için
-ayrı ayrı faiz miktarları ile toplam odeme hesaplanacak.
-* Business information step'inde income field'ı gereksiz.
 --------------------------------------------------
  -RIZA ONAY FORMU:
  Banka Hesabı Açılışı Aydınlatma ve Onay Formu
