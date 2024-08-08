@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
 import { yupResolver } from "@hookform/resolvers/yup";
-import React, { useEffect } from "react";
+import React, { useMemo } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useSearchParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import * as yup from "yup";
-import Loader from "../../../../../../Components/Loader/Loader";
 import StepperComponent from "../../../../../../Components/StepperComponent/StepperComponent";
 import { useLoanPaymentModal } from "../../../../../../Contexts/ModalContext";
 import { useUpdateBalance } from "../../../../../../services/accountServices";
@@ -14,16 +14,14 @@ import {
 } from "../../../../../../services/loanServices";
 import SenderAccount from "../../Transfer/SenderAccount";
 import PaymentTransaction from "./PaymentTransaction";
-import { toast } from "react-toastify";
 
 function PaymentContent({ data }) {
   const [activeStep, setActiveStep] = React.useState(0);
-  const { isLoading, mutateAsync: updateBalance } = useUpdateBalance();
-  const [searchParams] = useSearchParams();
+  const { mutateAsync: updateBalance } = useUpdateBalance();
+  const [searchParams, setSearchParams] = useSearchParams();
   const selectedAccount = JSON.parse(searchParams.get("selectedAccount"));
   const { setOpen } = useLoanPaymentModal();
-  const { isLoading: isUpdatingLoan, mutateAsync: updateLoan } =
-    useUpdateLoanMonthlyPayment();
+  const { mutateAsync: updateLoan } = useUpdateLoanMonthlyPayment();
   const { data: loans } = useGetLoan();
   const currentBalance = +selectedAccount?.balance;
   const id = selectedAccount?.id;
@@ -55,22 +53,36 @@ function PaymentContent({ data }) {
     resolver: yupResolver(currentValidationSchema),
     mode: "onChange",
   });
-  const loanId = loans.at(0)?.id;
+  const loanId = loans.find((loan) => !loan.isCreditPaid).id;
   const monthlyPaymentId = selectedMonthlyPayment.id;
 
-  const account = {
-    ...selectedAccount,
-    balance: currentBalance - selectedMonthlyPayment.totalAmountToPay,
-  };
-  const updatedPayment = {
-    ...selectedMonthlyPayment,
-    isInstallmentPaid: true,
-  };
+  const account = useMemo(() => {
+    return {
+      ...selectedAccount,
+      balance: currentBalance - selectedMonthlyPayment.totalAmountToPay,
+    };
+  }, [
+    selectedAccount,
+    currentBalance,
+    selectedMonthlyPayment.totalAmountToPay,
+  ]);
 
-  const monthlyPayment = data.map((obj) =>
-    obj.id === monthlyPaymentId ? updatedPayment : obj
-  );
+  // const account = {
+  //   ...selectedAccount,
+  //   balance: currentBalance - selectedMonthlyPayment.totalAmountToPay,
+  // };
+  const updatedPayment = useMemo(() => {
+    return {
+      ...selectedMonthlyPayment,
+      isInstallmentPaid: true,
+    };
+  }, [selectedMonthlyPayment]);
 
+  const monthlyPayment = useMemo(() => {
+    return data.map((obj) =>
+      obj.id === monthlyPaymentId ? updatedPayment : obj
+    );
+  }, [monthlyPaymentId, updatedPayment, data]);
   const onSubmit = async () => {
     await updateBalance({ id, account });
     await updateLoan(
@@ -79,8 +91,15 @@ function PaymentContent({ data }) {
         id: loanId,
         updateColumn: "applicantPaymentPlan",
       },
-      // when successfull or not successfull waiting result
-      { onSettled: () => setOpen(false) }
+      {
+        onSettled: () => {
+          setOpen(false);
+          // searchParams.delete("paymentId");
+          // setTimeout(() => {
+          //   setSearchParams(searchParams);
+          // }, 1500);
+        },
+      }
     );
   };
   return (
