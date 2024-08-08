@@ -55,7 +55,6 @@ async function updateBalance(id, account) {
 export function useUpdateBalance() {
   const { mutateAsync, isLoading } = useMutation({
     mutationFn: ({ id, account }) => updateBalance(id, account),
-    onSuccess: () => toast.success("Transaction successfully done"),
     onError: () => toast.error("Transaction could not be performed"),
   });
   return { mutateAsync, isLoading };
