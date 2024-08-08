@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "../Supabase/supabase";
 import { toast } from "react-toastify";
+import { useUser } from "./userServices";
 
 async function createLoan(newLoan) {
   const { data, error } = await supabase
@@ -27,11 +28,12 @@ async function getLoan() {
   return data;
 }
 export function useGetLoan() {
-  const { data, isLoading } = useQuery({
+  const { user } = useUser();
+  const { data, isLoading, refetch } = useQuery({
     queryFn: getLoan,
-    queryKey: ["loan"],
+    queryKey: ["loan", user?.user_metadata?.fullName],
   });
-  return { isLoading, data };
+  return { isLoading, data, refetch };
 }
 
 async function updateLoanMonthlyPayment({ monthlyPayment, id, updateColumn }) {
@@ -49,7 +51,7 @@ export function useUpdateLoanMonthlyPayment() {
   const { isLoading, mutateAsync, isPending } = useMutation({
     mutationFn: updateLoanMonthlyPayment,
     onSuccess: () => {
-      query.invalidateQueries();
+      query.invalidateQueries(["loan"]);
     },
     onError: (error) => {
       toast.error(error.message);
