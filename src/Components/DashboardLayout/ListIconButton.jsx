@@ -5,10 +5,9 @@ import { useGetAccounts } from "../../services/accountServices.js";
 
 function ListIconButton({ children, path, callback }) {
   const navigate = useNavigate();
-  const { pathname, search } = useLocation();
+  const { pathname } = useLocation();
   const { accounts } = useGetAccounts();
   const isAccounts = accounts?.length > 0 ? false : true;
-  console.log(search);
   return (
     <>
       <ListItemButton
