@@ -37,7 +37,7 @@ const StyledDescription = styled.p`
 export default function ReceiptContent({ row }) {
   const { user } = useUser();
   const fullName = user.user_metadata.fullName;
-  const { toPDF, targetRef } = usePDF({ filename: "page.pdf" });
+  const { toPDF, targetRef } = usePDF({ filename: "Receipt.pdf" });
   const selectedMyAccount = JSON.parse(row.selectedAccount);
 
   return (
