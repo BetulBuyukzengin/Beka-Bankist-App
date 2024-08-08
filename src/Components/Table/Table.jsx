@@ -7,30 +7,29 @@ import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import { addMonths, format, isBefore } from "date-fns";
+import { addMonths, differenceInDays, format, isBefore } from "date-fns";
+import { useEffect, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import { styled as styledComponents } from "styled-components";
+import { hourInterval, interestAmountConst } from "../../Constants/constants";
 import { useLoanPaymentModal } from "../../Contexts/ModalContext";
 import PaymentContent from "../../Pages/App/Transactions/Tabs/Loan/PaymentContentTab/PaymentContent";
-import { calcNextMonth, formatCurrency } from "../../utils/utils";
-import CustomButton from "../CustomButton/CustomButton";
-import CustomModal from "../CustomModal/CustomModal";
 import {
   useGetLoan,
   useUpdateLoanMonthlyPayment,
 } from "../../services/loanServices";
-import { hourInterval, interestAmountConst } from "../../Constants/constants";
-import { useEffect, useMemo } from "react";
-import { differenceInDays } from "date-fns";
-import Loader from "../Loader/Loader";
+import { calcNextMonth, formatCurrency } from "../../utils/utils";
+import CustomButton from "../CustomButton/CustomButton";
+import CustomModal from "../CustomModal/CustomModal";
 
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
+const StyledTableCell = styled(TableCell)(() => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
+    backgroundColor: "var(--color-background-2)",
+    color: "var(--color-text)",
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
+    color: "var(--color-text)",
   },
 }));
 
@@ -52,15 +51,16 @@ const StyledTableFooter = styledComponents.div`
 `;
 
 //? date,amount to pay , interest amount bunlar bi yerden gelsın kı table custom olsun
-export default function CustomTable({ data }) {
-  const parsedData = JSON.parse(data);
+export default function CustomTable() {
+  const { data: loanData, isLoading } = useGetLoan();
+  const loan = loanData.find((loan) => !loan.isCreditPaid).applicantPaymentPlan;
+  const parsedData = loan && JSON.parse(loan);
   const [searchParams, setSearchParams] = useSearchParams();
   const { open, setOpen } = useLoanPaymentModal();
-  const { data: loans } = useGetLoan();
-  const loanId = loans?.at(0)?.id;
-  const { mutateAsync: updateMonthlyPaymentInterests, isPending } =
-    useUpdateLoanMonthlyPayment();
+  const loanId = loanData.find((loan) => !loan.isCreditPaid).id;
 
+  const { mutateAsync: updateMonthlyPaymentInterests } =
+    useUpdateLoanMonthlyPayment();
   const totalDept = parsedData
     ?.filter((monthlyPayment) => monthlyPayment?.isInstallmentPaid === false)
     .reduce((acc, obj) => acc + obj?.totalAmountToPay, 0);
@@ -72,7 +72,7 @@ export default function CustomTable({ data }) {
   }, []);
 
   const isEveryMonthPaid = JSON.parse(
-    loans.find((loan) => loan?.isCreditPaid === false)?.applicantPaymentPlan
+    loanData.find((loan) => loan?.isCreditPaid === false)?.applicantPaymentPlan
   ).every((monthlyPayment) => monthlyPayment.isInstallmentPaid === true);
 
   //! re create updatedData when parsedData or today changes to fix calculate total amount to pay
@@ -116,11 +116,13 @@ export default function CustomTable({ data }) {
     everyMonthPaid();
   }, [isEveryMonthPaid, loanId, updateMonthlyPaymentInterests]);
 
-  if (isPending) return <Loader />;
   return (
     <>
       <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 700 }} aria-label="customized table">
+        <Table
+          sx={{ minWidth: 700, backgroundColor: "var(--color-background-2)" }}
+          aria-label="customized table"
+        >
           <TableHead>
             <TableRow>
               <StyledTableCell>Date</StyledTableCell>
@@ -141,7 +143,6 @@ export default function CustomTable({ data }) {
                 //! for test
                 addMonths(new Date(), 13)
               );
-
               return (
                 <StyledTableRow key={i}>
                   <StyledTableCell component="th" scope="row">
@@ -161,11 +162,18 @@ export default function CustomTable({ data }) {
                       buttonText={row.isInstallmentPaid ? "PAID" : "PAY NOW"}
                       color={row.isInstallmentPaid ? "success" : ""}
                       variant="contained"
+                      //! Need to spesify more dynamic value to disable and display text in button
                       disabled={isDateBefore}
                       style={
-                        row.isInstallmentPaid && {
-                          pointerEvents: "none",
-                        }
+                        row.isInstallmentPaid
+                          ? {
+                              pointerEvents: "none",
+                            }
+                          : {
+                              "&:hover": {
+                                backgroundColor: "var(--color-success)",
+                              },
+                            }
                       }
                       onClick={() => {
                         setOpen(true);
