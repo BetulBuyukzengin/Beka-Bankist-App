@@ -44,7 +44,7 @@ function AccountCheckComp({ account, border, monthlyPayment }) {
         style={{
           backgroundColor:
             account?.accountNumber === selectedAccount?.accountNumber &&
-            "var(--color-background-3)",
+            "var(--color-text-2)",
           border:
             border === "standard"
               ? "none"
