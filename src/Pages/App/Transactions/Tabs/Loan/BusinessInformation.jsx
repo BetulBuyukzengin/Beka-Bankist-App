@@ -49,19 +49,6 @@ export default function BusinessInformation() {
           error={errors?.applicantJob}
         />
       </Grid>
-
-      <Grid item xs={6}>
-        <CustomTextField
-          type="number"
-          id="income"
-          label="Income"
-          register={{
-            ...register("applicantIncome"),
-          }}
-          helperText={errors?.applicantIncome?.message}
-          error={errors?.applicantIncome}
-        />
-      </Grid>
     </Grid>
   );
 }
