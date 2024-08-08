@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import DashboardLayout from "./Components/DashboardLayout/DashboardLayout.jsx";
 import { DarkModeProvider } from "./Contexts/DarkModeContext.jsx";
@@ -59,6 +60,8 @@ const queryClient = new QueryClient();
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false} />
+
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <ToastContainer
           position="top-right"
