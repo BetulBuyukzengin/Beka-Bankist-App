@@ -35,6 +35,9 @@ export default function StepperComponent({
                   "& > span > svg > text": {
                     fill: "var(--color-background)!important",
                   },
+                  "& > .MuiStepLabel-labelContainer>span": {
+                    color: "var(--color-text)",
+                  },
                 }}
               >
                 {label.label}
