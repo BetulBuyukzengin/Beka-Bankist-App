@@ -1,8 +1,8 @@
+/* eslint-disable react/prop-types */
 import { Box, Grid } from "@mui/material";
-import CustomTextField from "../../../../../../Components/CustomTextField/CustomTextField";
+import { useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { useSearchParams } from "react-router-dom";
-import { useState } from "react";
 import styled from "styled-components";
 import { formatCurrency, formatDate } from "../../../../../../utils/utils";
 
@@ -14,14 +14,10 @@ const StyledBox = styled(Box)`
 `;
 
 function PaymentTransaction({ data }) {
-  const { register, formState } = useFormContext();
-  const { errors } = formState;
   const [searchParams] = useSearchParams();
   const { totalAmountToPay, date, id, interestAmount } = data.find(
     (obj) => obj.id === +searchParams.get("paymentId")
   );
-  const [loanPaymentAmount, setLoanPaymentAmount] = useState(0);
-  const handleLoanPaymentChange = (e) => setLoanPaymentAmount(+e.target.value);
   return (
     <Grid container sx={{ width: "100%" }}>
       <Grid
@@ -38,18 +34,6 @@ function PaymentTransaction({ data }) {
       </Grid>
       <Grid item xs={6}>
         <StyledBox>{formatCurrency(totalAmountToPay)}</StyledBox>
-        {/* <CustomTextField
-          defaultValue={selectedPaymentTotalAmountToPay}
-          // value={selectedPaymentTotalAmountToPay || loanPaymentAmount}
-          // onChange={handleLoanPaymentChange}
-          // disabled={true}
-          id="paymentAmount"
-          label="Loan amount to be paid"
-          type="number"
-          register={{ ...register("loanPaymentAmount") }}
-          helperText={errors?.loanPaymentAmount?.message}
-          error={errors?.loanPaymentAmount}
-        /> */}
       </Grid>
     </Grid>
   );
