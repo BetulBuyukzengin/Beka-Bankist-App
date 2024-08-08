@@ -20,14 +20,14 @@
 - Müşterinin isteğine bağlı olarak, alıcı hesabını kaydedebilir ve bir sonraki transfer işleminde kullanabilir.
 - Transfer işlemi alıcı hesabın iban ya da hesap numarası ile gerçekleştirilir. Eğer daha önceki işlemlerden kayıtlı bir alıcı var ise kayıtlı alcıyı seçerek de transfer işlemini gerçekleştirebilir.
 - Transfer işleminde müşteri, hesaplarından bir tanesini seçerek işlemine devam edebilir. Seçtiği hesapta bakiyesi yoksa, göndereceği miktar bakiyesinden veya günlük transfer limitinden fazla ise işlem gerçekleştirilemez.
-  ✅ Günlük transfer limiti 24 saat sonra (her gün saat 00.00 da) yenilenir.
+- Günlük transfer limiti 24 saat sonra (her gün saat 00.00 da) yenilenir.
   <!-- - Seçilen ileri bir tarihte transfer işlemi otomatik olarak gerçekleştirilebilir.-->
-  ✅ Kredi çekme talebi daha önce yapılmış ise tekrar talepte bulunulamaz. Ödeme yapıldığı takdirde yeni kredi çekme talebinde bulunulabilir.
-  ✅ Kredi talebinde bulunan müşterinin kişisel, hesap, mesleki, toplam gelir ve gider, kredi çekme nedeni ve ne kadar çekmek istediği hakkındaki bilgileri alınır.
+- Kredi çekme talebi daha önce yapılmış ise tekrar talepte bulunulamaz. Ödeme yapıldığı takdirde yeni kredi çekme talebinde bulunulabilir.
+- Kredi talebinde bulunan müşterinin kişisel, hesap, mesleki, toplam gelir ve gider, kredi çekme nedeni ve ne kadar çekmek istediği hakkındaki bilgileri alınır.
   <!-- - Kredi talebinde bulunabilmek için müşterinin telefonundan onaylanmalıdır.-->
-  ✅ Kredi ödeme planı 12-24-36-48-60 ay olarak seçilebilir. Seçilen plana göre maximum talep edilebilecek miktar müşteriye sunulur ve müşteri ona göre talepte bulunabilir.
-  ✅ Daha önceki kredi ödeme işlemlerini kullanıcı görebilir ve aylık ödeme planını (çekilen kredi,tarihi, toplam ödenen faiz ve toplam ödenen borç miktarı) pdf olarak indirebilir.
-  ✅ Para yükleme ve çekme kısmmında günlük limit göz önünde bulundurularak seçilen hesaba para yüklenebilir ve çekilebilir. Günlük para yükleme ve çekme limitleri 24 saat sonra (her gün saat 00.00 da) yenilenir.
+- Kredi ödeme planı 12-24-36-48-60 ay olarak seçilebilir. Seçilen plana göre maximum talep edilebilecek miktar müşteriye sunulur ve müşteri ona göre talepte bulunabilir.
+- Daha önceki kredi ödeme işlemlerini kullanıcı görebilir ve aylık ödeme planını (çekilen kredi,tarihi, toplam ödenen faiz ve toplam ödenen borç miktarı) pdf olarak indirebilir.
+- Para yükleme ve çekme kısmmında günlük limit göz önünde bulundurularak seçilen hesaba para yüklenebilir ve çekilebilir. Günlük para yükleme ve çekme limitleri 24 saat sonra (her gün saat 00.00 da) yenilenir.
 - Hareketler kısmında transfer, para çekme ve para yükleme işlemlerinin geçmiş kayıtları müşteriye gösterilir.
 - Müşteri hareket geçmişini detaylı olarak inceleyebilir ve makbuzunu oluşturarak pdf şeklinde indirebilir veya mailine gönderebilir.
 - Ayarlar sayfasında kullanıcı profil fotoğrafı ekleyebilir, email ini, telefon numarasını, şifresini, adresini güncelleyebilir.
