@@ -28,6 +28,9 @@ const GlobalStyles = createGlobalStyle`
         --color-text: #f7f7f7;
         --color-text-2: rgba(247, 247, 247, 0.2);
         --color-background: rgba(10, 10, 10, 0.8);
+        /* --color-background: rgba(10, 10, 10, 0.64);  bunu yap*/
+
+      
         --color-background-2: rgba(10, 10, 10, 1);
         --color-background-3:rgba(239,239,239,0.1);
         --color-background-4:rgba(152,146,146,0.1);
