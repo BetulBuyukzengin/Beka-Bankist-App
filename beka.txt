@@ -75,6 +75,12 @@ Application Features
 
 -AccountCreate yerine CreateAccount şeklinde yapılabilir hepsını duzelt ıstersen
 
+Settings
+- E-posta güncellemede mevcut e-postaya onay kodu gönder. Ama mevcut postaya erişim yoksa 
+telefon numarasından onay kodu gönder.
+- Şifre güncellemede e posta ya da telefon numarasından onay kodu gönder.
+- Profil fotoğrafı koyma,silme ve güncelleme 
+- Update email with phone and email address de yazıldığı gibi doğrulama kodu mu linki mi geliyor kontrol et,yanlış ise text ve butonu düzelt
   ----------------------
  2-.version:
  - TC ile girişte farklı bankalardakı hesapları otomatık cekme (2.versiyon için yapılabilir)
