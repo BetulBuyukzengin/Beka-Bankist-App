@@ -26,6 +26,7 @@ const content = [
     component: <WithdrawTab />,
   },
 ];
+
 const preserveParams = ["transactions-tab", "recipient-account-tab", "status"];
 function Transactions() {
   const { search, pathname } = useLocation();

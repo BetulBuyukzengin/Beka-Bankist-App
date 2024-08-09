@@ -20,12 +20,6 @@ function NewRecipientTab({ iban, setIban }) {
 
   const watchSaveAsRegisteredWithAccount = watch("saveAsRegisteredWithAccount");
 
-  // const mainTabLabel = [];
-  // if (content.length === 4) {
-  //   content.map((tab) => {
-  //     mainTabLabel.push(tab.label);
-  //   });
-  // }
   const mainTabLabel = content.map((tab) => {
     return tab.label;
   });
