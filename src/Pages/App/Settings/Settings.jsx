@@ -1,42 +1,24 @@
-import { FilledInput, Grid } from "@mui/material";
-import CustomTextField from "../../../Components/CustomTextField/CustomTextField";
-import { FormProvider, useForm } from "react-hook-form";
-import CustomButton from "../../../Components/CustomButton/CustomButton";
+import { Grid } from "@mui/material";
+import UpdateEmail from "./UpdateEmail/UpdateEmail";
+import UpdatePassword from "./UpdatePassword/UpdatePassword";
+import DeleteAppAccount from "./DeleteAppAccount/DeleteAppAccount";
 function Settings() {
-  const methods = useForm();
-
-  const onSubmit = async (data) => {
-  };
-  const { register } = methods;
-  // if (isloading) return <Loader />;
   return (
-    <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(onSubmit)}>
-        <Grid container>
-          <Grid item xs={6}>
-            <CustomTextField
-              id="userName"
-              label="User Name"
-              //   value={}
-              register={{
-                ...register("userName"),
-              }}
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <CustomButton type="submit" buttonText="create" />
-          </Grid>
-          <Grid>
-            <FilledInput
-              id="profile"
-              accept="image/*"
-              // disabled={isUpdating}
-              // onChange={(e) => setAvatar(e.target.files[0])}
-            />
-          </Grid>
-        </Grid>
-      </form>
-    </FormProvider>
+    <Grid
+      container
+      gap={2}
+      sx={{ justifyContent: "center", textAlign: "center" }}
+    >
+      <Grid item xs={6}>
+        <UpdateEmail />
+      </Grid>
+      <Grid item xs={6}>
+        <UpdatePassword />
+      </Grid>
+      <Grid item xs={6}>
+        <DeleteAppAccount />
+      </Grid>
+    </Grid>
   );
 }
 
