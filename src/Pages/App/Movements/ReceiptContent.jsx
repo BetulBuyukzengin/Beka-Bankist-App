@@ -44,8 +44,9 @@ export default function ReceiptContent({ row }) {
     <StyledBox
       sx={{
         flexGrow: 1,
+        border: "1px solid var(--color-gray)",
         width:
-          row.status === "Deposit" || row.status === "Withdraw" ? "50%" : "90%",
+          row.status === "Deposit" || row.status === "Withdraw" ? "60%" : "90%",
       }}
       ref={targetRef}
     >
