@@ -19,13 +19,14 @@ const style = {
   maxWidth: "70rem",
   overflowY: "auto",
   display: "flex",
+  justifyContent: "center",
   flexDirection: "column",
   "&:focus-visible": {
     outline: "none",
   },
 };
 
-function CustomModal({ children, setOpen, open, title }) {
+function CustomModal({ children, setOpen, open, title, paddingSize }) {
   return (
     <Modal
       open={open}
@@ -33,14 +34,20 @@ function CustomModal({ children, setOpen, open, title }) {
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-      <Box sx={style}>
-        <CloseIcon sx={{ alignSelf: "end" }} onClick={() => setOpen(false)} />
-        <Typography
-          variant="h4"
-          sx={{ marginBottom: "1rem", textAlign: "center" }}
-        >
-          {title}
-        </Typography>
+      <Box sx={{ ...style, padding: paddingSize }}>
+        <CloseIcon
+          sx={{ right: "1rem", top: "1rem", position: "absolute" }}
+          onClick={() => setOpen(false)}
+        />
+        {title && (
+          <Typography
+            variant="h4"
+            sx={{ marginBottom: "1rem", textAlign: "center" }}
+          >
+            {title}
+          </Typography>
+        )}
+
         {children}
       </Box>
     </Modal>
