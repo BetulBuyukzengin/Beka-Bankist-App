@@ -16,31 +16,31 @@ const StyledSwipeableViews = styled(SwipeableViews)`
 `;
 const StyledDiv = styled.div``;
 
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
+// function TabPanel(props) {
+//   const { children, value, index, ...other } = props;
 
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`full-width-tabpanel-${index}`}
-      aria-labelledby={`full-width-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
+//   return (
+//     <div
+//       role="tabpanel"
+//       hidden={value !== index}
+//       id={`full-width-tabpanel-${index}`}
+//       aria-labelledby={`full-width-tab-${index}`}
+//       {...other}
+//     >
+//       {value === index && (
+//         <Box sx={{ p: 3 }}>
+//           <Typography>{children}</Typography>
+//         </Box>
+//       )}
+//     </div>
+//   );
+// }
 
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
-};
+// TabPanel.propTypes = {
+//   children: PropTypes.node,
+//   index: PropTypes.number.isRequired,
+//   value: PropTypes.number.isRequired,
+// };
 
 function a11yProps(index) {
   return {
@@ -72,13 +72,6 @@ export default function CustomTabs({
   tabName,
   mainTabLabel,
 }) {
-  // const mainTabLabel = [];
-  // if (content.length === 4) {
-  //   content.map((tab) => {
-  //     mainTabLabel.push(tab.label);
-  //   });
-  // }
-
   const theme = useTheme();
   const [tabIndex, setTabIndex] = React.useState(0);
   const [searchParams, setSearchParams] = useSearchParams();
