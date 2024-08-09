@@ -30,7 +30,7 @@
 - Para yükleme ve çekme kısmmında günlük limit göz önünde bulundurularak seçilen hesaba para yüklenebilir ve çekilebilir. Günlük para yükleme ve çekme limitleri 24 saat sonra (her gün saat 00.00 da) yenilenir.
 - Hareketler kısmında transfer, para çekme ve para yükleme işlemlerinin geçmiş kayıtları müşteriye gösterilir.
 - Müşteri hareket geçmişini detaylı olarak inceleyebilir ve makbuzunu oluşturarak pdf şeklinde indirebilir veya mailine gönderebilir.
-- Ayarlar sayfasında kullanıcı profil fotoğrafı ekleyebilir, email ini, telefon numarasını, şifresini, adresini güncelleyebilir.
+- Ayarlar sayfasında kullanıcı profil fotoğrafı ekleyebilir, emailini, telefon numarasını, şifresini, adresini güncelleyebilir.
 
 # 🛠 Kullanılan Teknolojiler:
 
