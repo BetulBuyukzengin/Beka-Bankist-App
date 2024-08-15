@@ -1,12 +1,28 @@
 import { Grid } from "@mui/material";
-import CustomTextField from "../../../../Components/CustomTextField/CustomTextField";
 import { useForm } from "react-hook-form";
 import CustomButton from "../../../../Components/CustomButton/CustomButton";
+import CustomTextField from "../../../../Components/CustomTextField/CustomTextField";
+import {
+  useUpdateUserInformation,
+  verifyUserPassword,
+} from "../../../../services/authServices";
+import { useUser } from "../../../../services/userServices";
 
-function UpdatePasswordForm() {
-  const { register } = useForm();
+function UpdatePasswordForm({ setOpen }) {
+  const { register, handleSubmit } = useForm();
+  const { isPending, mutateAsync: updatePassword } = useUpdateUserInformation();
+  const { user } = useUser();
+  const onSubmit = async (data) => {
+    console.log(data);
+    // current password is true or not
+    await verifyUserPassword(user.email, data.currentPassword);
+    // if current password is true then update password
+    await updatePassword({ password: data.newPassword });
+    setOpen(false);
+  };
+
   return (
-    <form>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <Grid
         container
         gap={3}
@@ -23,17 +39,19 @@ function UpdatePasswordForm() {
         </Grid>
         <Grid item xs={6}>
           <CustomTextField
-            id="oldPassword"
+            textTransform="basic"
+            id="currentPassword"
             // type="text"
             label="Old Password"
             register={{
-              ...register("oldPassword"),
+              ...register("currentPassword"),
             }}
           />
         </Grid>
         <Grid item xs={6}>
           <CustomTextField
             id="newPassword"
+            textTransform="basic"
             // type="text"
             label="New Password"
             register={{
@@ -44,6 +62,7 @@ function UpdatePasswordForm() {
         <Grid item xs={6}>
           <CustomTextField
             id="repeatNewPassword"
+            textTransform="basic"
             // type="text"
             label="Repeat New Password"
             register={{
@@ -52,7 +71,11 @@ function UpdatePasswordForm() {
           />
         </Grid>
         <Grid item xs={6}>
-          <CustomButton buttonText="Update Password" />
+          <CustomButton
+            buttonText="Update Password"
+            type={handleSubmit}
+            disabled={isPending}
+          />
         </Grid>
       </Grid>
     </form>
