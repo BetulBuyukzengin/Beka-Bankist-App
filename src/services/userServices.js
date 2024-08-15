@@ -49,6 +49,7 @@ export function useLogout() {
   return { mutateAsync, isLoading };
 }
 
+// active user
 async function getCurrentUser() {
   // get user token from locale storage with getSession()
   const { data: session } = await supabase.auth.getSession();
@@ -109,4 +110,38 @@ export function useSignUp() {
     },
   });
   return { mutate, isLoading };
+}
+
+async function getUsers() {
+  let { data: users, error } = await supabase.from("users").select("*");
+  if (error) throw new Error(error.message);
+  return users;
+}
+export function useGetUsers() {
+  const { data, isLoading } = useQuery({
+    queryFn: getUsers,
+    queryKey: ["users"],
+  });
+  return { data, isLoading };
+}
+async function updateUser(id, user) {
+  const { data, error } = await supabase
+    .from("users")
+    .update(user)
+    .eq("id", id)
+    .select();
+
+  if (error) throw new Error(error.message);
+  return data;
+}
+
+export function useUpdateUser() {
+  const { mutateAsync, isLoading } = useMutation({
+    mutationFn: ({ id, user }) => updateUser(id, user),
+    // onError: () => toast.error("User could not be updated"),
+    onError: (error) => toast.error(error.message),
+
+    onSuccess: () => toast.success("Personal information updated successfully"),
+  });
+  return { mutateAsync, isLoading };
 }
