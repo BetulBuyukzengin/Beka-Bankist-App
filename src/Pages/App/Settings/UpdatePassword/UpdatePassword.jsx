@@ -30,7 +30,7 @@ function UpdatePassword() {
         open={openUpdatePasswordModal}
         setOpen={setOpenUpdatePasswordModal}
       >
-        <UpdatePasswordForm />
+        <UpdatePasswordForm setOpen={setOpenUpdatePasswordModal} />
       </CustomModal>
     </>
   );
