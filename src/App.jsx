@@ -17,6 +17,7 @@ import SignUp from "./Pages/App/SignUp/SignUp.jsx";
 import Transactions from "./Pages/App/Transactions/Transactions.jsx";
 import Presentational from "./Pages/Presentational/Presentational.jsx";
 import GlobalStyles from "./styles/GlobalStyles";
+import { CurrentUserProvider } from "./Contexts/CurrentUserContext.jsx";
 
 const router = createBrowserRouter([
   {
@@ -77,8 +78,10 @@ function App() {
         />
         <DarkModeProvider>
           <LoanPaymentModalProvider>
-            <GlobalStyles />
-            <RouterProvider router={router} />
+            <CurrentUserProvider>
+              <GlobalStyles />
+              <RouterProvider router={router} />
+            </CurrentUserProvider>
           </LoanPaymentModalProvider>
         </DarkModeProvider>
       </LocalizationProvider>
