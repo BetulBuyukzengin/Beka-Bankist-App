@@ -127,11 +127,13 @@ export default function CustomTabs({
       >
         {content.map((tab, index) => (
           <Tab
+            disabled={tab.label === "With Phone Number"}
             onClick={() => {
-              mainTabLabel.map(
-                (label) =>
-                  tab.label === label && searchParams.set("status", label)
-              );
+              searchParams.set("status", tab.label);
+              // mainTabLabel.map(
+              //   (label) =>
+              //     tab.label === label && searchParams.set("status", label)
+              // );
 
               if (tabName === "transactionsTab") {
                 searchParams.set("transactions-tab", index);
