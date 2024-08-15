@@ -1,8 +1,8 @@
 import { Paper } from "@mui/material";
+import { useState } from "react";
 import CustomButton from "../../../../Components/CustomButton/CustomButton";
 import CustomModal from "../../../../Components/CustomModal/CustomModal";
 import UpdateEmailAdressForm from "./UpdateEmailAdressForm";
-import { useState } from "react";
 
 function UpdateEmail() {
   const [openUpdateEmailModal, setOpenUpdateEmailModal] = useState(false);
@@ -33,7 +33,9 @@ function UpdateEmail() {
         open={openUpdateEmailModal}
         setOpen={setOpenUpdateEmailModal}
       >
-        <UpdateEmailAdressForm />
+        <UpdateEmailAdressForm
+          setOpenUpdateEmailModal={setOpenUpdateEmailModal}
+        />
       </CustomModal>
     </>
   );
