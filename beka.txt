@@ -64,29 +64,33 @@ Application Features
  - Aylık kredi ödemesi gerçekleştikten sonra ödeme butonu geç güncelleniyor!!!! ÖNEMLİ
 
  - Movements
-  - makbuz e maıl gonderme yap
+  - Dekontu e mail ile gönder
 
  Account Create
 - Kullanıcı banka hesabı olusturuken her hesap olusturmada tc sını aynı yapmalı
 -delete account butonunda acılan modalda siilme işlemini yap
+-AccountCreate yerine CreateAccount şeklinde yapılabilir hepsını duzelt 
 
  Sign up
 - Burada tc yi de al. Account create ve loanda tcyı oto doldur ve dısabled ya
 
--AccountCreate yerine CreateAccount şeklinde yapılabilir hepsını duzelt ıstersen
 
 Settings
+- Telefon, tc bilgilerini gireceği form olsun. Kondisyonel olarak bunları guncelleme 
+sayfası renderlansın.
+- Tel no yeni banka hesabı acılırken ve emaili tel no ile güncellerken de default
+ olarak gelsin disabled olsun.
+
 - E-posta güncellemede mevcut e-postaya onay kodu gönder. Ama mevcut postaya erişim yoksa 
 telefon numarasından onay kodu gönder.
 - Şifre güncellemede e posta ya da telefon numarasından onay kodu gönder.
-- Profil fotoğrafı koyma,silme ve güncelleme 
-- Update email with phone and email address de yazıldığı gibi doğrulama kodu mu linki mi geliyor kontrol et,yanlış ise text ve butonu düzelt
-  ----------------------
+- Profil fotoğrafı koyma, silme ve güncelleme 
+- v2 -> With phone number ı disabled yaptım tooltip ile yakında gelecek şeklinde kullanıcılara mesaj olarak gösterilebilir.
+(https://supabase.com/dashboard/project/zztdmxtwnkykekxoupjl/auth/providers) :
+Onay bağlantısı mı kod mu geliyor kontrol et!
+  ---------------------- 
  2-.version:
  - TC ile girişte farklı bankalardakı hesapları otomatık cekme (2.versiyon için yapılabilir)
-
-
-
 
 --------------------------------------------------
  -RIZA ONAY FORMU:
