@@ -5,7 +5,7 @@ import { Checkbox, FormHelperText, Grid } from "@mui/material";
 import CustomButton from "../../../Components/CustomButton/CustomButton";
 import CustomSelect from "../../../Components/CustomSelect/CustomSelect";
 import { FormProvider, useForm } from "react-hook-form";
-import { calcAge, generateRandomIBAN } from "../../../utils/utils";
+import { calcAge, calcNextDay, generateRandomIBAN } from "../../../utils/utils";
 import { toast } from "react-toastify";
 import { MuiTelInput, matchIsValidTel } from "mui-tel-input";
 import styled from "styled-components";
@@ -69,7 +69,7 @@ const StyledContainer = styled.div``;
 const StyledLabel = styled.label``;
 
 function AccountCreate({ setOpenCreateModal }) {
-  const [birthday, setBirthday] = useState(new Date(99, 5, 24));
+  const [birthday, setBirthday] = useState(new Date());
   const [phoneNumber, setPhoneNumber] = useState();
   const [open, setOpen] = useState(false);
   const { user } = useUser();
@@ -79,6 +79,7 @@ function AccountCreate({ setOpenCreateModal }) {
     setPhoneNumber(phone);
   }
 
+  // console.log(birthday);
   const validationSchema = yup.object({
     fullName: yup.string().required("This field is required!"),
     identificationNumber: yup
@@ -124,7 +125,6 @@ function AccountCreate({ setOpenCreateModal }) {
       iban,
       accountNumber: iban.slice(-16),
       birthday,
-      // deneme: birthday,
       balance: starterBalance,
       remainingTransferLimit: dailyTransferLimit,
       remainingDepositLimit: dailyDepositLimit,
@@ -220,6 +220,7 @@ function AccountCreate({ setOpenCreateModal }) {
                 helperText={errors?.birthday?.message}
                 error={errors}
                 onChange={(date) => {
+                  // console.log(date);
                   setBirthday(date);
                 }}
                 sx={{
