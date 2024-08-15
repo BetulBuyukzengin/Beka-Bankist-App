@@ -124,3 +124,9 @@ export function calcNextMonth(date, numberMonth) {
   // return addMonths(new Date(date.year, date.month - 1, date.day), numberMonth);
   return addMonths(date, numberMonth);
 }
+export function calcNextDay(date, numberDay) {
+  return addDays(date, numberDay);
+}
+export function areAllValuesDifferentThanNull(obj) {
+  return Object.values(obj).every((value) => value === null);
+}
