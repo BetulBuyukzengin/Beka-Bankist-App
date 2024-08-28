@@ -55,7 +55,19 @@ function PaidLoans() {
   const paidLoanPaymentPlan = paidLoans.map((loan) =>
     JSON.parse(loan.applicantPaymentPlan)
   );
-
+  if (!paidLoans.length)
+    return (
+      <div
+        style={{
+          textAlign: "center",
+          width: "100%",
+          fontWeight: "bolder",
+          fontSize: "1.5rem",
+        }}
+      >
+        You don&lsquo;t have any paid loans!
+      </div>
+    );
   return (
     <div>
       <p
@@ -153,7 +165,7 @@ const PaidLoanPaymentTable = ({ loanId, setOpenLoanTable }) => {
   const { data } = useGetLoan();
   const selectedLoan = data?.find((loan) => loan.id === loanId);
   const paymentPlan = JSON.parse(selectedLoan.applicantPaymentPlan);
-  console.log(loanId, selectedLoan);
+  // console.log(loanId, selectedLoan);
   return (
     <>
       <span
