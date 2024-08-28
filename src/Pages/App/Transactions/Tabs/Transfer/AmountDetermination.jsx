@@ -5,7 +5,8 @@ import CustomTextField from "../../../../../Components/CustomTextField/CustomTex
 import { useEffect, useRef, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { useSearchParams } from "react-router-dom";
-import { useUser } from "../../../../../services/userServices";
+import { findMostFrequent } from "../../../../../utils/utils.js";
+import { useMovements } from "../../../../../services/movementsServices";
 
 const GridStyle = {
   display: "flex",
@@ -22,7 +23,7 @@ const BoxStyle = {
   display: "flex",
 };
 
-const frequentlyAmount = 500;
+// const frequentlyAmount = 500;
 
 function AmountDetermination() {
   const {
@@ -33,7 +34,6 @@ function AmountDetermination() {
   const [amountToSendValue, setAmountToSendValue] = useState(0);
   const [newRemainingLimit, setNewRemainingLimit] = useState();
   const [searchParams, setSearchParams] = useSearchParams();
-
   const selectedAccRemainingBalance = JSON.parse(
     searchParams.get("selectedAccount")
   )?.balance;
@@ -43,6 +43,12 @@ function AmountDetermination() {
   const [remainingBalance, setRemainingBalance] = useState(
     selectedAccRemainingBalance
   );
+  // findMostFrequent(array)
+  const { movements, isLoading } = useMovements();
+  const amountToSends = movements
+    .filter((movement) => movement.status === "Transfer")
+    .map((movement) => movement.amountToSend);
+  const frequentlyAmount = findMostFrequent(amountToSends);
 
   function handleClick() {
     setAmountToSendValue(frequentlyAmount);
