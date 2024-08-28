@@ -1,14 +1,15 @@
 import { Paper } from "@mui/material";
+import { useState } from "react";
 import CustomButton from "../../../Components/CustomButton/CustomButton";
 import CustomModal from "../../../Components/CustomModal/CustomModal";
 import UpdatePersonalInformationForm from "./UpdatePersonalInformation/UpdatePersonalInformationForm";
-import { useState } from "react";
 
-function PersonalInformationSettings() {
+function PersonalInformationSettings({ isPersonalDatas }) {
   const [
     openUpdatePersonalInformationModal,
     setOpenUpdatePersonalInformationModal,
-  ] = useState();
+  ] = useState(false);
+
   return (
     <>
       <Paper
@@ -25,7 +26,7 @@ function PersonalInformationSettings() {
         <p>Update personal information to use Beka Bankist</p>
         <CustomButton
           style={{ alignSelf: "center" }}
-          buttonText="Update User"
+          buttonText={isPersonalDatas ? "Update User" : "Add Personal Info"}
           onClick={() => setOpenUpdatePersonalInformationModal(true)}
         />
       </Paper>
@@ -35,6 +36,7 @@ function PersonalInformationSettings() {
         setOpen={setOpenUpdatePersonalInformationModal}
       >
         <UpdatePersonalInformationForm
+          isPersonalDatas={isPersonalDatas}
           setOpen={setOpenUpdatePersonalInformationModal}
         />
       </CustomModal>
