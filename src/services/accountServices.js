@@ -8,6 +8,7 @@ async function getAccounts() {
   if (error) throw new Error(error);
   return data;
 }
+
 export function useGetAccounts() {
   const { user } = useUser();
   const { data: accounts, isLoading } = useQuery({
@@ -30,18 +31,23 @@ async function createAccount(newAccount) {
 }
 export function useCreateAccount() {
   const queryClient = useQueryClient();
-  const { isLoading, mutateAsync } = useMutation({
+  const { isPending, mutateAsync } = useMutation({
     mutationFn: (data) => createAccount(data),
     onSuccess: () => {
       toast.success("Account created");
       queryClient.invalidateQueries({ queryKey: ["accounts"] });
     },
-    onError: () => toast.error("Account not created"),
+    onError: () => {
+      toast.error(
+        "An error occured during creating account. Please try again!"
+      );
+    },
   });
-  return { mutateAsync, isLoading };
+  return { mutateAsync, isPending };
 }
 
-async function updateBalance(id, account) {
+// async function updateBalance(id, account) {
+async function updateAccount(id, account) {
   const { data, error } = await supabase
     .from("accounts")
     .update(account)
@@ -52,14 +58,40 @@ async function updateBalance(id, account) {
   return data;
 }
 
-export function useUpdateBalance() {
+// export function useUpdateBalance() {
+//   const { mutateAsync, isLoading } = useMutation({
+//     mutationFn: ({ id, account }) => updateBalance(id, account),
+//     onError: () => toast.error("Transaction could not be performed"),
+//   });
+//   return { mutateAsync, isLoading };
+// }
+export function useUpdateAccount() {
   const { mutateAsync, isLoading } = useMutation({
-    mutationFn: ({ id, account }) => updateBalance(id, account),
+    mutationFn: ({ id, account }) => updateAccount(id, account),
+
     onError: () => toast.error("Transaction could not be performed"),
   });
   return { mutateAsync, isLoading };
 }
-
+async function deleteAccount(id) {
+  const { error } = await supabase.from("accounts").delete().eq("id", id);
+  if (error) throw new Error(error);
+}
+export function useDeleteAccount() {
+  const queryClient = useQueryClient();
+  const { mutateAsync, isPending } = useMutation({
+    mutationFn: (id) => deleteAccount(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries("accounts");
+      toast.success("Account successfully deleted!");
+    },
+    onError: () =>
+      toast.error(
+        "An error occurred during deleting account, please try again later!"
+      ),
+  });
+  return { mutateAsync, isPending };
+}
 async function updateDailyRemainingLimit(id, account) {
   const { data, error } = await supabase
     .from("accounts")
