@@ -2,7 +2,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import StepperComponent from "../../../../../Components/StepperComponent/StepperComponent";
 import MyAccounts from "../Deposit/MyAccounts";
 import React, { useEffect, useRef } from "react";
-import { useUpdateBalance } from "../../../../../services/accountServices";
+import { useUpdateAccount } from "../../../../../services/accountServices";
 import Loader from "../../../../../Components/Loader/Loader";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import Withdraw from "../Withdraw/Withdraw";
@@ -28,7 +28,7 @@ const transactionSteps = [
 ];
 
 function WithdrawTab() {
-  const { isLoading, mutateAsync: withdrawMoney } = useUpdateBalance();
+  const { isLoading, mutateAsync: withdrawMoney } = useUpdateAccount();
   const navigate = useNavigate();
   const [activeStep, setActiveStep] = React.useState(0);
   const [searchParams] = useSearchParams();
@@ -71,6 +71,17 @@ function WithdrawTab() {
               )}`,
             });
           }
+          if (
+            +value > selectedAccount.balance &&
+            +value < currentWithdrawLimit &&
+            currentWithdrawLimit !== 0
+          ) {
+            return this.createError({
+              message: `The amount of money you want to withdraw is higher than your current balance.Your account balance is ${formatCurrency(
+                selectedAccount.balance
+              )}`,
+            });
+          }
           if (0 === currentWithdrawLimit) {
             return this.createError({
               message: showDailyLimitMessage(
@@ -93,10 +104,12 @@ function WithdrawTab() {
 
   const { reset } = methods;
 
+  //! Reset all fields and redirect to first step based on status change
   useEffect(
     function () {
       if (currentStatus !== prevStatus.current) {
         reset();
+        setActiveStep(0);
       }
     },
     [reset, currentStatus]
