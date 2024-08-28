@@ -1,125 +1,48 @@
-             ********** Project's Features *********
-User Features
-
-# Firebase entegration
-# Login 
- - language
- - e-mail & password
-# Create user
- - Fullname email, password and password repeat
-# Forgot password
-
-------------------------------------------------------------------------------
-
-Application Features
-
 # Header: Avatar, logout, fullName, dark-lightmode, clock / https://mui.com/material-ui/react-avatar/#with-badge , import LogoutIcon from '@mui/icons-material/Logout';
 #✅ Sidebar: https://mui.com/material-ui/react-drawer/#mini-variant-drawer
- - Account: IBAN, account number, balance, Bank's office / import AccountCircleIcon from '@mui/icons-material/AccountCircle';
- - Movements: Movement table [date-time, amount, send to, movement type], withdraw, deposit, filter and sort, pdf & excel doc / https://mui.com/material-ui/react-table/#sticky-header / import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
- - Money Transfers: send to money -look at pictures
- - Applications: loan app, approval text (onay metni)
- - Crypto-Borsa: Table / https://mui.com/material-ui/react-table/#sticky-header
- - Support navigation
- - Settings: update user feature / import SettingsApplicationsIcon from '@mui/icons-material/SettingsApplications';
+ ✅ Telefon, tc bilgilerini gireceği form olsun. Kondisyonel olarak bunları guncelleme sayfası renderlansın.
+ ✅ Account: IBAN, account number, balance, Bank's office / import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+ ✅ Settings: update user feature / import SettingsApplicationsIcon from '@mui/icons-material/SettingsApplications';
+ ✅ Account create ve loanda tcyı oto doldur ve dısabled ya
+ ✅ presentationala gerı donus ekle app loginden
+ ✅ hesap silme işlemi ekle (Silme yerine hesap dondurma yaptım)
+ ✅ bank account create te date 1 gun öncesi tabloya gelıyor hatayı duzelt, NEW DATE VERİNCE BASŞANGIC DEĞERİNE DUZELIYOR
+ ✅ transactions controlde iken başka taba gecildiğinde undefıned hatası alıyorum aynı zamanda geri donuldugunde de alıyordum onu cözmek adına tab deişiminde ilk stepe geçsin
+ ✅ tek banka dan tek hesap acabılsın
+ ✅ delete account butonunda acılan modalda siilme işlemini yap
+ ✅ Iban ve account numberı uniq olarak ayarladım.
+ ? Account create te uniq ayarlanan ibanlar ve hesap no için gelen hata olarak gösterilmesi durumunda ne yapılmalı?
+ ✅ Loan amount daki hesaplanan kredi değerini yuvarladım.
+ ✅ E-posta güncellemede mevcut e-postaya onay kodu gönder.
+ ✅ Transaction controlde account numberıda formatla
+ ✅ İşlem yapılmadıgında bellı sure sonra cıkıs yapılsın
+ ✅ ödenmiş kredi yoksa belirt 
+ ✅ Frequently miktarı gösterme göstereceksin
+ account delete ispendıng sılınıyor yazısına bak
+ Transferde amount determinationda eklenen bilgilerden sonra geri ileri yapınca remaining balance , remaining transfer limit nan gelıyor
+ ❌ radiolarda hesap secerken bazen seçmıyor yazı uzerınde ona bak!!
+ ❌ sender accountu my account yap ve 2 componentı farklı yerde kullan
+ ❌ Profil fotoğrafı koyma, silme ve güncelleme 
+ ❌ Aylık kredi ödemesi gerçekleştikten sonra ödeme butonu geç güncelleniyor!!!! ÖNEMLİ
+ ❌ Dekontu e mail ile gönder
+ ❌ Anlaşma modalını düzelt
+ ✅ If user has all necessary metadata then redirect user to "accounts" page, otherwise redirect "settings"
+ ? Account number tab ve with iban tab içerisindeki switchlerin resetField ile kullanımı
+ ? gunluk limit ertesı gun baktıgımda yenılememıs oluyor projenın kapalı olması etkıler mesaj?
+ ❌ Movements table dekont mail send is not completed. Filter & Sort to movements still missing.
+ ❌ Crypto-Borsa: Table / https://mui.com/material-ui/react-table/#sticky-header
+ ? Transaction controlde işlem tarihi seçebilmeyi ve işlemin o tarihte gerçekleşmesini sağla
+ ❌ Forgot password
+ ❔ tab geçişlerinde error
+ ❔ deposit-withdraw işleminde limitim dolmuş ise gece 12 de güncelleniyor ama sayfayı değiştirip geldiğimde yansıyor 
+ ❔ Sayfanın text içeriğini düzenle
+ ❌ dil destegini ayarla
+ ❓ Kredi çekme talebi için telefondan onay alsın.
+ ❓ AccountCreate yerine CreateAccount şeklinde yapılabilir hepsını duzelt 
+ ❓ Tel no yeni banka hesabı acılırken ve emaili tel no ile güncellerken de default olarak gelsin disabled olsun.
+ ❓ Şifre güncellemede e posta ya da telefon numarasından onay kodu gönder.
 
+ |||||||||||||||||||||||||||||   V2 [ OPTIONAL ]   |||||||||||||||||||||||||||||||||
 
-## Investigate again
- - Account number tab ve with iban tab içerisindeki switchlerin resetField ile kullanımı
- - presentationala gerı donus ekle app loginden
- - işlem yapılmadıgında bellı sure sonra cıkıs yapılsın
- - dil destegini ayarla
- - account create te Hesaplar tablosundan ibanları, hesap no kıyasla
- - deposit-withdraw işleminde limitim dolmuş ise gece 12 de güncelleniyor ama sayfayı değiştirip geldiğimde yansıyor 
- - loan ınformatıopn ısımlerı degıssın
-
- - hesap silme işlemi ekle
- - check box state, modalda ve hesap yokken create işleminde loader gelmiyor
- - buton submit yaparken loader gelebilir, required form
- - helper text mesajlarını ozel olarak yaz ve hata mesajı doldugunda kaybolsun
- - radiolarda hesap secerken bazen seımıyor yazı uzerınde ona bak!!
- - loan tab da max cekilecek kredı ıcı otomatık 24 ay ı arka landa max tutar belırlıyor sanırım 12 ay secememe ragmen hata verıyor 12 aya cekınce duzlerıypr
- - sender accountu my account yap ve 2 cmponentı farkı yererde kullan
- - transferde ibanda bılgılerı doldurduktan sonra hesap secmeden loan taba gecıp gerı geldıgınde bılgıler sılınmıyor ve hesap secmeden ilerlenebiliyor!
- - logine de şifre ya da mail yanlıs mesajı gosterilsin 
- - loan amount daki hesaplanan kredi degerini yuvarla kusuratı yok et
- - gunluk limit ertesı gun baktıgımda yenılememıs oluyor projenın kapalı olması etkıler mesaj?
- - bank account create  tre date 1 gun öncesi tabloya gelıyor hatayı duzelt, NEW DATE VERİNCE BASŞANGIC DEĞERİNE DUZELIYOR
- 
- ?? tab geçişlerinde error
- !! transactions controlde iken başka taba gecildiğinde undefıned hatası alıyorum aynı zamanda geri donuldugunde de alıyordum onu cözmek adına tab deişiminde ilk stepe geçsin
- 
- TRANSFER 
- - Transaction controlde işlem tarihi seçebilmeyi ve işlemin o tarihte gerçekleşmesini sağla
- - Frequently sent amount'u movementslara map yapacaksın ve en çok tekrar eden miktarları statuslarına da bağlı olarak alacaksın ve göstereceksin. bunu yaparken uyuklamayacaksın ve aklın 5 karış, götünde sinekler uçuşmayacak.
- - Transaction controlde account numberıda formatla
-
- PRESENTATIONAL
- - Sayfanın text içeriğini düzenle
-- tek banka dan tek hesap acabılsın
-
- TAKE A LOAN 
- - Status u take a loan ise 1.step adı basvuran hesap olsn
- - Kredi çekme talebi için telefondan onay alsın.
- - Aylık kredi ödemesi gerçekleştikten sonra ödeme butonu geç güncelleniyor!!!! ÖNEMLİ
-
- - Movements
-  - Dekontu e mail ile gönder
-
- Account Create
-- Kullanıcı banka hesabı olusturuken her hesap olusturmada tc sını aynı yapmalı
--delete account butonunda acılan modalda siilme işlemini yap
--AccountCreate yerine CreateAccount şeklinde yapılabilir hepsını duzelt 
-
- Sign up
-- Burada tc yi de al. Account create ve loanda tcyı oto doldur ve dısabled ya
-
-
-Settings
-- Telefon, tc bilgilerini gireceği form olsun. Kondisyonel olarak bunları guncelleme 
-sayfası renderlansın.
-- Tel no yeni banka hesabı acılırken ve emaili tel no ile güncellerken de default
- olarak gelsin disabled olsun.
-
-- E-posta güncellemede mevcut e-postaya onay kodu gönder. Ama mevcut postaya erişim yoksa 
-telefon numarasından onay kodu gönder.
-- Şifre güncellemede e posta ya da telefon numarasından onay kodu gönder.
-- Profil fotoğrafı koyma, silme ve güncelleme 
-- v2 -> With phone number ı disabled yaptım tooltip ile yakında gelecek şeklinde kullanıcılara mesaj olarak gösterilebilir.
-(https://supabase.com/dashboard/project/zztdmxtwnkykekxoupjl/auth/providers) :
-Onay bağlantısı mı kod mu geliyor kontrol et!
-  ---------------------- 
- 2-.version:
- - TC ile girişte farklı bankalardakı hesapları otomatık cekme (2.versiyon için yapılabilir)
-
---------------------------------------------------
- -RIZA ONAY FORMU:
- Banka Hesabı Açılışı Aydınlatma ve Onay Formu
-
-Bu belge, aşağıda belirtilen kişi/kişilerin ("Hesap Sahibi") banka hesabı açılışıyla ilgili olarak bilgilendirilmesi ve onay vermesi için tasarlanmıştır. Hesap Sahibi, aşağıda belirtilen bilgileri anlamış ve kabul etmiştir.
-
-Hesap Sahibi Bilgileri:
-
-Adı Soyadı: [Hesap Sahibinin Adı Soyadı]
-Adres: [Hesap Sahibinin Adresi]
-Telefon Numarası: [Hesap Sahibinin Telefon Numarası]
-E-posta Adresi: [Hesap Sahibinin E-posta Adresi]
-Banka Hesabı Açılışı Bilgilendirmesi:
-
-Hesap Türü: Banka hesabı açılışı için Hesap Sahibi tarafından tercih edilen hesap türü belirtilmiştir. Banka, bu tercihe uygun olarak hesap açılış işlemini gerçekleştirecektir.
-
-Hesap Ücretleri ve Masraflar: Hesap Sahibi, banka hesabı açılışıyla birlikte uygulanabilecek tüm hesap ücretleri, masraflar ve faiz oranları hakkında bilgilendirilmiştir.
-
-Hesap Kullanımı ve İşlem Limitleri: Hesap Sahibi, banka hesabını kullanırken uygulanabilecek işlem limitleri, günlük para çekme sınırları ve diğer kısıtlamalar hakkında bilgilendirilmiştir.
-
-Hesap Güvenliği: Banka hesabının güvenliği konusunda alınması gereken önlemler ve hesap bilgilerinin korunmasıyla ilgili olarak Hesap Sahibi bilgilendirilmiştir. Hesap Sahibi, hesap bilgilerini güvende tutmayı ve yetkisiz erişimden korumayı kabul etmektedir.
-
-Yasal Sorumluluklar: Hesap Sahibi, banka hesabını kullanırken yasalara uymayı, yasalara aykırı hiçbir faaliyette bulunmamayı ve banka hesabını yasal amaçlar için kullanmayı kabul etmektedir.
-
-Onay:
-
-Yukarıdaki bilgilere dayanarak, Hesap Sahibi, banka hesabı açılışı için gerekli onayı vermektedir.
-
-......................................................................................
-[Hesap Sahibinin İmzası ve Tarihi]
-
+😎 With phone number ı disabled yaptım tooltip ile yakında gelecek şeklinde kullanıcılara mesaj olarak gösterilebilir. (https://supabase.com/dashboard/project/zztdmxtwnkykekxoupjl/auth/providers) : Onay bağlantısı mı kod mu geliyor kontrol et!
+😎 TC ile girişte farklı bankalardakı hesapları otomatık cekme (2.versiyon için yapılabilir)
