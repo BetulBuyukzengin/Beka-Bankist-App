@@ -4,15 +4,20 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import CustomButton from "../../../../../Components/CustomButton/CustomButton";
 import CustomTextField from "../../../../../Components/CustomTextField/CustomTextField";
+import { emailRegex } from "../../../../../Constants/constants";
+import { useCurrentUser } from "../../../../../Hooks/useCurrentUser";
+import { verifyUserPassword } from "../../../../../services/authServices";
 import { useUpdateUser, useUser } from "../../../../../services/userServices";
 import { supabase } from "../../../../../Supabase/supabase";
-import { useEffect, useState } from "react";
-import { useCurrentUserContext } from "../../../../../Contexts/CurrentUserContext";
 
 function UpdateEmailWithEmail({ setOpen }) {
-  const { register, handleSubmit } = useForm();
-  // Get the authenticated user and the user from the users table whose id is the same
-  const { currentUser } = useCurrentUserContext();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  //! Get the authenticated user and the user from the users table whose id is the same
+  const { currentUser } = useCurrentUser();
 
   const { user } = useUser();
   const { mutateAsync: updateUser } = useUpdateUser();
@@ -43,26 +48,27 @@ function UpdateEmailWithEmail({ setOpen }) {
 
   const onSubmit = async (data) => {
     try {
-      // Update email in authenticated
-      await supabase.auth.updateUser(
-        {
-          email: data.newEmailAddress,
-          // data: { email_verified: false },
-        }
-        // { emailRedirectTo: data.newEmailAddress }
+      //! Current password is true or not
+      const isCorrectPassword = await verifyUserPassword(
+        user.email,
+        data.password
       );
+      if (isCorrectPassword) {
+        // Update email in authenticated
+        await supabase.auth.updateUser({
+          email: data.newEmailAddress,
+        });
 
-      toast.success("Please check your email!");
-
-      //! Burada mail onaylanmadan direkt güncelleniyor...
-      await updateUser({
-        id: currentUser.id,
-        user: { ...currentUser, email: data.newEmailAddress },
-      });
-
-      setOpen(false);
+        toast.success("Please check your email!");
+        //? Burada mail onaylanmadan users tablosundaki mail direkt güncelleniyor ama authentication daki değişmiyor sadece onaylandığında değişiyor...
+        await updateUser({
+          id: currentUser.id,
+          user: { ...currentUser, email: data.newEmailAddress },
+        });
+        setOpen(false);
+      }
     } catch (error) {
-      console.log(error.message);
+      // console.log(error.message);
     }
   };
 
@@ -91,44 +97,53 @@ function UpdateEmailWithEmail({ setOpen }) {
         </Grid>
         <Grid item xs={6}>
           <CustomTextField
-            textTransform="basic"
             id="yourEmail"
             // type="text"
             label="Your Email Address"
             defaultValue={user.email}
             disabled
+            texttransform="basic"
             register={{
               ...register("yourEmailAddress"),
             }}
+            helperText={errors?.yourEmailAddress?.message}
+            error={errors?.yourEmailAddress}
           />
         </Grid>
         <Grid item xs={6}>
           <CustomTextField
-            textTransform="basic"
+            texttransform="basic"
             id="newEmail"
             type="text"
             label="New Email Address"
             register={{
-              ...register("newEmailAddress"),
+              ...register("newEmailAddress", {
+                required: "New email address is required!",
+                validate: (value) =>
+                  emailRegex.test(value) || "Format does not match email",
+              }),
             }}
+            helperText={errors?.newEmailAddress?.message}
+            error={errors?.newEmailAddress}
           />
         </Grid>
         <Grid item xs={6}>
           <CustomTextField
-            textTransform="basic"
+            texttransform="basic"
             id="password"
             // type="text"
             label="Password"
             register={{
-              ...register("password"),
+              ...register("password", {
+                required: "Password is required!",
+              }),
             }}
+            helperText={errors?.password?.message}
+            error={errors?.password}
           />
         </Grid>
         <Grid item xs={6}>
-          <CustomButton
-            type={handleSubmit}
-            buttonText="Send verification email"
-          />
+          <CustomButton type="submit" buttonText="Send verification email" />
         </Grid>
       </Grid>
     </form>
