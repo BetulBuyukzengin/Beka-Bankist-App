@@ -26,7 +26,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { useLogout, useUser } from "../../services/userServices";
 import AppLayout from "../../Pages/App/AppLayout";
 import Protected from "../../Components/Protected/Protected";
-import { ListItemIcon, ListItemText } from "@mui/material";
+import { ListItemIcon, ListItemText, Tooltip } from "@mui/material";
 import { CurrencyExchange } from "@mui/icons-material";
 import SettingsSuggestIcon from "@mui/icons-material/SettingsSuggest";
 import { calcRemainingLimitResetTime } from "../../utils/utils";
@@ -41,6 +41,10 @@ import {
 } from "../../Constants/constants";
 import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
+import { useCurrentUser } from "../../Hooks/useCurrentUser";
+import { useIsUserInformation } from "../../Hooks/useIsUserInformation";
+import Loader from "../Loader/Loader";
+import AutoLogout from "../AutoLogout/AutoLogout";
 const drawerWidth = 240;
 
 const StyledLink = styled.a`
@@ -147,7 +151,9 @@ export default function DashboardLayout() {
   const { accounts, isLoading } = useGetAccounts();
   const { mutateAsync: updateDailyLimits } = useDailyRemainingLimit();
   const [endTime, setEndTime] = React.useState(false);
+  const { isInformationsCompleted } = useIsUserInformation();
   const { user } = useUser();
+  console.log(user);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -207,7 +213,6 @@ export default function DashboardLayout() {
     searchParams.set("status", "Transfer");
     setSearchParams(searchParams);
   };
-
   return (
     <Protected>
       <Box
@@ -216,6 +221,7 @@ export default function DashboardLayout() {
           backgroundColor: "var(--color-background)",
         }}
       >
+        <AutoLogout />
         <CssBaseline />
         <AppBar
           position="fixed"
@@ -286,62 +292,124 @@ export default function DashboardLayout() {
               }}
             >
               {/* <ListIconButton path={"/applayout/accounts"}> */}
-              <ListIconButton path="/applayout/account">
-                <ListItemIcon>
-                  <AccountBalanceWalletIcon
-                    sx={{
-                      color: "var(--color-text)",
-                    }}
-                  />
-                </ListItemIcon>
-                <ListItemText
-                  // primary="Accounts"
-                  primary="Account Create"
-                  sx={{ opacity: open ? 1 : 0 }}
-                />
-              </ListIconButton>
-              <ListIconButton path={"/applayout/movements"}>
-                <ListItemIcon>
-                  <TimelineIcon
-                    sx={{
-                      color: "var(--color-text)",
-                    }}
-                  />
-                </ListItemIcon>
-                <ListItemText
-                  primary="Movements"
-                  sx={{ opacity: open ? 1 : 0 }}
-                />
-              </ListIconButton>
-              <ListIconButton
-                path={"/applayout/transactions"}
-                callback={setUrlParams}
+              <Tooltip
+                placement="right"
+                arrow
+                title={
+                  !isInformationsCompleted
+                    ? "Complete your personal information before starting"
+                    : !accounts?.length
+                    ? "Create Account"
+                    : "Accounts"
+                }
               >
-                <ListItemIcon>
-                  <CurrencyExchange
-                    sx={{
-                      color: "var(--color-text)",
-                    }}
-                  />
-                </ListItemIcon>
-                <ListItemText
-                  primary="Transactions"
-                  sx={{ opacity: open ? 1 : 0 }}
-                />
-              </ListIconButton>
-              <ListIconButton path={"/applayout/settings"}>
-                <ListItemIcon>
-                  <SettingsSuggestIcon
-                    sx={{
-                      color: "var(--color-text)",
-                    }}
-                  />
-                </ListItemIcon>
-                <ListItemText
-                  primary="Settings"
-                  sx={{ opacity: open ? 1 : 0 }}
-                />
-              </ListIconButton>
+                <span>
+                  <ListIconButton
+                    disabled={!isInformationsCompleted}
+                    path="/applayout/account"
+                  >
+                    <ListItemIcon>
+                      <AccountBalanceWalletIcon
+                        sx={{
+                          color: "var(--color-text)",
+                        }}
+                      />
+                    </ListItemIcon>
+                    <ListItemText
+                      // primary="Accounts"
+                      primary={
+                        !accounts?.length ? "Create Account" : "Accounts"
+                      }
+                      sx={{ opacity: open ? 1 : 0 }}
+                    />
+                  </ListIconButton>
+                </span>
+              </Tooltip>
+              <Tooltip
+                placement="right"
+                arrow
+                title={
+                  !isInformationsCompleted
+                    ? "Complete your personal information before starting"
+                    : "Movements"
+                }
+              >
+                <span>
+                  <ListIconButton
+                    disabled={!isInformationsCompleted}
+                    path={"/applayout/movements"}
+                  >
+                    <ListItemIcon>
+                      <TimelineIcon
+                        sx={{
+                          color: "var(--color-text)",
+                        }}
+                      />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary="Movements"
+                      sx={{ opacity: open ? 1 : 0 }}
+                    />
+                  </ListIconButton>
+                </span>
+              </Tooltip>
+              <Tooltip
+                placement="right"
+                arrow
+                title={
+                  !isInformationsCompleted
+                    ? "Complete your personal information before starting"
+                    : !accounts?.length
+                    ? "Create a bank account before using transactions"
+                    : "Transactions"
+                }
+              >
+                <span>
+                  <ListIconButton
+                    disabled={!isInformationsCompleted || !accounts?.length}
+                    path={"/applayout/transactions"}
+                    callback={setUrlParams}
+                    isTransactionButton
+                  >
+                    <ListItemIcon>
+                      <CurrencyExchange
+                        sx={{
+                          color: "var(--color-text)",
+                        }}
+                      />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary="Transactions"
+                      sx={{ opacity: open ? 1 : 0 }}
+                    />
+                  </ListIconButton>
+                </span>
+              </Tooltip>
+              <Tooltip
+                placement="right"
+                arrow
+                title={
+                  !isInformationsCompleted
+                    ? "Complete your personal information before starting"
+                    : "Settings"
+                }
+              >
+                <span>
+                  <ListIconButton path={"/applayout/settings"}>
+                    <ListItemIcon>
+                      <SettingsSuggestIcon
+                        sx={{
+                          color: "var(--color-text)",
+                        }}
+                      />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary="Settings"
+                      sx={{ opacity: open ? 1 : 0 }}
+                    />
+                  </ListIconButton>
+                </span>
+              </Tooltip>
             </ListItem>
           </List>
         </Drawer>
