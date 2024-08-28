@@ -27,7 +27,8 @@ export function formatBankAccountNumber(accountNumber) {
   return formattedAccountNumber;
 }
 export function formatDate(date) {
-  return format(date, "MM/dd/yyyy");
+  // return format(date, "MM/dd/yyyy");
+  return format(date, "dd/MM/yyyy");
 
   // return format(date, "MM/dd/yyyy HH:mm:ss");
 }
@@ -130,3 +131,34 @@ export function calcNextDay(date, numberDay) {
 export function areAllValuesDifferentThanNull(obj) {
   return Object.values(obj).every((value) => value === null);
 }
+
+export function findMostFrequent(arr) {
+  const frequencyMap = {};
+
+  // Dizideki her bir elemanın frekansını hesapla
+  arr.forEach((item) => {
+    if (frequencyMap[item]) {
+      frequencyMap[item]++;
+    } else {
+      frequencyMap[item] = 1;
+    }
+  });
+
+  let mostFrequent = null;
+  let maxCount = 0;
+
+  // En çok tekrar eden değeri bul
+  for (const item in frequencyMap) {
+    if (frequencyMap[item] > maxCount) {
+      maxCount = frequencyMap[item];
+      mostFrequent = item;
+    }
+  }
+
+  return mostFrequent;
+}
+
+// // Kullanım
+// const array = [1, 2, 2, 3, 3, 3, 4, 4, 4, 4];
+// const mostFrequentValue = findMostFrequent(array);
+// console.log(mostFrequentValue); // Output: 4
