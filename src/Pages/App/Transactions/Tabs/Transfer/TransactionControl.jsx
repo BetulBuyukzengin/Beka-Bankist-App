@@ -6,6 +6,7 @@ import { useFormContext } from "react-hook-form";
 import {
   formatArrayWord,
   formatCurrency,
+  formatIBAN,
   formatWord,
   generatePaymentMethod,
 } from "../../../../../utils/utils";
@@ -64,7 +65,12 @@ export default function TransactionControl() {
   const [searchParams] = useSearchParams();
 
   const getStatus = searchParams.get("status");
-  setValue("status", getStatus);
+
+  setValue(
+    "status",
+    (getStatus === "New Recipient" || getStatus === "Registered Recipients") &&
+      "Transfer"
+  );
 
   const {
     recipientAccountNumber,
@@ -125,7 +131,7 @@ export default function TransactionControl() {
         <StyledGrid item xs={8}>
           <StyledItem>Sender Account</StyledItem>
           <StyledBox>
-            <div>Selected Account: {accountNumber}</div>
+            <div>Selected Account: {formatIBAN(accountNumber)}</div>
             <div>Balance: {formatCurrency(balance)}</div>
           </StyledBox>
         </StyledGrid>
