@@ -7,6 +7,7 @@ import { useDarkMode } from "../../../Contexts/DarkModeContext";
 import { Link } from "react-router-dom";
 import { useSignUp } from "../../../services/userServices";
 import LogoutIcon from "@mui/icons-material/Logout";
+import { emailRegex } from "../../../Constants/constants";
 
 const StyledForm = styled.form`
   width: 100%;
@@ -40,28 +41,11 @@ const StyledSignInFormTitle = styled.h2`
   letter-spacing: 0.1rem;
   color: var(--color-text);
 `;
-const StyledButton = styled.button`
-  color: var(--color-text);
-  background-color: var(--color-secondary);
-  padding: 0.6rem 1rem;
-  margin-top: 1rem;
-  border-radius: 2px;
-  border: none;
-  align-self: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  &:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-  }
-  &:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  }
-`;
+
 const StyledLink = styled(Link)`
   align-self: center;
 `;
-const StyledSignUpButton = styled.button`
+const StyledButton = styled.button`
   color: var(--color-text);
   background-color: var(--color-secondary);
   padding: 0.6rem 1rem;
@@ -105,8 +89,6 @@ const StyledNavbar = styled.nav`
   top: 0;
 `;
 
-const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
 function SignUp() {
   const { isDarkMode } = useDarkMode();
   const { register, handleSubmit, formState, reset, getValues } = useForm();
@@ -114,6 +96,7 @@ function SignUp() {
   const { isLoading, mutate: signUp } = useSignUp();
 
   function onSubmit(data) {
+    // console.log(data);
     signUp(data);
     reset();
   }
@@ -208,11 +191,16 @@ function SignUp() {
             />
           </Grid>
         </Grid>
-        <StyledSignUpButton type="submit" disabled={isLoading}>
-          Sign Up
-        </StyledSignUpButton>
-        <StyledLink to="/signIn">
-          <StyledButton disabled={isLoading}> Sign In </StyledButton>
+        <div style={{ display: "flex", justifyContent: "center", gap: "1rem" }}>
+          <StyledLink to="/signIn">
+            <StyledButton disabled={isLoading}>Sign In</StyledButton>
+          </StyledLink>
+          <StyledButton type="submit" disabled={isLoading}>
+            Sign Up
+          </StyledButton>
+        </div>
+        <StyledLink to="/accountRecovery">
+          <StyledButton>Account Recovery</StyledButton>
         </StyledLink>
       </Paper>
     </StyledForm>
