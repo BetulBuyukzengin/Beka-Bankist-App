@@ -2,7 +2,7 @@ import StepperComponent from "../../../../../Components/StepperComponent/Stepper
 import AmountDetermination from "./AmountDetermination";
 import DetailDetermination from "./DetailDetermination";
 import RecipientAccount from "./RecipientAccount";
-import SenderAccount from "./SenderAccount";
+import SelectAccount from "./SelectAccount";
 import TransactionControl from "./TransactionControl";
 
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -19,7 +19,7 @@ import {
 } from "../../../../../Constants/constants";
 import {
   useDailyRemainingLimit,
-  useUpdateBalance,
+  useUpdateAccount,
 } from "../../../../../services/accountServices";
 import { useCreateMovements } from "../../../../../services/movementsServices";
 import { useCreateRegisteredRecipient } from "../../../../../services/registeredRecipientsServices";
@@ -37,7 +37,7 @@ const transactionSteps = [
   },
   {
     label: "Sender Account",
-    component: <SenderAccount />,
+    component: <SelectAccount />,
   },
   {
     label: "Amount Determination",
@@ -63,7 +63,7 @@ export default function TransferMoneyTab() {
   const [searchParams] = useSearchParams();
   const selectedAccount = JSON.parse(searchParams.get("selectedAccount"));
   const id = selectedAccount?.id;
-  const { mutateAsync: updateBalance } = useUpdateBalance();
+  const { mutateAsync: updateBalance } = useUpdateAccount();
   const { mutateAsync: updateDailyRemainingLimit } = useDailyRemainingLimit();
 
   const recipientTab = searchParams.get("new-recipient-tab");
@@ -188,10 +188,12 @@ export default function TransferMoneyTab() {
   const currentStatus = searchParams.get("status");
   const prevStatus = React.useRef(null);
 
+  //! Reset all fields and redirect to first step based on status change
   useEffect(() => {
     if (currentStatus !== prevStatus.current) {
       reset();
       setIban("TR");
+      setActiveStep(0);
     }
     prevStatus.current = currentStatus;
   }, [reset, currentStatus]);
