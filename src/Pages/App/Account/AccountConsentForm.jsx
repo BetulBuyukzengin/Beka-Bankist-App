@@ -45,11 +45,7 @@ function Text({ content, type }) {
     </Grid>
   );
 }
-export default function AccountConsentForm({
-  phoneNumber,
-  setChecked,
-  setOpen,
-}) {
+export default function AccountConsentForm({ setChecked, setOpen }) {
   const { getValues } = useFormContext();
   const { fullName, address } = getValues();
   const { user } = useUser();
@@ -58,7 +54,8 @@ export default function AccountConsentForm({
   const accountHoldersInformations = [
     { title: "Name - Surname", description: fullName },
     { title: "Address", description: address },
-    { title: "Phone Number", description: phoneNumber },
+    // Take phone number from currentUser
+    // { title: "Phone Number", description: phoneNumber },
     { title: "E-mail Address", description: user.email },
   ];
   function handleClick() {
