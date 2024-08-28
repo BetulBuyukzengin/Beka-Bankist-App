@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { MenuItem, Select } from "@mui/material";
+import { MenuItem, Select, Tooltip } from "@mui/material";
 
 function CustomSelect({
   value,
@@ -11,6 +11,7 @@ function CustomSelect({
   helperText,
   error,
   defaultValue,
+  openedBankNames,
 }) {
   return (
     <Select
@@ -64,9 +65,45 @@ function CustomSelect({
         },
       }}
     >
+      {/* {data.map((item, index) => (
+        <Tooltip
+          arrow
+          key={index}
+          title={
+            openedBankNames?.includes(item.value)
+              ? `You have already an account on ${item.content}`
+              : null
+          }
+        >
+          <span>
+            <MenuItem
+              sx={{
+                pointerEvents: openedBankNames?.includes(item.value) && "none",
+              }}
+              key={index}
+              value={item.value}
+              disabled={openedBankNames?.includes(item.value)}
+            >
+              {item.content}
+            </MenuItem>
+          </span>
+        </Tooltip>
+      ))} */}
+
       {data.map((item, index) => (
-        <MenuItem key={index} value={item.value}>
+        <MenuItem
+          key={index}
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+          value={item.value}
+          disabled={openedBankNames?.includes(item.value) || item.value === ""}
+        >
           {item.content}
+          {openedBankNames?.includes(item.value) ? (
+            <em>(Already have an account)</em>
+          ) : null}
         </MenuItem>
       ))}
     </Select>
