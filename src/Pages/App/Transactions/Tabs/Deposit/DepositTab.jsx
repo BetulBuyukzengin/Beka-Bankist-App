@@ -3,7 +3,7 @@ import Deposit from "./Deposit";
 import StepperComponent from "../../../../../Components/StepperComponent/StepperComponent";
 import MyAccounts from "./MyAccounts";
 import React, { useEffect, useRef } from "react";
-import { useUpdateBalance } from "../../../../../services/accountServices";
+import { useUpdateAccount } from "../../../../../services/accountServices";
 import Loader from "../../../../../Components/Loader/Loader";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import * as yup from "yup";
@@ -28,7 +28,7 @@ const transactionSteps = [
 ];
 
 function DepositTab() {
-  const { isLoading, mutateAsync: depositMoney } = useUpdateBalance();
+  const { isLoading, mutateAsync: depositMoney } = useUpdateAccount();
   const navigate = useNavigate();
   const [activeStep, setActiveStep] = React.useState(0);
   const [searchParams] = useSearchParams();
@@ -58,9 +58,9 @@ function DepositTab() {
         .test("max-check", function (value) {
           if (+value > currentDepositLimit && 0 !== currentDepositLimit) {
             return this.createError({
-              message: toast.error(
-                `Daily deposit limit is ${formatCurrency(currentDepositLimit)}`
-              ),
+              message: `Daily deposit limit is ${formatCurrency(
+                currentDepositLimit
+              )}`,
             });
           }
           if (0 === currentDepositLimit) {
@@ -103,10 +103,13 @@ function DepositTab() {
     });
     navigate("/applayout/account");
   };
+
+  //! Reset all fields and redirect to first step based on status change
   useEffect(
     function () {
       if (currentStatus !== prevStatus.current) {
         reset();
+        setActiveStep(0);
       }
     },
     [reset, currentStatus]
