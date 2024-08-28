@@ -87,6 +87,7 @@ export default function CustomRadio({
   onChange,
   value,
   border,
+  onClick,
   monthlyPayment,
 }) {
   const { isLoading, accounts } = useGetAccounts();
@@ -98,6 +99,7 @@ export default function CustomRadio({
       name="selected-account-radio-group"
       value={value}
       onChange={onChange}
+      onClick={onClick}
       sx={{
         display: "flex",
         gap: "1rem",
@@ -113,21 +115,7 @@ export default function CustomRadio({
             justifyContent: "center",
           }}
           {...register}
-          control={
-            <Radio
-              sx={{
-                height: "7rem",
-                width: "17rem",
-                position: "relative",
-                borderRadius: "0px",
-                opacity: "0",
-                "&+span": {
-                  width: "17rem",
-                  position: "absolute",
-                },
-              }}
-            />
-          }
+          control={<Radio />}
           value={JSON.stringify(account)}
           label={
             <AccountCheckComp
