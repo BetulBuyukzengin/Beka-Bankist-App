@@ -1,12 +1,40 @@
-import { useForm } from "react-hook-form";
-import CustomTextField from "../../../../Components/CustomTextField/CustomTextField";
 import { Grid } from "@mui/material";
+import { useForm } from "react-hook-form";
 import CustomButton from "../../../../Components/CustomButton/CustomButton";
+import CustomTextField from "../../../../Components/CustomTextField/CustomTextField";
+import { useLogout, useUser } from "../../../../services/userServices";
+import {
+  useUpdateUserInformation,
+  verifyUserPassword,
+} from "../../../../services/authServices";
+
+const toastMessage = {
+  success: "Account deleted successfully!",
+  error: "An error occured during deleting account! ",
+};
 
 function DeleteAppAccountForm() {
-  const { register } = useForm();
+  const { register, handleSubmit } = useForm();
+  const { mutateAsync: logOut } = useLogout();
+  const { user } = useUser();
+  const { mutateAsync: updateUser } = useUpdateUserInformation();
+  const onSubmit = async (formDatas) => {
+    //! Current password is true or not
+    const isCorrectPassword = await verifyUserPassword(
+      user.email,
+      formDatas.password
+    );
+    if (isCorrectPassword) {
+      await updateUser({
+        updatedUser: { data: { isAccountDeleted: true } },
+        toastMessage,
+      });
+      await logOut();
+    }
+  };
+
   return (
-    <form>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <Grid
         container
         gap={3}
@@ -41,7 +69,7 @@ function DeleteAppAccountForm() {
           />
         </Grid>
         <Grid item xs={6}>
-          <CustomButton buttonText="Delete Account" />
+          <CustomButton buttonText="Delete Account" type="submit" />
         </Grid>
       </Grid>
     </form>
