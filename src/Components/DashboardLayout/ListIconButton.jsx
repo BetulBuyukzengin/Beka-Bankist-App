@@ -1,13 +1,17 @@
 /* eslint-disable react/prop-types */
 import { Divider, ListItemButton } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useGetAccounts } from "../../services/accountServices.js";
 
-function ListIconButton({ children, path, callback }) {
+function ListIconButton({
+  children,
+  path,
+  callback,
+  isTransactionButton = false,
+  disabled,
+}) {
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const { accounts } = useGetAccounts();
-  const isAccounts = accounts?.length > 0 ? false : true;
+
   return (
     <>
       <ListItemButton
@@ -16,11 +20,11 @@ function ListIconButton({ children, path, callback }) {
           justifyContent: open ? "initial" : "center",
           px: 2.5,
         }}
-        disabled={isAccounts}
+        disabled={disabled}
         onClick={() => {
           if (path === pathname) return;
           navigate(path);
-          callback();
+          if (isTransactionButton) callback();
         }}
       >
         {children}
