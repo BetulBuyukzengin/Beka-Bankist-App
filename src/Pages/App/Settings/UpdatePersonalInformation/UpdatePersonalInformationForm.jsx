@@ -1,15 +1,20 @@
-import { Grid, Paper } from "@mui/material";
+import { FormHelperText, Grid, Paper } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
-import { MuiTelInput } from "mui-tel-input";
+import { subYears } from "date-fns";
+import { MuiTelInput, matchIsValidTel } from "mui-tel-input";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 import styled from "styled-components";
 import CustomButton from "../../../../Components/CustomButton/CustomButton";
 import CustomTextField from "../../../../Components/CustomTextField/CustomTextField";
-// import { formatDate } from "../../../../utils/utils";
-import { useCurrentUserContext } from "../../../../Contexts/CurrentUserContext";
+import {
+  addressRegex,
+  identificationNumberCharacter,
+} from "../../../../Constants/constants";
 import { useUpdateUser } from "../../../../services/userServices";
-import { supabase } from "../../../../Supabase/supabase";
+import { calcAge } from "../../../../utils/utils";
+import { useCurrentUser } from "../../../../Hooks/useCurrentUser";
 
 const StyledMuiTelInput = styled(MuiTelInput)`
   width: 100%;
@@ -36,36 +41,38 @@ const StyledMuiTelInput = styled(MuiTelInput)`
   }
 `}
 `;
-function UpdatePersonalInformationForm({ setOpen }) {
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [birthday, setBirthday] = useState(new Date());
-  // const { user } = useUser();
-  // const { data: users, isLoading } = useGetUsers();
-  const { register, handleSubmit } = useForm();
-  const { isLoading: isUpdating, mutateAsync: updateUser } = useUpdateUser();
+function UpdatePersonalInformationForm({ setOpen, isPersonalDatas }) {
+  const { currentUser } = useCurrentUser();
 
-  // const currentUser = users.find((u) => u.id === user.id);
+  const [phoneNumber, setPhoneNumber] = useState(
+    currentUser?.applicantPhoneNumber || ""
+  );
+  //! So the border won't be red initially - subYears(new Date(), 18)
+  const [birthday, setBirthday] = useState(
+    new Date(currentUser?.birthday) || subYears(new Date(), 18)
+  );
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const { mutateAsync: updateUser } = useUpdateUser();
+
   function handleChangePhone(phone) {
     setPhoneNumber(phone);
   }
-  const { currentUser } = useCurrentUserContext();
 
-  const { id } = currentUser;
-
-  // yup ekle
+  const id = currentUser?.id;
   const onSubmit = async (data) => {
-    // const user = { ...data };
-    // users tablosundaki user id ile user metadatadakı user id ile aynı olan userin
-    //  tc,phone number,birthday,adress i al
-    // 2 yerde de teli update le
-    // const {
-    //   data: { user },
-    // } = await supabase.auth.getUser();
-    // const authUserMail = user?.email;
-    // await supabase.auth.updateUser({
-    //   email: "kadirht@hotmail.com",
-    // });
-    await updateUser({ id, user: data });
+    if (calcAge(birthday) < 18) return;
+
+    const personalData = {
+      ...data,
+      birthday,
+      applicantPhoneNumber: phoneNumber,
+    };
+    await updateUser({ id, user: personalData });
     setOpen(false);
   };
 
@@ -95,35 +102,77 @@ function UpdatePersonalInformationForm({ setOpen }) {
             <CustomTextField
               id="identificationNumber"
               label="Identification number"
+              type="number"
+              defaultValue={currentUser?.identificationNumber}
               // value
               register={{
-                ...register("identificationNumber"),
+                ...register("identificationNumber", {
+                  required: "Identification number is required!",
+                  validate: (value) =>
+                    value.length === identificationNumberCharacter ||
+                    "Identification number should be 11 characters long!",
+                }),
               }}
+              //for type text
+              // inputProps={{ maxLength: identificationNumberCharacter }}
+              //for type number
+              inputProps={{
+                onInput: (e) => {
+                  if (e.target.value.length > identificationNumberCharacter) {
+                    e.target.value = e.target.value.slice(
+                      0,
+                      identificationNumberCharacter
+                    );
+                  }
+                },
+              }}
+              helperText={errors?.identificationNumber?.message}
+              error={errors?.identificationNumber}
             />
           </Grid>
+
           <Grid item xs={6}>
             <CustomTextField
               id="adress"
               label="Adress"
+              defaultValue={currentUser?.applicantAddress}
+              // for test
+              // defaultValue="Ankara Çankaya Kavaklı Mah. Atatürk Sok. No: 5"
+              placeholder="E.G. Ankara Çankaya Kavaklı Mah. Atatürk Sok. No: 5"
               register={{
-                ...register("applicantAdress"),
+                ...register("applicantAddress", {
+                  required: "Address is required!",
+                  pattern: {
+                    value: addressRegex,
+                    message:
+                      "Address format should match city,district,neighbourhood,street,door number without commas",
+                  },
+                }),
               }}
-              // helperText={errors?.applicantAdress?.message}
-              // error={errors?.applicantAdress}
+              helperText={errors?.applicantAddress?.message}
+              error={errors?.applicantAddress}
             />
           </Grid>
           <Grid item xs={6}>
             <StyledMuiTelInput
               label="Phone number"
               preferredCountries={["TR", "US", "KR"]}
-              defaultCountry="TR"
+              // defaultCountry="TR"
               value={phoneNumber}
+              // MenuProps={{ onClose: () => setPhoneNumber("") }}
               // defaultValue={selectedAccount?.phoneNumber}
-              {...register("applicantPhoneNumber")}
-              onChange={(phone) => handleChangePhone(phone)}
-              // helperText={errors?.applicantPhoneNumber?.message}
-              // error={errors?.applicantPhoneNumber}
+              {...register("applicantPhoneNumber", {
+                // required: "Phone Number is required!",
+                validate: (value) =>
+                  matchIsValidTel(value) || "Phone Number is not valid!",
+              })}
+              onChange={handleChangePhone}
             />
+            {errors?.applicantPhoneNumber && (
+              <FormHelperText error sx={{ marginLeft: ".8rem" }}>
+                {errors?.applicantPhoneNumber?.message}
+              </FormHelperText>
+            )}
           </Grid>
 
           <Grid item xs={6}>
@@ -131,40 +180,44 @@ function UpdatePersonalInformationForm({ setOpen }) {
               width="tall"
               label="Birthday"
               value={birthday}
+              // defaultValue={new Date(currentUser?.birthday)}
               // {...register("birthday")}
               slotProps={{
                 popper: { placement: "right-start" },
               }}
-              // helperText={errors?.birthday?.message}
-              // error={errors}
+              format="dd/MM/yyyy"
               onChange={(date) => setBirthday(date)}
-              // sx={{
-              //   width: "100%",
-              //   "&:hover > div > fieldset": {
-              //     borderColor: "var(--color-text)!important",
-              //   },
-              //   "&>label": {
-              //     color: "var(--color-text)",
-              //   },
-              //   "& > div": {
-              //     color: "var(--color-text)",
+              sx={{
+                width: "100%",
+                "&:hover > div > fieldset": {
+                  borderColor: "var(--color-text)!important",
+                },
+                "&>label": {
+                  color: "var(--color-text)",
+                },
+                "& > div": {
+                  color: "var(--color-text)",
 
-              //     "& > fieldset": {
-              //       borderColor: isError
-              //         ? "red !important"
-              //         : "var(--color-border-2) !important",
-              //     },
-              //   },
-              // }}
+                  "& > fieldset": {
+                    borderColor:
+                      !birthday || calcAge(birthday) < 18
+                        ? "red !important"
+                        : "var(--color-border-2) !important",
+                  },
+                },
+              }}
             />
-            {/* {errors?.birthday && (
+            {calcAge(birthday) < 18 && (
               <FormHelperText error sx={{ marginLeft: ".8rem" }}>
-                {errors?.birthday?.message}
+                You are younger than 18!
               </FormHelperText>
-            )} */}
+            )}
           </Grid>
           <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
-            <CustomButton type={handleSubmit} buttonText="Update User" />
+            <CustomButton
+              type="submit"
+              buttonText={isPersonalDatas ? "Update User" : "Add Personal Info"}
+            />
           </Grid>
         </Grid>
       </Paper>
