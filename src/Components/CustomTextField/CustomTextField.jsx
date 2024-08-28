@@ -21,7 +21,7 @@ const StyledTextField = styled(TextField)`
   & div > input {
     text-transform: ${(props) =>
       // bunu ekledim
-      props.textTransform === "basic" ? "" : "capitalize"};
+      props.texttransform === "basic" ? "" : "capitalize"};
 
     &:disabled {
       -webkit-text-fill-color: var(--color-text) !important;
@@ -48,8 +48,8 @@ function CustomTextField({
   helperText,
   error,
   placeholder,
-  inputProps,
-  textTransform,
+  inputProps, //! mui input props
+  texttransform,
 }) {
   return (
     <StyledTextField
@@ -58,7 +58,7 @@ function CustomTextField({
       onChange={onChange}
       defaultValue={defaultValue}
       width={width}
-      textTransform={textTransform}
+      texttransform={texttransform}
       value={value}
       id={id}
       type={type}
