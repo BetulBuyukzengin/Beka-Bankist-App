@@ -184,14 +184,14 @@ export default function LoanInformation() {
           id="-basic"
           label="Maximum Loan Amount"
           disabled
-          value={isTotalIncomeExpense ? maxLoanAmount : 0}
+          value={isTotalIncomeExpense ? maxLoanAmount.toFixed(2) : 0}
         />
       </Grid>
       <Grid item xs={6}>
         <CustomTextField
           // placeholder={isTotalIncomeExpense ? maxLoanAmount : 0}
           type="number"
-          value={loanAmount}
+          value={loanAmount.toFixed(2)}
           onChange={handleLoanAmountChange}
           id="loanAmount"
           label="Loan Amount"
