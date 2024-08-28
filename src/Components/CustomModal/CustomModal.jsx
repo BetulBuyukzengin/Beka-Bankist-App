@@ -26,18 +26,32 @@ const style = {
   },
 };
 
-function CustomModal({ children, setOpen, open, title, paddingSize }) {
+function CustomModal({
+  children,
+  setOpen,
+  open,
+  title,
+  paddingSize,
+  clearParamsCallBack,
+  shouldClearParamsOnClose = false,
+}) {
   return (
     <Modal
       open={open}
-      onClose={() => setOpen(false)}
+      onClose={() => {
+        if (shouldClearParamsOnClose) clearParamsCallBack();
+        setOpen(false);
+      }}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
       <Box sx={{ ...style, padding: paddingSize }}>
         <CloseIcon
           sx={{ right: "1rem", top: "1rem", position: "absolute" }}
-          onClick={() => setOpen(false)}
+          onClick={() => {
+            setOpen(false);
+            if (shouldClearParamsOnClose) clearParamsCallBack();
+          }}
         />
         {title && (
           <Typography
