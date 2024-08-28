@@ -16,7 +16,7 @@ import {
 } from "../../../../../services/loanServices";
 import { useUser } from "../../../../../services/userServices";
 import { calcNextMonth } from "../../../../../utils/utils";
-import SenderAccount from "../Transfer/SenderAccount";
+import SelectAccount from "../Transfer/SelectAccount";
 import BusinessInformation from "./BusinessInformation";
 import LoanInformation from "./LoanInformation";
 import PaymentLoan from "./PaymentLoan";
@@ -28,8 +28,8 @@ import PaidLoans from "./PaidLoans";
 
 const transactionSteps = [
   {
-    label: "Sender Account",
-    component: <SenderAccount />,
+    label: "Applicant Account",
+    component: <SelectAccount />,
   },
   {
     label: "Personal Information",
@@ -142,10 +142,13 @@ function LoanTab() {
   const prevStatus = React.useRef(null);
   const { reset } = methods;
   const { user } = useUser();
+
+  //! Reset all fields and redirect to first step based on status change
   useEffect(() => {
     if (currentStatus !== prevStatus.current) {
       reset();
       setPhoneNumber("");
+      setActiveStep(0);
     }
     prevStatus.current = currentStatus;
   }, [reset, currentStatus]);
@@ -242,7 +245,7 @@ function LoanTab() {
                   : step.label === "Sender Account"
                   ? {
                       ...step,
-                      component: <SenderAccount border="standard" />,
+                      component: <SelectAccount border="standard" />,
                     }
                   : step
               )}
