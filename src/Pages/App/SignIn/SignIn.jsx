@@ -1,12 +1,13 @@
-import styled from "styled-components";
-import TextField from "@mui/material/TextField";
-import Paper from "@mui/material/Paper";
-import Grid from "@mui/material/Grid";
-import { useForm } from "react-hook-form";
-import { useDarkMode } from "../../../Contexts/DarkModeContext";
-import { Link } from "react-router-dom";
-import { useSignIn } from "../../../services/userServices";
 import LoginIcon from "@mui/icons-material/Login";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import TextField from "@mui/material/TextField";
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import styled from "styled-components";
+import { useDarkMode } from "../../../Contexts/DarkModeContext";
+import { useLogout, useSignIn } from "../../../services/userServices";
 
 const StyledForm = styled.form`
   width: 100%;
@@ -40,28 +41,11 @@ const StyledSignInFormTitle = styled.h2`
   letter-spacing: 0.1rem;
   color: var(--color-text);
 `;
-const StyledSignInBtn = styled.button`
-  color: var(--color-text);
-  background-color: var(--color-secondary);
-  padding: 0.6rem 1rem;
-  margin-top: 1rem;
-  border-radius: 2px;
-  border: none;
-  align-self: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  &:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-  }
-  &:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  }
-`;
+
 const StyledLink = styled(Link)`
   align-self: center;
 `;
-const StyledSignUpButton = styled.button`
+const StyledButton = styled.button`
   color: var(--color-text);
   background-color: var(--color-secondary);
   padding: 0.6rem 1rem;
@@ -106,17 +90,33 @@ const StyledNavbar = styled.nav`
   top: 0;
 `;
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
+// const toastMessage = {
+//   error:
+//     "Your account is deleted as you requested. If you wish to activate your account again, you can visit account recovery page",
+// };
 function SignIn() {
   const { isDarkMode } = useDarkMode();
   const { register, handleSubmit, formState } = useForm();
   const { errors } = formState;
   const { mutateAsync: signIn, isLoading } = useSignIn();
+  const navigate = useNavigate();
+  const { mutateAsync: logout } = useLogout();
 
-  function onSubmit(data) {
-    signIn(data);
+  async function onSubmit(data) {
+    try {
+      const signInUser = await signIn(data, {});
+      if (signInUser.user.user_metadata.isAccountDeleted) {
+        await logout();
+        return toast.error(
+          "Your account is deleted as you requested. If you wish to activate your account again, you can visit account recovery page"
+        );
+      }
+      toast.success("Sign in successful");
+      navigate("/applayout/account");
+    } catch (error) {
+      throw new Error(error.message);
+    }
   }
-
   return (
     <StyledForm onSubmit={handleSubmit(onSubmit)}>
       <StyledNavbar>
@@ -167,11 +167,16 @@ function SignIn() {
             />
           </Grid>
         </Grid>
-        <StyledSignInBtn disabled={isLoading} type="submit">
-          Sign in
-        </StyledSignInBtn>
-        <StyledLink to="/signup">
-          <StyledSignUpButton disabled={isLoading}>Sign Up</StyledSignUpButton>
+        <div style={{ display: "flex", justifyContent: "center", gap: "1rem" }}>
+          <StyledButton disabled={isLoading} type="submit">
+            Sign in
+          </StyledButton>
+          <StyledLink to="/signup">
+            <StyledButton disabled={isLoading}>Sign Up</StyledButton>
+          </StyledLink>
+        </div>
+        <StyledLink to="/accountRecovery">
+          <StyledButton>Account Recovery</StyledButton>
         </StyledLink>
       </Paper>
     </StyledForm>
