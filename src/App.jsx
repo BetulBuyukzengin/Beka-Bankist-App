@@ -1,15 +1,16 @@
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import DashboardLayout from "./Components/DashboardLayout/DashboardLayout.jsx";
 import { DarkModeProvider } from "./Contexts/DarkModeContext.jsx";
 import { LoanPaymentModalProvider } from "./Contexts/ModalContext.jsx";
 import Account from "./Pages/App/Account/Account.jsx";
+import AccountRecovery from "./Pages/App/AccountRecovery/AccountRecovery.jsx";
 import Movements from "./Pages/App/Movements/Movements.jsx";
 import Settings from "./Pages/App/Settings/Settings.jsx";
 import SignIn from "./Pages/App/SignIn/SignIn.jsx";
@@ -17,7 +18,6 @@ import SignUp from "./Pages/App/SignUp/SignUp.jsx";
 import Transactions from "./Pages/App/Transactions/Transactions.jsx";
 import Presentational from "./Pages/Presentational/Presentational.jsx";
 import GlobalStyles from "./styles/GlobalStyles";
-import { CurrentUserProvider } from "./Contexts/CurrentUserContext.jsx";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +31,10 @@ const router = createBrowserRouter([
   {
     path: "/signup",
     Component: SignUp,
+  },
+  {
+    path: "/accountRecovery",
+    Component: AccountRecovery,
   },
   {
     path: "/applayout",
@@ -78,10 +82,8 @@ function App() {
         />
         <DarkModeProvider>
           <LoanPaymentModalProvider>
-            <CurrentUserProvider>
-              <GlobalStyles />
-              <RouterProvider router={router} />
-            </CurrentUserProvider>
+            <GlobalStyles />
+            <RouterProvider router={router} />
           </LoanPaymentModalProvider>
         </DarkModeProvider>
       </LocalizationProvider>
