@@ -1,10 +1,11 @@
+import { Box } from "@mui/material";
 import { useState } from "react";
 import AppSlider from "../../../Components/AppSlider/AppSlider";
+import CustomMenuIcon from "../../../Components/CustomMenuIcon/CustomMenuIcon";
 import CustomModal from "../../../Components/CustomModal/CustomModal";
 import AccountCreate from "./AccountCreate";
-import { Box } from "@mui/material";
-import CustomMenuIcon from "../../../Components/CustomMenuIcon/CustomMenuIcon";
 import AccountDelete from "./AccountDelete";
+import { useSearchParams } from "react-router-dom";
 
 function CurrentAccounts() {
   const [openCreateAccount, setOpenCreateAccount] = useState(false);
@@ -27,6 +28,13 @@ function CurrentAccounts() {
     },
   ];
 
+  const [searchParams, setSearchParams] = useSearchParams();
+  const clearSearchParams = () => {
+    if (searchParams.has("selectedAccount")) {
+      searchParams.delete("selectedAccount");
+      setSearchParams(searchParams);
+    }
+  };
   return (
     <>
       <Box
@@ -49,7 +57,12 @@ function CurrentAccounts() {
       <CustomModal open={openCreateAccount} setOpen={setOpenCreateAccount}>
         <AccountCreate setOpenCreateModal={setOpenCreateAccount} />
       </CustomModal>
-      <CustomModal open={openDeleteAccount} setOpen={setOpenDeleteAccount}>
+      <CustomModal
+        open={openDeleteAccount}
+        setOpen={setOpenDeleteAccount}
+        shouldClearParamsOnClose
+        clearParamsCallBack={clearSearchParams}
+      >
         <AccountDelete />
       </CustomModal>
     </>
