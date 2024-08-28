@@ -1,29 +1,33 @@
 /* eslint-disable react/prop-types */
-import CustomTextField from "../../../Components/CustomTextField/CustomTextField";
-import { useState } from "react";
-import { Checkbox, FormHelperText, Grid } from "@mui/material";
-import CustomButton from "../../../Components/CustomButton/CustomButton";
-import CustomSelect from "../../../Components/CustomSelect/CustomSelect";
-import { FormProvider, useForm } from "react-hook-form";
-import { calcAge, calcNextDay, generateRandomIBAN } from "../../../utils/utils";
-import { toast } from "react-toastify";
-import { MuiTelInput, matchIsValidTel } from "mui-tel-input";
-import styled from "styled-components";
-import { useCreateAccount } from "../../../services/accountServices";
-import Loader from "../../../Components/Loader/Loader";
-import CustomModal from "../../../Components/CustomModal/CustomModal";
-import AccountConsentForm from "./AccountConsentForm";
-import { useUser } from "../../../services/userServices";
-import { DatePicker } from "@mui/x-date-pickers";
-import {
-  starterBalance,
-  dailyTransferLimit,
-  dailyDepositLimit,
-  dailyWithdrawLimit,
-  identificationNumberCharacter,
-} from "../../../Constants/constants";
-import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { Checkbox, FormHelperText, Grid } from "@mui/material";
+import { DatePicker } from "@mui/x-date-pickers";
+import { MuiTelInput } from "mui-tel-input";
+import { useState } from "react";
+import { FormProvider, useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import styled from "styled-components";
+import * as yup from "yup";
+import CustomButton from "../../../Components/CustomButton/CustomButton";
+import CustomModal from "../../../Components/CustomModal/CustomModal";
+import CustomSelect from "../../../Components/CustomSelect/CustomSelect";
+import CustomTextField from "../../../Components/CustomTextField/CustomTextField";
+import Loader from "../../../Components/Loader/Loader";
+import {
+  dailyDepositLimit,
+  dailyTransferLimit,
+  dailyWithdrawLimit,
+  starterBalance,
+} from "../../../Constants/constants";
+import { useCurrentUser } from "../../../Hooks/useCurrentUser";
+import {
+  useCreateAccount,
+  useGetAccounts,
+} from "../../../services/accountServices";
+import { useUser } from "../../../services/userServices";
+import { calcAge, generateRandomIBAN } from "../../../utils/utils";
+import AccountConsentForm from "./AccountConsentForm";
+
 const bankContent = [
   {
     content: "Select Bank",
@@ -36,6 +40,10 @@ const bankContent = [
   {
     content: "Akbank ",
     value: "akbank",
+  },
+  {
+    content: "Halkbank ",
+    value: "halkbank",
   },
 ];
 
@@ -64,48 +72,30 @@ const StyledMuiTelInput = styled(MuiTelInput)`
   &:hover > div > fieldset {
     border-color: var(--color-gray) !important;
   }
+  & div > input {
+    &:disabled {
+      -webkit-text-fill-color: var(--color-text) !important;
+      color: var(--color-text) !important;
+    }
+    &:disabled + fieldset {
+      border-color: var(--color-border-2) !important;
+      background-color: var(--color-background-3);
+    }
+  }
 `;
 const StyledContainer = styled.div``;
 const StyledLabel = styled.label``;
 
 function AccountCreate({ setOpenCreateModal }) {
-  const [birthday, setBirthday] = useState(new Date());
-  const [phoneNumber, setPhoneNumber] = useState();
+  const { currentUser } = useCurrentUser();
   const [open, setOpen] = useState(false);
   const { user } = useUser();
-  const { isLoading, mutateAsync } = useCreateAccount();
+  const { isPending, mutateAsync } = useCreateAccount();
   const [checked, setChecked] = useState(false);
-  function handleChangePhone(phone) {
-    setPhoneNumber(phone);
-  }
-
-  // console.log(birthday);
+  const { accounts } = useGetAccounts();
   const validationSchema = yup.object({
-    fullName: yup.string().required("This field is required!"),
-    identificationNumber: yup
-      .string()
-      .required("This field is required!")
-      .test(
-        "is-valid-identificationNumber",
-        "Identification number is invalid, should be 11 characters long!",
-        (value) => value && value.length === identificationNumberCharacter
-      ),
-    address: yup.string().required("This field is required!"),
     bankName: yup.string().required("This field is required!"),
     bankBranch: yup.string().required("This field is required!"),
-    birthday: yup
-      .date()
-      .required("This field is required!")
-      //???????????? TEKRAR BAK !!!!!!!!!!!!!!!!!!!!!!
-      //? başlangıç değeri "MM/dd/yyyy   iken typeError her turlu hata gösteriyor o yüzden new Date verdim
-      //? AYRICA bu sayede bir gun öncesindeki tarih setleniyordu o hata cozulmus oldu
-      .typeError("Birthday must be a valid date in the format MM/DD/YYYY"),
-    phoneNumber: yup
-      .string()
-      .required("Phone number is required")
-      .test("is-valid-phone", "Phone number is invalid", (value) =>
-        matchIsValidTel(value)
-      ),
   });
 
   const methods = useForm({
@@ -113,18 +103,25 @@ function AccountCreate({ setOpenCreateModal }) {
     mode: "onChange",
   });
   const { errors } = methods.formState;
-  const isError = errors?.birthday || !birthday;
+  const openedBankNames = accounts
+    .filter((account) => account.user_id === user.id)
+    .map((account) => account.bankName);
 
   async function onSubmit(data) {
+    // Gelen verilerin boş olma ihtimaline karşı önlem için yup yerine yapılabilir.
+    // return toast.error(
+    //   "Missing user informations. Complete your informations at settings tab before creating bank account!"
+    // );
     const iban = generateRandomIBAN();
-    //! Hesaplar tablosundan ibanları, hesap no kıyasla
-
     const formDatas = {
       ...data,
-      phoneNumber,
+      address: currentUser?.applicantAddress,
+      fullName: currentUser?.fullName,
+      identificationNumber: currentUser?.identificationNumber,
+      birthday: currentUser?.birthday,
+      phoneNumber: currentUser?.applicantPhoneNumber,
       iban,
       accountNumber: iban.slice(-16),
-      birthday,
       balance: starterBalance,
       remainingTransferLimit: dailyTransferLimit,
       remainingDepositLimit: dailyDepositLimit,
@@ -137,7 +134,7 @@ function AccountCreate({ setOpenCreateModal }) {
     await mutateAsync(formDatas);
     setOpenCreateModal(false);
   }
-  if (isLoading) return <Loader />;
+  if (isPending || !currentUser) return <Loader />;
   return (
     <>
       <FormProvider {...methods}>
@@ -155,33 +152,35 @@ function AccountCreate({ setOpenCreateModal }) {
               <CustomTextField
                 id="fullName"
                 label="Full Name"
-                defaultValue={user.user_metadata.fullName}
-                register={methods.register("fullName")}
-                helperText={errors?.fullName?.message}
-                error={errors?.fullName}
+                value={currentUser?.fullName}
+                disabled
               />
             </Grid>
             <Grid item xs={6}>
               <CustomTextField
                 id="identificationNumber"
                 label="Identification number"
-                register={methods.register("identificationNumber")}
-                helperText={errors?.identificationNumber?.message}
-                error={errors?.identificationNumber}
-                inputProps={{ maxLength: identificationNumberCharacter }}
+                value={currentUser?.identificationNumber}
+                disabled
               />
             </Grid>
             <Grid item xs={6}>
               <CustomTextField
                 id="address"
                 label="Address"
-                register={methods.register("address")}
-                helperText={errors?.address?.message}
-                error={errors?.address}
+                value={currentUser?.applicantAddress}
+                disabled
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <StyledMuiTelInput
+                value={currentUser?.applicantPhoneNumber}
+                disabled
               />
             </Grid>
             <Grid item xs={6}>
               <CustomSelect
+                openedBankNames={openedBankNames}
                 data={bankContent}
                 defaultValue=""
                 register={methods.register("bankName")}
@@ -212,17 +211,9 @@ function AccountCreate({ setOpenCreateModal }) {
               <DatePicker
                 width="tall"
                 label="Birthday"
-                value={birthday}
-                {...methods.register("birthday")}
-                slotProps={{
-                  popper: { placement: "right-start" },
-                }}
-                helperText={errors?.birthday?.message}
-                error={errors}
-                onChange={(date) => {
-                  // console.log(date);
-                  setBirthday(date);
-                }}
+                format="dd/MM/yyyy"
+                value={new Date(currentUser?.birthday)}
+                disabled
                 sx={{
                   width: "100%",
                   "&:hover > div > fieldset": {
@@ -231,36 +222,26 @@ function AccountCreate({ setOpenCreateModal }) {
                   "&>label": {
                     color: "var(--color-text)",
                   },
+                  "& > .Mui-disabled": {
+                    borderColor: "var(--color-border-2) !important",
+                    backgroundColor: "var(--color-background-3)",
+                  },
+
                   "& > div": {
                     color: "var(--color-text)",
 
                     "& > fieldset": {
-                      borderColor: isError
-                        ? "red !important"
-                        : "var(--color-border-2) !important",
+                      borderColor: "var(--color-border-2) !important",
+                    },
+                  },
+                  "& div > input": {
+                    "&:disabled": {
+                      WebkitTextFillColor: "var(--color-text) !important",
+                      color: "var(--color-text) !important",
                     },
                   },
                 }}
               />
-              {errors?.birthday && (
-                <FormHelperText error sx={{ marginLeft: ".8rem" }}>
-                  {errors?.birthday?.message}
-                </FormHelperText>
-              )}
-            </Grid>
-            <Grid item xs={6}>
-              <StyledMuiTelInput
-                preferredCountries={["TR", "US", "KR"]}
-                defaultCountry="TR"
-                value={phoneNumber}
-                {...methods.register("phoneNumber")}
-                onChange={(phone) => handleChangePhone(phone)}
-              />
-              {errors?.phoneNumber && (
-                <FormHelperText error sx={{ marginLeft: ".8rem" }}>
-                  {errors?.phoneNumber?.message}
-                </FormHelperText>
-              )}
             </Grid>
             <Grid
               item
@@ -285,7 +266,7 @@ function AccountCreate({ setOpenCreateModal }) {
                 </StyledLabel>
               </StyledContainer>
               <CustomButton
-                disabled={!checked}
+                disabled={!checked || isPending}
                 type="submit"
                 buttonText="create"
               />
@@ -296,11 +277,7 @@ function AccountCreate({ setOpenCreateModal }) {
             setOpen={setOpen}
             title="Bank Account Opening Disclosure and Approval Form"
           >
-            <AccountConsentForm
-              setOpen={setOpen}
-              phoneNumber={phoneNumber}
-              setChecked={setChecked}
-            />
+            <AccountConsentForm setOpen={setOpen} setChecked={setChecked} />
           </CustomModal>
         </form>
       </FormProvider>
@@ -309,6 +286,3 @@ function AccountCreate({ setOpenCreateModal }) {
 }
 
 export default AccountCreate;
-
-// // dogum tarihi (eğer 18 yas altııse hesap acamasın)
-// // sözleşme formu
