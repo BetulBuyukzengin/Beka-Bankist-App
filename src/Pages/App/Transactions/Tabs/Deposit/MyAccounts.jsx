@@ -1,5 +1,5 @@
 import { Grid } from "@mui/material";
-import SenderAccount from "../Transfer/SenderAccount";
+import SelectAccount from "../Transfer/SelectAccount";
 function MyAccounts() {
   return (
     <Grid
@@ -9,7 +9,7 @@ function MyAccounts() {
       }}
     >
       <Grid item xs={12}>
-        <SenderAccount />
+        <SelectAccount />
       </Grid>
     </Grid>
   );
