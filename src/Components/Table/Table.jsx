@@ -67,8 +67,8 @@ export default function CustomTable() {
 
   const today = useMemo(() => {
     //for test
-    return calcNextMonth(new Date(), 1);
-    // return new Date();
+    // return calcNextMonth(new Date(), 1);
+    return new Date();
   }, []);
 
   const isEveryMonthPaid = JSON.parse(
@@ -139,9 +139,9 @@ export default function CustomTable() {
               //! Controls payment button disabled/enabled situation based on dates.
               const isDateBefore = !isBefore(
                 new Date(row?.date),
-                // new Date()
+                new Date()
                 //! for test
-                addMonths(new Date(), 13)
+                // addMonths(new Date(), 13)
               );
               return (
                 <StyledTableRow key={i}>

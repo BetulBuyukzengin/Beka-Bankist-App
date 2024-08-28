@@ -9,12 +9,14 @@ function Protected({ children }) {
   const { isAuthenticated, isLoading, user } = useUser();
   useEffect(
     function () {
-      if (!user && !isLoading) navigate("/signIn");
+      if (!user && !isLoading && user.user_metadata.isAccountDeleted)
+        navigate("/signIn");
     },
     [user, navigate, isLoading]
   );
   if (isLoading) return <Loader />;
-  if (isAuthenticated && !isLoading) return children;
+  if (isAuthenticated && !isLoading && !user.user_metadata.isAccountDeleted)
+    return children;
 }
 
 export default Protected;
