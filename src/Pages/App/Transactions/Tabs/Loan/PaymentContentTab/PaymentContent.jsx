@@ -7,17 +7,17 @@ import { toast } from "react-toastify";
 import * as yup from "yup";
 import StepperComponent from "../../../../../../Components/StepperComponent/StepperComponent";
 import { useLoanPaymentModal } from "../../../../../../Contexts/ModalContext";
-import { useUpdateBalance } from "../../../../../../services/accountServices";
+import { useUpdateAccount } from "../../../../../../services/accountServices";
 import {
   useGetLoan,
   useUpdateLoanMonthlyPayment,
 } from "../../../../../../services/loanServices";
-import SenderAccount from "../../Transfer/SenderAccount";
+import SelectAccount from "../../Transfer/SelectAccount";
 import PaymentTransaction from "./PaymentTransaction";
 
 function PaymentContent({ data }) {
   const [activeStep, setActiveStep] = React.useState(0);
-  const { mutateAsync: updateBalance } = useUpdateBalance();
+  const { mutateAsync: updateBalance } = useUpdateAccount();
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedAccount = JSON.parse(searchParams.get("selectedAccount"));
   const { setOpen } = useLoanPaymentModal();
@@ -110,7 +110,7 @@ function PaymentContent({ data }) {
             {
               label: "Account",
               component: (
-                <SenderAccount monthlyPayment={selectedMonthlyPayment} />
+                <SelectAccount monthlyPayment={selectedMonthlyPayment} />
               ),
             },
             {
