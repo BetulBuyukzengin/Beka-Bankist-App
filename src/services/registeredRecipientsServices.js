@@ -17,16 +17,16 @@ export function useCreateRegisteredRecipient() {
   return { mutateAsync, isLoading };
 }
 
-async function getRegisteredRecipient() {
+async function getRegisteredRecipients() {
   let { data, error } = await supabase.from("registeredRecipients").select("*");
 
   // .select({ isRegisteredIban, isRegisteredAccount });
   if (error) throw new Error(error.message);
   return data;
 }
-export function useGetRegisteredRecipient() {
+export function useGetRegisteredRecipients() {
   const { data, isLoading } = useQuery({
-    queryFn: getRegisteredRecipient,
+    queryFn: getRegisteredRecipients,
     queryKey: ["registered"],
   });
   return { data, isLoading };

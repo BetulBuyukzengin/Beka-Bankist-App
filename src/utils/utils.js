@@ -157,8 +157,3 @@ export function findMostFrequent(arr) {
 
   return mostFrequent;
 }
-
-// // Kullanım
-// const array = [1, 2, 2, 3, 3, 3, 4, 4, 4, 4];
-// const mostFrequentValue = findMostFrequent(array);
-// console.log(mostFrequentValue); // Output: 4

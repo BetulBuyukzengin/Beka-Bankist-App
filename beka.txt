@@ -1,5 +1,5 @@
 # Header: Avatar, logout, fullName, dark-lightmode, clock / https://mui.com/material-ui/react-avatar/#with-badge , import LogoutIcon from '@mui/icons-material/Logout';
-#✅ Sidebar: https://mui.com/material-ui/react-drawer/#mini-variant-drawer
+ ✅ Sidebar: https://mui.com/material-ui/react-drawer/#mini-variant-drawer
  ✅ Telefon, tc bilgilerini gireceği form olsun. Kondisyonel olarak bunları guncelleme sayfası renderlansın.
  ✅ Account: IBAN, account number, balance, Bank's office / import AccountCircleIcon from '@mui/icons-material/AccountCircle';
  ✅ Settings: update user feature / import SettingsApplicationsIcon from '@mui/icons-material/SettingsApplications';
@@ -18,31 +18,32 @@
  ✅ İşlem yapılmadıgında bellı sure sonra cıkıs yapılsın
  ✅ ödenmiş kredi yoksa belirt 
  ✅ Frequently miktarı gösterme göstereceksin
- account delete ispendıng sılınıyor yazısına bak
- Transferde amount determinationda eklenen bilgilerden sonra geri ileri yapınca remaining balance , remaining transfer limit nan gelıyor
- ❌ radiolarda hesap secerken bazen seçmıyor yazı uzerınde ona bak!!
- ❌ sender accountu my account yap ve 2 componentı farklı yerde kullan
- ❌ Profil fotoğrafı koyma, silme ve güncelleme 
- ❌ Aylık kredi ödemesi gerçekleştikten sonra ödeme butonu geç güncelleniyor!!!! ÖNEMLİ
- ❌ Dekontu e mail ile gönder
- ❌ Anlaşma modalını düzelt
+ ✅ Transferde amount determinationda eklenen bilgilerden sonra geri ileri yapınca remaining balance , remaining transfer limit nan gelıyor
+ ✅ sender accountu select account yaptım
  ✅ If user has all necessary metadata then redirect user to "accounts" page, otherwise redirect "settings"
- ? Account number tab ve with iban tab içerisindeki switchlerin resetField ile kullanımı
- ? gunluk limit ertesı gun baktıgımda yenılememıs oluyor projenın kapalı olması etkıler mesaj?
- ❌ Movements table dekont mail send is not completed. Filter & Sort to movements still missing.
- ❌ Crypto-Borsa: Table / https://mui.com/material-ui/react-table/#sticky-header
- ? Transaction controlde işlem tarihi seçebilmeyi ve işlemin o tarihte gerçekleşmesini sağla
+ ✅ Registered kullanıcıdann transfer işlemi yap
+ ✅ Movements a filter & sort ekledim.
+ ❌ radiolarda hesap secerken bazen seçmıyor yazı uzerınde ona bak!!
+ ❌ Profil fotoğrafı koyma, silme ve güncelleme 
+ ❌ Movements table dekont mail send is not completed. 
  ❌ Forgot password
+ ❌ Anlaşma modalını düzelt
+ ❌ Crypto-Borsa: Table / https://mui.com/material-ui/react-table/#sticky-header
+ ❌ Dil destegini ayarla
+ ❌ Sayfanın text içeriğini düzenle
+ ❌ Responsive
+ ❌ Adres bilgileri api den çekilip select ile seçme ve haritada markup göster
+ ❌ AccountCreate yerine CreateAccount şeklinde yapılabilir hepsını duzelt 
  ❔ tab geçişlerinde error
+ ❔ Aylık kredi ödemesi gerçekleştikten sonra ödeme butonu geç güncelleniyor!!!! ÖNEMLİ
+ ❔ Account number tab ve with iban tab içerisindeki switchlerin resetField ile kullanımı
+ ❔ gunluk limit ertesı gun baktıgımda yenılememıs oluyor projenın kapalı olması etkıler mesaj?
  ❔ deposit-withdraw işleminde limitim dolmuş ise gece 12 de güncelleniyor ama sayfayı değiştirip geldiğimde yansıyor 
- ❔ Sayfanın text içeriğini düzenle
- ❌ dil destegini ayarla
- ❓ Kredi çekme talebi için telefondan onay alsın.
- ❓ AccountCreate yerine CreateAccount şeklinde yapılabilir hepsını duzelt 
- ❓ Tel no yeni banka hesabı acılırken ve emaili tel no ile güncellerken de default olarak gelsin disabled olsun.
- ❓ Şifre güncellemede e posta ya da telefon numarasından onay kodu gönder.
 
- |||||||||||||||||||||||||||||   V2 [ OPTIONAL ]   |||||||||||||||||||||||||||||||||
 
-😎 With phone number ı disabled yaptım tooltip ile yakında gelecek şeklinde kullanıcılara mesaj olarak gösterilebilir. (https://supabase.com/dashboard/project/zztdmxtwnkykekxoupjl/auth/providers) : Onay bağlantısı mı kod mu geliyor kontrol et!
-😎 TC ile girişte farklı bankalardakı hesapları otomatık cekme (2.versiyon için yapılabilir)
+|||||||||||||||||||||||||||||   V2 [ OPTIONAL ]   |||||||||||||||||||||||||||||||||
+❔ Kredi çekme talebi için telefondan onay alsın.
+❔ Transaction controlde işlem tarihi seçebilmeyi ve işlemin o tarihte gerçekleşmesini sağla
+
+❔ With phone number ı disabled yaptım tooltip ile yakında gelecek şeklinde kullanıcılara mesaj olarak 
+göster (https://supabase.com/dashboard/project/zztdmxtwnkykekxoupjl/auth/providers) : Onay bağlantısı mı kod mu geliyor kontrol et!
