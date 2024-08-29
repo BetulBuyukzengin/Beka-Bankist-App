@@ -61,7 +61,7 @@ function WithdrawTab() {
         .required("This field is required!"),
     }),
     yup.object({
-      amountToWithdrawMyAccount: yup
+      amountToSend: yup
         .string()
         .test("max-check", function (value) {
           if (+value > currentWithdrawLimit && 0 !== currentWithdrawLimit) {
@@ -116,18 +116,19 @@ function WithdrawTab() {
   );
 
   const onSubmit = async (data) => {
-    const { amountToWithdrawMyAccount } = data;
+    const { amountToSend } = data;
+
     const updatedAccount = {
       ...selectedAccount,
-      remainingWithdrawLimit:
-        currentWithdrawLimit - Number(amountToWithdrawMyAccount),
-      balance: currentBalance - Number(amountToWithdrawMyAccount),
+      remainingWithdrawLimit: currentWithdrawLimit - Number(amountToSend),
+      balance: currentBalance - Number(amountToSend),
     };
     await withdrawMoney({ id, account: updatedAccount });
     await createMovement({
       selectedAccount: updatedAccount,
       status: getStatus,
-      amountToWithdrawMyAccount,
+      amountToSend,
+
       user_id: JSON.parse(data.selectedAccount).user_id,
     });
     navigate("/applayout/account");
