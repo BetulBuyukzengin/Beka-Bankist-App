@@ -180,6 +180,7 @@ function AccountCreate({ setOpenCreateModal }) {
             </Grid>
             <Grid item xs={6}>
               <CustomSelect
+                width="100%"
                 openedBankNames={openedBankNames}
                 data={bankContent}
                 defaultValue=""
@@ -194,6 +195,7 @@ function AccountCreate({ setOpenCreateModal }) {
             </Grid>
             <Grid item xs={6}>
               <CustomSelect
+              width="100%"
                 data={branchContent}
                 defaultValue=""
                 register={methods.register("bankBranch")}
