@@ -16,7 +16,7 @@ const StyledTitleLabel = styled.label`
   margin-right: 0.5rem;
 `;
 
-const StyledAccountCheckComponent = styled.div`
+const StyledCheckComponent = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
@@ -24,7 +24,44 @@ const StyledAccountCheckComponent = styled.div`
   padding: 7% 9%;
   border: 1px solid var(--color-border-2);
 `;
+function RegisteredCheckComp({ registered, border }) {
+  const [searchParams] = useSearchParams();
+  const {
+    formState: { errors },
+  } = useFormContext();
+  const registeredRecipient = JSON.parse(
+    searchParams.get("registeredRecipient")
+  );
 
+  return (
+    <>
+      <StyledCheckComponent
+        style={{
+          backgroundColor:
+            registered?.id === registeredRecipient?.id &&
+            "var(--color-background-3)",
+          border:
+            border === "standard"
+              ? "none"
+              : errors?.registeredRecipient
+              ? "1px solid var(--color-error)"
+              : registeredRecipient?.id === registered?.id &&
+                "1px solid var(--color-text-2)",
+        }}
+      >
+        <div>
+          <StyledH6>{registered.recipientShortName}</StyledH6>
+          <StyledTitleLabel>
+            {registered.recipientAccountNumber || registered.recipientIban}
+          </StyledTitleLabel>
+        </div>
+        <div>
+          <NavigateNext />
+        </div>
+      </StyledCheckComponent>
+    </>
+  );
+}
 function AccountCheckComp({ account, border, monthlyPayment }) {
   const [searchParams] = useSearchParams();
   const status = searchParams.get("status");
@@ -40,7 +77,7 @@ function AccountCheckComp({ account, border, monthlyPayment }) {
 
   return (
     <>
-      <StyledAccountCheckComponent
+      <StyledCheckComponent
         style={{
           backgroundColor:
             account?.accountNumber === selectedAccount?.accountNumber &&
@@ -77,7 +114,7 @@ function AccountCheckComp({ account, border, monthlyPayment }) {
         <div>
           <NavigateNext />
         </div>
-      </StyledAccountCheckComponent>
+      </StyledCheckComponent>
     </>
   );
 }
@@ -89,6 +126,8 @@ export default function CustomRadio({
   border,
   onClick,
   monthlyPayment,
+  registeredRecipients,
+  isRegisteredRecipients,
 }) {
   const { isLoading, accounts } = useGetAccounts();
 
@@ -106,26 +145,55 @@ export default function CustomRadio({
         cursor: "default",
       }}
     >
-      {accounts.map((account) => (
-        <FormControlLabel
-          key={account.accountNumber}
-          sx={{
-            marginLeft: "0",
-            marginRight: "0",
-            justifyContent: "center",
-          }}
-          {...register}
-          control={<Radio />}
-          value={JSON.stringify(account)}
-          label={
-            <AccountCheckComp
-              account={account}
-              border={border}
-              monthlyPayment={monthlyPayment}
+      {isRegisteredRecipients
+        ? registeredRecipients.map((registered) => (
+            <FormControlLabel
+              key={registered.id}
+              sx={{
+                marginLeft: "0",
+                marginRight: "0",
+                justifyContent: "center",
+              }}
+              {...register}
+              control={
+                <Radio
+                  sx={{
+                    height: "7rem",
+                    width: "17rem",
+                    position: "relative",
+                    borderRadius: "0px",
+                    opacity: "0",
+                    "&+span": {
+                      width: "17rem",
+                      position: "absolute",
+                    },
+                  }}
+                />
+              }
+              value={JSON.stringify(registered)}
+              label={<RegisteredCheckComp registered={registered} />}
             />
-          }
-        />
-      ))}
+          ))
+        : accounts.map((account) => (
+            <FormControlLabel
+              key={account.accountNumber}
+              sx={{
+                marginLeft: "0",
+                marginRight: "0",
+                justifyContent: "center",
+              }}
+              {...register}
+              control={<Radio />}
+              value={JSON.stringify(account)}
+              label={
+                <AccountCheckComp
+                  account={account}
+                  border={border}
+                  monthlyPayment={monthlyPayment}
+                />
+              }
+            />
+          ))}
     </RadioGroup>
   );
 }
