@@ -30,6 +30,7 @@ import {
   formatCurrency,
   showDailyLimitMessage,
 } from "../../../../../utils/utils";
+
 const transactionSteps = [
   {
     label: "Recipient Account",
@@ -75,12 +76,16 @@ export default function TransferMoneyTab() {
   );
   const remainingBalance = selectedAccount?.balance;
   const remainingTransferLimit = selectedAccount?.remainingTransferLimit;
-  const [iban, setIban] = useState("TR"); // IBAN durumunu saklayın
-
+  const [iban, setIban] = useState("TR");
+  const currentStatus = searchParams.get("status");
   const navigate = useNavigate();
   const validationSchema = [
     yup.object(
-      +recipientTab === 0
+      currentStatus === "Transfer" || currentStatus === "Registered Recipients"
+        ? {
+            registeredRecipient: yup.string().required(),
+          }
+        : +recipientTab === 0
         ? {
             recipientIban: yup
               .string()
@@ -119,7 +124,6 @@ export default function TransferMoneyTab() {
               yup.string().required("This field is required!"),
           }
     ),
-
     yup.object({
       selectedAccount: yup
         .string()
@@ -128,11 +132,7 @@ export default function TransferMoneyTab() {
             return this.createError({
               message: toast.error("Account's balance is insufficient"),
             });
-          if (
-            JSON.parse(value).remainingTransferLimit === 0
-            // &&
-            // JSON.parse(value).id === id
-          )
+          if (JSON.parse(value).remainingTransferLimit === 0)
             return this.createError({
               message: toast.error(
                 showDailyLimitMessage("transfer", calcRemainingLimitResetTime())
@@ -185,7 +185,6 @@ export default function TransferMoneyTab() {
     mode: "onChange",
   });
   const { reset } = methods;
-  const currentStatus = searchParams.get("status");
   const prevStatus = React.useRef(null);
 
   //! Reset all fields and redirect to first step based on status change
@@ -211,7 +210,6 @@ export default function TransferMoneyTab() {
       recipientBankBranch: data.recipientBankBranch,
       user_id: JSON.parse(data.selectedAccount).user_id,
     };
-
     const updatedBalance = selectedAccount.balance - +data.amountToSend;
     const updatedRemainingLimit =
       selectedAccount.remainingTransferLimit - +data.amountToSend;
