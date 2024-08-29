@@ -29,6 +29,7 @@
 - Daha önceki kredi ödeme işlemlerini kullanıcı görebilir ve aylık ödeme planını (çekilen kredi,tarihi, toplam ödenen faiz ve toplam ödenen borç miktarı) pdf olarak indirebilir.
 - Para yükleme ve çekme kısmmında günlük limit göz önünde bulundurularak seçilen hesaba para yüklenebilir ve çekilebilir. Günlük para yükleme ve çekme limitleri 24 saat sonra (her gün saat 00.00 da) yenilenir.
 - Hareketler kısmında transfer, para çekme ve para yükleme işlemlerinin geçmiş kayıtları müşteriye gösterilir.
+- Hareketler kısmında kullanıcı geçmiş işlemlerini filtreleyebilir (Para yükleme, çekme veya gönderme işlemlerine göre) veya sıralayabilir (Tarihe veya para miktarına göre).
 - Müşteri hareket geçmişini detaylı olarak inceleyebilir ve makbuzunu oluşturarak pdf şeklinde indirebilir veya mailine gönderebilir.
 - Ayarlar sayfasında kullanıcı profil fotoğrafı ekleyebilir, emailini, telefon numarasını, şifresini, adresini güncelleyebilir.
 

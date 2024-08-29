@@ -32,6 +32,7 @@
  ❌ Dil destegini ayarla
  ❌ Sayfanın text içeriğini düzenle
  ❌ Responsive
+ ❌ Bacnkground dark mode da renk değiştir
  ❌ Adres bilgileri api den çekilip select ile seçme ve haritada markup göster
  ❌ AccountCreate yerine CreateAccount şeklinde yapılabilir hepsını duzelt 
  ❔ tab geçişlerinde error
