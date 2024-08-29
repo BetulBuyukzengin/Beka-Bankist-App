@@ -6,6 +6,8 @@ import PersonalInformationSettings from "./PersonalInformationSettings";
 import UpdateEmail from "./UpdateEmail/UpdateEmail";
 import UpdatePassword from "./UpdatePassword/UpdatePassword";
 import { useIsUserInformation } from "../../../Hooks/useIsUserInformation";
+import AddProfileImgForm from "./AddProfileImg/AddProfileImgForm";
+
 function Settings() {
   const { currentUser } = useCurrentUser();
   const { isInformationsCompleted } = useIsUserInformation();
@@ -31,6 +33,9 @@ function Settings() {
           </Grid>
           <Grid item xs={6}>
             <DeleteAppAccount />
+          </Grid>
+          <Grid item xs={6}>
+            <AddProfileImgForm />
           </Grid>
         </>
       )}
