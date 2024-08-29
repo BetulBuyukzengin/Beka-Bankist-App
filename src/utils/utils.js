@@ -134,8 +134,7 @@ export function areAllValuesDifferentThanNull(obj) {
 
 export function findMostFrequent(arr) {
   const frequencyMap = {};
-
-  // Dizideki her bir elemanın frekansını hesapla
+  //! Set frequency and increase item value
   arr.forEach((item) => {
     if (frequencyMap[item]) {
       frequencyMap[item]++;
@@ -147,7 +146,7 @@ export function findMostFrequent(arr) {
   let mostFrequent = null;
   let maxCount = 0;
 
-  // En çok tekrar eden değeri bul
+  //! Find the most repeated value
   for (const item in frequencyMap) {
     if (frequencyMap[item] > maxCount) {
       maxCount = frequencyMap[item];
