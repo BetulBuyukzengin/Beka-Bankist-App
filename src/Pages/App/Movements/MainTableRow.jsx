@@ -36,16 +36,17 @@ function MainTableRow({ open, setOpen, row }) {
           }
         />
       </TableCell>
-      <TableCell align="center" sx={{ color: "var(--color-text)" }}>
+      <TableCell sx={{ color: "var(--color-text)" }}>
         {formatDate(row.createdAt)}
       </TableCell>
-      <TableCell align="center" sx={{ color: "var(--color-text)" }}>
-        {row.status === "Withdraw" || row.status === "Transfer" ? "-  " : ""}
-        {formatCurrency(
+      <TableCell sx={{ color: "var(--color-text)" }}>
+        {/* {row.status === "Withdraw" || row.status === "Transfer" ? "-  " : ""} */}
+        {/* {formatCurrency(
           row.amountToSend ||
             row.amountToBeDepositMyAccount ||
             row.amountToWithdrawMyAccount
-        )}
+        )} */}
+        {formatCurrency(row.amountToSend)}
       </TableCell>
     </TableRow>
   );
