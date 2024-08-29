@@ -24,9 +24,9 @@ function UpdatePasswordForm({ setOpen }) {
   const { isPending, mutateAsync: updatePassword } = useUpdateUserInformation();
   const { user } = useUser();
   const onSubmit = async (data) => {
-    // current password is true or not
+    //! Current password is true or not
     await verifyUserPassword(user.email, data.currentPassword);
-    // if current password is true then update password
+    //! if current password is true then update password
     await updatePassword({
       updatedUser: { password: data.newPassword },
       toastMessage,
@@ -54,7 +54,6 @@ function UpdatePasswordForm({ setOpen }) {
           <CustomTextField
             texttransform="basic"
             id="currentPassword"
-            // type="text"
             label="Current Password"
             register={{
               ...register("currentPassword", {
@@ -69,13 +68,12 @@ function UpdatePasswordForm({ setOpen }) {
           <CustomTextField
             id="newPassword"
             texttransform="basic"
-            // type="text"
             label="New Password"
             register={{
               ...register("newPassword", {
                 required: "New password is required!",
                 pattern: {
-                  value: /^(?=.*[A-Z])(?=.*\d).+$/, // En az bir büyük harf ve bir sayı içermesi
+                  value: /^(?=.*[A-Z])(?=.*\d).+$/, //! Contain at least one uppercase letter and one number
                   message:
                     "Password must contain at least one uppercase letter, one number and English characters.",
                 },
@@ -104,7 +102,7 @@ function UpdatePasswordForm({ setOpen }) {
         </Grid>
         <Grid item xs={6}>
           <CustomButton
-            buttonText="Update Password"
+            buttonText="Update"
             type="submit"
             disabled={isPending}
           />

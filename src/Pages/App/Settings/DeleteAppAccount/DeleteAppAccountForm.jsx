@@ -18,6 +18,7 @@ function DeleteAppAccountForm() {
   const { mutateAsync: logOut } = useLogout();
   const { user } = useUser();
   const { mutateAsync: updateUser } = useUpdateUserInformation();
+
   const onSubmit = async (formDatas) => {
     //! Current password is true or not
     const isCorrectPassword = await verifyUserPassword(
@@ -61,7 +62,6 @@ function DeleteAppAccountForm() {
         <Grid item xs={6}>
           <CustomTextField
             id="password"
-            // type="text"
             label="Password"
             register={{
               ...register("password"),
@@ -69,7 +69,7 @@ function DeleteAppAccountForm() {
           />
         </Grid>
         <Grid item xs={6}>
-          <CustomButton buttonText="Delete Account" type="submit" />
+          <CustomButton buttonText="Delete" type="submit" />
         </Grid>
       </Grid>
     </form>

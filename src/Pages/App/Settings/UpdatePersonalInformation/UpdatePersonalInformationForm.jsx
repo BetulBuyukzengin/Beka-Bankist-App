@@ -4,7 +4,6 @@ import { subYears } from "date-fns";
 import { MuiTelInput, matchIsValidTel } from "mui-tel-input";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { toast } from "react-toastify";
 import styled from "styled-components";
 import CustomButton from "../../../../Components/CustomButton/CustomButton";
 import CustomTextField from "../../../../Components/CustomTextField/CustomTextField";
@@ -104,7 +103,6 @@ function UpdatePersonalInformationForm({ setOpen, isPersonalDatas }) {
               label="Identification number"
               type="number"
               defaultValue={currentUser?.identificationNumber}
-              // value
               register={{
                 ...register("identificationNumber", {
                   required: "Identification number is required!",
@@ -113,9 +111,6 @@ function UpdatePersonalInformationForm({ setOpen, isPersonalDatas }) {
                     "Identification number should be 11 characters long!",
                 }),
               }}
-              //for type text
-              // inputProps={{ maxLength: identificationNumberCharacter }}
-              //for type number
               inputProps={{
                 onInput: (e) => {
                   if (e.target.value.length > identificationNumberCharacter) {
@@ -157,10 +152,7 @@ function UpdatePersonalInformationForm({ setOpen, isPersonalDatas }) {
             <StyledMuiTelInput
               label="Phone number"
               preferredCountries={["TR", "US", "KR"]}
-              // defaultCountry="TR"
               value={phoneNumber}
-              // MenuProps={{ onClose: () => setPhoneNumber("") }}
-              // defaultValue={selectedAccount?.phoneNumber}
               {...register("applicantPhoneNumber", {
                 // required: "Phone Number is required!",
                 validate: (value) =>
@@ -180,8 +172,6 @@ function UpdatePersonalInformationForm({ setOpen, isPersonalDatas }) {
               width="tall"
               label="Birthday"
               value={birthday}
-              // defaultValue={new Date(currentUser?.birthday)}
-              // {...register("birthday")}
               slotProps={{
                 popper: { placement: "right-start" },
               }}
@@ -216,7 +206,7 @@ function UpdatePersonalInformationForm({ setOpen, isPersonalDatas }) {
           <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
             <CustomButton
               type="submit"
-              buttonText={isPersonalDatas ? "Update User" : "Add Personal Info"}
+              buttonText={isPersonalDatas ? "Update " : "Add "}
             />
           </Grid>
         </Grid>
