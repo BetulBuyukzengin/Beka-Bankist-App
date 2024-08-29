@@ -7,6 +7,7 @@ function CustomSelect({
   data,
   width,
   disabled,
+  disabledMenuItem,
   register,
   helperText,
   error,
@@ -20,7 +21,7 @@ function CustomSelect({
           color: "var(--color-text)",
           backgroundColor: "transparent",
           opacity: disabled ? "0.6!important" : "1!important",
-          width: width ? "40%!important" : "100%!important",
+          width: width,
           "&> .Mui-disabled": {
             WebkitTextFillColor: "var(--color-text)",
           },
@@ -98,7 +99,11 @@ function CustomSelect({
             justifyContent: "space-between",
           }}
           value={item.value}
-          disabled={openedBankNames?.includes(item.value) || item.value === ""}
+          disabled={
+            openedBankNames?.includes(item.value) ||
+            item.value === "" ||
+            (item.value === "clearFilter" && disabledMenuItem)
+          }
         >
           {item.content}
           {openedBankNames?.includes(item.value) ? (
