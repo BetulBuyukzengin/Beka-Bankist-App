@@ -93,6 +93,7 @@ function AccountNumberTab() {
             data={bankContent}
             value={searchParams.get("selected-bank") || ""}
             defaultValue=""
+            width="100%"
             register={{
               ...register("recipientBankName"),
             }}
@@ -107,6 +108,8 @@ function AccountNumberTab() {
         </Grid>
         <Grid item xs={6}>
           <CustomSelect
+              width="100%"
+
             data={branchContent}
             value={searchParams.get("selected-branch") || ""}
             defaultValue=""

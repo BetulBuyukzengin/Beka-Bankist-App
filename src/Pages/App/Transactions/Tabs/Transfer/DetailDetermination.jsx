@@ -118,7 +118,7 @@ function DetailDetermination() {
         >
           <CustomSelect
             value={searchParams.get("payment-method") || ""}
-            width="short"
+            width="40%"
             data={paymentMethod}
             defaultValue=""
             register={register("paymentMethod")}

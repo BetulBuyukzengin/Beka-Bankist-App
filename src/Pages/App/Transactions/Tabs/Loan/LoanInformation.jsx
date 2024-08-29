@@ -171,6 +171,7 @@ export default function LoanInformation() {
 
       <Grid item xs={3}>
         <CustomSelect
+              width="100%"
           data={paymentPeriods}
           value={searchParams.get("selectedPaymentPeriod") || ""}
           defaultValue=""
