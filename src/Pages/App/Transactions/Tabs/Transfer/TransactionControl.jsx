@@ -1,8 +1,12 @@
 import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
-import styled from "styled-components";
+import Paper from "@mui/material/Paper";
+import { DatePicker } from "@mui/x-date-pickers";
+import { useState } from "react";
 import { useFormContext } from "react-hook-form";
+import { useSearchParams } from "react-router-dom";
+import styled from "styled-components";
+import { transferPrice } from "../../../../../Constants/constants";
 import {
   formatArrayWord,
   formatCurrency,
@@ -10,10 +14,6 @@ import {
   formatWord,
   generatePaymentMethod,
 } from "../../../../../utils/utils";
-import { useState } from "react";
-import { useSearchParams } from "react-router-dom";
-import { DatePicker } from "@mui/x-date-pickers";
-import { transferPrice } from "../../../../../Constants/constants";
 
 const StyledBox = styled(Box)`
   background-color: transparent;
@@ -68,7 +68,9 @@ export default function TransactionControl() {
 
   setValue(
     "status",
-    (getStatus === "New Recipient" || getStatus === "Registered Recipients") &&
+    (getStatus === "New Recipient" ||
+      getStatus === "Registered Recipients" ||
+      getStatus === "Transfer") &&
       "Transfer"
   );
 
@@ -83,9 +85,11 @@ export default function TransactionControl() {
     selectedAccount,
     transferDescription,
     amountToSend,
+    registeredRecipient,
   } = getValues();
-
   const { accountNumber, balance } = JSON.parse(selectedAccount);
+
+  const registered = registeredRecipient && JSON.parse(registeredRecipient);
   return (
     <Box
       sx={{
@@ -105,27 +109,51 @@ export default function TransactionControl() {
       >
         <StyledGrid item xs={8}>
           <StyledItem>Recipient Account</StyledItem>
-          <StyledBox>
-            <div style={styleMarginRight}>
-              Full Name:
-              {formatArrayWord(recipientFullNameWithAccount) ||
-                formatArrayWord(recipientFullNameWithIban)}
-            </div>
-            {recipientBankName && (
+          {!registered ? (
+            <StyledBox>
               <div style={styleMarginRight}>
-                Bank Name: {formatWord(recipientBankName)}
+                Full Name:
+                {formatArrayWord(recipientFullNameWithAccount) ||
+                  formatArrayWord(recipientFullNameWithIban)}
               </div>
-            )}
-            {recipientBankBranch && (
+              {recipientBankName && (
+                <div style={styleMarginRight}>
+                  Bank Name: {formatWord(recipientBankName)}
+                </div>
+              )}
+              {recipientBankBranch && (
+                <div style={styleMarginRight}>
+                  Bank Branch: {formatWord(recipientBankBranch)}
+                </div>
+              )}
+              <div>
+                {recipientAccountNumber ? "Account Number" : "Iban"}:{" "}
+                {recipientAccountNumber || recipientIban}
+              </div>
+            </StyledBox>
+          ) : (
+            <StyledBox>
               <div style={styleMarginRight}>
-                Bank Branch: {formatWord(recipientBankBranch)}
+                Full Name:
+                {formatArrayWord(registered.recipientFullNameWithAccount) ||
+                  formatArrayWord(registered.recipientFullNameWithIban)}
               </div>
-            )}
-            <div>
-              {recipientAccountNumber ? "Account Number" : "Iban"}:{" "}
-              {recipientAccountNumber || recipientIban}
-            </div>
-          </StyledBox>
+              {registered.recipientBankName && (
+                <div style={styleMarginRight}>
+                  Bank Name: {formatWord(registered.recipientBankName)}
+                </div>
+              )}
+              {registered.recipientBankBranch && (
+                <div style={styleMarginRight}>
+                  Bank Branch: {formatWord(registered.recipientBankBranch)}
+                </div>
+              )}
+              <div>
+                {registered.recipientAccountNumber ? "Account Number" : "Iban"}:{" "}
+                {registered.recipientAccountNumber || registered.recipientIban}
+              </div>
+            </StyledBox>
+          )}
         </StyledGrid>
 
         <StyledGrid item xs={8}>
@@ -150,7 +178,9 @@ export default function TransactionControl() {
         <StyledGrid item xs={8}>
           <StyledItem>Description </StyledItem>
           <StyledBox>
-            <StyledLabel>{formatArrayWord(transferDescription)}</StyledLabel>
+            <StyledLabel>
+              {formatArrayWord(transferDescription) || "Not spesified"}
+            </StyledLabel>
           </StyledBox>
         </StyledGrid>
         <StyledGrid item xs={8}>
@@ -161,13 +191,14 @@ export default function TransactionControl() {
         </StyledGrid>
         <StyledGrid item xs={8}>
           <StyledItem>Transaction Date</StyledItem>
-
           <DatePicker
             value={date}
+            format="dd/MM/yyyy"
             onChange={(newValue) => {
               setDate(newValue);
               setValue("transactionDate", newValue);
             }}
+            disabled
             sx={{
               marginTop: "1rem",
               width: "70%",
