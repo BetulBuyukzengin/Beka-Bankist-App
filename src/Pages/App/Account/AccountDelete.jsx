@@ -4,27 +4,15 @@ import { useSearchParams } from "react-router-dom";
 import CustomModal from "../../../Components/CustomModal/CustomModal";
 import CustomRadio from "../../../Components/CustomRadio/CustomRadio";
 import DeleteAccountConfirmationScreen from "./DeleteAccountConfirmationScreen";
-
-// Test
 import { useDeleteAccount } from "../../../services/accountServices";
+import Loader from "../../../Components/Loader/Loader";
 
 function AccountDelete() {
   const methods = useForm();
   const [searchParams, setSearchParams] = useSearchParams();
   const [open, setOpen] = useState(false);
   const accountToDelete = JSON.parse(searchParams.get("selectedAccount"));
-  const accountId = accountToDelete.id;
-
   const { mutateAsync: deleteAccount, isPending } = useDeleteAccount();
-
-  const onSubmit = async () => {
-    await deleteAccount(accountId, {
-      onSuccess: () => {
-        setOpen(false);
-        clearSearchParams();
-      },
-    });
-  };
 
   function handleChange(value) {
     searchParams.set("selectedAccount", value);
@@ -37,7 +25,16 @@ function AccountDelete() {
       setSearchParams(searchParams);
     }
   }
-  if (isPending) return console.log("siliiniyor");
+  const onSubmit = async () => {
+    await deleteAccount(accountToDelete?.id, {
+      onSuccess: () => {
+        setOpen(false);
+        clearSearchParams();
+      },
+    });
+  };
+
+  if (isPending) return <Loader />;
   return (
     <FormProvider {...methods}>
       <CustomRadio
