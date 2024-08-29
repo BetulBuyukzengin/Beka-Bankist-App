@@ -13,7 +13,11 @@ const StyledMenu = styled.div`
   display: flex;
   justify-content: end;
 `;
-export default function MenuIcon({ toPDF }) {
+export default function MenuIcon({
+  toPDF,
+  isMovementsTable,
+  sortAndFilterOptions,
+}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const open = Boolean(anchorEl);
@@ -48,22 +52,34 @@ export default function MenuIcon({ toPDF }) {
         PaperProps={{
           style: {
             maxHeight: ITEM_HEIGHT * 4.5,
-            width: "20ch",
+            width: isMovementsTable ? "30ch" : "20ch",
           },
         }}
       >
-        {options.map((option) => (
-          <MenuItem
-            key={option}
-            selected={option === "Download (pdf)"}
-            onClick={() => {
-              toPDF();
-              handleClose();
-            }}
-          >
-            {option}
-          </MenuItem>
-        ))}
+        {isMovementsTable
+          ? sortAndFilterOptions?.map((option) => (
+              <MenuItem
+                key={option.label}
+                selected={option}
+                onClick={() => {
+                  handleClose();
+                }}
+              >
+                {option.component}
+              </MenuItem>
+            ))
+          : options?.map((option) => (
+              <MenuItem
+                key={option}
+                selected={option === "Download (pdf)"}
+                onClick={() => {
+                  toPDF();
+                  handleClose();
+                }}
+              >
+                {option}
+              </MenuItem>
+            ))}
       </Menu>
     </StyledMenu>
   );
