@@ -46,9 +46,10 @@ function AmountDetermination() {
   // findMostFrequent(array)
   const { movements, isLoading } = useMovements();
   const amountToSends = movements
-    .filter((movement) => movement.status === "Transfer")
-    .map((movement) => movement.amountToSend);
-  const frequentlyAmount = findMostFrequent(amountToSends);
+    ?.filter((movement) => movement.status === "Transfer")
+    ?.map((movement) => movement.amountToSend);
+  // if (!amountToSends) return;
+  // const frequentlyAmount = findMostFrequent(amountToSends);
 
   function handleClick() {
     setAmountToSendValue(frequentlyAmount);
@@ -96,7 +97,8 @@ function AmountDetermination() {
     },
     [currentStatus]
   );
-
+  if (!amountToSends) return;
+  let frequentlyAmount = findMostFrequent(amountToSends);
   return (
     <Grid container spacing={2}>
       <Grid item xs={12} sx={GridStyle}>
