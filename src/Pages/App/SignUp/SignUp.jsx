@@ -96,7 +96,6 @@ function SignUp() {
   const { isLoading, mutate: signUp } = useSignUp();
 
   function onSubmit(data) {
-    // console.log(data);
     signUp(data);
     reset();
   }

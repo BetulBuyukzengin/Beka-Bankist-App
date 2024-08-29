@@ -49,12 +49,6 @@ function PaidLoans() {
 
   const { data: loans } = useGetLoan();
   const paidLoans = loans?.filter((loan) => loan.isCreditPaid);
-  // const parsedPaidLoansPaymentPlan =
-  //   paidLoans && JSON.parse(paidLoansPaymentPlan);
-  // console.log(paidLoans);
-  const paidLoanPaymentPlan = paidLoans.map((loan) =>
-    JSON.parse(loan.applicantPaymentPlan)
-  );
   if (!paidLoans.length)
     return (
       <div
@@ -165,7 +159,6 @@ const PaidLoanPaymentTable = ({ loanId, setOpenLoanTable }) => {
   const { data } = useGetLoan();
   const selectedLoan = data?.find((loan) => loan.id === loanId);
   const paymentPlan = JSON.parse(selectedLoan.applicantPaymentPlan);
-  // console.log(loanId, selectedLoan);
   return (
     <>
       <span

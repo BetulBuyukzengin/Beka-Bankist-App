@@ -24,7 +24,6 @@ function UpdatePasswordForm({ setOpen }) {
   const { isPending, mutateAsync: updatePassword } = useUpdateUserInformation();
   const { user } = useUser();
   const onSubmit = async (data) => {
-    // console.log(data);
     // current password is true or not
     await verifyUserPassword(user.email, data.currentPassword);
     // if current password is true then update password

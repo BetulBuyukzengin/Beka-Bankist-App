@@ -6,7 +6,7 @@ import TransferMoneyTab from "./Tabs/Transfer/TransferMoneyTab";
 import WithdrawTab from "./Tabs/Withdraw/WithdrawTab";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import Loader from "../../../Components/Loader/Loader";
-import { useGetRegisteredRecipient } from "../../../services/registeredRecipientsServices";
+import { useGetRegisteredRecipients } from "../../../services/registeredRecipientsServices";
 
 const content = [
   {
@@ -34,7 +34,7 @@ function Transactions() {
   const prevParamValueRef = useRef(null);
   const navigate = useNavigate();
   const currentParamValue = searchParams.get("transactions-tab");
-  const { isLoading } = useGetRegisteredRecipient();
+  const { isLoading } = useGetRegisteredRecipients();
   const mainTabLabel = content.map((tab) => tab.label);
 
   //! Important
