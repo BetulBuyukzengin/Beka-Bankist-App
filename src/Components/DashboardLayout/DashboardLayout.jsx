@@ -1,50 +1,46 @@
-import * as React from "react";
-import { styled as muiStyled } from "@mui/material/styles";
-import { useTheme } from "@mui/material/styles";
-import Box from "@mui/material/Box";
-import MuiDrawer from "@mui/material/Drawer";
-import MuiAppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import List from "@mui/material/List";
-import CssBaseline from "@mui/material/CssBaseline";
-import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
+import { CurrencyExchange } from "@mui/icons-material";
+import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import ListItem from "@mui/material/ListItem";
-import ListIconButton from "./ListIconButton";
-import TimelineIcon from "@mui/icons-material/Timeline";
-import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
-import CustomAvatar from "../Avatar/Avatar";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
-import { useDarkMode } from "../../../src/Contexts/DarkModeContext";
-import { styled } from "styled-components";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { useLogout, useUser } from "../../services/userServices";
-import AppLayout from "../../Pages/App/AppLayout";
-import Protected from "../../Components/Protected/Protected";
-import { ListItemIcon, ListItemText, Tooltip } from "@mui/material";
-import { CurrencyExchange } from "@mui/icons-material";
+import MenuIcon from "@mui/icons-material/Menu";
 import SettingsSuggestIcon from "@mui/icons-material/SettingsSuggest";
-import { calcRemainingLimitResetTime } from "../../utils/utils";
-import {
-  useDailyRemainingLimit,
-  useGetAccounts,
-} from "../../services/accountServices";
+import TimelineIcon from "@mui/icons-material/Timeline";
+import { ListItemIcon, ListItemText, Tooltip } from "@mui/material";
+import MuiAppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import CssBaseline from "@mui/material/CssBaseline";
+import Divider from "@mui/material/Divider";
+import MuiDrawer from "@mui/material/Drawer";
+import IconButton from "@mui/material/IconButton";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import { styled as muiStyled, useTheme } from "@mui/material/styles";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import * as React from "react";
+import { useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
+import { styled } from "styled-components";
+import { useDarkMode } from "../../../src/Contexts/DarkModeContext";
+import Protected from "../../Components/Protected/Protected";
 import {
   dailyDepositLimit,
   dailyTransferLimit,
   dailyWithdrawLimit,
 } from "../../Constants/constants";
-import { useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
-import { useCurrentUser } from "../../Hooks/useCurrentUser";
 import { useIsUserInformation } from "../../Hooks/useIsUserInformation";
-import Loader from "../Loader/Loader";
-import AutoLogout from "../AutoLogout/AutoLogout";
+import AppLayout from "../../Pages/App/AppLayout";
+import {
+  useDailyRemainingLimit,
+  useGetAccounts,
+} from "../../services/accountServices";
+import { useLogout, useUser } from "../../services/userServices";
+import { calcRemainingLimitResetTime } from "../../utils/utils";
+import CustomAvatar from "../Avatar/Avatar";
+import ListIconButton from "./ListIconButton";
 const drawerWidth = 240;
 
 const StyledLink = styled.a`
@@ -153,7 +149,7 @@ export default function DashboardLayout() {
   const [endTime, setEndTime] = React.useState(false);
   const { isInformationsCompleted } = useIsUserInformation();
   const { user } = useUser();
-  console.log(user);
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -221,7 +217,7 @@ export default function DashboardLayout() {
           backgroundColor: "var(--color-background)",
         }}
       >
-        <AutoLogout />
+        {/* <AutoLogout /> */}
         <CssBaseline />
         <AppBar
           position="fixed"
