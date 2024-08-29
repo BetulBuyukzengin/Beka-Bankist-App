@@ -13,9 +13,9 @@ function Withdraw() {
           type="number"
           id="loadMoney"
           label="Amount to withdraw"
-          register={{ ...register("amountToWithdrawMyAccount") }}
-          helperText={errors?.amountToWithdrawMyAccount?.message}
-          error={errors?.amountToWithdrawMyAccount}
+          register={{ ...register("amountToSend") }}
+          helperText={errors?.amountToSend?.message}
+          error={errors?.amountToSend}
         />
       </Grid>
     </Grid>

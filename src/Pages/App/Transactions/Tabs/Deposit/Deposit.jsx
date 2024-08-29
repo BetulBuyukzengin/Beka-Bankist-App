@@ -9,8 +9,6 @@ function Deposit() {
     formState: { errors },
   } = useFormContext();
   const [searchParams] = useSearchParams();
-  const selectedAccount = JSON.parse(searchParams.get("selectedAccount"));
-  console.log(selectedAccount);
   return (
     <Grid container sx={{ padding: "1rem" }}>
       <Grid item xs={12}>
@@ -20,10 +18,10 @@ function Deposit() {
           label="Amount to be deposit"
           type="number"
           register={{
-            ...register("amountToBeDepositMyAccount"),
+            ...register("amountToSend"),
           }}
-          helperText={errors?.amountToBeDepositMyAccount?.message}
-          error={errors?.amountToBeDepositMyAccount}
+          helperText={errors?.amountToSend?.message}
+          error={errors?.amountToSend}
         />
       </Grid>
     </Grid>

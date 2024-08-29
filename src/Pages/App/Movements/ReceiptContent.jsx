@@ -117,8 +117,7 @@ export default function ReceiptContent({ row }) {
             >
               <StyledLabelTitle>Amount: </StyledLabelTitle>
               <StyledLabelDesc>
-                {formatCurrency(row?.amountToBeDepositMyAccount) ||
-                  formatCurrency(row?.amountToWithdrawMyAccount)}
+                {formatCurrency(row?.amountToSend)}
               </StyledLabelDesc>
             </Grid>
           </Grid>

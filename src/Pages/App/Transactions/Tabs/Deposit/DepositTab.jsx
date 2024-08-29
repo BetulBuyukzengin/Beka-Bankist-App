@@ -53,7 +53,8 @@ function DepositTab() {
         .required("This field is required!"),
     }),
     yup.object({
-      amountToBeDepositMyAccount: yup
+      // amountToBeDepositMyAccount: yup
+      amountToSend: yup
         .string()
         .test("max-check", function (value) {
           if (+value > currentDepositLimit && 0 !== currentDepositLimit) {
@@ -87,18 +88,18 @@ function DepositTab() {
   const currentStatus = searchParams.get("status");
 
   const onSubmit = async (data) => {
-    const { amountToBeDepositMyAccount } = data;
+    const { amountToSend } = data;
+
     const updatedAccount = {
       ...selectedAccount,
-      remainingDepositLimit:
-        currentDepositLimit - Number(amountToBeDepositMyAccount),
-      balance: currentBalance + Number(amountToBeDepositMyAccount),
+      remainingDepositLimit: currentDepositLimit - Number(amountToSend),
+      balance: currentBalance + Number(amountToSend),
     };
     await depositMoney({ id, account: updatedAccount });
     await createMovement({
       selectedAccount: updatedAccount,
       status: getStatus,
-      amountToBeDepositMyAccount,
+      amountToSend,
       user_id: JSON.parse(data.selectedAccount).user_id,
     });
     navigate("/applayout/account");
