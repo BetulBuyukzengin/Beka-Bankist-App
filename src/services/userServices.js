@@ -1,7 +1,7 @@
-import { supabase } from "../Supabase/supabase";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { supabase } from "../Supabase/supabase";
 
 async function signIn(credentials) {
   let { data, error } = await supabase.auth.signInWithPassword(credentials);
@@ -155,4 +155,43 @@ export function useUpdateUser() {
     },
   });
   return { mutateAsync, isLoading };
+}
+
+async function uploadImg(file) {
+  //! Firstly upload file
+  const { error: uploadError } = await supabase.storage
+    .from("UserImages")
+    .upload(file.name, file);
+
+  if (uploadError) throw new Error(uploadError.message);
+
+  //! Secondly create signed URL
+  const { data: signedUrlData, error: signedUrlError } = await supabase.storage
+    .from("UserImages")
+    .createSignedUrl(file.name, 60 * 60 * 24 * 365); // 1 saat geçerli olacak şekilde ayarla
+
+  if (signedUrlError) throw new Error(signedUrlError.message);
+
+  //! Update user's profile
+  await supabase.auth.updateUser({
+    data: {
+      image: signedUrlData.signedUrl,
+    },
+  });
+
+  //! URL to save on the user's profile
+  return signedUrlData.signedUrl;
+}
+
+export function useUploadImg() {
+  const queryClient = useQueryClient();
+  const { mutateAsync, isPending } = useMutation({
+    mutationFn: uploadImg,
+    mutationKey: ["upload"],
+    onSuccess: () => {
+      queryClient.invalidateQueries(["user"]);
+      toast.success("User profile successfully updated");
+    },
+  });
+  return { mutateAsync, isPending };
 }
