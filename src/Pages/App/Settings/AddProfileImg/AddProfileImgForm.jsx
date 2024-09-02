@@ -1,42 +1,10 @@
-// import { Paper } from "@mui/material";
-// import CustomButton from "../../../../Components/CustomButton/CustomButton";
-// import { useState } from "react";
-// import CustomModal from "../../../../Components/CustomModal/CustomModal";
-// import AddProfileImgPage from "./AddProfileImgPage";
-
-// function AddProfileImg() {
-//   const [openAddProfileModal, setOpenAddProfileModal] = useState(false);
-//   return (
-//     <>
-//       <Paper
-//         sx={{
-//           padding: "2rem",
-//           display: "flex",
-//           flexDirection: "column",
-//           gap: "1rem",
-//           backgroundColor: "var(--color-background)",
-//           border: "1px solid var(--color-gray)",
-//           color: "var(--color-text)",
-//         }}
-//       >
-//         <p>Add profile image</p>
-//         <CustomButton
-//           style={{ alignSelf: "center" }}
-//           buttonText="Add İmage"
-//           onClick={() => setOpenAddProfileModal(true)}
-//         />
-//       </Paper>
-//       <CustomModal open={openAddProfileModal} setOpen={setOpenAddProfileModal}>
-//         <AddProfileImgPage />
-//       </CustomModal>
-//     </>
-//   );
-// }
-
-// export default AddProfileImg;
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { Button, Paper } from "@mui/material";
 import { styled } from "@mui/material/styles";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { useUploadImg, useUser } from "../../../../services/userServices";
+import CustomButton from "../../../../Components/CustomButton/CustomButton";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -49,36 +17,51 @@ const VisuallyHiddenInput = styled("input")({
   whiteSpace: "nowrap",
   width: 1,
 });
+
 function AddProfileImgForm() {
+  const [file, setFile] = useState("");
+  const { handleSubmit } = useForm();
+  const { isPending, mutateAsync: uploadImg } = useUploadImg();
+  const { user } = useUser();
+  console.log(user.user_metadata);
+  const onSubmit = async () => {
+    await uploadImg(file);
+  };
+
   return (
-    <Paper
-      sx={{
-        padding: "2rem",
-        display: "flex",
-        flexDirection: "column",
-        gap: "1rem",
-        backgroundColor: "var(--color-background)",
-        border: "1px solid var(--color-gray)",
-        color: "var(--color-text)",
-      }}
-    >
-      {/* { ? "Update profile image" : "Add profile image"} */}
-      Add profile image
-      <Button
-        component="label"
-        role={undefined}
-        variant="contained"
-        tabIndex={-1}
-        startIcon={<CloudUploadIcon />}
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <Paper
+        sx={{
+          padding: "2rem",
+          display: "flex",
+          flexDirection: "column",
+          gap: "1rem",
+          backgroundColor: "var(--color-background)",
+          border: "1px solid var(--color-gray)",
+          color: "var(--color-text)",
+        }}
       >
-        Upload files
-        <VisuallyHiddenInput
-          type="file"
-          onChange={(event) => console.log(event.target.files)}
-          multiple
-        />
-      </Button>
-    </Paper>
+        {user.user_metadata.image
+          ? "Update profile image"
+          : "Add profile image"}
+        <Button
+          component="label"
+          role={undefined}
+          variant="contained"
+          tabIndex={-1}
+          startIcon={<CloudUploadIcon />}
+          disabled={isPending}
+        >
+          Upload files
+          <VisuallyHiddenInput
+            type="file"
+            onChange={(event) => setFile(event.target.files[0])}
+            multiple
+          />
+        </Button>
+        <CustomButton disabled={isPending} buttonText="denden" type="submit" />
+      </Paper>
+    </form>
   );
 }
 
