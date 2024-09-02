@@ -144,7 +144,7 @@ export default function DashboardLayout() {
   const { mutateAsync: logout } = useLogout();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const { accounts, isLoading } = useGetAccounts();
+  const { accounts } = useGetAccounts();
   const { mutateAsync: updateDailyLimits } = useDailyRemainingLimit();
   const [endTime, setEndTime] = React.useState(false);
   const { isInformationsCompleted } = useIsUserInformation();
