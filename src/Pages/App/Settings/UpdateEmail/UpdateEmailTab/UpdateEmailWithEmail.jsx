@@ -68,6 +68,7 @@ function UpdateEmailWithEmail({ setOpen }) {
         setOpen(false);
       }
     } catch (error) {
+      throw new Error(error.message);
     }
   };
 
