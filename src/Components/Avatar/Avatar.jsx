@@ -34,7 +34,6 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 }));
 
 export default function CustomAvatar({ user }) {
-  "https://zztdmxtwnkykekxoupjl.supabase.co/storage/v1/object/upload/sign/UserImages/IMG_20201129_232920.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvd25lciI6IjFkYjQ1YzU2LWE5YTktNGUwZi05MTYwLThjMmE0MzdiNmE1MyIsInVybCI6IlVzZXJJbWFnZXMvSU1HXzIwMjAxMTI5XzIzMjkyMC5qcGciLCJ1cHNlcnQiOmZhbHNlLCJpYXQiOjE3MjUzMDM3NzksImV4cCI6MTcyNTMxMDk3OX0.Evc44p5eVTq-3piZTQg8LCzWtvhiy3OSaknJWp1f_jg";
   return (
     <Stack direction="row" spacing={2}>
       <StyledBadge
