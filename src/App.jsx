@@ -18,6 +18,8 @@ import SignUp from "./Pages/App/SignUp/SignUp.jsx";
 import Transactions from "./Pages/App/Transactions/Transactions.jsx";
 import Presentational from "./Pages/Presentational/Presentational.jsx";
 import GlobalStyles from "./styles/GlobalStyles";
+import ForgotPassword from "./Pages/App/ForgotPassword/ForgotPassword.jsx";
+import CreatePassword from "./Pages/App/ForgotPassword/CreatePassword.jsx";
 
 const router = createBrowserRouter([
   {
@@ -29,12 +31,20 @@ const router = createBrowserRouter([
     Component: SignIn,
   },
   {
-    path: "/signup",
-    Component: SignUp,
+    path: "/forgotPassword",
+    Component: ForgotPassword,
+  },
+  {
+    path: "/recreatePassword",
+    Component: CreatePassword,
   },
   {
     path: "/accountRecovery",
     Component: AccountRecovery,
+  },
+  {
+    path: "/signup",
+    Component: SignUp,
   },
   {
     path: "/applayout",
