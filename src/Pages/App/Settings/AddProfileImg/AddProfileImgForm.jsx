@@ -39,6 +39,8 @@ function AddProfileImgForm() {
           backgroundColor: "var(--color-background)",
           border: "1px solid var(--color-gray)",
           color: "var(--color-text)",
+          justifyContent: "center",
+          alignItems: "center",
         }}
       >
         {user.user_metadata.image
@@ -51,15 +53,22 @@ function AddProfileImgForm() {
           tabIndex={-1}
           startIcon={<CloudUploadIcon />}
           disabled={isPending}
+          size="small"
+          sx={{ width: "30%" }}
         >
-          Upload files
+          Choose image
           <VisuallyHiddenInput
             type="file"
             onChange={(event) => setFile(event.target.files[0])}
             multiple
           />
         </Button>
-        <CustomButton disabled={isPending} buttonText="denden" type="submit" />
+        <CustomButton
+          disabled={isPending}
+          buttonText="Upload Image"
+          type="submit"
+          style={{ width: "30%" }}
+        />
       </Paper>
     </form>
   );
