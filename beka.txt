@@ -23,8 +23,9 @@
  ✅ If user has all necessary metadata then redirect user to "accounts" page, otherwise redirect "settings"
  ✅ Registered kullanıcıdann transfer işlemi yap
  ✅ Movements a filter & sort ekledim.
+ ✅ Profil fotoğrafı yükleme ve güncelleme 
  ❌ radiolarda hesap secerken bazen seçmıyor yazı uzerınde ona bak!!
- ❌ Profil fotoğrafı koyma, silme ve güncelleme 
+ ❌ Registered recipients yoksa yazı goster
  ❌ Movements table dekont mail send is not completed. 
  ❌ Forgot password
  ❌ Anlaşma modalını düzelt
@@ -35,6 +36,8 @@
  ❌ Bacnkground dark mode da renk değiştir
  ❌ Adres bilgileri api den çekilip select ile seçme ve haritada markup göster
  ❌ AccountCreate yerine CreateAccount şeklinde yapılabilir hepsını duzelt 
+ ❌ Eğer şifremi unuttum ile yeni şifre oluşturulduğunda mevcut hesap giriş yapılı ise otomatik olarak çıkış yapmalı.
+ ❔ Access token bazen null geliyor onu çözemedim.
  ❔ tab geçişlerinde error
  ❔ Aylık kredi ödemesi gerçekleştikten sonra ödeme butonu geç güncelleniyor!!!! ÖNEMLİ
  ❔ Account number tab ve with iban tab içerisindeki switchlerin resetField ile kullanımı
