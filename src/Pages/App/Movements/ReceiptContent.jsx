@@ -1,9 +1,10 @@
 /* eslint-disable react/prop-types */
+import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import styled from "styled-components";
-import MenuIcon from "../../../Components/MenuIcon/MenuIcon";
 import { usePDF } from "react-to-pdf";
+import styled from "styled-components";
+import CustomButton from "../../../Components/CustomButton/CustomButton";
 import { useUser } from "../../../services/userServices";
 import {
   formatArrayWord,
@@ -43,6 +44,8 @@ export default function ReceiptContent({ row }) {
   return (
     <StyledBox
       sx={{
+        display: "flex",
+        flexDirection: "column",
         flexGrow: 1,
         border: "1px solid var(--color-gray)",
         width:
@@ -50,7 +53,17 @@ export default function ReceiptContent({ row }) {
       }}
       ref={targetRef}
     >
-      <MenuIcon toPDF={toPDF} />
+      <CustomButton
+        style={{ display: "flex", alignSelf: "end" }}
+        onClick={toPDF}
+        buttonText={
+          <span>
+            <FileDownloadIcon sx={{ color: "white!important" }} /> Export as PDF
+          </span>
+        }
+        color="success"
+        variant="contained"
+      />
       <Box mb={4}>
         <h5>{formatArrayWord("beka bankist")}</h5>
       </Box>
