@@ -5,6 +5,7 @@ import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import { useForm } from "react-hook-form";
 import { useDarkMode } from "../../../Contexts/DarkModeContext";
+import { emailRegex } from "../../../Constants/constants";
 
 const StyledForm = styled.form`
   width: 100%;
@@ -53,8 +54,6 @@ const StyledButton = styled.button`
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   }
 `;
-
-const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function ContactForm() {
   const { isDarkMode } = useDarkMode();

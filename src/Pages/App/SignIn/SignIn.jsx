@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import styled from "styled-components";
 import { useDarkMode } from "../../../Contexts/DarkModeContext";
 import { useLogout, useSignIn } from "../../../services/userServices";
+import { emailRegex } from "../../../Constants/constants";
 
 const StyledForm = styled.form`
   width: 100%;
@@ -89,7 +90,6 @@ const StyledNavbar = styled.nav`
   backdrop-filter: blur(5px);
   top: 0;
 `;
-const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 // const toastMessage = {
 //   error:
 //     "Your account is deleted as you requested. If you wish to activate your account again, you can visit account recovery page",
@@ -177,6 +177,12 @@ function SignIn() {
         </div>
         <StyledLink to="/accountRecovery">
           <StyledButton>Account Recovery</StyledButton>
+        </StyledLink>
+        <StyledLink
+          to="/forgotPassword"
+          style={{ color: "var(--color-text)", textDecoration: "underline" }}
+        >
+          Forgot Password
         </StyledLink>
       </Paper>
     </StyledForm>
