@@ -10,7 +10,6 @@ import TableRow from "@mui/material/TableRow";
 import { format } from "date-fns";
 import { useState } from "react";
 import { usePDF } from "react-to-pdf";
-import { styled as styledComponents } from "styled-components";
 import CustomButton from "../../../../../Components/CustomButton/CustomButton";
 import CustomModal from "../../../../../Components/CustomModal/CustomModal";
 import { useGetLoan } from "../../../../../services/loanServices";
@@ -37,12 +36,6 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-const StyledTableFooter = styledComponents.div`
-  width: 100%;
-  padding: 1rem;
-  display: flex;
-  justify-content: space-between;
-`;
 function PaidLoans() {
   const [openLoanTable, setOpenLoanTable] = useState(false);
   const [selectedLoan, setSelectedLoan] = useState(null);

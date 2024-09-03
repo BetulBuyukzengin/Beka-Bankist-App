@@ -132,6 +132,7 @@ export default function CustomRadio({
   const { isLoading, accounts } = useGetAccounts();
 
   if (isLoading) return <Loader />;
+
   return (
     <RadioGroup
       aria-labelledby="selected-account-aria-label"

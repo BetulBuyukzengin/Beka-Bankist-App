@@ -3,7 +3,7 @@ import CustomTabs from "../../../../../Components/CustomTabs/CustomTabs";
 import NewRecipientTab from "./NewRecipientTab";
 import RegisteredRecipientsTab from "./RegisteredRecipientsTab";
 import { useSearchParams } from "react-router-dom";
-import { useForm, useFormContext } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 
 const content = [
   {
@@ -18,13 +18,7 @@ const content = [
 function RecipientAccount({ iban, setIban }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const { resetField } = useFormContext();
-  // const mainTabLabel = [];
 
-  // if (content.length === 4) {
-  //   content.map((tab) => {
-  //     mainTabLabel.push(tab.label);
-  //   });
-  // }
   const mainTabLabel = content.map((tab) => tab.label);
   useEffect(
     function () {

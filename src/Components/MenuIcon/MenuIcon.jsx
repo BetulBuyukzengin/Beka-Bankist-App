@@ -6,18 +6,12 @@ import MenuItem from "@mui/material/MenuItem";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import styled from "styled-components";
 
-const options = ["Download (pdf)", "Send by email (pdf)"];
-
 const ITEM_HEIGHT = 48;
 const StyledMenu = styled.div`
   display: flex;
   justify-content: end;
 `;
-export default function MenuIcon({
-  toPDF,
-  isMovementsTable,
-  sortAndFilterOptions,
-}) {
+export default function MenuIcon({ isMovementsTable, sortAndFilterOptions }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const open = Boolean(anchorEl);
@@ -56,30 +50,17 @@ export default function MenuIcon({
           },
         }}
       >
-        {isMovementsTable
-          ? sortAndFilterOptions?.map((option) => (
-              <MenuItem
-                key={option.label}
-                selected={option}
-                onClick={() => {
-                  handleClose();
-                }}
-              >
-                {option.component}
-              </MenuItem>
-            ))
-          : options?.map((option) => (
-              <MenuItem
-                key={option}
-                selected={option === "Download (pdf)"}
-                onClick={() => {
-                  toPDF();
-                  handleClose();
-                }}
-              >
-                {option}
-              </MenuItem>
-            ))}
+        {sortAndFilterOptions?.map((option) => (
+          <MenuItem
+            key={option.label}
+            selected={option}
+            onClick={() => {
+              handleClose();
+            }}
+          >
+            {option.component}
+          </MenuItem>
+        ))}
       </Menu>
     </StyledMenu>
   );
