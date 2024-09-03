@@ -25,6 +25,12 @@ function RegisteredRecipientsTab() {
     searchParams.set("registeredRecipient", value);
     setSearchParams(searchParams);
   }
+  if (registeredRecipients.length === 0)
+    return (
+      <div style={{ textAlign: "center", padding: "2rem 0" }}>
+        No registered users available...
+      </div>
+    );
   return (
     <Grid
       container
