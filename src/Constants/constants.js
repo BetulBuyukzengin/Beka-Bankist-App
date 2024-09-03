@@ -11,5 +11,6 @@ export const identificationNumberCharacter = 11;
 export const interestAmountConst = 5;
 export const hourInterval = 10800000; // every 3 hours
 export const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 export const addressRegex =
   /^(?<il>[a-zA-ZçÇğĞıİöÖşŞüÜ\s]+)\s+(?<ilce>[a-zA-ZçÇğĞıİöÖşŞüÜ\s]+)\s+(?<mahalle>[a-zA-ZçÇğĞıİöÖşŞüÜ\s]+)\s*[mM]ah\.\s*(?<sokak>[a-zA-ZçÇğĞıİöÖşŞüÜ\s]+)\s*[sS]ok\.\s*[nN]o\s*:\s*(?<daire>[0-9]+)$/;

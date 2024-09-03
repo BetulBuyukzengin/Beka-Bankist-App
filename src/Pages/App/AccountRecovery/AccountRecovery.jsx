@@ -2,11 +2,11 @@ import LoginIcon from "@mui/icons-material/Login";
 import { Grid, Paper, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import styled from "styled-components";
-import { useUpdateUserInformation } from "../../../services/authServices";
-import { useSignIn, useUser } from "../../../services/userServices";
-import { supabase } from "../../../Supabase/supabase";
 import { toast } from "react-toastify";
+import styled from "styled-components";
+import { emailRegex } from "../../../Constants/constants";
+import { useUpdateUserInformation } from "../../../services/authServices";
+import { useSignIn } from "../../../services/userServices";
 
 const StyledForm = styled.form`
   width: 100%;
@@ -87,7 +87,6 @@ const StyledNavbar = styled.nav`
   backdrop-filter: blur(5px);
   top: 0;
 `;
-const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const toastMessage = {
   success: "Account successfully recovered!",

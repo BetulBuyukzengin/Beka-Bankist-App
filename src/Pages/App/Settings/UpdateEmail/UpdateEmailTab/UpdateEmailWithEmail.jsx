@@ -54,7 +54,7 @@ function UpdateEmailWithEmail({ setOpen }) {
         data.password
       );
       if (isCorrectPassword) {
-        // Update email in authenticated
+        //! Update email in authenticated
         await supabase.auth.updateUser({
           email: data.newEmailAddress,
         });
