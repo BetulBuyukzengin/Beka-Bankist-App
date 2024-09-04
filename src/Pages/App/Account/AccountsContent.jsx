@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
-import Grid from "@mui/material/Grid";
+import { Typography } from "@mui/material";
 import Divider from "@mui/material/Divider";
+import Grid from "@mui/material/Grid";
 import styled from "styled-components";
 import {
   formatArrayWord,
@@ -8,39 +9,76 @@ import {
   formatCurrency,
   formatIBAN,
 } from "../../../utils/utils";
-import { useGetAccounts } from "../../../services/accountServices";
-const StyledTitle = styled.h4`
+
+const StyledTypographyH4 = styled(Typography)`
   font-size: 1.3rem;
+
+  @media (max-width: 48em) {
+    font-size: 1rem !important;
+  }
+  @media (max-width: 31.25em) {
+    font-size: 0.8rem !important;
+  }
+`;
+const StyledTypographyH6 = styled(Typography)`
+  font-size: 1.3rem;
+
+  @media (max-width: 48em) {
+    font-size: 0.9rem !important;
+  }
+  @media (max-width: 31.25em) {
+    font-size: 0.7rem !important;
+  }
 `;
 const StyledValue = styled.p`
   font-size: 1.2rem;
+  @media (max-width: 48em) {
+    font-size: 0.9rem !important;
+  }
+  @media (max-width: 31.25em) {
+    font-size: 0.7rem;
+  }
 `;
 const StyledImg = styled.img`
   width: 10%;
 `;
 function AccountsContent({ item }) {
   return (
-    <Grid container gap={5}>
+    <>
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          <h6>
+          <StyledTypographyH6
+            component="h6"
+            sx={{
+              "@media (max-width: 31.25em)": {
+                fontSize: ".9rem!important",
+              },
+            }}
+          >
             {formatArrayWord(item.bankBranch)}-{formatArrayWord(item.bankName)}
-          </h6>
+          </StyledTypographyH6>
         </Grid>
         <Grid item xs={12}>
-          <h6>{formatBankAccountNumber(item.accountNumber)}</h6>
+          <StyledTypographyH6 component="h6">
+            {formatBankAccountNumber(item.accountNumber)}
+          </StyledTypographyH6>
         </Grid>
         <Grid item xs={12}>
           <StyledImg src="../../../../public/img/card.png" />
         </Grid>
-      </Grid>
-      <Grid container spacing={2}>
+
         <Grid
           item
           xs={12}
-          sx={{ display: "grid", gridTemplateColumns: "2fr 3fr" }}
+          sx={{
+            display: "grid",
+            gridTemplateColumns: "2fr 3fr",
+            "@media (max-width: 31.25em)": {
+              gridTemplateColumns: "1fr 4fr",
+            },
+          }}
         >
-          <StyledTitle>Iban</StyledTitle>
+          <StyledTypographyH4 component="h4">Iban</StyledTypographyH4>
           <StyledValue>{formatIBAN(item.iban)}</StyledValue>
         </Grid>
         <Grid item xs={12} sx={{ marginBottom: "1rem" }}>
@@ -52,13 +90,19 @@ function AccountsContent({ item }) {
         <Grid
           item
           xs={12}
-          sx={{ display: "grid", gridTemplateColumns: "2fr 3fr" }}
+          sx={{
+            display: "grid",
+            gridTemplateColumns: "2fr 3fr",
+            "@media (max-width: 31.25em)": {
+              gridTemplateColumns: "1fr 4fr",
+            },
+          }}
         >
-          <StyledTitle>Balance</StyledTitle>
+          <StyledTypographyH4 component="h4">Balance</StyledTypographyH4>
           <StyledValue>{formatCurrency(item.balance)}</StyledValue>
         </Grid>
       </Grid>
-    </Grid>
+    </>
   );
 }
 export default AccountsContent;

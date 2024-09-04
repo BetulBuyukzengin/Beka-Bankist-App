@@ -26,7 +26,7 @@
  ✅ Profil fotoğrafı yükleme ve güncelleme 
  ✅ Forgot password
  ✅ Registered recipients yoksa mesaj goster
- ❌ radiolarda hesap secerken bazen seçmıyor yazı uzerınde ona bak!!
+ ✅ Radio ile hesap seçme hatası düzelt
  ❌ Anlaşma modalını düzelt
  ❌ Crypto-Borsa: Table / https://mui.com/material-ui/react-table/#sticky-header
  ❌ Dil destegini ayarla

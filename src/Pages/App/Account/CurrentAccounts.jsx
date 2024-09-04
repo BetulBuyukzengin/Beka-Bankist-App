@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useState } from "react";
 import AppSlider from "../../../Components/AppSlider/AppSlider";
 import CustomMenuIcon from "../../../Components/CustomMenuIcon/CustomMenuIcon";
@@ -38,19 +38,27 @@ function CurrentAccounts() {
   return (
     <>
       <Box
-        sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
       >
-        <h3
-          style={{
+        <Typography
+          component="h3"
+          sx={{
             backgroundColor: "var(--color-background)",
             color: "var(--color-text)",
             marginRight: "auto",
             marginLeft: "auto",
             marginBottom: 0,
+            "@media (max-width: 31.25em)": {
+              fontSize: "0.9rem",
+            },
           }}
         >
           MY ACCOUNTS
-        </h3>
+        </Typography>
         <CustomMenuIcon contents={menuIconContents} />
       </Box>
       <AppSlider />

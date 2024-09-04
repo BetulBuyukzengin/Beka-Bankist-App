@@ -1,6 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyles = createGlobalStyle`
+@import url("https://fonts.googleapis.com/css?family=Kanit:400");
 :root{
      &, &.light-mode {
         --color-text: #080808;
@@ -129,8 +130,8 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: 'Poppins';
-    font-weight: 700;
+    /* font-family: 'Poppins'; */
+    font-weight: 600;
     overflow-wrap: break-word;
     hyphens: auto;
 
@@ -148,6 +149,10 @@ svg{
 
 .MuiButtonBase-root:hover{
 background-color:var( --color-text-2);
+}
+
+.carousel-inner > div >div{
+display: block!important;
 }
 img {
   max-width: 100%;

@@ -58,6 +58,24 @@ const StyledLink = styled.a`
     transform: translateY(0);
   }
 `;
+
+const IconStyle = {
+  color: "var(--color-text)",
+  "@media (max-width: 48em)": {
+    fontSize: "1.2rem",
+  },
+  "@media (max-width: 31.25em)": {
+    // fontSize: "1.3rem!important",
+    fontSize: "1rem",
+  },
+};
+
+// const ListItemTextStyle=
+// const StyledListItemText = styled(ListItemText)`
+//                     opacity: open ? 1 : 0
+
+// `;
+
 const StyledButton = styled.button`
   border: none;
   color: var(--color-text);
@@ -246,15 +264,40 @@ export default function DashboardLayout() {
                 ...(open && { display: "none" }),
               }}
             >
-              <MenuIcon />
+              <MenuIcon sx={IconStyle} />
             </IconButton>
             <CustomAvatar user={user} />
-            <Typography variant="h6" noWrap component="div">
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              sx={{
+                "@media (max-width: 31.25em)": {
+                  fontSize: ".7rem",
+                },
+              }}
+            >
               {user?.user_metadata?.fullName}
             </Typography>
 
             <StyledLink onClick={toggleDarkMode}>
-              {isDarkMode ? <DarkModeIcon /> : <LightModeIcon />}
+              {isDarkMode ? (
+                <DarkModeIcon
+                  sx={{
+                    "@media (max-width: 31.25em)": {
+                      fontSize: "1rem",
+                    },
+                  }}
+                />
+              ) : (
+                <LightModeIcon
+                  sx={{
+                    "@media (max-width: 31.25em)": {
+                      fontSize: "1rem",
+                    },
+                  }}
+                />
+              )}
             </StyledLink>
             <StyledButton onClick={logout}>
               <LogoutIcon />
@@ -305,11 +348,7 @@ export default function DashboardLayout() {
                     path="/applayout/account"
                   >
                     <ListItemIcon>
-                      <AccountBalanceWalletIcon
-                        sx={{
-                          color: "var(--color-text)",
-                        }}
-                      />
+                      <AccountBalanceWalletIcon sx={IconStyle} />
                     </ListItemIcon>
                     <ListItemText
                       // primary="Accounts"
@@ -336,11 +375,7 @@ export default function DashboardLayout() {
                     path={"/applayout/movements"}
                   >
                     <ListItemIcon>
-                      <TimelineIcon
-                        sx={{
-                          color: "var(--color-text)",
-                        }}
-                      />
+                      <TimelineIcon sx={IconStyle} />
                     </ListItemIcon>
                     <ListItemText
                       primary="Movements"
@@ -368,11 +403,7 @@ export default function DashboardLayout() {
                     isTransactionButton
                   >
                     <ListItemIcon>
-                      <CurrencyExchange
-                        sx={{
-                          color: "var(--color-text)",
-                        }}
-                      />
+                      <CurrencyExchange sx={IconStyle} />
                     </ListItemIcon>
                     <ListItemText
                       primary="Transactions"
@@ -393,11 +424,7 @@ export default function DashboardLayout() {
                 <span>
                   <ListIconButton path={"/applayout/settings"}>
                     <ListItemIcon>
-                      <SettingsSuggestIcon
-                        sx={{
-                          color: "var(--color-text)",
-                        }}
-                      />
+                      <SettingsSuggestIcon sx={IconStyle} />
                     </ListItemIcon>
                     <ListItemText
                       primary="Settings"

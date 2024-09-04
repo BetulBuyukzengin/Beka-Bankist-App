@@ -38,7 +38,6 @@
         "react-to-pdf": "^1.0.1",
         "react-toastify": "^10.0.5",
         "reactstrap": "^9.2.2",
-        "sass": "^1.71.0",
         "styled-components": "^6.1.8",
         "yup": "^1.4.0"
     },

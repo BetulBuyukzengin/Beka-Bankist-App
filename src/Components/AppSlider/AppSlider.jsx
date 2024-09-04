@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import AccountContent from "../../Pages/App/Account/AccountsContent";
+import AccountsContent from "../../Pages/App/Account/AccountsContent";
 import { useState } from "react";
 import {
   Carousel,
@@ -31,6 +31,10 @@ const StyledCarouselControl = styled(CarouselControl)`
         : props.isDarkMode
         ? "url(../../../../../public/img/nextLight.png)!important"
         : "url(../../../../../public/img/nextDark.png)!important"};
+    @media (max-width: 31.25em) {
+      width: 1rem;
+      height: 1rem;
+    }
   }
 `;
 
@@ -68,7 +72,7 @@ function AppSlider() {
         onExited={() => setAnimating(false)}
       >
         <StyledCarouselCaption
-          captionHeader={<AccountContent item={item} />}
+          captionHeader={<AccountsContent item={item} />}
           captionText=""
         />
       </CarouselItem>
@@ -90,6 +94,12 @@ function AppSlider() {
         previous={previous}
         enableTouch
         interval={null}
+        style={{
+          "& > .carousel-inner": {
+            backgroundColor: "yellow!important",
+            // opacity: "0!important",
+          },
+        }}
       >
         <CarouselIndicators
           items={accounts}

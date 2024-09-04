@@ -44,7 +44,13 @@ export default function CustomAvatar({ user }) {
         <Avatar
           alt={user?.user_metadata?.fullName}
           src={user?.user_metadata?.image}
-          sx={{ objectFit: "contain" }}
+          sx={{
+            objectFit: "contain",
+            "@media (max-width: 31.25em)": {
+              width: "35px",
+              height: "35px",
+            },
+          }}
         />
       </StyledBadge>
     </Stack>
