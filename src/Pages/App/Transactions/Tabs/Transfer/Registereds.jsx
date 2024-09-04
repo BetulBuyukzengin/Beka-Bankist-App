@@ -1,14 +1,19 @@
 /* eslint-disable react/prop-types */
-import { NavigateNext } from "@mui/icons-material";
 import { useFormContext } from "react-hook-form";
 import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 
 const StyledH6 = styled.h6`
   text-align: start;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-text);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 `;
-const StyledTitleLabel = styled.label`
-  margin-right: 0.5rem;
+const StyledH5 = styled.h5`
+  text-align: start;
+  font-size: 1.1rem;
+  color: var(--color-text);
 `;
 
 const StyledCheckComponent = styled.div`
@@ -47,13 +52,10 @@ export default function Registereds({ registered, border }) {
         }}
       >
         <div>
-          <StyledH6>{registered?.recipientShortName}</StyledH6>
-          <StyledTitleLabel>
+          <StyledH5>{registered?.recipientShortName}</StyledH5>
+          <StyledH6>
             {registered?.recipientAccountNumber || registered?.recipientIban}
-          </StyledTitleLabel>
-        </div>
-        <div>
-          <NavigateNext />
+          </StyledH6>
         </div>
       </StyledCheckComponent>
     </>

@@ -24,19 +24,18 @@
  ✅ Registered kullanıcıdann transfer işlemi yap
  ✅ Movements a filter & sort ekledim.
  ✅ Profil fotoğrafı yükleme ve güncelleme 
+ ✅ Forgot password
+ ✅ Registered recipients yoksa mesaj goster
  ❌ radiolarda hesap secerken bazen seçmıyor yazı uzerınde ona bak!!
- ❌ Registered recipients yoksa yazı goster
- ❌ Movements table dekont mail send is not completed. 
- ❌ Forgot password
  ❌ Anlaşma modalını düzelt
  ❌ Crypto-Borsa: Table / https://mui.com/material-ui/react-table/#sticky-header
  ❌ Dil destegini ayarla
  ❌ Sayfanın text içeriğini düzenle
  ❌ Responsive
- ❌ Bacnkground dark mode da renk değiştir
- ❌ Adres bilgileri api den çekilip select ile seçme ve haritada markup göster
+ ❌ Background dark mode da renk değiştir
  ❌ AccountCreate yerine CreateAccount şeklinde yapılabilir hepsını duzelt 
- ❌ Eğer şifremi unuttum ile yeni şifre oluşturulduğunda mevcut hesap giriş yapılı ise otomatik olarak çıkış yapmalı.
+ ? Eğer şifremi unuttum ile yeni şifre oluşturulduğunda mevcut hesap giriş yapılı ise otomatik olarak çıkış yapmalı.
+ ? Adres bilgileri api den çekilip select ile seçme ve haritada markup göster
  ❔ Access token bazen null geliyor onu çözemedim.
  ❔ tab geçişlerinde error
  ❔ Aylık kredi ödemesi gerçekleştikten sonra ödeme butonu geç güncelleniyor!!!! ÖNEMLİ

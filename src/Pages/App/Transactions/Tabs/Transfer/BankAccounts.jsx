@@ -1,16 +1,21 @@
 /* eslint-disable react/prop-types */
 //! Custom radio yu reusable yap.
 import { formatCurrency, formatWord } from "../../../../../utils/utils";
-import { NavigateNext } from "@mui/icons-material";
 import { useFormContext } from "react-hook-form";
 import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 
-const StyledTitleLabel = styled.label`
-  margin-right: 0.5rem;
-`;
 const StyledH6 = styled.h6`
   text-align: start;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-text);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+`;
+const StyledH5 = styled.h5`
+  text-align: start;
+  font-size: 1.1rem;
+  color: var(--color-text);
 `;
 const StyledCheckComponent = styled.div`
   width: 100%;
@@ -62,17 +67,14 @@ export default function BankAccounts({ account, border, monthlyPayment }) {
         }}
       >
         <div>
-          <StyledH6>
+          <StyledH5>
             {`${formatWord(account.bankName)} - ${formatWord(
               account.bankBranch
             )}`}
-          </StyledH6>
-          <StyledTitleLabel>
+          </StyledH5>
+          <StyledH6>
             Kullanılabilir bakiye: {formatCurrency(account.balance)}
-          </StyledTitleLabel>
-        </div>
-        <div>
-          <NavigateNext />
+          </StyledH6>
         </div>
       </StyledCheckComponent>
     </>

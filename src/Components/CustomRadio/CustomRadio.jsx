@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/prop-types */
 import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
-import { useGetAccounts } from "../../services/accountServices";
-import Loader from "../Loader/Loader";
 import BankAccounts from "../../Pages/App/Transactions/Tabs/Transfer/BankAccounts";
 import Registereds from "../../Pages/App/Transactions/Tabs/Transfer/Registereds";
+import { useGetAccounts } from "../../services/accountServices";
+import Loader from "../Loader/Loader";
 
 export default function CustomRadio({
   register,
@@ -47,13 +47,9 @@ export default function CustomRadio({
                 <Radio
                   sx={{
                     height: "7rem",
-                    width: "17rem",
-                    position: "relative",
                     borderRadius: "0px",
-                    opacity: "0",
                     "&+span": {
                       width: "17rem",
-                      position: "absolute",
                     },
                   }}
                 />
