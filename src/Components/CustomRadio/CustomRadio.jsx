@@ -1,123 +1,10 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/prop-types */
-import { NavigateNext } from "@mui/icons-material";
 import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
-import { useSearchParams } from "react-router-dom";
-import styled from "styled-components";
 import { useGetAccounts } from "../../services/accountServices";
-import { formatCurrency, formatWord } from "../../utils/utils";
 import Loader from "../Loader/Loader";
-import { useFormContext } from "react-hook-form";
-
-const StyledH6 = styled.h6`
-  text-align: start;
-`;
-const StyledTitleLabel = styled.label`
-  margin-right: 0.5rem;
-`;
-
-const StyledCheckComponent = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 7% 9%;
-  border: 1px solid var(--color-border-2);
-`;
-function RegisteredCheckComp({ registered, border }) {
-  const [searchParams] = useSearchParams();
-  const {
-    formState: { errors },
-  } = useFormContext();
-  const registeredRecipient = JSON.parse(
-    searchParams.get("registeredRecipient")
-  );
-
-  return (
-    <>
-      <StyledCheckComponent
-        style={{
-          backgroundColor:
-            registered?.id === registeredRecipient?.id &&
-            "var(--color-background-3)",
-          border:
-            border === "standard"
-              ? "none"
-              : errors?.registeredRecipient
-              ? "1px solid var(--color-error)"
-              : registeredRecipient?.id === registered?.id &&
-                "1px solid var(--color-text-2)",
-        }}
-      >
-        <div>
-          <StyledH6>{registered.recipientShortName}</StyledH6>
-          <StyledTitleLabel>
-            {registered.recipientAccountNumber || registered.recipientIban}
-          </StyledTitleLabel>
-        </div>
-        <div>
-          <NavigateNext />
-        </div>
-      </StyledCheckComponent>
-    </>
-  );
-}
-function AccountCheckComp({ account, border, monthlyPayment }) {
-  const [searchParams] = useSearchParams();
-  const status = searchParams.get("status");
-
-  const selectedAccount = JSON.parse(searchParams.get("selectedAccount"));
-  const {
-    formState: { errors },
-  } = useFormContext();
-
-  const isBalanceNotEnough =
-    account?.id === selectedAccount?.id &&
-    monthlyPayment?.totalAmountToPay > selectedAccount?.balance;
-
-  return (
-    <>
-      <StyledCheckComponent
-        style={{
-          backgroundColor:
-            account?.accountNumber === selectedAccount?.accountNumber &&
-            "var(--color-text-2)",
-          border:
-            border === "standard"
-              ? "none"
-              : !selectedAccount && errors?.selectedAccount
-              ? "1px solid var(--color-error)"
-              : selectedAccount?.accountNumber === account?.accountNumber &&
-                ((status === "Deposit" &&
-                  selectedAccount.remainingDepositLimit === 0) ||
-                  (status === "Withdraw" &&
-                    selectedAccount.remainingWithdrawLimit === 0) ||
-                  (status === "Transfer" &&
-                    selectedAccount.remainingTransferLimit === 0) ||
-                  (selectedAccount.balance === 0 && errors?.selectedAccount))
-              ? "1px solid var(--color-error)"
-              : isBalanceNotEnough
-              ? "1px solid var(--color-error)"
-              : "none",
-        }}
-      >
-        <div>
-          <StyledH6>
-            {`${formatWord(account.bankName)} - ${formatWord(
-              account.bankBranch
-            )}`}
-          </StyledH6>
-          <StyledTitleLabel>
-            Kullanılabilir bakiye: {formatCurrency(account.balance)}
-          </StyledTitleLabel>
-        </div>
-        <div>
-          <NavigateNext />
-        </div>
-      </StyledCheckComponent>
-    </>
-  );
-}
+import BankAccounts from "../../Pages/App/Transactions/Tabs/Transfer/BankAccounts";
+import Registereds from "../../Pages/App/Transactions/Tabs/Transfer/Registereds";
 
 export default function CustomRadio({
   register,
@@ -172,7 +59,7 @@ export default function CustomRadio({
                 />
               }
               value={JSON.stringify(registered)}
-              label={<RegisteredCheckComp registered={registered} />}
+              label={<Registereds registered={registered} />}
             />
           ))
         : accounts.map((account) => (
@@ -187,7 +74,7 @@ export default function CustomRadio({
               control={<Radio />}
               value={JSON.stringify(account)}
               label={
-                <AccountCheckComp
+                <BankAccounts
                   account={account}
                   border={border}
                   monthlyPayment={monthlyPayment}

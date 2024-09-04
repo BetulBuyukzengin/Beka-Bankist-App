@@ -53,6 +53,10 @@ const transactionSteps = [
     component: <TransactionControl />,
   },
 ];
+
+
+
+
 export default function TransferMoneyTab() {
   const [activeStep, setActiveStep] = useState(0);
   const { createMovement, isCreating } = useCreateMovements();
