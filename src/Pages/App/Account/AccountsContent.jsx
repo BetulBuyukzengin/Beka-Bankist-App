@@ -11,7 +11,7 @@ import {
 } from "../../../utils/utils";
 
 const StyledTypographyH4 = styled(Typography)`
-  font-size: 1.3rem;
+  font-size: 1.2rem !important;
 
   @media (max-width: 48em) {
     font-size: 1rem !important;
@@ -21,7 +21,7 @@ const StyledTypographyH4 = styled(Typography)`
   }
 `;
 const StyledTypographyH6 = styled(Typography)`
-  font-size: 1.3rem;
+  font-size: 1.2rem !important;
 
   @media (max-width: 48em) {
     font-size: 0.9rem !important;
@@ -31,7 +31,7 @@ const StyledTypographyH6 = styled(Typography)`
   }
 `;
 const StyledValue = styled.p`
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   @media (max-width: 48em) {
     font-size: 0.9rem !important;
   }
@@ -49,11 +49,11 @@ function AccountsContent({ item }) {
         <Grid item xs={12}>
           <StyledTypographyH6
             component="h6"
-            sx={{
-              "@media (max-width: 31.25em)": {
-                fontSize: ".9rem!important",
-              },
-            }}
+            // sx={{
+            //   "@media (max-width: 31.25em)": {
+            //     fontSize: ".9rem!important",
+            //   },
+            // }}
           >
             {formatArrayWord(item.bankBranch)}-{formatArrayWord(item.bankName)}
           </StyledTypographyH6>

@@ -3,6 +3,31 @@ import { Chip, IconButton, TableCell, TableRow } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { formatCurrency, formatDate } from "../../../utils/utils";
+import styled from "styled-components";
+
+const StyledTableCell = styled(TableCell)`
+  color: var(--color-text);
+
+  @media (max-width: 48em) {
+    padding: 0 !important;
+    font-size: 0.8rem !important;
+  }
+
+  @media (max-width: 31.25em) {
+    padding: 0 !important;
+    font-size: 0.7rem !important;
+  }
+`;
+
+const KeyboardArrowStyle = {
+  color: "var(--color-text)",
+  "@media (max-width: 48em)": {
+    fontSize: "1.2rem !important",
+  },
+  "@media (max-width: 31.2em)": {
+    fontSize: "1rem !important",
+  },
+};
 
 function MainTableRow({ open, setOpen, row }) {
   return (
@@ -18,14 +43,33 @@ function MainTableRow({ open, setOpen, row }) {
           onClick={() => setOpen(!open)}
         >
           {open ? (
-            <KeyboardArrowUpIcon sx={{ color: "var(--color-text)" }} />
+            <KeyboardArrowUpIcon sx={KeyboardArrowStyle} />
           ) : (
-            <KeyboardArrowDownIcon sx={{ color: "var(--color-text)" }} />
+            <KeyboardArrowDownIcon sx={KeyboardArrowStyle} />
           )}
         </IconButton>
       </TableCell>
-      <TableCell component="th" scope="row" sx={{ color: "var(--color-text)" }}>
+      <TableCell
+        component="th"
+        scope="row"
+        sx={{
+          "@media (max-width:48em)": {
+            padding: "12px",
+          },
+          "@media (max-width:31.25em)": {
+            padding: "8px",
+          },
+        }}
+      >
         <Chip
+          sx={{
+            "@media (max-width:48em)": {
+              fontSize: ".8rem!important",
+            },
+            "@media (max-width:31.25em)": {
+              fontSize: ".7rem!important",
+            },
+          }}
           label={row.status}
           color={
             row.status === "Deposit"
@@ -36,10 +80,8 @@ function MainTableRow({ open, setOpen, row }) {
           }
         />
       </TableCell>
-      <TableCell sx={{ color: "var(--color-text)" }}>
-        {formatDate(row.createdAt)}
-      </TableCell>
-      <TableCell sx={{ color: "var(--color-text)" }}>
+      <StyledTableCell>{formatDate(row.createdAt)}</StyledTableCell>
+      <StyledTableCell>
         {/* {row.status === "Withdraw" || row.status === "Transfer" ? "-  " : ""} */}
         {/* {formatCurrency(
           row.amountToSend ||
@@ -47,7 +89,7 @@ function MainTableRow({ open, setOpen, row }) {
             row.amountToWithdrawMyAccount
         )} */}
         {formatCurrency(row.amountToSend)}
-      </TableCell>
+      </StyledTableCell>
     </TableRow>
   );
 }

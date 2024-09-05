@@ -2,6 +2,7 @@ import { TableCell, TableHead, TableRow, Tooltip } from "@mui/material";
 import MenuIcon from "../../../../Components/MenuIcon/MenuIcon";
 import CustomSelect from "../../../../Components/CustomSelect/CustomSelect";
 import { useSearchParams } from "react-router-dom";
+import styled from "styled-components";
 
 const sortMethods = [
   {
@@ -48,6 +49,14 @@ const filterMethods = [
   },
 ];
 
+const StyledTableCell = styled(TableCell)`
+  color: "var(--color-text)";
+  @media (max-width: 31.25em) {
+    padding: 0 !important;
+    font-size: 0.8rem !important;
+    /* font-size: 0.7rem !important; */
+  }
+`;
 function MainTableHead() {
   const [searchParams, setSearchParams] = useSearchParams();
   const filter = searchParams.get("filter");
@@ -117,27 +126,9 @@ function MainTableHead() {
             </span>
           </Tooltip>
         </TableCell>
-        <TableCell
-          sx={{
-            color: "var(--color-text)",
-          }}
-        >
-          Status
-        </TableCell>
-        <TableCell
-          sx={{
-            color: "var(--color-text)",
-          }}
-        >
-          Date
-        </TableCell>
-        <TableCell
-          sx={{
-            color: "var(--color-text)",
-          }}
-        >
-          Movements
-        </TableCell>
+        <StyledTableCell>Status</StyledTableCell>
+        <StyledTableCell>Date</StyledTableCell>
+        <StyledTableCell>Movements</StyledTableCell>
       </TableRow>
     </TableHead>
   );

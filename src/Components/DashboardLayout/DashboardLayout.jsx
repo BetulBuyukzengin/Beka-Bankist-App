@@ -8,7 +8,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import MenuIcon from "@mui/icons-material/Menu";
 import SettingsSuggestIcon from "@mui/icons-material/SettingsSuggest";
 import TimelineIcon from "@mui/icons-material/Timeline";
-import { ListItemIcon, ListItemText, Tooltip } from "@mui/material";
+import { ListItemText, Tooltip, ListItemIcon } from "@mui/material";
 import MuiAppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -42,6 +42,8 @@ import { calcRemainingLimitResetTime } from "../../utils/utils";
 import CustomAvatar from "../Avatar/Avatar";
 import ListIconButton from "./ListIconButton";
 const drawerWidth = 240;
+const drawerWidth2 = 200;
+const drawerWidth3 = 150;
 
 const StyledLink = styled.a`
   border: none;
@@ -65,16 +67,23 @@ const IconStyle = {
     fontSize: "1.2rem",
   },
   "@media (max-width: 31.25em)": {
-    // fontSize: "1.3rem!important",
     fontSize: "1rem",
   },
 };
 
-// const ListItemTextStyle=
-// const StyledListItemText = styled(ListItemText)`
-//                     opacity: open ? 1 : 0
+const StyledListItemText = styled(ListItemText)`
+  /* opacity: ${({ open }) => (open ? 1 : 0)}; */
 
-// `;
+  & > span {
+    @media (max-width: 48em) {
+      font-size: 0.8rem;
+    }
+
+    @media (max-width: 31.25em) {
+      font-size: 0.7rem;
+    }
+  }
+`;
 
 const StyledButton = styled.button`
   border: none;
@@ -92,11 +101,22 @@ const StyledButton = styled.button`
   }
 `;
 
+const StyledListItemIcon = styled(ListItemIcon)`
+  @media (max-width: 31.25em) {
+    min-width: 35px !important;
+  }
+`;
 const openedMixin = () => ({
   width: drawerWidth,
   backgroundColor: "var(--color-background-2)",
   color: "var(--color-text)",
   overflowX: "hidden",
+  "@media (max-width: 48em)": {
+    width: drawerWidth2,
+  },
+  "@media (max-width: 31.25em)": {
+    width: drawerWidth3,
+  },
 });
 
 const closedMixin = (theme) => ({
@@ -107,7 +127,7 @@ const closedMixin = (theme) => ({
   //   duration: theme.transitions.duration.leavingScreen,
   // }),
   overflowX: "hidden",
-  width: `calc(${theme.spacing(7)} + 1px)`,
+  width: `calc(${theme.spacing(6)} + 1px)`, //! width: calc(48px + 1px);
   [theme.breakpoints.up("sm")]: {
     width: `calc(${theme.spacing(8)} + 1px)`,
   },
@@ -132,6 +152,12 @@ const AppBar = muiStyled(MuiAppBar, {
   ...(open && {
     marginLeft: drawerWidth,
     width: `calc(100% - ${drawerWidth}px)`,
+    "@media (max-width: 48em)": {
+      width: `calc(100% - ${drawerWidth2}px)`,
+    },
+    "@media (max-width: 31.25em)": {
+      width: `calc(100% - ${drawerWidth3}px)`,
+    },
     transition: theme.transitions?.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
@@ -260,6 +286,13 @@ export default function DashboardLayout() {
               onClick={handleDrawerOpen}
               edge="start"
               sx={{
+                ...IconStyle,
+                "@media (max-width: 48em)": {
+                  marginLeft: "-10px",
+                },
+                "@media (max-width: 31.25em)": {
+                  marginLeft: "-5px",
+                },
                 marginRight: "auto",
                 ...(open && { display: "none" }),
               }}
@@ -272,6 +305,9 @@ export default function DashboardLayout() {
               noWrap
               component="div"
               sx={{
+                "@media (max-width: 48em)": {
+                  fontSize: ".9rem",
+                },
                 "@media (max-width: 31.25em)": {
                   fontSize: ".7rem",
                 },
@@ -284,6 +320,9 @@ export default function DashboardLayout() {
               {isDarkMode ? (
                 <DarkModeIcon
                   sx={{
+                    "@media (max-width: 48em)": {
+                      fontSize: "1.3rem",
+                    },
                     "@media (max-width: 31.25em)": {
                       fontSize: "1rem",
                     },
@@ -292,6 +331,9 @@ export default function DashboardLayout() {
               ) : (
                 <LightModeIcon
                   sx={{
+                    "@media (max-width: 48em)": {
+                      fontSize: "1.3rem",
+                    },
                     "@media (max-width: 31.25em)": {
                       fontSize: "1rem",
                     },
@@ -300,7 +342,18 @@ export default function DashboardLayout() {
               )}
             </StyledLink>
             <StyledButton onClick={logout}>
-              <LogoutIcon />
+              <LogoutIcon
+                sx={{
+                  // "&>svg": {
+                  "@media (max-width: 48em)": {
+                    fontSize: "1.3rem!important",
+                  },
+                  "@media (max-width: 31.25em)": {
+                    fontSize: "1rem!important",
+                  },
+                  // },
+                }}
+              />
             </StyledButton>
           </Toolbar>
         </AppBar>
@@ -347,15 +400,13 @@ export default function DashboardLayout() {
                     disabled={!isInformationsCompleted}
                     path="/applayout/account"
                   >
-                    <ListItemIcon>
+                    <StyledListItemIcon>
                       <AccountBalanceWalletIcon sx={IconStyle} />
-                    </ListItemIcon>
-                    <ListItemText
-                      // primary="Accounts"
+                    </StyledListItemIcon>
+                    <StyledListItemText
                       primary={
                         !accounts?.length ? "Create Account" : "Accounts"
                       }
-                      sx={{ opacity: open ? 1 : 0 }}
                     />
                   </ListIconButton>
                 </span>
@@ -374,13 +425,10 @@ export default function DashboardLayout() {
                     disabled={!isInformationsCompleted}
                     path={"/applayout/movements"}
                   >
-                    <ListItemIcon>
+                    <StyledListItemIcon>
                       <TimelineIcon sx={IconStyle} />
-                    </ListItemIcon>
-                    <ListItemText
-                      primary="Movements"
-                      sx={{ opacity: open ? 1 : 0 }}
-                    />
+                    </StyledListItemIcon>
+                    <StyledListItemText primary="Movements" />
                   </ListIconButton>
                 </span>
               </Tooltip>
@@ -402,13 +450,10 @@ export default function DashboardLayout() {
                     callback={setUrlParams}
                     isTransactionButton
                   >
-                    <ListItemIcon>
+                    <StyledListItemIcon>
                       <CurrencyExchange sx={IconStyle} />
-                    </ListItemIcon>
-                    <ListItemText
-                      primary="Transactions"
-                      sx={{ opacity: open ? 1 : 0 }}
-                    />
+                    </StyledListItemIcon>
+                    <StyledListItemText primary="Transactions" />
                   </ListIconButton>
                 </span>
               </Tooltip>
@@ -423,13 +468,10 @@ export default function DashboardLayout() {
               >
                 <span>
                   <ListIconButton path={"/applayout/settings"}>
-                    <ListItemIcon>
+                    <StyledListItemIcon>
                       <SettingsSuggestIcon sx={IconStyle} />
-                    </ListItemIcon>
-                    <ListItemText
-                      primary="Settings"
-                      sx={{ opacity: open ? 1 : 0 }}
-                    />
+                    </StyledListItemIcon>
+                    <StyledListItemText primary="Settings" />
                   </ListIconButton>
                 </span>
               </Tooltip>

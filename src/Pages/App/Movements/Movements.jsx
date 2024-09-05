@@ -15,6 +15,7 @@ function Movements() {
           textAlign: "center",
           marginBottom: 0,
           paddingTop: "1rem",
+          fontSize: "1.5rem",
         }}
       >
         MOVEMENTS

@@ -11,6 +11,15 @@ const ITEM_HEIGHT = 48;
 const ResponsiveMenuPaper = styled.div`
   max-height: ${ITEM_HEIGHT * 4.5}px;
   width: 20ch;
+  & > ul {
+    @media (max-width: 31.25em) {
+      padding: 0 !important;
+    }
+  }
+
+  @media (max-width: 48em) {
+    width: 17ch;
+  }
   @media (max-width: 31.25em) {
     width: 14ch;
   }
@@ -69,8 +78,11 @@ export default function CustomMenuIcon({ contents }) {
         {contents?.map((content, i) => (
           <MenuItem
             sx={{
+              "@media (max-width: 48em)": {
+                fontSize: ".9em",
+              },
               "@media (max-width: 31.25em)": {
-                fontSize: ".8em",
+                fontSize: ".7em",
               },
             }}
             key={i}

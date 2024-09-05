@@ -19,6 +19,21 @@ function Settings() {
       sx={{ justifyContent: "center", textAlign: "center" }}
     >
       <Grid item xs={6}>
+        <h3
+          style={{
+            backgroundColor: "var(--color-background)",
+            color: "var(--color-text)",
+            textAlign: "center",
+            marginBottom: 0,
+            paddingTop: "1rem",
+            fontSize: "1.5rem",
+          }}
+        >
+          SETTINGS
+        </h3>
+      </Grid>
+
+      <Grid item xs={6}>
         <PersonalInformationSettings
           isPersonalDatas={isInformationsCompleted}
         />

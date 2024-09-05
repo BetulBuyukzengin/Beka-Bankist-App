@@ -56,8 +56,10 @@ export default function MovementsTable() {
       component={Paper}
       sx={{
         backgroundColor: "var(--color-background)",
-        maxHeight: "65dvh",
-        minHeight: "65dvh",
+        // maxHeight: "65dvh",
+        // minHeight: "65dvh",
+
+        // overflowX: "visible",
       }}
     >
       <Table

@@ -33,7 +33,16 @@ export default function MenuIcon({ isMovementsTable, sortAndFilterOptions }) {
         onClick={handleClick}
         color="inherit"
       >
-        <MoreVertIcon />
+        <MoreVertIcon
+          sx={{
+            "@media (max-width: 31.25em)": {
+              fontSize: "1rem",
+            },
+            "@media (max-width: 48em)": {
+              fontSize: "1.2rem",
+            },
+          }}
+        />
       </IconButton>
       <Menu
         id="long-menu"

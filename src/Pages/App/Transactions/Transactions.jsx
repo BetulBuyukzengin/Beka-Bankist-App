@@ -62,6 +62,18 @@ function Transactions() {
 
   return (
     <div style={{ height: "78dvh", overflowY: "scroll" }}>
+      <h3
+        style={{
+          backgroundColor: "var(--color-background)",
+          color: "var(--color-text)",
+          textAlign: "center",
+          marginBottom: ".5rem",
+          paddingTop: "1rem",
+          fontSize: "1.5rem",
+        }}
+      >
+        TRANSACTIONS
+      </h3>
       <CustomTabs
         tabName="transactionsTab"
         content={content}

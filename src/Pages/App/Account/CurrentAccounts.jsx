@@ -52,6 +52,9 @@ function CurrentAccounts() {
             marginRight: "auto",
             marginLeft: "auto",
             marginBottom: 0,
+            fontSize: "1.5rem",
+            fontWeight: "bold",
+
             "@media (max-width: 31.25em)": {
               fontSize: "0.9rem",
             },
