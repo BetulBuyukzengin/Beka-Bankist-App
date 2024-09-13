@@ -10,7 +10,15 @@ const StyledButton = styled.button`
   background-color: transparent;
   border: none;
 `;
+const StyledTableCell = styled(TableCell)`
+  color: var(--color-text);
 
+  @media (max-width: 48em) {
+    text-align: center !important;
+    font-size: 0.8rem !important;
+    padding: 4px 0px !important;
+  }
+`;
 function DetailTableHead({ row }) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => {
@@ -19,43 +27,45 @@ function DetailTableHead({ row }) {
   const handleClose = () => setOpen(false);
   return (
     <TableHead>
-      <TableRow>
-        <TableCell sx={{ color: "var(--color-text)" }}>
-          Current Balance
-        </TableCell>
+      <TableRow
+      // sx={{
+      //   "@media (max-width:48em)": {
+      //     display: "flex",
+      //     flexDirection: "column",
+      //   },
+      // }}
+      >
+        <StyledTableCell>Current Balance</StyledTableCell>
         {row?.status === "Deposit" || row?.status === "Withdraw" ? (
           <>
-            <TableCell sx={{ color: "var(--color-text)" }}>
-              Account Holder
-            </TableCell>
-            <TableCell sx={{ color: "var(--color-text)" }}>
-              Account Number
-            </TableCell>
-            <TableCell sx={{ color: "var(--color-text)" }}>
-              Account IBAN
-            </TableCell>
+            <StyledTableCell>Account Holder</StyledTableCell>
+            <StyledTableCell>Account Number</StyledTableCell>
+            <StyledTableCell>Account IBAN</StyledTableCell>
           </>
         ) : (
           <>
-            <TableCell sx={{ color: "var(--color-text)" }}>
-              Sender Name
-            </TableCell>
-            <TableCell sx={{ color: "var(--color-text)" }}>
-              Sender Account Number
-            </TableCell>
-            <TableCell sx={{ color: "var(--color-text)" }}>
-              Recipient Name
-            </TableCell>
-            <TableCell sx={{ color: "var(--color-text)" }}>
+            <StyledTableCell>Sender Name</StyledTableCell>
+            <StyledTableCell>Sender Account Number</StyledTableCell>
+            <StyledTableCell>Recipient Name</StyledTableCell>
+            <StyledTableCell>
               {row?.recipientFullNameWithAccount
                 ? "Recipient Account Number"
                 : "Recipient Iban"}
-            </TableCell>
+            </StyledTableCell>
           </>
         )}
         <TableCell sx={{ color: "var(--color-text)", borderBottom: "none" }}>
           <StyledButton onClick={handleOpen}>
-            <Receipt />
+            <Receipt
+              sx={{
+                "@media (max-width:48em)": {
+                  fontSize: "1.2rem ",
+                },
+                "@media (max-width:31.28em)": {
+                  fontSize: "1rem ",
+                },
+              }}
+            />
           </StyledButton>
         </TableCell>
         <Modal

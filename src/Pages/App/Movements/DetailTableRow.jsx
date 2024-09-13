@@ -10,6 +10,19 @@ import {
 import Table from "@mui/material/Table";
 import DetailTableHead from "./TableHeads/DetailTableHead";
 import { formatCurrency } from "../../../utils/utils";
+import styled from "styled-components";
+
+const StyledTableCell = styled(TableCell)`
+  color: var(--color-text);
+  border-bottom: none !important;
+  @media (max-width: 48em) {
+    font-size: 0.8rem !important;
+  }
+
+  @media (max-width: 31.25em) {
+    font-size: 0.7rem !important;
+  }
+`;
 
 function DetailTableRow({ row, open }) {
   const selectedAccount = JSON.parse(row.selectedAccount);
@@ -20,118 +33,93 @@ function DetailTableRow({ row, open }) {
           paddingBottom: 0,
           paddingTop: 0,
           color: "var(--color-text)",
+          padding: "2px!important",
         }}
         colSpan={6}
       >
         <Collapse in={open} timeout="auto" unmountOnExit>
-          <Box sx={{ margin: 1 }}>
-            <Typography variant="h6" gutterBottom component="div">
+          <Box
+            sx={{
+              margin: 1,
+            }}
+          >
+            <Typography
+              variant="h6"
+              gutterBottom
+              component="div"
+              sx={{
+                "@media (max-width:48em)": {
+                  fontSize: ".9rem",
+                },
+                "@media (max-width:31.25em)": {
+                  fontSize: ".8rem",
+                },
+              }}
+            >
               Details
             </Typography>
             <Table size="small" aria-label="purchases">
               <DetailTableHead row={row} />
               <TableBody>
-                <TableRow>
-                  <TableCell
-                    sx={{ color: "var(--color-text)", borderBottom: "none" }}
+                <TableRow
+                // sx={{
+                //   "@media (max-width:48em)": {
+                //     display: "flex",
+                //     flexDirection: "column",
+                //   },
+                // }}
+                >
+                  <StyledTableCell
+                  // sx={{ color: "var(--color-text)", borderBottom: "none" }}
                   >
                     {formatCurrency(selectedAccount.balance)}
-                  </TableCell>
+                  </StyledTableCell>
                   {row.status === "Deposit" || row.status === "Withdraw" ? (
                     <>
                       {selectedAccount?.fullName && (
-                        <TableCell
-                          sx={{
-                            color: "var(--color-text)",
-                            borderBottom: "none",
-                          }}
-                        >
+                        <StyledTableCell>
                           {selectedAccount?.fullName}
-                        </TableCell>
+                        </StyledTableCell>
                       )}
                       {selectedAccount?.accountNumber && (
-                        <TableCell
-                          sx={{
-                            color: "var(--color-text)",
-                            borderBottom: "none",
-                          }}
-                        >
+                        <StyledTableCell>
                           {selectedAccount?.accountNumber}
-                        </TableCell>
+                        </StyledTableCell>
                       )}
                       {selectedAccount?.iban && (
-                        <TableCell
-                          sx={{
-                            color: "var(--color-text)",
-                            borderBottom: "none",
-                          }}
-                        >
+                        <StyledTableCell>
                           {selectedAccount?.iban}
-                        </TableCell>
+                        </StyledTableCell>
                       )}
                     </>
                   ) : (
                     <>
                       {row?.senderFullName && (
-                        <TableCell
-                          sx={{
-                            color: "var(--color-text)",
-                            borderBottom: "none",
-                          }}
-                        >
-                          {row?.senderFullName}
-                        </TableCell>
+                        <StyledTableCell>{row?.senderFullName}</StyledTableCell>
                       )}
                       {selectedAccount?.accountNumber && (
-                        <TableCell
-                          sx={{
-                            color: "var(--color-text)",
-                            borderBottom: "none",
-                          }}
-                        >
+                        <StyledTableCell>
                           {selectedAccount?.accountNumber}
-                        </TableCell>
+                        </StyledTableCell>
                       )}
                       {row?.recipientFullNameWithIban && (
-                        <TableCell
-                          sx={{
-                            color: "var(--color-text)",
-                            borderBottom: "none",
-                          }}
-                        >
+                        <StyledTableCell>
                           {row?.recipientFullNameWithIban}
-                        </TableCell>
+                        </StyledTableCell>
                       )}
                       {row?.recipientFullNameWithAccount && (
-                        <TableCell
-                          sx={{
-                            color: "var(--color-text)",
-                            borderBottom: "none",
-                          }}
-                        >
+                        <StyledTableCell>
                           {row?.recipientFullNameWithAccount}
-                        </TableCell>
+                        </StyledTableCell>
                       )}
 
                       {row?.recipientAccountNumber && (
-                        <TableCell
-                          sx={{
-                            color: "var(--color-text)",
-                            borderBottom: "none",
-                          }}
-                        >
+                        <StyledTableCell>
                           {row?.recipientAccountNumber}
-                        </TableCell>
+                        </StyledTableCell>
                       )}
                       {row?.recipientIban && (
-                        <TableCell
-                          sx={{
-                            color: "var(--color-text)",
-                            borderBottom: "none",
-                          }}
-                        >
-                          {row?.recipientIban}
-                        </TableCell>
+                        <StyledTableCell>{row?.recipientIban}</StyledTableCell>
                       )}
                     </>
                   )}
