@@ -53,11 +53,23 @@ const StyledItem = styled(Paper)`
   color: var(--color-text) important !important;
   padding: 0.5rem 0rem;
   text-align: center;
+  @media (max-width: 48em) {
+    font-size: 0.8rem;
+  }
+  @media (max-width: 31.25em) {
+    font-size: 0.7rem;
+  }
 `;
-const styleMarginRight = {
-  marginRight: "1rem",
-};
-
+const StyledDiv = styled.div`
+  margin-right: 1rem;
+  @media (max-width: 48em) {
+    font-size: 0.8rem;
+    margin-right: 0;
+  }
+  @media (max-width: 31.25em) {
+    font-size: 0.7rem;
+  }
+`;
 export default function TransactionControl() {
   const [date, setDate] = useState(new Date());
 
@@ -105,53 +117,58 @@ export default function TransactionControl() {
         sx={{
           width: "50%",
           justifyContent: "center",
+          "@media (max-width:48em)": {
+            width: "100%",
+          },
         }}
       >
         <StyledGrid item xs={8}>
           <StyledItem>Recipient Account</StyledItem>
           {!registered ? (
             <StyledBox>
-              <div style={styleMarginRight}>
+              <StyledDiv>
                 Full Name:
                 {formatArrayWord(recipientFullNameWithAccount) ||
                   formatArrayWord(recipientFullNameWithIban)}
-              </div>
+              </StyledDiv>
               {recipientBankName && (
-                <div style={styleMarginRight}>
+                <StyledDiv>
                   Bank Name: {formatWord(recipientBankName)}
-                </div>
+                </StyledDiv>
               )}
               {recipientBankBranch && (
-                <div style={styleMarginRight}>
+                <StyledDiv>
                   Bank Branch: {formatWord(recipientBankBranch)}
-                </div>
+                </StyledDiv>
               )}
-              <div>
+              <StyledDiv>
                 {recipientAccountNumber ? "Account Number" : "Iban"}:{" "}
-                {recipientAccountNumber || recipientIban}
-              </div>
+                {formatIBAN(recipientAccountNumber) ||
+                  formatIBAN(recipientIban)}
+              </StyledDiv>
             </StyledBox>
           ) : (
             <StyledBox>
-              <div style={styleMarginRight}>
+              <StyledDiv>
                 Full Name:
                 {formatArrayWord(registered.recipientFullNameWithAccount) ||
                   formatArrayWord(registered.recipientFullNameWithIban)}
-              </div>
+              </StyledDiv>
               {registered.recipientBankName && (
-                <div style={styleMarginRight}>
+                <StyledDiv>
                   Bank Name: {formatWord(registered.recipientBankName)}
-                </div>
+                </StyledDiv>
               )}
               {registered.recipientBankBranch && (
-                <div style={styleMarginRight}>
+                <StyledDiv>
                   Bank Branch: {formatWord(registered.recipientBankBranch)}
-                </div>
+                </StyledDiv>
               )}
-              <div>
+              <StyledDiv>
                 {registered.recipientAccountNumber ? "Account Number" : "Iban"}:{" "}
-                {registered.recipientAccountNumber || registered.recipientIban}
-              </div>
+                {formatIBAN(registered.recipientAccountNumber) ||
+                  formatIBAN(registered.recipientIban)}
+              </StyledDiv>
             </StyledBox>
           )}
         </StyledGrid>
@@ -159,8 +176,8 @@ export default function TransactionControl() {
         <StyledGrid item xs={8}>
           <StyledItem>Sender Account</StyledItem>
           <StyledBox>
-            <div>Selected Account: {formatIBAN(accountNumber)}</div>
-            <div>Balance: {formatCurrency(balance)}</div>
+            <StyledDiv>Selected Account: {formatIBAN(accountNumber)}</StyledDiv>
+            <StyledDiv>Balance: {formatCurrency(balance)}</StyledDiv>
           </StyledBox>
         </StyledGrid>
         <StyledGrid item xs={8}>

@@ -12,6 +12,9 @@ const StyledBox = styled(Box)`
   justify-content: center;
   width: 25%;
   cursor: pointer;
+  @media (max-width: 48em) {
+    width: 100%;
+  }
 `;
 
 function SelectAccount({ border, monthlyPayment }) {

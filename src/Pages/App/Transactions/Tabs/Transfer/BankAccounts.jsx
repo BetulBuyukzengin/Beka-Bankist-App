@@ -11,11 +11,23 @@ const StyledH6 = styled.h6`
   font-weight: 500;
   color: var(--color-text);
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  @media (max-width: 48em) {
+    font-size: 0.7rem;
+  }
+  @media (max-width: 31.25em) {
+    font-size: 0.6rem;
+  }
 `;
 const StyledH5 = styled.h5`
   text-align: start;
   font-size: 1.1rem;
   color: var(--color-text);
+  @media (max-width: 48em) {
+    font-size: 0.7rem;
+  }
+  @media (max-width: 31.25em) {
+    font-size: 0.6rem;
+  }
 `;
 const StyledCheckComponent = styled.div`
   width: 100%;
@@ -44,9 +56,12 @@ export default function BankAccounts({ account, border, monthlyPayment }) {
     <>
       <StyledCheckComponent
         style={{
+          width: "100%",
+          justifyContent: "start",
           backgroundColor:
             account?.accountNumber === selectedAccount?.accountNumber &&
             "var(--color-text-2)",
+
           border:
             border === "standard"
               ? "none"

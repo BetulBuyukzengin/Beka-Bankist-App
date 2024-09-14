@@ -39,7 +39,7 @@
 - Router
 - Material UI
 - Styled Components
-- Sass
+<!-- - Sass -->
 - React Hook Form
 - Yup
 - Supabase

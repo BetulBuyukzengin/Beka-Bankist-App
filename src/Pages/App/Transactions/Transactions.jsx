@@ -7,7 +7,30 @@ import WithdrawTab from "./Tabs/Withdraw/WithdrawTab";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import Loader from "../../../Components/Loader/Loader";
 import { useGetRegisteredRecipients } from "../../../services/registeredRecipientsServices";
+import styled from "styled-components";
 
+const StyledDiv = styled.div`
+  height: 78dvh;
+  @media (max-width: 48em) {
+    height: 100dvh;
+  }
+`;
+const StyledH3 = styled.h3`
+  background-color: var(--color-background);
+  color: var(--color-text);
+  text-align: center;
+  margin-bottom: 0.5rem;
+  padding-top: 1rem;
+  font-size: 1.5rem;
+  @media (max-width: 48em) {
+    padding-top: 0rem;
+
+    font-size: 0.8rem !important;
+  }
+  @media (max-width: 31.25em) {
+    font-size: 0.7rem;
+  }
+`;
 const content = [
   {
     label: "Transfer",
@@ -61,25 +84,14 @@ function Transactions() {
   if (isLoading) return <Loader />;
 
   return (
-    <div style={{ height: "78dvh", overflowY: "scroll" }}>
-      <h3
-        style={{
-          backgroundColor: "var(--color-background)",
-          color: "var(--color-text)",
-          textAlign: "center",
-          marginBottom: ".5rem",
-          paddingTop: "1rem",
-          fontSize: "1.5rem",
-        }}
-      >
-        TRANSACTIONS
-      </h3>
+    <StyledDiv>
+      <StyledH3>TRANSACTIONS</StyledH3>
       <CustomTabs
         tabName="transactionsTab"
         content={content}
         mainTabLabel={mainTabLabel}
       />
-    </div>
+    </StyledDiv>
   );
 }
 

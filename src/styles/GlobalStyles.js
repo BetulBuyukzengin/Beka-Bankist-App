@@ -160,5 +160,20 @@ img {
   /* For dark mode */
   filter: grayscale(var(--image-grayscale)) opacity(var(--image-opacity));
 }
+
+/* Toastify responsive */
+@media (max-width: 48em) {
+  .Toastify__toast {
+    font-size: .8rem; /* Yazı boyutunu küçült */
+  }
+}
+@media (max-width: 31.25em) {
+  .Toastify__toast {
+    margin: .5rem;
+    width: 90%; /* Mobilde ekranın %90'ı kadar genişlik */
+    height:20px;
+    font-size: .7rem; /* Yazı boyutunu küçült */
+  }
+}
 `;
 export default GlobalStyles;

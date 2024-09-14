@@ -33,6 +33,15 @@ function CustomSelect({
           "&>fieldset": {
             borderColor: "var(--color-border-2)",
           },
+          "@media (max-width:48em)": {
+            width: "80%",
+          },
+        },
+        "@media (max-width:48em)": {
+          fontSize: ".8rem",
+        },
+        "@media (max-width:31.25em)": {
+          fontSize: ".7rem",
         },
       }}
       id="demo-customized-select-native"
@@ -97,6 +106,12 @@ function CustomSelect({
           sx={{
             display: "flex",
             justifyContent: "space-between",
+            "@media (max-width:48em)": {
+              fontSize: ".8rem",
+            },
+            "@media (max-width:31.25em)": {
+              fontSize: ".7rem",
+            },
           }}
           value={item.value}
           disabled={

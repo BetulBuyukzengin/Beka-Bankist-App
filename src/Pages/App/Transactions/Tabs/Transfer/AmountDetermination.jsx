@@ -7,6 +7,7 @@ import { useFormContext } from "react-hook-form";
 import { useSearchParams } from "react-router-dom";
 import { findMostFrequent } from "../../../../../utils/utils.js";
 import { useMovements } from "../../../../../services/movementsServices";
+import styled from "styled-components";
 
 const GridStyle = {
   display: "flex",
@@ -21,8 +22,16 @@ const BoxStyle = {
   width: "40%",
   justifyContent: "space-between",
   display: "flex",
+  "@media (max-width:48em)": {
+    width: "80%",
+    padding: ".8rem 1rem",
+  },
 };
-
+const StyledLabel = styled.label`
+  @media (max-width: 48em) {
+    font-size: 0.7rem;
+  }
+`;
 // const frequentlyAmount = 500;
 
 function AmountDetermination() {
@@ -103,31 +112,28 @@ function AmountDetermination() {
     <Grid container spacing={2}>
       <Grid item xs={12} sx={GridStyle}>
         <Box sx={BoxStyle}>
-          <label>Remaining transfer limit:</label>
-          <label>
+          <StyledLabel>Remaining transfer limit:</StyledLabel>
+          <StyledLabel>
             {formatCurrency(
               newRemainingLimit || selectedAccRemainingTransferLimit
             )}
-          </label>
+          </StyledLabel>
         </Box>
       </Grid>
       <Grid item xs={12} sx={GridStyle}>
-        <Box
-          sx={{ ...BoxStyle, cursor: "pointer" }}
-          // onClick={handleClickBalance}
-        >
-          <label style={{ cursor: "pointer" }}>Remaining balance: </label>
-          <label style={{ cursor: "pointer" }}>
-            {formatCurrency(remainingBalance)}
-          </label>
+        <Box sx={BoxStyle}>
+          <StyledLabel>Remaining balance: </StyledLabel>
+          <StyledLabel>{formatCurrency(remainingBalance)}</StyledLabel>
         </Box>
       </Grid>
       <Grid item xs={12} sx={GridStyle}>
         <Box sx={{ ...BoxStyle, cursor: "pointer" }} onClick={handleClick}>
-          <label style={{ cursor: "pointer" }}>Frequently sent amount: </label>
-          <label style={{ cursor: "pointer" }}>
+          <StyledLabel style={{ cursor: "pointer" }}>
+            Frequently sent amount:
+          </StyledLabel>
+          <StyledLabel style={{ cursor: "pointer" }}>
             {formatCurrency(frequentlyAmount)}
-          </label>
+          </StyledLabel>
         </Box>
       </Grid>
       <Grid item xs={12} sx={GridStyle}>

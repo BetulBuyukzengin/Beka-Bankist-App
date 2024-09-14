@@ -35,7 +35,15 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 
 export default function CustomAvatar({ user }) {
   return (
-    <Stack direction="row" spacing={2}>
+    <Stack
+      direction="row"
+      spacing={2}
+      sx={{
+        "@media (max-width: 48em)": {
+          marginLeft: "auto",
+        },
+      }}
+    >
       <StyledBadge
         overlap="circular"
         anchorOrigin={{ vertical: "bottom", horizontal: "right" }}

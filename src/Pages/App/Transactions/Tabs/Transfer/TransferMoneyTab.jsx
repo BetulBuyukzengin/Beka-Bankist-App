@@ -54,9 +54,6 @@ const transactionSteps = [
   },
 ];
 
-
-
-
 export default function TransferMoneyTab() {
   const [activeStep, setActiveStep] = useState(0);
   const { createMovement, isCreating } = useCreateMovements();

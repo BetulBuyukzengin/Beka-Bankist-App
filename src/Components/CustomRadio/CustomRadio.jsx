@@ -48,8 +48,23 @@ export default function CustomRadio({
                   sx={{
                     height: "7rem",
                     borderRadius: "0px",
+
+                    "@media (max-width:48em)": {
+                      height: "0rem",
+                      "&>span>svg": {
+                        fontSize: "1rem",
+                      },
+                    },
+                    // "&<span": {
+                    //   width: "2rem!important",
+                    //   fontSize: "2rem!important",
+                    // },
+                    // " & span:first-child":
                     "&+span": {
                       width: "17rem",
+                      "@media (max-width:48em)": {
+                        width: "10rem",
+                      },
                     },
                   }}
                 />
@@ -64,7 +79,7 @@ export default function CustomRadio({
               sx={{
                 marginLeft: "0",
                 marginRight: "0",
-                justifyContent: "center",
+                justifyContent: "start",
               }}
               {...register}
               control={<Radio />}

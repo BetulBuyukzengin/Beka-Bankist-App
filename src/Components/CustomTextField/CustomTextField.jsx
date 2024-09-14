@@ -20,7 +20,6 @@ const StyledTextField = styled(TextField)`
   }
   & div > input {
     text-transform: ${(props) =>
-      // bunu ekledim
       props.texttransform === "basic" ? "" : "capitalize"};
 
     &:disabled {
@@ -31,6 +30,15 @@ const StyledTextField = styled(TextField)`
       border-color: var(--color-border-2) !important;
       background-color: var(--color-background-3);
     }
+    @media (max-width: 48em) {
+      font-size: 0.8rem;
+    }
+    @media (max-width: 31.25em) {
+      font-size: 0.7rem;
+    }
+  }
+  @media (max-width: 48em) {
+    width: 80% !important;
   }
 `;
 

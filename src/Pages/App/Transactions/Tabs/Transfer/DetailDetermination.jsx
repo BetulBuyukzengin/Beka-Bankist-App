@@ -109,6 +109,10 @@ function DetailDetermination() {
           marginTop: "1rem",
           // flexDirection: "column!important",
           // alignItems: "center",
+          "@media (max-width:48em)": {
+            marginLeft: "0",
+            overflow: "hidden",
+          },
         }}
       >
         <Grid
@@ -144,7 +148,20 @@ function DetailDetermination() {
         </Grid>
         <Grid item xs={12} sx={StyleGrid}>
           <FormControlLabel
-            sx={{ width: "40%" }}
+            sx={{
+              width: "40%",
+              "@media (max-width: 48em)": {
+                width: "80% !important",
+              },
+              "&>span:last-child": {
+                "@media (max-width: 48em)": {
+                  fontSize: ".7rem",
+                },
+                "@media (max-width: 31.25em)": {
+                  fontSize: ".6rem",
+                },
+              },
+            }}
             control={
               <Switch
                 checked={showUsernameInDescription}

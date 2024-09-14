@@ -153,8 +153,23 @@ export default function CustomTabs({
             key={index}
             sx={
               orientation
-                ? { ...tabVerticalStyle, color: "var(--color-text)" }
-                : { ...tabHorizontalStyle, color: "var(--color-text)" }
+                ? {
+                    ...tabVerticalStyle,
+                    color: "var(--color-text)",
+                  }
+                : {
+                    ...tabHorizontalStyle,
+                    color: "var(--color-text)",
+
+                    "@media  (max-width:48em)": {
+                      fontSize: ".7rem!important",
+                    },
+                    "@media  (max-width:31.25em)": {
+                      fontSize: ".6rem!important",
+                      minWidth: "40px!important",
+                      padding: "2px 4px",
+                    },
+                  }
             }
             label={tab.label}
             {...a11yProps(index)}
