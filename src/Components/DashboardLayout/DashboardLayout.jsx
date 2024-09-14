@@ -41,6 +41,7 @@ import { useLogout, useUser } from "../../services/userServices";
 import { calcRemainingLimitResetTime } from "../../utils/utils";
 import CustomAvatar from "../Avatar/Avatar";
 import ListIconButton from "./ListIconButton";
+import HamburgerDrawer from "../HamburgerDrawer/HamburgerDrawer";
 const drawerWidth = 240;
 const drawerWidth2 = 200;
 const drawerWidth3 = 150;
@@ -61,7 +62,7 @@ const StyledLink = styled.a`
   }
 `;
 
-const IconStyle = {
+export const IconStyle = {
   color: "var(--color-text)",
   "@media (max-width: 48em)": {
     fontSize: "1.2rem",
@@ -71,7 +72,7 @@ const IconStyle = {
   },
 };
 
-const StyledListItemText = styled(ListItemText)`
+export const StyledListItemText = styled(ListItemText)`
   /* opacity: ${({ open }) => (open ? 1 : 0)}; */
 
   & > span {
@@ -101,7 +102,7 @@ const StyledButton = styled.button`
   }
 `;
 
-const StyledListItemIcon = styled(ListItemIcon)`
+export const StyledListItemIcon = styled(ListItemIcon)`
   @media (max-width: 31.25em) {
     min-width: 35px !important;
   }
@@ -188,9 +189,9 @@ export default function DashboardLayout() {
   const { mutateAsync: logout } = useLogout();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const { accounts } = useGetAccounts();
   const { mutateAsync: updateDailyLimits } = useDailyRemainingLimit();
   const [endTime, setEndTime] = React.useState(false);
+  const { accounts } = useGetAccounts();
   const { isInformationsCompleted } = useIsUserInformation();
   const { user } = useUser();
 
@@ -258,11 +259,17 @@ export default function DashboardLayout() {
       <Box
         sx={{
           display: "flex",
+          overflow: "hidden",
           backgroundColor: "var(--color-background)",
+          // "@media (max-width:48em)": {
+          //   overflow: "hidden",
+          // },
         }}
       >
         {/* <AutoLogout /> */}
         <CssBaseline />
+
+        {/* Header */}
         <AppBar
           position="fixed"
           open={open}
@@ -288,17 +295,25 @@ export default function DashboardLayout() {
               sx={{
                 ...IconStyle,
                 "@media (max-width: 48em)": {
-                  marginLeft: "-10px",
+                  // marginLeft: "-10px",
+                  display: "none",
                 },
-                "@media (max-width: 31.25em)": {
-                  marginLeft: "-5px",
-                },
+                // "@media (max-width: 31.25em)": {
+                //   marginLeft: "-5px",
+                // },
                 marginRight: "auto",
                 ...(open && { display: "none" }),
               }}
             >
               <MenuIcon sx={IconStyle} />
             </IconButton>
+
+            <HamburgerDrawer
+              isInformationsCompleted={isInformationsCompleted}
+              accounts={accounts}
+              setUrlParams={setUrlParams}
+            />
+
             <CustomAvatar user={user} />
             <Typography
               variant="h6"
@@ -357,7 +372,17 @@ export default function DashboardLayout() {
             </StyledButton>
           </Toolbar>
         </AppBar>
-        <Drawer variant="permanent" open={open}>
+
+        {/* Sidebar */}
+        <Drawer
+          variant="permanent"
+          open={open}
+          sx={{
+            "@media (max-width:48em)": {
+              display: "none",
+            },
+          }}
+        >
           <DrawerHeader>
             <IconButton
               onClick={handleDrawerClose}
@@ -376,6 +401,7 @@ export default function DashboardLayout() {
             variant="fullWidth "
             sx={{ borderColor: "var(--color-text)" }}
           />
+
           <List>
             <ListItem
               disablePadding
@@ -383,7 +409,7 @@ export default function DashboardLayout() {
                 display: "block",
               }}
             >
-              {/* <ListIconButton path={"/applayout/accounts"}> */}
+              {/*  <ListIconButton path={"/applayout/accounts"}>  */}
               <Tooltip
                 placement="right"
                 arrow
@@ -477,16 +503,22 @@ export default function DashboardLayout() {
               </Tooltip>
             </ListItem>
           </List>
+
+          {/*  */}
         </Drawer>
+
         <Box
           component="main"
           sx={{
             flexGrow: 1,
-            p: 3,
+            padding: "1rem",
             backgroundColor: "var(--color-background)",
             color: "var(--color-text)",
             minHeight: "100dvh",
             width: "100dvh",
+            "@media (max-width:31.25em)": {
+              width: "64dvh",
+            },
           }}
         >
           <DrawerHeader />
