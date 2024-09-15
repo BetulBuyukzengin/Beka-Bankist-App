@@ -27,6 +27,7 @@
  ✅ Forgot password
  ✅ Registered recipients yoksa mesaj goster
  ✅ Radio ile hesap seçme hatası düzelt
+ Hareketsizlikte oturum kapatma
  ❌ Anlaşma modalını düzelt
  ❌ Crypto-Borsa: Table / https://mui.com/material-ui/react-table/#sticky-header
  ❌ Dil destegini ayarla

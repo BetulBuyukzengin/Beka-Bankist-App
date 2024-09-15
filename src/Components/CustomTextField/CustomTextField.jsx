@@ -39,6 +39,7 @@ const StyledTextField = styled(TextField)`
   }
   @media (max-width: 48em) {
     width: 80% !important;
+    width: 80% !important;
   }
 `;
 

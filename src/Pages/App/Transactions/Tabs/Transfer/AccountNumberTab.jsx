@@ -88,7 +88,13 @@ function AccountNumberTab() {
           padding: "1rem",
         }}
       >
-        <Grid item xs={6}>
+        <Grid
+          item
+          // xs={6}
+          xs={12}
+          sm={6}
+          md={4}
+        >
           <CustomSelect
             data={bankContent}
             value={searchParams.get("selected-bank") || ""}
@@ -106,10 +112,15 @@ function AccountNumberTab() {
             </FormHelperText>
           )}
         </Grid>
-        <Grid item xs={6}>
+        <Grid
+          item
+          //  xs={6}
+          xs={12}
+          sm={6}
+          md={4}
+        >
           <CustomSelect
-              width="100%"
-
+            width="100%"
             data={branchContent}
             value={searchParams.get("selected-branch") || ""}
             defaultValue=""
@@ -124,7 +135,13 @@ function AccountNumberTab() {
             </FormHelperText>
           )}
         </Grid>
-        <Grid item xs={6}>
+        <Grid
+          item
+          //  xs={6}
+          xs={12}
+          sm={6}
+          md={4}
+        >
           <CustomTextField
             id="recipientAccountNumber"
             label="Recipient Account Number"
@@ -134,7 +151,13 @@ function AccountNumberTab() {
             inputProps={{ maxLength: maxAccountNumberLength }}
           />
         </Grid>
-        <Grid item xs={6}>
+        <Grid
+          item
+          // xs={6}
+          xs={12}
+          sm={6}
+          md={4}
+        >
           <CustomTextField
             id="recipientFullNameAccount"
             label="Recipient Full Name"

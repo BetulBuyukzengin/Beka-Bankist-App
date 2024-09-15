@@ -45,9 +45,27 @@ function WithIbanTab({ iban, setIban }) {
         spacing={2}
         sx={{
           padding: "1rem",
+          "@media (max-width:48em)": {
+            flexDirection: "column",
+          },
         }}
       >
-        <Grid item xs={6} sx={{ display: "flex", gap: "1rem" }}>
+        <Grid
+          item
+          // xs={6}
+          xs={12}
+          sm={6}
+          md={4}
+          sx={{
+            display: "flex",
+            gap: "1rem",
+            "@media(max-width:48em)": {
+              "&>div": {
+                width: "100%!important",
+              },
+            },
+          }}
+        >
           <CustomTextField
             id="recipientIban"
             label="Recipient Iban"
@@ -62,7 +80,22 @@ function WithIbanTab({ iban, setIban }) {
             error={errors?.recipientIban}
           />
         </Grid>
-        <Grid item xs={6} sx={{ display: "flex", gap: "1rem" }}>
+        <Grid
+          item
+          //  xs={6}
+          xs={12}
+          sm={6}
+          md={4}
+          sx={{
+            display: "flex",
+            gap: "1rem",
+            "@media(max-width:48em)": {
+              "&>div": {
+                width: "100%!important",
+              },
+            },
+          }}
+        >
           <CustomTextField
             id="recipientFullName"
             label="Recipient Full Name"
@@ -75,7 +108,19 @@ function WithIbanTab({ iban, setIban }) {
         </Grid>
 
         {watchSaveAsRegisteredWithIban && (
-          <Grid item xs={6}>
+          <Grid
+            item
+            xs={12}
+            sm={6}
+            md={4}
+            sx={{
+              "@media(max-width:48em)": {
+                "&>div": {
+                  width: "100%!important",
+                },
+              },
+            }}
+          >
             <CustomTextField
               id="shortName"
               label="Short Name"
@@ -91,6 +136,16 @@ function WithIbanTab({ iban, setIban }) {
           sx={{ display: "flex", justifyContent: "end" }}
         >
           <FormControlLabel
+            sx={{
+              "&> span:last-child": {
+                "@media (max-width:48em)": {
+                  fontSize: ".7rem",
+                },
+                "@media (max-width:31.25em)": {
+                  fontSize: ".6rem",
+                },
+              },
+            }}
             control={<Switch />}
             label="Add as registered recipient"
             {...register("saveAsRegisteredWithIban")}

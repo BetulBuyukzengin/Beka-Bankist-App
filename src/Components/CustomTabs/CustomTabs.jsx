@@ -13,6 +13,7 @@ import styled from "styled-components";
 
 const StyledSwipeableViews = styled(SwipeableViews)`
   width: 100%;
+  overflow: hidden;
 `;
 const StyledDiv = styled.div``;
 
@@ -156,6 +157,12 @@ export default function CustomTabs({
                 ? {
                     ...tabVerticalStyle,
                     color: "var(--color-text)",
+                    "@media  (max-width:48em)": {
+                      fontSize: ".7rem!important",
+                    },
+                    "@media  (max-width:31.25em)": {
+                      fontSize: ".6rem!important",
+                    },
                   }
                 : {
                     ...tabHorizontalStyle,
