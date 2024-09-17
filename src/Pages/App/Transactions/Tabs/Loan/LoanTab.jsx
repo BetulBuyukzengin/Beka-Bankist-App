@@ -25,6 +25,7 @@ import styled from "styled-components";
 import { yupResolver } from "@hookform/resolvers/yup";
 import CustomModal from "../../../../../Components/CustomModal/CustomModal";
 import PaidLoans from "./PaidLoans";
+import { useUpdateAccount } from "../../../../../services/accountServices";
 
 const transactionSteps = [
   {
@@ -56,6 +57,8 @@ function LoanTab() {
   const { data: loanData, isLoading } = useGetLoan();
   const [phoneNumber, setPhoneNumber] = useState("");
   const selectedAccount = JSON.parse(searchParams.get("selectedAccount"));
+  const { mutateAsync: updateBalance } = useUpdateAccount();
+  const currentBalance = +selectedAccount?.balance;
 
   const validationSchema = [
     yup.object({
@@ -192,8 +195,15 @@ function LoanTab() {
         };
       }),
     };
-
+    const updatedAccount = {
+      ...selectedAccount,
+      balance: currentBalance + Number(data?.applicantLoanAmount),
+    };
     await createLoan(formDatas);
+    await updateBalance({
+      id: selectedAccount.id,
+      account: updatedAccount,
+    });
     //? navigate to loan tab
     navigate("/applayout/account");
   };

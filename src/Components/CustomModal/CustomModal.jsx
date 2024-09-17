@@ -15,7 +15,7 @@ const style = {
   p: "3rem 2rem",
   height: "50rem",
   scrollY: "auto",
-  maxHeight: "30rem",
+  maxHeight: "90dvh",
   maxWidth: "70rem",
   overflowY: "auto",
   display: "flex",
@@ -25,7 +25,6 @@ const style = {
     outline: "none",
   },
 };
-
 function CustomModal({
   children,
   setOpen,
@@ -34,6 +33,7 @@ function CustomModal({
   paddingSize,
   clearParamsCallBack,
   shouldClearParamsOnClose = false,
+  modalBoxStyles,
 }) {
   return (
     <Modal
@@ -45,7 +45,13 @@ function CustomModal({
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-      <Box sx={{ ...style, padding: paddingSize }}>
+      <Box
+        sx={{
+          ...style,
+          padding: paddingSize,
+          ...modalBoxStyles,
+        }}
+      >
         <CloseIcon
           sx={{ right: "1rem", top: "1rem", position: "absolute" }}
           onClick={() => {
@@ -61,7 +67,6 @@ function CustomModal({
             {title}
           </Typography>
         )}
-
         {children}
       </Box>
     </Modal>

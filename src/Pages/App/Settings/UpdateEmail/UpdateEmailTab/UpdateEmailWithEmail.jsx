@@ -4,12 +4,35 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import CustomButton from "../../../../../Components/CustomButton/CustomButton";
 import CustomTextField from "../../../../../Components/CustomTextField/CustomTextField";
-import { emailRegex } from "../../../../../Constants/constants";
+import {
+  emailRegex,
+  media31_25em,
+  media48em,
+} from "../../../../../Constants/constants";
 import { useCurrentUser } from "../../../../../Hooks/useCurrentUser";
 import { verifyUserPassword } from "../../../../../services/authServices";
 import { useUpdateUser, useUser } from "../../../../../services/userServices";
 import { supabase } from "../../../../../Supabase/supabase";
+import styled from "styled-components";
 
+const StyledUpdateEmailTitle = styled.h4`
+  font-weight: bold;
+  margin-top: 1rem;
+  ${media48em} {
+    font-size: 0.9rem;
+  }
+  ${media31_25em} {
+    font-size: 0.8rem;
+  }
+`;
+const StyledUpdateEmailContent = styled.p`
+  ${media48em} {
+    font-size: 0.8rem;
+  }
+  ${media31_25em} {
+    font-size: 0.7rem;
+  }
+`;
 function UpdateEmailWithEmail({ setOpen }) {
   const {
     register,
@@ -80,25 +103,21 @@ function UpdateEmailWithEmail({ setOpen }) {
         sx={{ textAlign: "center", justifyContent: "center" }}
       >
         <Grid item xs={6}>
-          <h4
-            style={{
-              fontWeight: "bold",
-              marginTop: "1rem",
-            }}
-          >
+          <StyledUpdateEmailTitle>
             Update Email With Email
-          </h4>
+          </StyledUpdateEmailTitle>
         </Grid>
         <Grid item xs={12} sx={{ marginBottom: ".5rem" }}>
-          <p>
+          <StyledUpdateEmailContent>
             We will send a confirmation mail to your new email account for the
             email update.
-          </p>
+          </StyledUpdateEmailContent>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <CustomTextField
             id="yourEmail"
             // type="text"
+            textFieldStyles={{ width: "100%" }}
             label="Your Email Address"
             defaultValue={user.email}
             disabled
@@ -110,10 +129,11 @@ function UpdateEmailWithEmail({ setOpen }) {
             error={errors?.yourEmailAddress}
           />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <CustomTextField
             texttransform="basic"
             id="newEmail"
+            textFieldStyles={{ width: "100%" }}
             type="text"
             label="New Email Address"
             register={{
@@ -127,10 +147,11 @@ function UpdateEmailWithEmail({ setOpen }) {
             error={errors?.newEmailAddress}
           />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <CustomTextField
             texttransform="basic"
             id="password"
+            textFieldStyles={{ width: "100%" }}
             // type="text"
             label="Password"
             register={{
@@ -142,8 +163,19 @@ function UpdateEmailWithEmail({ setOpen }) {
             error={errors?.password}
           />
         </Grid>
-        <Grid item xs={6}>
-          <CustomButton type="submit" buttonText="Send verification email" />
+        <Grid item xs={12} sm={6}>
+          <CustomButton
+            style={{
+              [media48em]: {
+                fontSize: ".7rem",
+              },
+              [media31_25em]: {
+                fontSize: ".6rem",
+              },
+            }}
+            type="submit"
+            buttonText="Send verification email"
+          />
         </Grid>
       </Grid>
     </form>

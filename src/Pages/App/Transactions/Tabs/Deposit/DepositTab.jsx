@@ -15,6 +15,8 @@ import {
 } from "../../../../../utils/utils";
 import { useCreateMovements } from "../../../../../services/movementsServices";
 import { toast } from "react-toastify";
+import styled from "styled-components";
+import { StyledDiv } from "../Withdraw/WithdrawTab";
 
 const transactionSteps = [
   {
@@ -95,6 +97,7 @@ function DepositTab() {
       remainingDepositLimit: currentDepositLimit - Number(amountToSend),
       balance: currentBalance + Number(amountToSend),
     };
+
     await depositMoney({ id, account: updatedAccount });
     await createMovement({
       selectedAccount: updatedAccount,
@@ -127,11 +130,11 @@ function DepositTab() {
           setActiveStep={setActiveStep}
         />
         {activeStep === transactionSteps.length && (
-          <div style={{ margin: "3rem", textAlign: "center" }}>
+          <StyledDiv>
             {isLoading
               ? "Transfer transaction is in progress"
               : "Transfer was successfully completed ..."}
-          </div>
+          </StyledDiv>
         )}
       </form>
     </FormProvider>

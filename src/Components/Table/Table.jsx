@@ -26,13 +26,43 @@ const StyledTableCell = styled(TableCell)(() => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: "var(--color-background-2)",
     color: "var(--color-text)",
+
+    "@media (max-width:48em )": {
+      // width: "15%",
+      fontSize: ".9rem",
+    },
+    "@media (max-width:31.25em )": {
+      fontSize: ".8rem",
+    },
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
     color: "var(--color-text)",
+    "@media (max-width:48em )": {
+      fontSize: ".8rem",
+      padding: ".8rem ",
+    },
+    "@media (max-width:31.25em )": {
+      fontSize: ".7rem",
+    },
+    "&>button": {
+      "@media (max-width:48em )": {
+        fontSize: ".8rem",
+      },
+      "@media (max-width:31.25em )": {
+        fontSize: ".7rem",
+      },
+    },
   },
 }));
-
+const StyledP = styledComponents.p`
+  @media (max-width: 48em) {
+    font-size: 0.8rem;
+  }
+  @media (max-width: 31.25em) {
+    font-size: 0.7rem;
+  }
+`;
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:nth-of-type(odd)": {
     backgroundColor: theme.palette.action.hover,
@@ -189,9 +219,18 @@ export default function CustomTable() {
         </Table>{" "}
       </TableContainer>
       <StyledTableFooter>
-        <p>Kalan borç: {formatCurrency(totalDept)}</p>
+        <StyledP>Kalan borç: {formatCurrency(totalDept)}</StyledP>
       </StyledTableFooter>
-      <CustomModal open={open} setOpen={setOpen}>
+      <CustomModal
+        open={open}
+        setOpen={setOpen}
+        modalBoxStyles={{
+          maxHeight: "80dvh",
+          "@media (max-width:48em)": {
+            maxHeight: "50dvh",
+          },
+        }}
+      >
         <PaymentContent data={parsedData} />
       </CustomModal>
     </>

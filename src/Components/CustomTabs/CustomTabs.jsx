@@ -13,9 +13,19 @@ import styled from "styled-components";
 
 const StyledSwipeableViews = styled(SwipeableViews)`
   width: 100%;
-  overflow: hidden;
+  overflow: hidden; // Boşlukları minimize etmek için ekleyebilirsiniz
+
+  /* margin-bottom: 10rem; */
+
+  /* @media (max-width: 48em) {
+    overflow: scroll;
+    height: 500px;
+    
+  } */
 `;
-const StyledDiv = styled.div``;
+const StyledDiv = styled.div`
+  height: auto !important;
+`;
 
 // function TabPanel(props) {
 //   const { children, value, index, ...other } = props;
@@ -111,6 +121,7 @@ export default function CustomTabs({
   );
 
   return (
+    // Burası değil !
     <Box sx={orientation && boxStyle}>
       <Tabs
         value={tabIndex}
@@ -158,6 +169,7 @@ export default function CustomTabs({
                     ...tabVerticalStyle,
                     color: "var(--color-text)",
                     "@media  (max-width:48em)": {
+                      padding: ".5rem",
                       fontSize: ".7rem!important",
                     },
                     "@media  (max-width:31.25em)": {
@@ -188,11 +200,17 @@ export default function CustomTabs({
         axis={theme.direction === "rtl" ? "x-reverse" : "x"}
         index={tabIndex}
         onChangeIndex={handleChangeIndex}
+        animateHeight
       >
         {content.map((tab, index) => (
-          <StyledDiv key={index} value={tabIndex} dir={theme.direction}>
-            <span>{tab.component}</span>
-          </StyledDiv>
+          <div
+            style={{ minHeight: "70dvh" }}
+            key={index}
+            value={tabIndex}
+            dir={theme.direction}
+          >
+            {tab.component}
+          </div>
         ))}
       </StyledSwipeableViews>
     </Box>

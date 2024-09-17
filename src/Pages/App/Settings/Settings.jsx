@@ -7,6 +7,22 @@ import UpdateEmail from "./UpdateEmail/UpdateEmail";
 import UpdatePassword from "./UpdatePassword/UpdatePassword";
 import { useIsUserInformation } from "../../../Hooks/useIsUserInformation";
 import AddProfileImgForm from "./AddProfileImg/AddProfileImgForm";
+import styled from "styled-components";
+
+const StyledSettingsTitle = styled.h3`
+  background-color: var(--color-background);
+  color: var(--color-text);
+  text-align: center;
+  margin-bottom: 0;
+  padding-top: 1rem;
+  font-size: 1.5rem;
+  @media (max-width: 48em) {
+    font-size: 0.9rem;
+  }
+  @media (max-width: 31.25em) {
+    font-size: 0.8rem;
+  }
+`;
 
 function Settings() {
   const { currentUser } = useCurrentUser();
@@ -19,37 +35,26 @@ function Settings() {
       sx={{ justifyContent: "center", textAlign: "center" }}
     >
       <Grid item xs={6}>
-        <h3
-          style={{
-            backgroundColor: "var(--color-background)",
-            color: "var(--color-text)",
-            textAlign: "center",
-            marginBottom: 0,
-            paddingTop: "1rem",
-            fontSize: "1.5rem",
-          }}
-        >
-          SETTINGS
-        </h3>
+        <StyledSettingsTitle>SETTINGS</StyledSettingsTitle>
       </Grid>
 
-      <Grid item xs={6}>
+      <Grid item xs={12} sm={6}>
         <PersonalInformationSettings
           isPersonalDatas={isInformationsCompleted}
         />
       </Grid>
       {isInformationsCompleted && (
         <>
-          <Grid item xs={6}>
+          <Grid item xs={12} sm={6}>
             <UpdateEmail />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} sm={6}>
             <UpdatePassword />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} sm={6}>
             <DeleteAppAccount />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} sm={6}>
             <AddProfileImgForm />
           </Grid>
         </>

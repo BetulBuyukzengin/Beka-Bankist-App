@@ -239,7 +239,10 @@ export default function TransferMoneyTab() {
   if (isCreating) return <Loader />;
   return (
     <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(onSubmit)}>
+      <form
+        onSubmit={methods.handleSubmit(onSubmit)}
+        style={{ height: "max-content" }}
+      >
         <StepperComponent
           transactionSteps={transactionSteps.map((step) =>
             step.label === "Recipient Account"

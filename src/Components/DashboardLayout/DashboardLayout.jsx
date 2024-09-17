@@ -30,6 +30,7 @@ import {
   dailyDepositLimit,
   dailyTransferLimit,
   dailyWithdrawLimit,
+  media48em,
 } from "../../Constants/constants";
 import { useIsUserInformation } from "../../Hooks/useIsUserInformation";
 import AppLayout from "../../Pages/App/AppLayout";
@@ -42,6 +43,7 @@ import { calcRemainingLimitResetTime } from "../../utils/utils";
 import CustomAvatar from "../Avatar/Avatar";
 import ListIconButton from "./ListIconButton";
 import HamburgerDrawer from "../HamburgerDrawer/HamburgerDrawer";
+
 const drawerWidth = 240;
 const drawerWidth2 = 200;
 const drawerWidth3 = 150;
@@ -285,6 +287,9 @@ export default function DashboardLayout() {
               backgroundColor: "var(--color-background)",
               color: "var(--color-text)",
               justifyContent: "end",
+              [media48em]: {
+                gap: ".5rem",
+              },
             }}
           >
             <IconButton
@@ -514,11 +519,19 @@ export default function DashboardLayout() {
             padding: "1rem",
             backgroundColor: "var(--color-background)",
             color: "var(--color-text)",
-            minHeight: "100dvh",
-            width: "100dvh",
-            "@media (max-width:31.25em)": {
-              width: "64dvh",
+            width: `calc(100% - ${drawerWidth}px)`,
+
+            "@media (max-width: 48em)": {
+              width: `calc(100% - ${drawerWidth2}px)`,
             },
+            "@media (max-width: 31.25em)": {
+              width: `calc(100% - ${drawerWidth3}px)`,
+            },
+            // height: "100dvh",
+            // height: "max-content",
+            // "@media (max-width:31.25em)": {
+            //   width: "64dvh",
+            // },
           }}
         >
           <DrawerHeader />

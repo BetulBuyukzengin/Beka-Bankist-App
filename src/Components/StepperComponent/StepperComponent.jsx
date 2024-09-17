@@ -93,7 +93,6 @@ export default function StepperComponent({
                   sx={{
                     paddingTop: "2rem",
                     marginBottom: "auto",
-                    height: "auto",
                     overflowY: "auto",
                     "@media (max-width:48em)": {
                       paddingTop: ".5rem",

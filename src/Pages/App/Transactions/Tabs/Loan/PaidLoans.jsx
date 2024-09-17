@@ -3,7 +3,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import { TableBody, TableContainer, TableHead } from "@mui/material";
 import Paper from "@mui/material/Paper";
-import { styled } from "@mui/material/styles";
+import { styled as muiStyled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
@@ -14,19 +14,41 @@ import CustomButton from "../../../../../Components/CustomButton/CustomButton";
 import CustomModal from "../../../../../Components/CustomModal/CustomModal";
 import { useGetLoan } from "../../../../../services/loanServices";
 import { formatCurrency, formatDate } from "../../../../../utils/utils";
+import styled from "styled-components";
 
-const StyledTableCell = styled(TableCell)(() => ({
+const StyledTableCell = muiStyled(TableCell)(() => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: "var(--color-background-2)",
     color: "var(--color-text)",
+    "@media (max-width:48em )": {
+      fontSize: ".9rem",
+    },
+    "@media (max-width:31.25em )": {
+      fontSize: ".8rem",
+    },
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
     color: "var(--color-text)",
+    "@media (max-width:48em )": {
+      fontSize: ".8rem",
+      padding: ".8rem ",
+    },
+    "@media (max-width:31.25em )": {
+      fontSize: ".7rem",
+    },
+    "&>button": {
+      "@media (max-width:48em )": {
+        fontSize: ".8rem",
+      },
+      "@media (max-width:31.25em )": {
+        fontSize: ".7rem",
+      },
+    },
   },
 }));
 
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
+const StyledTableRow = muiStyled(TableRow)(({ theme }) => ({
   "&:nth-of-type(odd)": {
     backgroundColor: theme.palette.action.hover,
   },
@@ -35,6 +57,28 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     border: 0,
   },
 }));
+const StyledDiv = styled.div`
+  text-align: center;
+  width: 100%;
+  font-weight: bolder;
+  font-size: 1.5rem;
+  @media (max-width: 48em) {
+    font-size: 0.9rem;
+  }
+  @media (max-width: 31.25em) {
+    font-size: 0.8rem;
+  }
+`;
+const StyledPaidLoansTitle = styled.p`
+  text-align: center;
+  font-weight: bold;
+  @media (max-width: 48em) {
+    font-size: 0.9rem;
+  }
+  @media (max-width: 31.25em) {
+    font-size: 0.8rem;
+  }
+`;
 
 function PaidLoans() {
   const [openLoanTable, setOpenLoanTable] = useState(false);
@@ -43,28 +87,10 @@ function PaidLoans() {
   const { data: loans } = useGetLoan();
   const paidLoans = loans?.filter((loan) => loan.isCreditPaid);
   if (!paidLoans.length)
-    return (
-      <div
-        style={{
-          textAlign: "center",
-          width: "100%",
-          fontWeight: "bolder",
-          fontSize: "1.5rem",
-        }}
-      >
-        You don&lsquo;t have any paid loans!
-      </div>
-    );
+    return <StyledDiv>You don&lsquo;t have any paid loans!</StyledDiv>;
   return (
     <div>
-      <p
-        style={{
-          textAlign: "center",
-          fontWeight: "bold",
-        }}
-      >
-        Paid Loans
-      </p>
+      <StyledPaidLoansTitle>Paid Loans</StyledPaidLoansTitle>
       <TableContainer component={Paper}>
         <Table
           sx={{
@@ -147,11 +173,32 @@ function PaidLoans() {
 
 export default PaidLoans;
 
+const StyledPaidLoanPaymentTable = styled.p`
+  font-weight: bold;
+  @media (max-width: 48em) {
+    font-size: 0.8rem;
+  }
+  @media (max-width: 31.25em) {
+    font-size: 0.7rem;
+    margin: 0 0.5rem;
+  }
+`;
+
+const StyledHiddenText = styled.span`
+  @media (max-width: 48em) {
+    font-size: 0.5rem;
+  }
+  @media (max-width: 31.25em) {
+    display: none;
+  }
+`;
+
 const PaidLoanPaymentTable = ({ loanId, setOpenLoanTable }) => {
   const { toPDF, targetRef } = usePDF({ filename: "Monthly Payments.pdf" });
   const { data } = useGetLoan();
   const selectedLoan = data?.find((loan) => loan.id === loanId);
   const paymentPlan = JSON.parse(selectedLoan.applicantPaymentPlan);
+
   return (
     <>
       <span
@@ -164,21 +211,41 @@ const PaidLoanPaymentTable = ({ loanId, setOpenLoanTable }) => {
       >
         <ArrowBackIcon onClick={() => setOpenLoanTable(false)} />
 
-        <p
-          style={{
-            fontWeight: "bold",
-          }}
-        >
+        <StyledPaidLoanPaymentTable>
           Details of {formatDate(selectedLoan.created_at)} dated loan&apos;s
           payment list.
-        </p>
+        </StyledPaidLoanPaymentTable>
         <CustomButton
+          style={{
+            "@media(max-width:48em)": {
+              fontSize: ".6rem",
+              minWidth: "32px",
+              height: "2.6rem",
+              padding: ".5rem",
+            },
+            "@media(max-width:31.25em)": {
+              fontSize: ".5rem",
+              height: "2rem",
+              padding: "0px 0px",
+            },
+          }}
           onClick={toPDF}
           buttonText={
-            <span>
-              <FileDownloadIcon sx={{ color: "white!important" }} /> Export as
-              PDF
-            </span>
+            <label>
+              <FileDownloadIcon
+                sx={{
+                  cursor: "pointer",
+                  color: "white!important",
+                  "@media(max-width:48em)": {
+                    fontSize: ".9rem",
+                  },
+                  "@media(max-width:31.25em)": {
+                    fontSize: ".8rem",
+                  },
+                }}
+              />
+              <StyledHiddenText>Export</StyledHiddenText>
+            </label>
           }
           color="success"
           variant="contained"

@@ -93,7 +93,14 @@ function AccountNumberTab() {
           // xs={6}
           xs={12}
           sm={6}
-          md={4}
+          // md={4}
+          sx={{
+            "@media(max-width:48em)": {
+              "&>div": {
+                width: "100%!important",
+              },
+            },
+          }}
         >
           <CustomSelect
             data={bankContent}
@@ -117,7 +124,14 @@ function AccountNumberTab() {
           //  xs={6}
           xs={12}
           sm={6}
-          md={4}
+          // md={4}
+          sx={{
+            "@media(max-width:48em)": {
+              "&>div": {
+                width: "100%!important",
+              },
+            },
+          }}
         >
           <CustomSelect
             width="100%"
@@ -140,7 +154,14 @@ function AccountNumberTab() {
           //  xs={6}
           xs={12}
           sm={6}
-          md={4}
+          // md={4}
+          sx={{
+            "@media(max-width:48em)": {
+              "&>div": {
+                width: "100%!important",
+              },
+            },
+          }}
         >
           <CustomTextField
             id="recipientAccountNumber"
@@ -156,7 +177,14 @@ function AccountNumberTab() {
           // xs={6}
           xs={12}
           sm={6}
-          md={4}
+          // md={4}
+          sx={{
+            "@media(max-width:48em)": {
+              "&>div": {
+                width: "100%!important",
+              },
+            },
+          }}
         >
           <CustomTextField
             id="recipientFullNameAccount"
@@ -168,7 +196,20 @@ function AccountNumberTab() {
         </Grid>
 
         {watchSaveAsRegisteredWithAccount && (
-          <Grid item xs={6}>
+          <Grid
+            item
+            // xs={6}
+            xs={12}
+            sm={6}
+            // md={4}
+            sx={{
+              "@media(max-width:48em)": {
+                "&>div": {
+                  width: "100%!important",
+                },
+              },
+            }}
+          >
             <CustomTextField
               id="shortName"
               label="Short Name"
@@ -181,10 +222,23 @@ function AccountNumberTab() {
         )}
         <Grid
           item
-          xs={watchSaveAsRegisteredWithAccount ? 6 : 12}
+          // xs={watchSaveAsRegisteredWithAccount ? 6 : 12}
+          xs={12}
+          sm={6}
+          // md={4}
           sx={{ display: "flex", justifyContent: "end" }}
         >
           <FormControlLabel
+            sx={{
+              "&> span:last-child": {
+                "@media (max-width:48em)": {
+                  fontSize: ".7rem",
+                },
+                "@media (max-width:31.25em)": {
+                  fontSize: ".6rem",
+                },
+              },
+            }}
             control={<Switch />}
             label="Add as registered recipient"
             {...register("saveAsRegisteredWithAccount")}

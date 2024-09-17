@@ -137,7 +137,21 @@ function AmountDetermination() {
         </Box>
       </Grid>
       <Grid item xs={12} sx={GridStyle}>
-        <Box sx={{ ...BoxStyle, padding: "0", border: "none" }}>
+        <Box
+          sx={{
+            ...BoxStyle,
+            padding: "0",
+            border: "none",
+            "&>div>p": {
+              "@media (max-width:48em)": {
+                fontSize: ".7rem",
+              },
+              "@media (max-width:31.25em)": {
+                fontSize: ".6rem",
+              },
+            },
+          }}
+        >
           <CustomTextField
             id="amountToSend"
             width="tall"

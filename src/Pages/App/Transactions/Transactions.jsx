@@ -10,7 +10,10 @@ import { useGetRegisteredRecipients } from "../../../services/registeredRecipien
 import styled from "styled-components";
 
 const StyledDiv = styled.div`
-  height: 78dvh;
+  /* height: 78dvh; */
+  /* background-color: red; */
+  /* max-height: 500px; */
+  overflow: scroll;
   @media (max-width: 48em) {
     height: 100dvh;
   }

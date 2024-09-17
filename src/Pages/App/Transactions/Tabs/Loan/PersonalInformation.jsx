@@ -12,10 +12,22 @@ const StyledMuiTelInput = styled(MuiTelInput)`
   width: 100%;
   & > label {
     color: var(--color-text) !important;
+    @media (max-width: 48em) {
+      font-size: 0.8rem;
+    }
+    @media (max-width: 31.25em) {
+      font-size: 0.7rem;
+    }
   }
 
   & > div {
     color: var(--color-text);
+    @media (max-width: 48em) {
+      font-size: 0.8rem;
+    }
+    @media (max-width: 31.25em) {
+      font-size: 0.7rem;
+    }
   }
 
   & > div > fieldset {
@@ -53,7 +65,19 @@ export default function PersonalInformation({ phoneNumber, setPhoneNumber }) {
         paddingRight: "1rem",
       }}
     >
-      <Grid item xs={6}>
+      <Grid
+        item
+        // xs={6}
+        xs={12}
+        sm={6}
+        sx={{
+          "&>div": {
+            "@media (max-width:48em)": {
+              width: "100%!important",
+            },
+          },
+        }}
+      >
         <CustomTextField
           id="fullName"
           value={user.user_metadata.fullName}
@@ -64,7 +88,19 @@ export default function PersonalInformation({ phoneNumber, setPhoneNumber }) {
           }}
         />
       </Grid>
-      <Grid item xs={6}>
+      <Grid
+        item
+        // xs={6}
+        xs={12}
+        sm={6}
+        sx={{
+          "&>div": {
+            "@media (max-width:48em)": {
+              width: "100%!important",
+            },
+          },
+        }}
+      >
         <CustomTextField
           id="identificationNumber"
           label="Identification number"
@@ -75,7 +111,27 @@ export default function PersonalInformation({ phoneNumber, setPhoneNumber }) {
           }}
         />
       </Grid>
-      <Grid item xs={6}>
+      <Grid
+        item
+        // xs={6}
+        xs={12}
+        sm={6}
+        sx={{
+          "&>div": {
+            "@media (max-width:48em)": {
+              width: "100%!important",
+            },
+            "&>p": {
+              "@media (max-width:48em)": {
+                fontSize: ".7rem",
+              },
+              "@media (max-width:31.25em)": {
+                fontSize: ".6rem",
+              },
+            },
+          },
+        }}
+      >
         <CustomTextField
           id="adress"
           label="Adress"
@@ -87,7 +143,24 @@ export default function PersonalInformation({ phoneNumber, setPhoneNumber }) {
           error={errors?.applicantAdress}
         />
       </Grid>
-      <Grid item xs={6}>
+      <Grid
+        item
+        // xs={6}
+        xs={12}
+        sm={6}
+        sx={{
+          "&>div": {
+            "&>p": {
+              "@media (max-width:48em)": {
+                fontSize: ".7rem",
+              },
+              "@media (max-width:31.25em)": {
+                fontSize: ".6rem",
+              },
+            },
+          },
+        }}
+      >
         <StyledMuiTelInput
           label="Phone number"
           preferredCountries={["TR", "US", "KR"]}
@@ -100,7 +173,19 @@ export default function PersonalInformation({ phoneNumber, setPhoneNumber }) {
           error={errors?.applicantPhoneNumber}
         />
       </Grid>
-      <Grid item xs={6}>
+      <Grid
+        item
+        // xs={6}
+        xs={12}
+        sm={6}
+        sx={{
+          "&>div": {
+            "@media (max-width:48em)": {
+              width: "100%!important",
+            },
+          },
+        }}
+      >
         <CustomTextField
           id="birthday"
           label="Birthday"

@@ -2,9 +2,9 @@ import { Outlet } from "react-router-dom";
 
 function AppLayout() {
   return (
-    <>
-      <Outlet />
-    </>
+    // <main style={{ height: "max-content" }}>
+    <Outlet />
+    // </main>
   );
 }
 

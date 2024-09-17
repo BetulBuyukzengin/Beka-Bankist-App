@@ -14,3 +14,6 @@ export const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export const addressRegex =
   /^(?<il>[a-zA-ZçÇğĞıİöÖşŞüÜ\s]+)\s+(?<ilce>[a-zA-ZçÇğĞıİöÖşŞüÜ\s]+)\s+(?<mahalle>[a-zA-ZçÇğĞıİöÖşŞüÜ\s]+)\s*[mM]ah\.\s*(?<sokak>[a-zA-ZçÇğĞıİöÖşŞüÜ\s]+)\s*[sS]ok\.\s*[nN]o\s*:\s*(?<daire>[0-9]+)$/;
+
+export const media48em = "@media (max-width:48em)";
+export const media31_25em = "@media (max-width:31.25em)";

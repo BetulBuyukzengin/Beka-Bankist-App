@@ -1,46 +1,18 @@
-import { Paper } from "@mui/material";
+/* eslint-disable react/prop-types */
 import { useState } from "react";
-import CustomButton from "../../../Components/CustomButton/CustomButton";
-import CustomModal from "../../../Components/CustomModal/CustomModal";
+import CustomSettingsContent from "../../../Components/CustomSettingsContent/CustomSettingsContent";
 import UpdatePersonalInformationForm from "./UpdatePersonalInformation/UpdatePersonalInformationForm";
 
 function PersonalInformationSettings({ isPersonalDatas }) {
-  const [
-    openUpdatePersonalInformationModal,
-    setOpenUpdatePersonalInformationModal,
-  ] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
   return (
-    <>
-      <Paper
-        sx={{
-          padding: "2rem",
-          display: "flex",
-          flexDirection: "column",
-          gap: "1rem",
-          backgroundColor: "var(--color-background)",
-          border: "1px solid var(--color-gray)",
-          color: "var(--color-text)",
-        }}
-      >
-        <p>Update personal information to use Beka Bankist</p>
-        <CustomButton
-          style={{ alignSelf: "center" }}
-          buttonText={isPersonalDatas ? "Update User" : "Add Personal Info"}
-          onClick={() => setOpenUpdatePersonalInformationModal(true)}
-        />
-      </Paper>
-      <CustomModal
-        paddingSize="1rem 1.5rem"
-        open={openUpdatePersonalInformationModal}
-        setOpen={setOpenUpdatePersonalInformationModal}
-      >
-        <UpdatePersonalInformationForm
-          isPersonalDatas={isPersonalDatas}
-          setOpen={setOpenUpdatePersonalInformationModal}
-        />
-      </CustomModal>
-    </>
+    <CustomSettingsContent
+      title="Update personal information to use Beka Bankist"
+      buttonText={isPersonalDatas ? "Update User" : "Add Personal Info"}
+      FormComponent={UpdatePersonalInformationForm}
+      formProps={{ isPersonalDatas, setOpenModal, openModal }}
+    />
   );
 }
 

@@ -15,6 +15,7 @@ import {
 } from "../../../../../utils/utils";
 import { useCreateMovements } from "../../../../../services/movementsServices";
 import { toast } from "react-toastify";
+import styled from "styled-components";
 
 const transactionSteps = [
   {
@@ -27,6 +28,14 @@ const transactionSteps = [
   },
 ];
 
+export const StyledDiv = styled.div`
+  margin: 3rem;
+  text-align: center;
+  @media (max-width: 48em) {
+    font-size: 0.7rem;
+    margin: 1rem 0;
+  }
+`;
 function WithdrawTab() {
   const { isLoading, mutateAsync: withdrawMoney } = useUpdateAccount();
   const navigate = useNavigate();
@@ -145,11 +154,11 @@ function WithdrawTab() {
           setActiveStep={setActiveStep}
         />
         {activeStep === transactionSteps.length && (
-          <div style={{ margin: "3rem", textAlign: "center" }}>
+          <StyledDiv>
             {isLoading
               ? "Transfer transaction is in progress"
               : "Transfer was successfully completed ..."}
-          </div>
+          </StyledDiv>
         )}
       </form>
     </FormProvider>

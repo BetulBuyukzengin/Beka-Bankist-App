@@ -1,43 +1,17 @@
-import { Paper } from "@mui/material";
 import { useState } from "react";
-import CustomButton from "../../../../Components/CustomButton/CustomButton";
-import CustomModal from "../../../../Components/CustomModal/CustomModal";
+import CustomSettingsContent from "../../../../Components/CustomSettingsContent/CustomSettingsContent";
 import UpdateEmailAdressForm from "./UpdateEmailAdressForm";
 
 function UpdateEmail() {
-  const [openUpdateEmailModal, setOpenUpdateEmailModal] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
   return (
-    <>
-      <Paper
-        sx={{
-          padding: "2rem",
-          display: "flex",
-          flexDirection: "column",
-          gap: "1rem",
-          backgroundColor: "var(--color-background)",
-          border: "1px solid var(--color-gray)",
-          color: "var(--color-text)",
-        }}
-      >
-        <p>Update email address by confirming from existing email</p>
-        {/* E-posta adresini mevcut e-postadan onaylayarak güncelle */}
-        <CustomButton
-          style={{ alignSelf: "center" }}
-          buttonText="Update Email"
-          onClick={() => setOpenUpdateEmailModal(true)}
-        />
-      </Paper>
-      <CustomModal
-        paddingSize="1rem 1.5rem"
-        open={openUpdateEmailModal}
-        setOpen={setOpenUpdateEmailModal}
-      >
-        <UpdateEmailAdressForm
-          setOpenUpdateEmailModal={setOpenUpdateEmailModal}
-        />
-      </CustomModal>
-    </>
+    <CustomSettingsContent
+      title="Update email address by confirming from existing email"
+      buttonText="Update Email"
+      FormComponent={UpdateEmailAdressForm}
+      formProps={{ setOpenModal, openModal }}
+    />
   );
 }
 

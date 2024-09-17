@@ -118,7 +118,19 @@ function DetailDetermination() {
         <Grid
           item
           xs={12}
-          sx={{ ...StyleGrid, flexDirection: "column", alignItems: "center" }}
+          sx={{
+            ...StyleGrid,
+            flexDirection: "column",
+            alignItems: "center",
+            "&>p": {
+              "@media (max-width:48em)": {
+                fontSize: ".7rem",
+              },
+              "@media (max-width:31.25em)": {
+                fontSize: ".6rem",
+              },
+            },
+          }}
         >
           <CustomSelect
             value={searchParams.get("payment-method") || ""}

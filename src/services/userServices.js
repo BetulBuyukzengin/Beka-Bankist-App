@@ -143,7 +143,7 @@ async function updateUser(id, user) {
 
 export function useUpdateUser() {
   const queryClient = useQueryClient();
-  const { mutateAsync, isLoading } = useMutation({
+  const { mutateAsync, isPending } = useMutation({
     mutationFn: ({ id, user }) => updateUser(id, user),
     // onError: () => toast.error("User could not be updated"),
     onError: (error) => toast.error(error.message),
@@ -154,7 +154,7 @@ export function useUpdateUser() {
       toast.success("Personal information updated successfully");
     },
   });
-  return { mutateAsync, isLoading };
+  return { mutateAsync, isPending };
 }
 
 async function uploadImg(file) {

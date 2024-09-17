@@ -16,7 +16,27 @@ export default function BusinessInformation() {
         paddingRight: "1rem",
       }}
     >
-      <Grid item xs={6}>
+      <Grid
+        item
+        //  xs={6}
+        xs={12}
+        sm={6}
+        sx={{
+          "&>div": {
+            "@media (max-width:48em)": {
+              width: "100%!important",
+            },
+            "&>p": {
+              "@media (max-width:48em)": {
+                fontSize: ".7rem",
+              },
+              "@media (max-width:31.25em)": {
+                fontSize: ".6rem",
+              },
+            },
+          },
+        }}
+      >
         <CustomTextField
           id="businessName"
           label="Business Name"
@@ -27,7 +47,27 @@ export default function BusinessInformation() {
           error={errors?.applicantBusinessName}
         />
       </Grid>
-      <Grid item xs={6}>
+      <Grid
+        item
+        // xs={6}
+        xs={12}
+        sm={6}
+        sx={{
+          "&>div": {
+            "@media (max-width:48em)": {
+              width: "100%!important",
+            },
+            "&>p": {
+              "@media (max-width:48em)": {
+                fontSize: ".7rem",
+              },
+              "@media (max-width:31.25em)": {
+                fontSize: ".6rem",
+              },
+            },
+          },
+        }}
+      >
         <CustomTextField
           id="sectorofWork"
           label="Sector of Work"
@@ -38,7 +78,27 @@ export default function BusinessInformation() {
           error={errors?.applicantSectorOfWork}
         />
       </Grid>
-      <Grid item xs={6}>
+      <Grid
+        item
+        //  xs={6}
+        xs={12}
+        sm={6}
+        sx={{
+          "&>div": {
+            "@media (max-width:48em)": {
+              width: "100%!important",
+            },
+            "&>p": {
+              "@media (max-width:48em)": {
+                fontSize: ".7rem",
+              },
+              "@media (max-width:31.25em)": {
+                fontSize: ".6rem",
+              },
+            },
+          },
+        }}
+      >
         <CustomTextField
           id="job"
           label="Job"

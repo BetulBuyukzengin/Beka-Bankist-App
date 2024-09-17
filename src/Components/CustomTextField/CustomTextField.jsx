@@ -11,6 +11,12 @@ const StyledTextField = styled(TextField)`
   }
   & > label {
     color: var(--color-text) !important;
+    @media (max-width: 48em) {
+      font-size: 0.8rem;
+    }
+    @media (max-width: 31.25em) {
+      font-size: 0.7rem;
+    }
   }
   & > div {
     color: var(--color-text);
@@ -38,8 +44,8 @@ const StyledTextField = styled(TextField)`
     }
   }
   @media (max-width: 48em) {
-    width: 80% !important;
-    width: 80% !important;
+    width: ${({ textFieldStyles }) =>
+      textFieldStyles?.width || "80% !important"};
   }
 `;
 
@@ -59,10 +65,12 @@ function CustomTextField({
   placeholder,
   inputProps, //! mui input props
   texttransform,
+  textFieldStyles,
 }) {
   return (
     <StyledTextField
       {...register}
+      textFieldStyles={textFieldStyles}
       placeholder={placeholder}
       onChange={onChange}
       defaultValue={defaultValue}

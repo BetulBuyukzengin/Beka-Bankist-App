@@ -55,7 +55,7 @@ function WithIbanTab({ iban, setIban }) {
           // xs={6}
           xs={12}
           sm={6}
-          md={4}
+          // md={4}
           sx={{
             display: "flex",
             gap: "1rem",
@@ -85,7 +85,7 @@ function WithIbanTab({ iban, setIban }) {
           //  xs={6}
           xs={12}
           sm={6}
-          md={4}
+          // md={4}
           sx={{
             display: "flex",
             gap: "1rem",
@@ -112,7 +112,7 @@ function WithIbanTab({ iban, setIban }) {
             item
             xs={12}
             sm={6}
-            md={4}
+            // md={4}
             sx={{
               "@media(max-width:48em)": {
                 "&>div": {

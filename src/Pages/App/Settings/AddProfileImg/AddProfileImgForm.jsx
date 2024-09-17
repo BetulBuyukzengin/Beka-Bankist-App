@@ -41,6 +41,14 @@ function AddProfileImgForm() {
           color: "var(--color-text)",
           justifyContent: "center",
           alignItems: "center",
+          "@media (max-width:48em)": {
+            padding: ".8rem",
+            flexDirection: "row",
+            fontSize: ".8rem",
+          },
+          "@media (max-width:31.25em)": {
+            fontSize: ".7rem",
+          },
         }}
       >
         {user.user_metadata.image
@@ -54,7 +62,22 @@ function AddProfileImgForm() {
           startIcon={<CloudUploadIcon />}
           disabled={isPending}
           size="small"
-          sx={{ width: "30%" }}
+          sx={{
+            // width: "30%",
+            width: "40%",
+            "@media (max-width:48em)": {
+              fontSize: ".6rem",
+            },
+            "@media (max-width:31.25em)": {
+              fontSize: ".5rem",
+            },
+            "&>span": {
+              "@media (max-width:48em)": {
+                marginRight: "3px",
+                marginLeft: "0px",
+              },
+            },
+          }}
         >
           Choose image
           <VisuallyHiddenInput
@@ -67,7 +90,16 @@ function AddProfileImgForm() {
           disabled={isPending}
           buttonText="Upload Image"
           type="submit"
-          style={{ width: "30%" }}
+          style={{
+            // width: "30%",
+            width: "40%",
+            "@media (max-width:48em)": {
+              fontSize: ".6rem",
+            },
+            "@media (max-width:31.25em)": {
+              fontSize: ".5rem",
+            },
+          }}
         />
       </Paper>
     </form>

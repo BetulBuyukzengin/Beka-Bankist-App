@@ -10,19 +10,33 @@ import CustomTextField from "../../../../Components/CustomTextField/CustomTextFi
 import {
   addressRegex,
   identificationNumberCharacter,
+  media31_25em,
 } from "../../../../Constants/constants";
 import { useUpdateUser } from "../../../../services/userServices";
 import { calcAge } from "../../../../utils/utils";
 import { useCurrentUser } from "../../../../Hooks/useCurrentUser";
+import { media48em } from "../../../../Constants/constants";
 
 const StyledMuiTelInput = styled(MuiTelInput)`
   width: 100%;
   & > label {
     color: var(--color-text) !important;
+    @media (max-width: 48em) {
+      font-size: 0.8rem;
+    }
+    @media (max-width: 31.25em) {
+      font-size: 0.7rem;
+    }
   }
 
   & > div {
     color: var(--color-text);
+    @media (max-width: 48em) {
+      font-size: 0.8rem;
+    }
+    @media (max-width: 31.25em) {
+      font-size: 0.7rem;
+    }
   }
 
   & > div > fieldset {
@@ -40,7 +54,7 @@ const StyledMuiTelInput = styled(MuiTelInput)`
   }
 `}
 `;
-function UpdatePersonalInformationForm({ setOpen, isPersonalDatas }) {
+function UpdatePersonalInformationForm({ isPersonalDatas, setOpenModal }) {
   const { currentUser } = useCurrentUser();
 
   const [phoneNumber, setPhoneNumber] = useState(
@@ -56,7 +70,7 @@ function UpdatePersonalInformationForm({ setOpen, isPersonalDatas }) {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { mutateAsync: updateUser } = useUpdateUser();
+  const { mutateAsync: updateUser, isPending: isUpdating } = useUpdateUser();
 
   function handleChangePhone(phone) {
     setPhoneNumber(phone);
@@ -72,7 +86,7 @@ function UpdatePersonalInformationForm({ setOpen, isPersonalDatas }) {
       applicantPhoneNumber: phoneNumber,
     };
     await updateUser({ id, user: personalData });
-    setOpen(false);
+    setOpenModal(false);
   };
 
   return (
@@ -84,8 +98,11 @@ function UpdatePersonalInformationForm({ setOpen, isPersonalDatas }) {
           flexDirection: "column",
           gap: "1rem",
           backgroundColor: "var(--color-background)",
-          border: "1px solid var(--color-gray)",
+          // border: "1px solid var(--color-gray)",
           color: "var(--color-text)",
+          [media48em]: {
+            padding: ".3rem",
+          },
         }}
       >
         <Grid
@@ -97,11 +114,13 @@ function UpdatePersonalInformationForm({ setOpen, isPersonalDatas }) {
             paddingRight: "1rem",
           }}
         >
-          <Grid item xs={6}>
+          <Grid item xs={12} sm={6}>
             <CustomTextField
               id="identificationNumber"
               label="Identification number"
+              disabled={isUpdating}
               type="number"
+              textFieldStyles={{ width: "100%" }}
               defaultValue={currentUser?.identificationNumber}
               register={{
                 ...register("identificationNumber", {
@@ -126,10 +145,12 @@ function UpdatePersonalInformationForm({ setOpen, isPersonalDatas }) {
             />
           </Grid>
 
-          <Grid item xs={6}>
+          <Grid item xs={12} sm={6}>
             <CustomTextField
               id="adress"
+              disabled={isUpdating}
               label="Adress"
+              textFieldStyles={{ width: "100%" }}
               defaultValue={currentUser?.applicantAddress}
               // for test
               // defaultValue="Ankara Çankaya Kavaklı Mah. Atatürk Sok. No: 5"
@@ -148,8 +169,9 @@ function UpdatePersonalInformationForm({ setOpen, isPersonalDatas }) {
               error={errors?.applicantAddress}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} sm={6}>
             <StyledMuiTelInput
+              disabled={isUpdating}
               label="Phone number"
               preferredCountries={["TR", "US", "KR"]}
               value={phoneNumber}
@@ -167,10 +189,11 @@ function UpdatePersonalInformationForm({ setOpen, isPersonalDatas }) {
             )}
           </Grid>
 
-          <Grid item xs={6}>
+          <Grid item xs={12} sm={6}>
             <DatePicker
               width="tall"
               label="Birthday"
+              disabled={isUpdating}
               value={birthday}
               slotProps={{
                 popper: { placement: "right-start" },
@@ -184,9 +207,21 @@ function UpdatePersonalInformationForm({ setOpen, isPersonalDatas }) {
                 },
                 "&>label": {
                   color: "var(--color-text)",
+                  "@media (max-width: 48em)": {
+                    fontSize: "0.8rem",
+                  },
+                  "@media (max-width: 31.25em)": {
+                    fontSize: "0.7rem",
+                  },
                 },
                 "& > div": {
                   color: "var(--color-text)",
+                  "@media (max-width: 48em)": {
+                    fontSize: "0.8rem",
+                  },
+                  "@media (max-width: 31.25em)": {
+                    fontSize: "0.7rem",
+                  },
 
                   "& > fieldset": {
                     borderColor:
@@ -205,6 +240,15 @@ function UpdatePersonalInformationForm({ setOpen, isPersonalDatas }) {
           </Grid>
           <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
             <CustomButton
+              disabled={isUpdating}
+              style={{
+                [media48em]: {
+                  fontSize: ".8rem",
+                },
+                [media31_25em]: {
+                  fontSize: ".7rem",
+                },
+              }}
               type="submit"
               buttonText={isPersonalDatas ? "Update " : "Add "}
             />

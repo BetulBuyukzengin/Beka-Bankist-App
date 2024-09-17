@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import { FormHelperText, Grid } from "@mui/material";
 import CustomTextField from "../../../../../Components/CustomTextField/CustomTextField";
 import { useFormContext } from "react-hook-form";
 import CustomSelect from "../../../../../Components/CustomSelect/CustomSelect";
@@ -50,7 +50,7 @@ export default function LoanInformation() {
     watch,
     setValue,
   } = useFormContext();
-
+  console.log(errors);
   const [loanAmount, setLoanAmount] = useState(0);
   const [searchParams, setSearchParams] = useSearchParams();
   const watchSelectedPaymentPeriod = watch("selectedPaymentPeriod");
@@ -125,7 +125,25 @@ export default function LoanInformation() {
         paddingRight: "1rem",
       }}
     >
-      <Grid item xs={6}>
+      <Grid
+        item
+        // xs={6}
+        xs={12}
+        sm={6}
+        sx={{
+          "&>div": {
+            width: "100%!important",
+            "&>p": {
+              "@media (max-width:48em)": {
+                fontSize: ".7rem",
+              },
+              "@media (max-width:31.25em)": {
+                fontSize: ".6rem",
+              },
+            },
+          },
+        }}
+      >
         <CustomTextField
           id="totalIncome"
           label="Total Income"
@@ -140,7 +158,25 @@ export default function LoanInformation() {
         />
       </Grid>
 
-      <Grid item xs={6}>
+      <Grid
+        item
+        // xs={6}
+        xs={12}
+        sm={6}
+        sx={{
+          "&>div": {
+            width: "100%!important",
+            "&>p": {
+              "@media (max-width:48em)": {
+                fontSize: ".7rem",
+              },
+              "@media (max-width:31.25em)": {
+                fontSize: ".6rem",
+              },
+            },
+          },
+        }}
+      >
         <CustomTextField
           type="text"
           id="totalExpense"
@@ -155,7 +191,23 @@ export default function LoanInformation() {
           error={errors?.applicantTotalExpense}
         />
       </Grid>
-      <Grid item xs={12}>
+      <Grid
+        item
+        xs={12}
+        sx={{
+          "&>div": {
+            width: "100%!important",
+            "&>p": {
+              "@media (max-width:48em)": {
+                fontSize: ".7rem",
+              },
+              "@media (max-width:31.25em)": {
+                fontSize: ".6rem",
+              },
+            },
+          },
+        }}
+      >
         <CustomTextField
           id="loanPurpose"
           label="Loan Purpose"
@@ -169,9 +221,27 @@ export default function LoanInformation() {
         />
       </Grid>
 
-      <Grid item xs={3}>
+      <Grid
+        item
+        // xs={3}
+        xs={6}
+        sm={3}
+        sx={{
+          "&>div": {
+            width: "100%!important",
+          },
+          "&>p": {
+            "@media (max-width:48em)": {
+              fontSize: ".7rem",
+            },
+            "@media (max-width:31.25em)": {
+              fontSize: ".6rem",
+            },
+          },
+        }}
+      >
         <CustomSelect
-              width="100%"
+          width="100%"
           data={paymentPeriods}
           value={searchParams.get("selectedPaymentPeriod") || ""}
           defaultValue=""
@@ -179,8 +249,19 @@ export default function LoanInformation() {
             ...register("selectedPaymentPeriod"),
           }}
         />
+        {errors?.selectedPaymentPeriod && (
+          <FormHelperText error sx={{ marginLeft: ".8rem" }}>
+            {/* {errors?.selectedPaymentPeriod?.message} */}
+            Lütfen aylık ödeme planını seçiniz!
+          </FormHelperText>
+        )}
       </Grid>
-      <Grid item xs={3}>
+      <Grid
+        item
+        // xs={3}
+        xs={6}
+        sm={3}
+      >
         <CustomTextField
           id="-basic"
           label="Maximum Loan Amount"
@@ -188,11 +269,16 @@ export default function LoanInformation() {
           value={isTotalIncomeExpense ? maxLoanAmount.toFixed(2) : 0}
         />
       </Grid>
-      <Grid item xs={6}>
+      <Grid
+        item
+        //  xs={6}
+        xs={12}
+        sm={6}
+      >
         <CustomTextField
           // placeholder={isTotalIncomeExpense ? maxLoanAmount : 0}
           type="number"
-          value={loanAmount.toFixed(2)}
+          defaultValue={loanAmount.toFixed(2)}
           onChange={handleLoanAmountChange}
           id="loanAmount"
           label="Loan Amount"
