@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import Heading from "../../../Components/Heading/Heading";
 import CustomAccordion from "../../../Components/Accordion/Accordion";
+import { media48em } from "../../../Constants/constants";
 const questions = [
   {
     question: "Can I accept both Paypal and Stripe ?",
@@ -50,6 +51,10 @@ const StyledContainer = styled.div`
   width: 100%;
   background-color: var(--color-background);
   padding: 0 10rem;
+  ${media48em} {
+    padding: 1rem 0.5rem;
+    margin: 1rem 0;
+  }
 `;
 
 const StyledGridContainer = styled.div`

@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import ContactForm from "./ContactForm";
 import Heading from "../../../Components/Heading/Heading";
+import { media31_25em, media48em } from "../../../Constants/constants";
 
 const StyledContactUs = styled.div`
   width: 100%;
@@ -13,6 +14,14 @@ const StyledGridContainer = styled.div`
   grid-template-columns: repeat(3, 1fr);
   padding: 0 10rem;
   gap: 2rem;
+  ${media48em} {
+    grid-template-columns: repeat(1, 1fr);
+    padding: 0.5rem 2rem;
+    gap: 1rem;
+  }
+  ${media31_25em} {
+    gap: 0.8rem;
+  }
 `;
 
 const StyledGridItem = styled.div`
@@ -24,13 +33,34 @@ const StyledGridItem = styled.div`
   color: var(--color-text);
   font-size: 1rem;
   gap: 1rem;
+  ${media48em} {
+    gap: 0.8rem;
+  }
+  ${media31_25em} {
+    gap: 0.5rem;
+  }
 `;
 
 const StyledImg = styled.img`
   width: 2rem;
   height: 2rem;
+  ${media48em} {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  ${media31_25em} {
+    width: 1rem;
+    height: 1rem;
+  }
 `;
-
+const StyledSpan = styled.span`
+  ${media48em} {
+    font-size: 0.8rem;
+  }
+  ${media31_25em} {
+    font-size: 0.7rem;
+  }
+`;
 function Contact() {
   return (
     <StyledContactUs id="contact">
@@ -38,17 +68,17 @@ function Contact() {
       <StyledGridContainer>
         <StyledGridItem>
           <StyledImg src="../../../img/icons8-location-80.png" alt="" />
-          <span>
+          <StyledSpan>
             203 Fake St. Mountain View, San Francisco, California, USA
-          </span>
+          </StyledSpan>
         </StyledGridItem>
         <StyledGridItem>
           <StyledImg src="../../../img/icons8-phone-80.png" alt="" />
-          <span>+1 232 3235 324</span>
+          <StyledSpan>+1 232 3235 324</StyledSpan>
         </StyledGridItem>
         <StyledGridItem>
           <StyledImg src="../../../img/icons8-mail-96.png" alt="" />
-          <span>youremail@domain.com</span>
+          <StyledSpan>youremail@domain.com</StyledSpan>
         </StyledGridItem>
       </StyledGridContainer>
       <ContactForm />

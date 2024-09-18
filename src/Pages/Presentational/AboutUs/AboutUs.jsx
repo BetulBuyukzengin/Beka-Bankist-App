@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Image from "../AboutUs/Image";
 import Heading from "../../../Components/Heading/Heading";
+import { media31_25em, media48em } from "../../../Constants/constants";
 
 const StyledAbout = styled.div`
   height: 100dvh;
@@ -11,6 +12,11 @@ const StyledAbout = styled.div`
   align-items: center;
   text-align: center;
   background-color: var(--color-background);
+
+  ${media48em} {
+    padding: 0.5rem;
+    height: auto;
+  }
 `;
 
 const StyledContainer = styled.div`
@@ -20,6 +26,10 @@ const StyledContainer = styled.div`
   justify-content: center;
   align-items: flex-start;
   padding: 0 10rem;
+  ${media48em} {
+    padding: 0;
+    flex-direction: column;
+  }
 `;
 
 const StyledAboutText = styled.div`
@@ -34,6 +44,14 @@ const StyledAboutText = styled.div`
   text-align: left;
   height: 100%;
   line-height: 1.5rem;
+  ${media48em} {
+    font-size: 0.8rem;
+    width: 100%;
+    padding: 0.5rem;
+  }
+  ${media31_25em} {
+    font-size: 0.8rem;
+  }
 `;
 
 function AboutUs() {

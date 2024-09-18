@@ -1,6 +1,7 @@
 import styled, { keyframes } from "styled-components";
 import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
 import Slider from "../../../Components/Slider/Slider";
+import { media31_25em, media48em } from "../../../Constants/constants";
 
 const StyledHome = styled.div`
   width: 100%;
@@ -13,6 +14,9 @@ const StyledHome = styled.div`
   background-size: cover;
   background-repeat: no-repeat;
   position: relative;
+  ${media48em} {
+    height: auto;
+  }
 `;
 
 const bounceAnimation = keyframes`
@@ -38,6 +42,12 @@ const StyledIcon = styled(KeyboardDoubleArrowDownIcon)`
     color: var(--color-primary);
     transform: translateY(7px) translate(-50%, -50%);
     animation: none;
+  }
+  ${media48em} {
+    font-size: 0.8rem;
+  }
+  ${media31_25em} {
+    font-size: 0.7rem;
   }
 `;
 

@@ -28,13 +28,11 @@
  ✅ Registered recipients yoksa mesaj goster
  ✅ Radio ile hesap seçme hatası düzelt
  ✅ Hareketsizlikte oturum kapatma
- loan information da selectte gelen helper text mesajının içeriğini değiştir. 
- take loan da 2.stepte son text field ve butonlar gözükmüyor
+ contact form da submit işlemini yap
  deposit te para yüklerken ekranda (step içeriğinde) gelen mesajı ya kaldır ya da diğerlerine de uygulayıp  responsive ekle . görüntüsü butonların stunde olsa daha ıyı gıbı
- ödenen kredileri tabloda gosterırken seçilmesini sağla belkı bır modalla detay görünebilir
  sign in de yanlış bilgi girildi hatası göster
  update email with email e bak ve tab(email-phone) kaldır ya da respo ekle
- settings ve diğer yerlerde de helper text respolarını kontrol et
+ Forgot password oto yonlendırme yapmıyor
  ❌ Anlaşma modalını düzelt
  ❌ Crypto-Borsa: Table / https://mui.com/material-ui/react-table/#sticky-header
  ❌ Dil destegini ayarla

@@ -43,7 +43,6 @@ function AddProfileImgForm() {
           alignItems: "center",
           "@media (max-width:48em)": {
             padding: ".8rem",
-            flexDirection: "row",
             fontSize: ".8rem",
           },
           "@media (max-width:31.25em)": {
@@ -51,9 +50,11 @@ function AddProfileImgForm() {
           },
         }}
       >
-        {user.user_metadata.image
-          ? "Update profile image"
-          : "Add profile image"}
+        <p>
+          {user.user_metadata.image
+            ? "Update profile image"
+            : "Add profile image"}
+        </p>
         <Button
           component="label"
           role={undefined}

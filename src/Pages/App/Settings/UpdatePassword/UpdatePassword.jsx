@@ -4,6 +4,7 @@ import UpdatePasswordForm from "./UpdatePasswordForm";
 
 function UpdatePassword() {
   const [openModal, setOpenModal] = useState(false);
+
   return (
     <CustomSettingsContent
       title="Update your password"

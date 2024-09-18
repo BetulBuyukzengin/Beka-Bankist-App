@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import styled from "styled-components";
+import { media48em, media31_25em } from "../../Constants/constants";
 
 const StyledHeading = styled.h1`
   color: var(--color-secondary);
@@ -7,6 +8,13 @@ const StyledHeading = styled.h1`
   padding-top: 6rem;
   text-align: center;
   filter: drop-shadow(var(--shadow-md));
+  ${media48em} {
+    padding-top: 0;
+    font-size: 0.9rem;
+  }
+  ${media31_25em} {
+    font-size: 0.8rem;
+  }
 `;
 
 const StyledParagraph = styled.p`
@@ -17,13 +25,20 @@ const StyledParagraph = styled.p`
   line-height: 2rem;
   letter-spacing: 0.00938em;
   margin-bottom: 3rem;
+  ${media48em} {
+    font-size: 0.8rem;
+    line-height: 0.9rem;
+  }
+  ${media31_25em} {
+    font-size: 0.7rem;
+  }
 `;
 
 function Heading({ head, text }) {
   return (
     <>
       <StyledHeading>{head}</StyledHeading>
-      <StyledParagraph>{text}</StyledParagraph>
+      {text && <StyledParagraph>{text}</StyledParagraph>}
     </>
   );
 }

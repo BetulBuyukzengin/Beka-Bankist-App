@@ -24,7 +24,9 @@ const StyledUpdatePasswordTitle = styled.h4`
     font-size: 0.8rem;
   }
 `;
-function UpdatePasswordForm({ setOpen }) {
+function UpdatePasswordForm({ setOpenModal }) {
+  // if (!formProps) return;
+  // const { setOpenModal } = formProps;
   const {
     register,
     handleSubmit,
@@ -33,6 +35,7 @@ function UpdatePasswordForm({ setOpen }) {
   } = useForm();
   const { isPending, mutateAsync: updatePassword } = useUpdateUserInformation();
   const { user } = useUser();
+
   const onSubmit = async (data) => {
     //! Current password is true or not
     await verifyUserPassword(user.email, data.currentPassword);
@@ -41,7 +44,7 @@ function UpdatePasswordForm({ setOpen }) {
       updatedUser: { password: data.newPassword },
       toastMessage,
     });
-    setOpen(false);
+    setOpenModal(false);
   };
 
   return (
@@ -54,7 +57,21 @@ function UpdatePasswordForm({ setOpen }) {
         <Grid item xs={6}>
           <StyledUpdatePasswordTitle>Update Password</StyledUpdatePasswordTitle>
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid
+          item
+          xs={12}
+          sm={6}
+          sx={{
+            "&>div>p": {
+              [media48em]: {
+                fontSize: ".7rem",
+              },
+              [media31_25em]: {
+                fontSize: ".6rem",
+              },
+            },
+          }}
+        >
           <CustomTextField
             texttransform="basic"
             id="currentPassword"
@@ -69,7 +86,21 @@ function UpdatePasswordForm({ setOpen }) {
             error={errors?.currentPassword}
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid
+          item
+          xs={12}
+          sm={6}
+          sx={{
+            "&>div>p": {
+              [media48em]: {
+                fontSize: ".7rem",
+              },
+              [media31_25em]: {
+                fontSize: ".6rem",
+              },
+            },
+          }}
+        >
           <CustomTextField
             id="newPassword"
             texttransform="basic"
@@ -89,7 +120,21 @@ function UpdatePasswordForm({ setOpen }) {
             error={errors?.newPassword}
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid
+          item
+          xs={12}
+          sm={6}
+          sx={{
+            "&>div>p": {
+              [media48em]: {
+                fontSize: ".7rem",
+              },
+              [media31_25em]: {
+                fontSize: ".6rem",
+              },
+            },
+          }}
+        >
           <CustomTextField
             id="repeatNewPassword"
             texttransform="basic"

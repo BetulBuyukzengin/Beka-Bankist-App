@@ -7,6 +7,18 @@ import CustomButton from "../../../Components/CustomButton/CustomButton";
 import CustomTextField from "../../../Components/CustomTextField/CustomTextField";
 import { supabase } from "../../../Supabase/supabase";
 import AccessDenied from "./AccessDenied";
+import styled from "styled-components";
+import { media31_25em, media48em } from "../../../Constants/constants";
+
+const StyledCreatePasswordTitle = styled.h4`
+  font-weight: bold;
+  ${media48em} {
+    font-size: 0.8rem;
+  }
+  ${media31_25em} {
+    font-size: 0.7rem;
+  }
+`;
 
 function CreatePassword() {
   const {
@@ -34,12 +46,12 @@ function CreatePassword() {
     }
   }, [token]);
 
-  const onSubmit = async () => {
+  const onSubmit = async (formData) => {
     if (!token)
       return toast.error("You don't have permission to submit this form");
     try {
       const { data, error } = await supabase.auth.updateUser({
-        password: data.newPassword,
+        password: formData.newPassword,
       });
       if (error) throw new Error(error.message);
       else {
@@ -72,6 +84,10 @@ function CreatePassword() {
           width: "50%",
           m: "1rem",
           backgroundColor: "transparent",
+          [media48em]: {
+            width: "100%",
+            padding: "1rem",
+          },
         }}
       >
         <Grid
@@ -79,19 +95,30 @@ function CreatePassword() {
           gap={3}
           sx={{ justifyContent: "center", textAlign: "center" }}
         >
-          <Grid item xs={6}>
-            <h4
-              style={{
-                fontWeight: "bold",
-              }}
-            >
+          <Grid item xs={12} sm={6}>
+            <StyledCreatePasswordTitle>
               Create Password
-            </h4>
+            </StyledCreatePasswordTitle>
           </Grid>
-          <Grid item xs={6}>
+          <Grid
+            item
+            xs={12}
+            sm={6}
+            sx={{
+              "&>div>p": {
+                [media48em]: {
+                  fontSize: ".7rem",
+                },
+                [media31_25em]: {
+                  fontSize: ".6rem",
+                },
+              },
+            }}
+          >
             <CustomTextField
               id="newPassword"
               texttransform="basic"
+              textFieldStyles={{ width: "100%" }}
               label="New Password"
               register={{
                 ...register("newPassword", {
@@ -107,10 +134,25 @@ function CreatePassword() {
               error={errors?.newPassword}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid
+            item
+            xs={12}
+            sm={6}
+            sx={{
+              "&>div>p": {
+                [media48em]: {
+                  fontSize: ".7rem",
+                },
+                [media31_25em]: {
+                  fontSize: ".6rem",
+                },
+              },
+            }}
+          >
             <CustomTextField
               id="repeatNewPassword"
               texttransform="basic"
+              textFieldStyles={{ width: "100%" }}
               label="Repeat New Password"
               register={{
                 ...register("repeatNewPassword", {
@@ -128,7 +170,14 @@ function CreatePassword() {
             <CustomButton
               buttonText="Update"
               type="submit"
-              // disabled={isPending}
+              style={{
+                "@media (max-width:48em)": {
+                  fontSize: ".6rem",
+                },
+                "@media (max-width:31.25em)": {
+                  fontSize: ".5rem",
+                },
+              }}
             />
           </Grid>
         </Grid>

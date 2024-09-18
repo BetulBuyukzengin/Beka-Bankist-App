@@ -6,6 +6,7 @@ import CustomModal from "../../../Components/CustomModal/CustomModal";
 import AccountCreate from "./AccountCreate";
 import AccountDelete from "./AccountDelete";
 import { useSearchParams } from "react-router-dom";
+import { media31_25em, media48em } from "../../../Constants/constants";
 
 function CurrentAccounts() {
   const [openCreateAccount, setOpenCreateAccount] = useState(false);
@@ -55,8 +56,11 @@ function CurrentAccounts() {
             fontSize: "1.5rem",
             fontWeight: "bold",
 
-            "@media (max-width: 31.25em)": {
+            [media48em]: {
               fontSize: "0.9rem",
+            },
+            [media31_25em]: {
+              fontSize: "0.8rem",
             },
           }}
         >

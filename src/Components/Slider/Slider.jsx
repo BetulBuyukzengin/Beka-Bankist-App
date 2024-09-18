@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
 import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
 import styled from "styled-components";
-
+import { media48em, media31_25em } from "../../Constants/constants.js";
 import { useEffect, useState } from "react";
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
@@ -57,6 +57,9 @@ export default function Slider({ data, isHead, isAvatar, selectedImage }) {
         maxWidth: "100%",
         flexGrow: 1,
         cursor: "pointer",
+        [media48em]: {
+          padding: "1rem",
+        },
       }}
     >
       <AutoPlaySwipeableViews
@@ -90,6 +93,13 @@ export default function Slider({ data, isHead, isAvatar, selectedImage }) {
                         letterSpacing: " 0.3rem",
                         textAlign: "center",
                         mb: "1rem",
+                        [media48em]: {
+                          fontSize: ".9rem",
+                          mb: ".3rem",
+                        },
+                        [media31_25em]: {
+                          fontSize: ".8rem",
+                        },
                       }}
                     >
                       {data[activeStep].head}
@@ -105,6 +115,15 @@ export default function Slider({ data, isHead, isAvatar, selectedImage }) {
                     textAlign: "center",
                     mb: "2rem",
                     fontStyle: isAvatar && "italic",
+                    [media48em]: {
+                      fontSize: ".8rem",
+                      textAlign: "start",
+                      mb: "1rem",
+                      lineHeight: "1rem",
+                    },
+                    [media31_25em]: {
+                      fontSize: ".7rem",
+                    },
                   }}
                 >
                   {data[activeStep].desc}

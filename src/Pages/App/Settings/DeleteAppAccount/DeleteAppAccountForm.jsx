@@ -32,7 +32,11 @@ const StyledDeleteAppAccountContent = styled.p`
   }
 `;
 function DeleteAppAccountForm() {
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const { mutateAsync: logOut } = useLogout();
   const { user } = useUser();
   const { mutateAsync: updateUser } = useUpdateUserInformation();
@@ -73,14 +77,33 @@ function DeleteAppAccountForm() {
             them?
           </StyledDeleteAppAccountContent>
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid
+          item
+          xs={12}
+          sm={6}
+          sx={{
+            "&>div>p": {
+              [media48em]: {
+                fontSize: ".7rem",
+              },
+              [media31_25em]: {
+                fontSize: ".6rem",
+              },
+            },
+          }}
+        >
           <CustomTextField
             id="password"
             label="Password"
+            type="password"
             textFieldStyles={{ width: "100%" }}
             register={{
-              ...register("password"),
+              ...register("password", {
+                required: "Password is required!",
+              }),
             }}
+            helperText={errors?.password?.message}
+            error={errors?.password}
           />
         </Grid>
         <Grid item xs={12} sm={6}>

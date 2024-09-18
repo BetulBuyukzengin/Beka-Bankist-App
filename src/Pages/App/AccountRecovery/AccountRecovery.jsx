@@ -1,12 +1,18 @@
 import LoginIcon from "@mui/icons-material/Login";
 import { Grid, Paper, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import styled from "styled-components";
-import { emailRegex } from "../../../Constants/constants";
+import {
+  emailRegex,
+  media31_25em,
+  media48em,
+} from "../../../Constants/constants";
 import { useUpdateUserInformation } from "../../../services/authServices";
 import { useSignIn } from "../../../services/userServices";
+import CustomTextField from "../../../Components/CustomTextField/CustomTextField";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 const StyledForm = styled.form`
   width: 100%;
@@ -37,11 +43,23 @@ const StyledTextField = styled(TextField)`
 `;
 const StyledLink = styled(Link)`
   align-self: center;
+  /* ${media48em} {
+    font-size: 0.8rem;
+  }
+  ${media31_25em} {
+    font-size: 0.7rem;
+  } */
 `;
 const StyledSignInFormTitle = styled.h2`
   margin-bottom: 1rem;
   letter-spacing: 0.1rem;
   color: var(--color-text);
+  ${media48em} {
+    font-size: 0.9rem;
+  }
+  ${media48em} {
+    font-size: 0.8rem;
+  }
 `;
 const StyledButton = styled.button`
   color: var(--color-text);
@@ -59,6 +77,13 @@ const StyledButton = styled.button`
   &:active {
     transform: translateY(0);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  ${media48em} {
+    padding: 0.5rem;
+    font-size: 0.8rem;
+  }
+  ${media31_25em} {
+    font-size: 0.7rem;
   }
 `;
 
@@ -99,6 +124,7 @@ function AccountRecovery() {
   const { mutateAsync: signIn } = useSignIn();
   const { mutateAsync: updateUser, isPending: isRecovering } =
     useUpdateUserInformation();
+  const navigate = useNavigate();
 
   const onSubmit = async (formData) => {
     // const usersignIn = await signIn(formData, { error: "hata" });
@@ -111,7 +137,9 @@ function AccountRecovery() {
         toastMessage,
       });
     }
-    usersignIn();
+    // usersignIn();
+    navigate("/signIn");
+
     if (!usersignIn.user.user_metadata.isAccountDeleted)
       toast.info("Account is already active!");
   };
@@ -131,49 +159,95 @@ function AccountRecovery() {
           backgroundColor: "transparent",
           display: "flex",
           flexDirection: "column",
+          [media48em]: {
+            padding: "1rem",
+          },
         }}
       >
         <StyledSignInFormTitle>Account Recovery</StyledSignInFormTitle>
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <StyledTextField
+            <ArrowBackIcon
+              onClick={() => navigate("/signIn")}
+              sx={{
+                [media48em]: {
+                  fontSize: "0.9rem",
+                },
+                [media31_25em]: {
+                  fontSize: "0.8rem",
+                },
+              }}
+            />
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            sx={{
+              "&>div>p": {
+                [media48em]: {
+                  fontSize: ".7rem",
+                },
+                [media31_25em]: {
+                  fontSize: ".6rem",
+                },
+              },
+            }}
+          >
+            {/* <StyledTextField */}
+            <CustomTextField
               disabled={isRecovering}
+              texttransform="basic"
+              textFieldStyles={{ width: "100%" }}
               label="Email"
               //   variant={isDarkMode ? "filled" : "outlined"}
-              {...register("email", {
-                required: "This field is required!",
-                validate: (value) =>
-                  emailRegex.test(value) || "Format does not match email",
-              })}
+              register={{
+                ...register("email", {
+                  required: "This field is required!",
+                  validate: (value) =>
+                    emailRegex.test(value) || "Format does not match email",
+                }),
+              }}
               id="email"
               helperText={errors?.email?.message}
               error={Boolean(errors?.email)}
             />
           </Grid>
 
-          <Grid item xs={12}>
-            <StyledTextField
+          <Grid
+            item
+            xs={12}
+            sx={{
+              "&>div>p": {
+                [media48em]: {
+                  fontSize: ".7rem",
+                },
+                [media31_25em]: {
+                  fontSize: ".6rem",
+                },
+              },
+            }}
+          >
+            {/* <StyledTextField
+             */}
+            <CustomTextField
               disabled={isRecovering}
+              textFieldStyles={{ width: "100%" }}
+              texttransform="basic"
               type="password"
               label="Password"
               //   variant={isDarkMode ? "filled" : "outlined"}
-              {...register("password", {
-                required: "This field is required!",
-              })}
+              register={{
+                ...register("password", {
+                  required: "This field is required!",
+                }),
+              }}
               id="password"
               helperText={errors?.password?.message}
               error={Boolean(errors?.password)}
             />
           </Grid>
         </Grid>
-        <div style={{ display: "flex", justifyContent: "center", gap: "1rem" }}>
-          <StyledLink to="/signIn">
-            <StyledButton disabled={isRecovering}>Sign In</StyledButton>
-          </StyledLink>
-          <StyledLink to="/signUp">
-            <StyledButton disabled={isRecovering}>Sign Up</StyledButton>
-          </StyledLink>
-        </div>
+
         <StyledButton type="submit">Account Recovery</StyledButton>
       </Paper>
     </StyledForm>

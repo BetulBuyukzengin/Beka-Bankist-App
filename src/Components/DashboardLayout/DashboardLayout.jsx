@@ -30,6 +30,9 @@ import {
   dailyDepositLimit,
   dailyTransferLimit,
   dailyWithdrawLimit,
+  drawerWidth,
+  drawerWidth2,
+  drawerWidth3,
   media48em,
 } from "../../Constants/constants";
 import { useIsUserInformation } from "../../Hooks/useIsUserInformation";
@@ -43,10 +46,7 @@ import { calcRemainingLimitResetTime } from "../../utils/utils";
 import CustomAvatar from "../Avatar/Avatar";
 import ListIconButton from "./ListIconButton";
 import HamburgerDrawer from "../HamburgerDrawer/HamburgerDrawer";
-
-const drawerWidth = 240;
-const drawerWidth2 = 200;
-const drawerWidth3 = 150;
+import AppListComponent from "../HamburgerDrawer/AppListComponent";
 
 const StyledLink = styled.a`
   border: none;
@@ -263,9 +263,6 @@ export default function DashboardLayout() {
           display: "flex",
           overflow: "hidden",
           backgroundColor: "var(--color-background)",
-          // "@media (max-width:48em)": {
-          //   overflow: "hidden",
-          // },
         }}
       >
         {/* <AutoLogout /> */}
@@ -312,13 +309,25 @@ export default function DashboardLayout() {
             >
               <MenuIcon sx={IconStyle} />
             </IconButton>
-
-            <HamburgerDrawer
+            {/* <HamburgerDrawer
               isInformationsCompleted={isInformationsCompleted}
               accounts={accounts}
               setUrlParams={setUrlParams}
-            />
-
+              ListComponent={ListComponent}
+              // ListComponent={
+              //   <ListComponent
+              //     isInformationsCompleted={isInformationsCompleted}
+              //     accounts={accounts}
+              //     setUrlParams={setUrlParams}
+            /> */}
+            {/* } /> */}
+            <HamburgerDrawer>
+              <AppListComponent
+                isInformationsCompleted={isInformationsCompleted}
+                accounts={accounts}
+                setUrlParams={setUrlParams}
+              />
+            </HamburgerDrawer>
             <CustomAvatar user={user} />
             <Typography
               variant="h6"
@@ -335,7 +344,6 @@ export default function DashboardLayout() {
             >
               {user?.user_metadata?.fullName}
             </Typography>
-
             <StyledLink onClick={toggleDarkMode}>
               {isDarkMode ? (
                 <DarkModeIcon
@@ -508,8 +516,6 @@ export default function DashboardLayout() {
               </Tooltip>
             </ListItem>
           </List>
-
-          {/*  */}
         </Drawer>
 
         <Box
@@ -523,15 +529,11 @@ export default function DashboardLayout() {
 
             "@media (max-width: 48em)": {
               width: `calc(100% - ${drawerWidth2}px)`,
+              padding: "0.5rem",
             },
             "@media (max-width: 31.25em)": {
               width: `calc(100% - ${drawerWidth3}px)`,
             },
-            // height: "100dvh",
-            // height: "max-content",
-            // "@media (max-width:31.25em)": {
-            //   width: "64dvh",
-            // },
           }}
         >
           <DrawerHeader />

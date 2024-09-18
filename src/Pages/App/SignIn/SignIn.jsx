@@ -2,13 +2,18 @@ import LoginIcon from "@mui/icons-material/Login";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
-import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import styled from "styled-components";
 import { useDarkMode } from "../../../Contexts/DarkModeContext";
 import { useLogout, useSignIn } from "../../../services/userServices";
-import { emailRegex } from "../../../Constants/constants";
+import {
+  emailRegex,
+  media31_25em,
+  media48em,
+} from "../../../Constants/constants";
+import CustomTextField from "../../../Components/CustomTextField/CustomTextField";
+import { useForm } from "react-hook-form";
 
 const StyledForm = styled.form`
   width: 100%;
@@ -41,10 +46,22 @@ const StyledSignInFormTitle = styled.h2`
   margin-bottom: 1rem;
   letter-spacing: 0.1rem;
   color: var(--color-text);
+  ${media48em} {
+    font-size: 0.9rem;
+  }
+  ${media48em} {
+    font-size: 0.8rem;
+  }
 `;
 
 const StyledLink = styled(Link)`
   align-self: center;
+  ${media48em} {
+    font-size: 0.8rem;
+  }
+  ${media31_25em} {
+    font-size: 0.7rem;
+  }
 `;
 const StyledButton = styled.button`
   color: var(--color-text);
@@ -62,6 +79,13 @@ const StyledButton = styled.button`
   &:active {
     transform: translateY(0);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  ${media48em} {
+    padding: 0.5rem;
+    font-size: 0.8rem;
+  }
+  ${media31_25em} {
+    font-size: 0.7rem;
   }
 `;
 
@@ -132,35 +156,83 @@ function SignIn() {
           backgroundColor: "transparent",
           display: "flex",
           flexDirection: "column",
+          [media48em]: {
+            padding: "1rem",
+          },
         }}
       >
         <StyledSignInFormTitle>Sign In</StyledSignInFormTitle>
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <StyledTextField
+        <Grid
+          container
+          spacing={2}
+          sx={{
+            gap: "1rem",
+            [media48em]: {
+              gap: ".4rem",
+            },
+          }}
+        >
+          <Grid
+            item
+            xs={12}
+            sx={{
+              "&>div>p": {
+                [media48em]: {
+                  fontSize: ".7rem",
+                },
+                [media31_25em]: {
+                  fontSize: ".6rem",
+                },
+              },
+            }}
+          >
+            {/* <StyledTextField */}
+            <CustomTextField
+              textFieldStyles={{ width: "100%" }}
+              texttransform="basic"
               disabled={isLoading}
               label="Email"
               variant={isDarkMode ? "filled" : "outlined"}
-              {...register("email", {
-                required: "This field is required!",
-                validate: (value) =>
-                  emailRegex.test(value) || "Format does not match email",
-              })}
+              register={{
+                ...register("email", {
+                  required: "This field is required!",
+                  validate: (value) =>
+                    emailRegex.test(value) || "Format does not match email",
+                }),
+              }}
               id="email"
               helperText={errors?.email?.message}
               error={Boolean(errors?.email)}
             />
           </Grid>
 
-          <Grid item xs={12}>
-            <StyledTextField
+          <Grid
+            item
+            xs={12}
+            sx={{
+              "&>div>p": {
+                [media48em]: {
+                  fontSize: ".7rem",
+                },
+                [media31_25em]: {
+                  fontSize: ".6rem",
+                },
+              },
+            }}
+          >
+            {/* <StyledTextField */}
+            <CustomTextField
+              textFieldStyles={{ width: "100%" }}
               disabled={isLoading}
               type="password"
+              texttransform="basic"
               label="Password"
               variant={isDarkMode ? "filled" : "outlined"}
-              {...register("password", {
-                required: "This field is required!",
-              })}
+              register={{
+                ...register("password", {
+                  required: "This field is required!",
+                }),
+              }}
               id="password"
               helperText={errors?.password?.message}
               error={Boolean(errors?.password)}
@@ -175,14 +247,21 @@ function SignIn() {
             <StyledButton disabled={isLoading}>Sign Up</StyledButton>
           </StyledLink>
         </div>
-        <StyledLink to="/accountRecovery">
+        {/* <StyledLink to="/accountRecovery">
           <StyledButton>Account Recovery</StyledButton>
-        </StyledLink>
+        </StyledLink> */}
+
         <StyledLink
           to="/forgotPassword"
           style={{ color: "var(--color-text)", textDecoration: "underline" }}
         >
           Forgot Password
+        </StyledLink>
+        <StyledLink
+          to="/accountRecovery"
+          style={{ color: "var(--color-text)", textDecoration: "underline" }}
+        >
+          Account Recovery
         </StyledLink>
       </Paper>
     </StyledForm>

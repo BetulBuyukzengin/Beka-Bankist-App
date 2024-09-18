@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import styled from "styled-components";
 import Slider from "../Slider/Slider";
+import { media48em } from "../../Constants/constants";
 
 const StyledBox = styled(Box)`
   position: absolute;
@@ -13,6 +14,9 @@ const StyledBox = styled(Box)`
   width: 60%;
   &:focus-visible {
     outline: none;
+  }
+  ${media48em} {
+    width: 100%;
   }
 `;
 

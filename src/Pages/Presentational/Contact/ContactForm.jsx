@@ -5,7 +5,11 @@ import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import { useForm } from "react-hook-form";
 import { useDarkMode } from "../../../Contexts/DarkModeContext";
-import { emailRegex } from "../../../Constants/constants";
+import {
+  emailRegex,
+  media31_25em,
+  media48em,
+} from "../../../Constants/constants";
 
 const StyledForm = styled.form`
   width: 100%;
@@ -25,10 +29,22 @@ const StyledTextField = styled(TextField)`
   & > label {
     font-family: "Kanit", sans-serif;
     color: var(--color-text);
+    ${media48em} {
+      font-size: 0.7rem;
+    }
+    ${media31_25em} {
+      font-size: 0.6rem;
+    }
 
     & + div {
       color: var(--color-text);
       font-family: "Kanit", sans-serif;
+      ${media48em} {
+        font-size: 0.8rem;
+      }
+      ${media31_25em} {
+        font-size: 0.7rem;
+      }
     }
   }
 `;
@@ -36,6 +52,13 @@ const StyledContactFormTitle = styled.h2`
   margin-bottom: 1rem;
   letter-spacing: 0.1rem;
   color: var(--color-text);
+  ${media48em} {
+    text-align: center;
+    font-size: 0.9rem;
+  }
+  ${media31_25em} {
+    font-size: 0.8rem;
+  }
 `;
 const StyledButton = styled.button`
   color: var(--color-text);
@@ -53,6 +76,13 @@ const StyledButton = styled.button`
     transform: translateY(0);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   }
+  ${media48em} {
+    font-size: 0.7rem;
+    align-self: center;
+  }
+  ${media31_25em} {
+    font-size: 0.6rem;
+  }
 `;
 
 function ContactForm() {
@@ -60,9 +90,9 @@ function ContactForm() {
   const { register, handleSubmit, formState, reset } = useForm();
   const { errors } = formState;
 
+  //????????????????? submit işlemini yap
   function onSubmit() {
     reset();
-    ("submitlendi");
   }
   errors?.message?.message;
   return (
@@ -72,13 +102,36 @@ function ContactForm() {
         sx={{
           p: "2rem 4rem ",
           m: "1rem",
+
           backgroundColor: "transparent",
+          [media48em]: {
+            p: "1rem",
+            display: "flex",
+            flexDirection: "column",
+          },
+          [media31_25em]: {
+            p: ".8rem",
+          },
         }}
       >
         <StyledContactFormTitle>Contact Form</StyledContactFormTitle>
         <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={2}>
-            <Grid item xs={6}>
+            <Grid
+              item
+              xs={12}
+              sm={6}
+              sx={{
+                "&>div>p": {
+                  [media48em]: {
+                    fontSize: ".7rem",
+                  },
+                  [media31_25em]: {
+                    fontSize: ".6rem",
+                  },
+                },
+              }}
+            >
               <StyledTextField
                 label="First Name"
                 variant={isDarkMode ? "filled" : "outlined"}
@@ -90,7 +143,21 @@ function ContactForm() {
                 error={errors?.firstName}
               />
             </Grid>
-            <Grid item xs={6}>
+            <Grid
+              item
+              xs={12}
+              sm={6}
+              sx={{
+                "&>div>p": {
+                  [media48em]: {
+                    fontSize: ".7rem",
+                  },
+                  [media31_25em]: {
+                    fontSize: ".6rem",
+                  },
+                },
+              }}
+            >
               <StyledTextField
                 label="Last Name"
                 variant={isDarkMode ? "filled" : "outlined"}
@@ -102,7 +169,20 @@ function ContactForm() {
                 error={errors?.lastName}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid
+              item
+              xs={12}
+              sx={{
+                "&>div>p": {
+                  [media48em]: {
+                    fontSize: ".7rem",
+                  },
+                  [media31_25em]: {
+                    fontSize: ".6rem",
+                  },
+                },
+              }}
+            >
               <StyledTextField
                 label="Email"
                 variant={isDarkMode ? "filled" : "outlined"}
@@ -116,7 +196,20 @@ function ContactForm() {
                 error={errors?.eMail}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid
+              item
+              xs={12}
+              sx={{
+                "&>div>p": {
+                  [media48em]: {
+                    fontSize: ".7rem",
+                  },
+                  [media31_25em]: {
+                    fontSize: ".6rem",
+                  },
+                },
+              }}
+            >
               <StyledTextField
                 label="Subject"
                 variant={isDarkMode ? "filled" : "outlined"}
@@ -128,7 +221,20 @@ function ContactForm() {
                 error={errors?.subject}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid
+              item
+              xs={12}
+              sx={{
+                "&>div>p": {
+                  [media48em]: {
+                    fontSize: ".7rem",
+                  },
+                  [media31_25em]: {
+                    fontSize: ".6rem",
+                  },
+                },
+              }}
+            >
               <StyledTextField
                 multiline
                 minRows={5}

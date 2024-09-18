@@ -1,6 +1,7 @@
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Grid, Paper } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { media31_25em, media48em } from "../../../Constants/constants";
 
 function AccessDenied() {
   const navigate = useNavigate();
@@ -44,6 +45,12 @@ function AccessDenied() {
               fontSize: "1rem",
               //   alignSelf: "center",
               //   textAlign: "center",
+              [media48em]: {
+                fontSize: ".8rem",
+              },
+              [media31_25em]: {
+                fontSize: ".7rem",
+              },
             }}
           >
             You don &apos;t have permission to access this form !<br /> Write

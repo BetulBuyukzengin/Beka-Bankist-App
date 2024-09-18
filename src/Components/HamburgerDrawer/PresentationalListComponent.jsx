@@ -2,30 +2,15 @@ import styled from "styled-components";
 import LoginIcon from "@mui/icons-material/Login";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
-import { useDarkMode } from "../../../Contexts/DarkModeContext";
+import { useDarkMode } from "../../Contexts/DarkModeContext";
 import { Link } from "react-router-dom";
+import { media48em } from "../../Constants/constants";
 
 const StyledLi = styled.li`
-  font-size: 1.7rem;
-
-  &:not(:first-child),
-  &:not(:nth-child(2)) {
-    margin-left: 0.5rem;
-  }
-
-  &:nth-child(3),
-  &:nth-child(4),
-  &:nth-child(5) {
-    margin-left: 1.8rem;
-  }
-
-  &:nth-child(2) {
-    margin-right: auto;
-  }
-
-  &:nth-child(7) {
-    margin-left: 8rem;
-  }
+  width: 100%;
+  font-size: 0.8rem;
+  justify-content: center;
+  display: flex;
 `;
 
 const StyledLink = styled.a`
@@ -63,23 +48,37 @@ const StyledLinkTo = styled(Link)`
 `;
 
 const StyledImg = styled.img`
-  width: 4rem;
-  height: 4rem;
+  width: 3rem;
+  height: 3rem;
   border-radius: 50%;
+  margin-bottom: 0.5rem;
+`;
+const StyledUl = styled.ul`
   display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: transparent;
+  border-bottom: 1px solid var(--color-border);
+  flex-direction: column;
+  height: 25rem;
+  box-shadow: var(--shadow-md);
+  padding-left: 0;
 `;
 
-function NavItem() {
+//! For small devices navbar
+function PresentationalListComponent() {
   const { isDarkMode, toggleDarkMode } = useDarkMode();
+
   return (
-    <>
-      <StyledLi>
+    <StyledUl>
+      <StyledLi style={{ borderBottom: "1px solid var(--color-border-2)" }}>
         <StyledImg
           src={
             isDarkMode ? "../../img/logo-dark.png" : "../../img/logo-light.png"
           }
         />
       </StyledLi>
+
       <StyledLi>
         <StyledLink href="#home">Beka-Bank</StyledLink>
       </StyledLi>
@@ -95,18 +94,24 @@ function NavItem() {
       <StyledLi>
         <StyledLink href="#contact">Contact</StyledLink>
       </StyledLi>
-      <StyledLi>
-        <StyledLink onClick={toggleDarkMode}>
-          {isDarkMode ? <DarkModeIcon /> : <LightModeIcon />}
-        </StyledLink>
-      </StyledLi>
-      <StyledLi>
-        <StyledLinkTo to="/signIn">
-          <LoginIcon />
-        </StyledLinkTo>
-      </StyledLi>
-    </>
+      <span style={{ display: "flex" }}>
+        <StyledLi>
+          <StyledLink onClick={toggleDarkMode}>
+            {isDarkMode ? (
+              <DarkModeIcon sx={{ fontSize: "1.2rem" }} />
+            ) : (
+              <LightModeIcon sx={{ fontSize: "1.2rem" }} />
+            )}
+          </StyledLink>
+        </StyledLi>
+        <StyledLi>
+          <StyledLinkTo to="/signIn">
+            <LoginIcon sx={{ fontSize: "1.2rem" }} />
+          </StyledLinkTo>
+        </StyledLi>
+      </span>
+    </StyledUl>
   );
 }
 
-export default NavItem;
+export default PresentationalListComponent;

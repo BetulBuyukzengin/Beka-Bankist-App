@@ -17,3 +17,7 @@ export const addressRegex =
 
 export const media48em = "@media (max-width:48em)";
 export const media31_25em = "@media (max-width:31.25em)";
+
+export const drawerWidth = 240;
+export const drawerWidth2 = 200;
+export const drawerWidth3 = 150;

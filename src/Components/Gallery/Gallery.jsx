@@ -3,15 +3,23 @@ import Heading from "../Heading/Heading";
 import SearchIcon from "@mui/icons-material/Search";
 import GalleryModal from "../GalleryModal/GalleryModal";
 import { useState } from "react";
+import { media31_25em, media48em } from "../../Constants/constants";
 
 const StyledGaleryContainer = styled.div`
   padding: 5rem;
   background-color: var(--color-background);
+  ${media48em} {
+    padding: 0.8rem;
+  }
 `;
 const StyledGridContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 25px;
+  ${media48em} {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
 `;
 
 const StyledImg = styled.img`
@@ -24,6 +32,12 @@ const StyledSearchIcon = styled(SearchIcon)`
   scale: 0;
   position: absolute;
   color: var(--color-text);
+  ${media48em} {
+    font-size: 0.8rem !important;
+  }
+  ${media31_25em} {
+    font-size: 0.7rem !important;
+  }
 `;
 const StyledGridItem = styled.div`
   width: 100%;

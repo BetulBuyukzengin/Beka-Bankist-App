@@ -4,10 +4,16 @@ import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import { useForm } from "react-hook-form";
 import { useDarkMode } from "../../../Contexts/DarkModeContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSignUp } from "../../../services/userServices";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { emailRegex } from "../../../Constants/constants";
+import {
+  emailRegex,
+  media31_25em,
+  media48em,
+} from "../../../Constants/constants";
+import CustomTextField from "../../../Components/CustomTextField/CustomTextField";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 const StyledForm = styled.form`
   width: 100%;
@@ -40,10 +46,22 @@ const StyledSignInFormTitle = styled.h2`
   margin-bottom: 1rem;
   letter-spacing: 0.1rem;
   color: var(--color-text);
+  ${media48em} {
+    font-size: 0.9rem;
+  }
+  ${media48em} {
+    font-size: 0.8rem;
+  }
 `;
 
 const StyledLink = styled(Link)`
   align-self: center;
+  /* ${media48em} {
+    font-size: 0.8rem;
+  }
+  ${media31_25em} {
+    font-size: 0.7rem;
+  } */
 `;
 const StyledButton = styled.button`
   color: var(--color-text);
@@ -61,6 +79,13 @@ const StyledButton = styled.button`
   &:active {
     transform: translateY(0);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  ${media48em} {
+    padding: 0.5rem;
+    font-size: 0.8rem;
+  }
+  ${media31_25em} {
+    font-size: 0.7rem;
   }
 `;
 const StyledLinkTo = styled(Link)`
@@ -94,6 +119,7 @@ function SignUp() {
   const { register, handleSubmit, formState, reset, getValues } = useForm();
   const { errors } = formState;
   const { isLoading, mutate: signUp } = useSignUp();
+  const navigate = useNavigate();
 
   function onSubmit(data) {
     signUp(data);
@@ -115,92 +141,198 @@ function SignUp() {
           backgroundColor: "transparent",
           display: "flex",
           flexDirection: "column",
+          width: "50%",
+          [media48em]: {
+            padding: "1rem",
+            width: "80%",
+          },
         }}
       >
         <StyledSignInFormTitle>Sign Up</StyledSignInFormTitle>
-        <Grid container spacing={2}>
+        <Grid
+          container
+          // spacing={2}
+          sx={{
+            gap: "1rem",
+            [media48em]: {
+              gap: ".4rem",
+            },
+          }}
+        >
           <Grid item xs={12}>
-            <StyledTextField
+            <ArrowBackIcon
+              onClick={() => navigate("/signIn")}
+              sx={{
+                [media48em]: {
+                  fontSize: "0.9rem",
+                },
+                [media31_25em]: {
+                  fontSize: "0.8rem",
+                },
+              }}
+            />
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            sx={{
+              "&>div>p": {
+                [media48em]: {
+                  fontSize: ".7rem",
+                },
+                [media31_25em]: {
+                  fontSize: ".6rem",
+                },
+              },
+            }}
+          >
+            {/* <StyledTextField */}
+            <CustomTextField
               disabled={isLoading}
+              textFieldStyles={{ width: "100%" }}
               label="Full Name"
               variant={isDarkMode ? "filled" : "outlined"}
-              {...register("fullName", {
-                required: "This field is required!",
-              })}
+              register={{
+                ...register("fullName", {
+                  required: "This field is required!",
+                }),
+              }}
               id="fullName"
               helperText={errors?.fullName?.message}
               error={Boolean(errors?.fullName)}
             />
           </Grid>
 
-          <Grid item xs={12}>
-            <StyledTextField
+          <Grid
+            item
+            xs={12}
+            sx={{
+              "&>div>p": {
+                [media48em]: {
+                  fontSize: ".7rem",
+                },
+                [media31_25em]: {
+                  fontSize: ".6rem",
+                },
+              },
+            }}
+          >
+            {/* <StyledTextField */}
+            <CustomTextField
               disabled={isLoading}
+              texttransform="basic"
+              textFieldStyles={{ width: "100%" }}
               label="Email"
               variant={isDarkMode ? "filled" : "outlined"}
-              {...register("email", {
-                required: "This field is required!",
-                validate: (value) =>
-                  emailRegex.test(value) || "Format does not match email",
-              })}
+              register={{
+                ...register("email", {
+                  required: "This field is required!",
+                  validate: (value) =>
+                    emailRegex.test(value) || "Format does not match email",
+                }),
+              }}
               id="email"
               helperText={errors?.email?.message}
               error={Boolean(errors?.email)}
             />
           </Grid>
 
-          <Grid item xs={12}>
-            <StyledTextField
+          <Grid
+            item
+            xs={12}
+            sx={{
+              "&>div>p": {
+                [media48em]: {
+                  fontSize: ".7rem",
+                },
+                [media31_25em]: {
+                  fontSize: ".6rem",
+                },
+              },
+            }}
+          >
+            {/* <StyledTextField */}
+            <CustomTextField
               disabled={isLoading}
+              texttransform="basic"
+              textFieldStyles={{ width: "100%" }}
               type="password"
               label="Password"
               variant={isDarkMode ? "filled" : "outlined"}
-              {...register("password", {
-                required: "This field is required!",
-                pattern: {
-                  value: /^(?=.*[A-Z])(?=.*\d).+$/, // En az bir büyük harf ve bir sayı içermesi
-                  message:
-                    "Password must contain at least one uppercase letter, one number and English characters.",
-                },
-              })}
+              register={{
+                ...register("password", {
+                  required: "This field is required!",
+                  pattern: {
+                    value: /^(?=.*[A-Z])(?=.*\d).+$/, // En az bir büyük harf ve bir sayı içermesi
+                    message:
+                      "Password must contain at least one uppercase letter, one number and English characters.",
+                  },
+                }),
+              }}
               id="password"
               helperText={errors?.password?.message}
               error={Boolean(errors?.password)}
             />
           </Grid>
-          <Grid item xs={12}>
-            <StyledTextField
+          <Grid
+            item
+            xs={12}
+            sx={{
+              "&>div>p": {
+                [media48em]: {
+                  fontSize: ".7rem",
+                },
+                [media31_25em]: {
+                  fontSize: ".6rem",
+                },
+              },
+            }}
+          >
+            {/* <StyledTextField */}
+            <CustomTextField
               disabled={isLoading}
+              textFieldStyles={{ width: "100%" }}
               type="password"
               label="Repeat password"
               variant={isDarkMode ? "filled" : "outlined"}
-              {...register("repeatPassword", {
-                required: "This field is required!",
-                pattern: {
-                  value: /^(?=.*[A-Z])(?=.*\d).+$/, // En az bir büyük harf ve bir sayı içermesi
-                  message:
-                    "Password must contain at least one uppercase letter, one number and English characters.",
-                },
-                validate: (value) =>
-                  getValues().password === value || "Passwords do not match",
-              })}
+              register={{
+                ...register("repeatPassword", {
+                  required: "This field is required!",
+                  pattern: {
+                    value: /^(?=.*[A-Z])(?=.*\d).+$/, // En az bir büyük harf ve bir sayı içermesi
+                    message:
+                      "Password must contain at least one uppercase letter, one number and English characters.",
+                  },
+                  validate: (value) =>
+                    getValues().password === value || "Passwords do not match",
+                }),
+              }}
               id="repeatPassword"
               helperText={errors?.repeatPassword?.message}
               error={Boolean(errors?.repeatPassword)}
             />
           </Grid>
         </Grid>
-        <div style={{ display: "flex", justifyContent: "center", gap: "1rem" }}>
+        <StyledButton type="submit" disabled={isLoading}>
+          Sign Up
+        </StyledButton>
+        {/* <div style={{ display: "flex", justifyContent: "center", gap: "1rem" }}>
           <StyledLink to="/signIn">
             <StyledButton disabled={isLoading}>Sign In</StyledButton>
           </StyledLink>
           <StyledButton type="submit" disabled={isLoading}>
             Sign Up
           </StyledButton>
-        </div>
-        <StyledLink to="/accountRecovery">
+        </div> */}
+        {/* <StyledLink to="/accountRecovery">
           <StyledButton>Account Recovery</StyledButton>
-        </StyledLink>
+        </StyledLink> */}
+        {/* <StyledLink
+          to="/accountRecovery"
+          style={{ color: "var(--color-text)", textDecoration: "underline" }}
+        >
+          Account Recovery
+        </StyledLink> */}
       </Paper>
     </StyledForm>
   );

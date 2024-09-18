@@ -10,6 +10,7 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
 import Divider from "@mui/material/Divider";
+import { media31_25em, media48em } from "../../../Constants/constants";
 
 const StyledButton = styled.button`
   color: var(--color-text);
@@ -33,10 +34,19 @@ const StyledFooter = styled.footer`
   background-color: var(--color-background);
   width: 100%;
   padding: 5rem 10rem;
+  ${media48em} {
+    padding: 1rem 2rem;
+  }
 `;
 const StyledParagraphy = styled.p`
   color: var(--color-text);
   font-size: 14px;
+  ${media48em} {
+    font-size: 0.8rem;
+  }
+  ${media31_25em} {
+    font-size: 0.7rem;
+  }
 `;
 const StyledCopyright = styled.p`
   display: flex;
@@ -68,7 +78,7 @@ function Footer() {
   return (
     <StyledFooter>
       <Grid container spacing={2}>
-        <Grid item xs={3} sx={gridStyle}>
+        <Grid item xs={12} sm={3} sx={gridStyle}>
           <FooterTitle>About Us</FooterTitle>
           <StyledParagraphy>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis,
@@ -76,15 +86,15 @@ function Footer() {
             nres fugit!
           </StyledParagraphy>
         </Grid>
-        <Grid item xs={3} sx={gridStyle}>
+        <Grid item xs={12} sm={3} sx={gridStyle}>
           <FooterTitle>Quick Links</FooterTitle>
           <FooterList data={quickLinks} />
         </Grid>
-        <Grid item xs={3} sx={gridStyle}>
+        <Grid item xs={12} sm={3} sx={gridStyle}>
           <FooterTitle>Follow Us</FooterTitle>
           <FooterList direction="row" data={socialIcons} />
         </Grid>
-        <Grid item xs={3} sx={gridStyle}>
+        <Grid item xs={12} sm={3} sx={gridStyle}>
           <FooterTitle>Subscribe Newsletter</FooterTitle>
 
           <Paper
