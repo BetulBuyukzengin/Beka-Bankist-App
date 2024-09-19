@@ -8,7 +8,11 @@ import PropTypes from "prop-types";
 import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
 import styled from "styled-components";
-import { media48em, media31_25em } from "../../Constants/constants.js";
+import {
+  media48em,
+  media31_25em,
+  media84_37em,
+} from "../../Constants/constants.js";
 import { useEffect, useState } from "react";
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
@@ -24,7 +28,6 @@ const StyledImg = styled.img`
   height: 100%;
   border: none;
 `;
-// PROPS : 1) data // 2) isHead // 3) isAvatar
 export default function Slider({ data, isHead, isAvatar, selectedImage }) {
   const [isAutoPlay, setAutoPlay] = useState(true);
 
@@ -58,7 +61,7 @@ export default function Slider({ data, isHead, isAvatar, selectedImage }) {
         flexGrow: 1,
         cursor: "pointer",
         [media48em]: {
-          padding: "1rem",
+          padding: isAvatar ? "0" : "1rem",
         },
       }}
     >
@@ -90,15 +93,20 @@ export default function Slider({ data, isHead, isAvatar, selectedImage }) {
                         fontSize: "3.8rem",
                         color: "var(--color-secondary)",
                         fontWeight: "900",
-                        letterSpacing: " 0.3rem",
+                        letterSpacing: "0.3rem",
                         textAlign: "center",
                         mb: "1rem",
+                        [media84_37em]: {
+                          fontSize: "1.7rem",
+                        },
                         [media48em]: {
-                          fontSize: ".9rem",
+                          letterSpacing: "normal",
+                          width: "100%",
+                          fontSize: "1.3rem",
                           mb: ".3rem",
                         },
                         [media31_25em]: {
-                          fontSize: ".8rem",
+                          fontSize: "1rem",
                         },
                       }}
                     >
@@ -115,9 +123,12 @@ export default function Slider({ data, isHead, isAvatar, selectedImage }) {
                     textAlign: "center",
                     mb: "2rem",
                     fontStyle: isAvatar && "italic",
+                    [media84_37em]: {
+                      fontSize: "1rem",
+                    },
                     [media48em]: {
+                      width: "100%",
                       fontSize: ".8rem",
-                      textAlign: "start",
                       mb: "1rem",
                       lineHeight: "1rem",
                     },

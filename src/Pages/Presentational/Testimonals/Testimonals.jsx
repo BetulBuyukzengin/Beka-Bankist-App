@@ -1,12 +1,17 @@
 import styled from "styled-components";
 import Slider from "../../../Components/Slider/Slider";
 import Heading from "../../../Components/Heading/Heading";
+import { media48em } from "../../../Constants/constants";
 
 const StyledContainer = styled.div`
   width: 100%;
   height: 100dvh;
   background-color: var(--color-background);
   padding: 4rem 0;
+  ${media48em} {
+    /* padding: 0.8rem !important; */
+    height: auto;
+  }
 `;
 
 const data = [
@@ -31,7 +36,7 @@ function Testimonals() {
   return (
     <StyledContainer>
       <Heading head="Happy Customers" />
-      <Slider data={data} isAvatar={true} />
+      <Slider data={data} isAvatar />
     </StyledContainer>
   );
 }

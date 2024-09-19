@@ -9,6 +9,7 @@ import {
   emailRegex,
   media31_25em,
   media48em,
+  media84_37em,
 } from "../../../Constants/constants";
 
 const StyledForm = styled.form`
@@ -29,6 +30,11 @@ const StyledTextField = styled(TextField)`
   & > label {
     font-family: "Kanit", sans-serif;
     color: var(--color-text);
+
+    ${media84_37em} {
+      font-size: 0.9rem;
+    }
+
     ${media48em} {
       font-size: 0.7rem;
     }
@@ -39,6 +45,9 @@ const StyledTextField = styled(TextField)`
     & + div {
       color: var(--color-text);
       font-family: "Kanit", sans-serif;
+      ${media84_37em} {
+        font-size: 1rem;
+      }
       ${media48em} {
         font-size: 0.8rem;
       }
@@ -52,8 +61,12 @@ const StyledContactFormTitle = styled.h2`
   margin-bottom: 1rem;
   letter-spacing: 0.1rem;
   color: var(--color-text);
+  text-align: center;
+  ${media84_37em} {
+    font-size: 1.7rem;
+    margin-bottom: 2rem;
+  }
   ${media48em} {
-    text-align: center;
     font-size: 0.9rem;
   }
   ${media31_25em} {
@@ -116,13 +129,24 @@ function ContactForm() {
       >
         <StyledContactFormTitle>Contact Form</StyledContactFormTitle>
         <Box sx={{ flexGrow: 1 }}>
-          <Grid container spacing={2}>
+          <Grid
+            container
+            spacing={2}
+            sx={{
+              [media48em]: {
+                marginLeft: "-16px",
+              },
+            }}
+          >
             <Grid
               item
               xs={12}
               sm={6}
               sx={{
                 "&>div>p": {
+                  [media84_37em]: {
+                    fontSize: ".8rem",
+                  },
                   [media48em]: {
                     fontSize: ".7rem",
                   },
@@ -149,6 +173,9 @@ function ContactForm() {
               sm={6}
               sx={{
                 "&>div>p": {
+                  [media84_37em]: {
+                    fontSize: ".8rem",
+                  },
                   [media48em]: {
                     fontSize: ".7rem",
                   },
@@ -174,6 +201,9 @@ function ContactForm() {
               xs={12}
               sx={{
                 "&>div>p": {
+                  [media84_37em]: {
+                    fontSize: ".8rem",
+                  },
                   [media48em]: {
                     fontSize: ".7rem",
                   },
@@ -201,6 +231,9 @@ function ContactForm() {
               xs={12}
               sx={{
                 "&>div>p": {
+                  [media84_37em]: {
+                    fontSize: ".8rem",
+                  },
                   [media48em]: {
                     fontSize: ".7rem",
                   },
@@ -226,6 +259,9 @@ function ContactForm() {
               xs={12}
               sx={{
                 "&>div>p": {
+                  [media84_37em]: {
+                    fontSize: ".8rem",
+                  },
                   [media48em]: {
                     fontSize: ".7rem",
                   },

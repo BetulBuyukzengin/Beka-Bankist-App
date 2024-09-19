@@ -3,11 +3,18 @@ import Heading from "../Heading/Heading";
 import SearchIcon from "@mui/icons-material/Search";
 import GalleryModal from "../GalleryModal/GalleryModal";
 import { useState } from "react";
-import { media31_25em, media48em } from "../../Constants/constants";
+import {
+  media31_25em,
+  media48em,
+  media84_37em,
+} from "../../Constants/constants";
 
 const StyledGaleryContainer = styled.div`
   padding: 5rem;
   background-color: var(--color-background);
+  ${media84_37em} {
+    padding: 2rem;
+  }
   ${media48em} {
     padding: 0.8rem;
   }

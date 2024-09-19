@@ -1,12 +1,19 @@
 import styled from "styled-components";
 import ContactForm from "./ContactForm";
 import Heading from "../../../Components/Heading/Heading";
-import { media31_25em, media48em } from "../../../Constants/constants";
+import {
+  media31_25em,
+  media48em,
+  media84_37em,
+} from "../../../Constants/constants";
 
 const StyledContactUs = styled.div`
   width: 100%;
   /* height: 100dvh; */
   background-color: var(--color-background);
+  ${media84_37em} {
+    padding: 2rem;
+  }
 `;
 
 const StyledGridContainer = styled.div`
@@ -14,6 +21,9 @@ const StyledGridContainer = styled.div`
   grid-template-columns: repeat(3, 1fr);
   padding: 0 10rem;
   gap: 2rem;
+  ${media84_37em} {
+    padding: 0 2rem;
+  }
   ${media48em} {
     grid-template-columns: repeat(1, 1fr);
     padding: 0.5rem 2rem;
@@ -44,7 +54,7 @@ const StyledGridItem = styled.div`
 const StyledImg = styled.img`
   width: 2rem;
   height: 2rem;
-  ${media48em} {
+  ${media84_37em} {
     width: 1.5rem;
     height: 1.5rem;
   }
@@ -54,6 +64,9 @@ const StyledImg = styled.img`
   }
 `;
 const StyledSpan = styled.span`
+  ${media84_37em} {
+    font-size: 1rem;
+  }
   ${media48em} {
     font-size: 0.8rem;
   }

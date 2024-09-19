@@ -1,6 +1,10 @@
 /* eslint-disable react/prop-types */
 import styled from "styled-components";
-import { media31_25em, media48em } from "../../../Constants/constants";
+import {
+  media31_25em,
+  media48em,
+  media84_37em,
+} from "../../../Constants/constants";
 
 const StyledGridItem = styled.div`
   display: flex;
@@ -8,6 +12,9 @@ const StyledGridItem = styled.div`
   justify-content: center;
   align-items: flex-start;
   gap: 0.5rem;
+  ${media84_37em} {
+    align-items: center;
+  }
   ${media48em} {
     align-items: center;
   }
@@ -42,6 +49,9 @@ const StyledIconContainer = styled.div`
 const StyledHead = styled.h3`
   font-size: 2rem;
   color: var(--color-text);
+  ${media84_37em} {
+    font-size: 1.2rem;
+  }
   ${media48em} {
     font-size: 0.9rem;
   }
@@ -56,6 +66,10 @@ const StyledText = styled.p`
   width: 80%;
   margin-bottom: 0.5rem;
   opacity: 0.7;
+  ${media84_37em} {
+    text-align: center;
+    font-size: 1rem;
+  }
   ${media48em} {
     font-size: 0.8rem;
   }

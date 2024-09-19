@@ -10,7 +10,11 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
 import Divider from "@mui/material/Divider";
-import { media31_25em, media48em } from "../../../Constants/constants";
+import {
+  media31_25em,
+  media48em,
+  media84_37em,
+} from "../../../Constants/constants";
 
 const StyledButton = styled.button`
   color: var(--color-text);
@@ -33,7 +37,8 @@ const StyledButton = styled.button`
 const StyledFooter = styled.footer`
   background-color: var(--color-background);
   width: 100%;
-  padding: 5rem 10rem;
+  padding: 2rem 3rem;
+
   ${media48em} {
     padding: 1rem 2rem;
   }
@@ -52,15 +57,31 @@ const StyledCopyright = styled.p`
   display: flex;
   color: var(--color-text);
   font-size: 13px;
+  ${media48em} {
+    font-size: 0.8rem;
+  }
+  ${media31_25em} {
+    font-size: 0.7rem;
+  }
 `;
-const quickLinks = [
-  "Terms",
-  "Policy",
-  "About Us",
-  "Services",
-  "Testimonials",
-  "Contact Us",
-];
+const StyledGrid = styled(Grid)`
+  align-items: center;
+  display: flex;
+  flex-direction: column !important;
+  ${media48em} {
+    /* flex-direction: column !important; */
+    padding-left: 0;
+    padding-top: 10px;
+  }
+`;
+// const quickLinks = [
+//   "Home",
+//   "About Us",
+
+//   "Services",
+//   "Testimonials",
+//   "Contact Us",
+// ];
 
 //? ----------------------objeler dizisine dönüştür, href ekle-----------------------quick listede yap
 const socialIcons = [
@@ -69,58 +90,22 @@ const socialIcons = [
   <FacebookIcon key="facebook" />,
   <LinkedInIcon key="linkedin" />,
 ];
-const gridStyle = {
-  alignItems: "center",
-  display: "flex",
-  flexDirection: "column",
-};
+
 function Footer() {
   return (
     <StyledFooter>
-      <Grid container spacing={2}>
-        <Grid item xs={12} sm={3} sx={gridStyle}>
-          <FooterTitle>About Us</FooterTitle>
-          <StyledParagraphy>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis,
-            perspiciatis aliquam obcaecati possimus similique non natus sequi
-            nres fugit!
-          </StyledParagraphy>
-        </Grid>
-        <Grid item xs={12} sm={3} sx={gridStyle}>
-          <FooterTitle>Quick Links</FooterTitle>
-          <FooterList data={quickLinks} />
-        </Grid>
-        <Grid item xs={12} sm={3} sx={gridStyle}>
+      <Grid
+        container
+        sx={{
+          [media84_37em]: {
+            justifyContent: "center",
+          },
+        }}
+      >
+        <StyledGrid item xs={12} sm={3}>
           <FooterTitle>Follow Us</FooterTitle>
           <FooterList direction="row" data={socialIcons} />
-        </Grid>
-        <Grid item xs={12} sm={3} sx={gridStyle}>
-          <FooterTitle>Subscribe Newsletter</FooterTitle>
-
-          <Paper
-            component="form"
-            sx={{
-              p: "2px 4px",
-              display: "flex",
-              alignItems: "center",
-              width: 300,
-              backgroundColor: "transparent",
-              justifyContent: "center",
-            }}
-          >
-            <InputBase
-              sx={{
-                ml: 1,
-                flex: 1,
-                color: "var(--color-text)",
-              }}
-              placeholder="Enter email"
-              inputProps={{ "aria-label": "Enter email" }}
-            />
-            <Divider sx={{ height: 35, m: 0.5 }} orientation="vertical" />
-            <StyledButton variant="text">Send</StyledButton>
-          </Paper>
-        </Grid>
+        </StyledGrid>
         <Grid item xs={12}>
           <Divider />
         </Grid>
@@ -134,9 +119,7 @@ function Footer() {
           }}
         >
           <StyledCopyright>
-            Copyright © 2024 All rights reserved by &nbsp;
-            <Divider orientation="vertical" />
-            &nbsp; Betül B. & Kadir K.
+            Copyright © 2024 All rights reserved.
           </StyledCopyright>
         </Grid>
       </Grid>

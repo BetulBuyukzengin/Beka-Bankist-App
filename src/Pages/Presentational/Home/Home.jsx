@@ -1,7 +1,11 @@
 import styled, { keyframes } from "styled-components";
 import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
 import Slider from "../../../Components/Slider/Slider";
-import { media31_25em, media48em } from "../../../Constants/constants";
+import {
+  media31_25em,
+  media48em,
+  media62_5em,
+} from "../../../Constants/constants";
 
 const StyledHome = styled.div`
   width: 100%;
@@ -14,7 +18,13 @@ const StyledHome = styled.div`
   background-size: cover;
   background-repeat: no-repeat;
   position: relative;
+  ${media62_5em} {
+    margin-top: 4rem;
+  }
   ${media48em} {
+    margin-top: 0;
+
+    padding: 0.8rem;
     height: auto;
   }
 `;

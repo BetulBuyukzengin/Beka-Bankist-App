@@ -6,7 +6,11 @@ import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Grow from "@mui/material/Grow";
 import PropTypes from "prop-types";
-import { media31_25em, media48em } from "../../Constants/constants";
+import {
+  media31_25em,
+  media48em,
+  media84_37em,
+} from "../../Constants/constants";
 
 CustomAccordion.propTypes = {
   index: PropTypes.number.isRequired,
@@ -56,6 +60,9 @@ function CustomAccordion({ index, expanded, handleChange, question, content }) {
             sx={{
               color: "var(--color-text)",
               opacity: 0.7,
+              [media84_37em]: {
+                fontSize: ".9rem",
+              },
               [media48em]: {
                 fontSize: ".8rem",
               },

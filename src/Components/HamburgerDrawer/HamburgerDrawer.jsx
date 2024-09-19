@@ -167,18 +167,21 @@ import Drawer from "react-modern-drawer";
 import "react-modern-drawer/dist/index.css";
 import { Sling } from "hamburger-react"; // icon animation
 import { useState } from "react";
+import styled from "styled-components";
+import { media48em } from "../../Constants/constants";
+
+const StyledSpan = styled.span`
+  display: none;
+  ${media48em} {
+    display: block;
+  }
+`;
 
 function HamburgerDrawer({ children }) {
   const [open, setOpen] = useState(false);
   const toggleDrawer = () => setOpen((open) => !open);
   return (
-    <span
-      style={{
-        "@media (max-width:48em)": {
-          display: "block",
-        },
-      }}
-    >
+    <StyledSpan>
       <Sling
         label="appSidebar"
         rounded
@@ -208,7 +211,7 @@ function HamburgerDrawer({ children }) {
         </span>
         {children}
       </Drawer>
-    </span>
+    </StyledSpan>
   );
 }
 

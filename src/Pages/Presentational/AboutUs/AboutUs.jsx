@@ -1,7 +1,11 @@
 import styled from "styled-components";
 import Image from "../AboutUs/Image";
 import Heading from "../../../Components/Heading/Heading";
-import { media31_25em, media48em } from "../../../Constants/constants";
+import {
+  media31_25em,
+  media48em,
+  media84_37em,
+} from "../../../Constants/constants";
 
 const StyledAbout = styled.div`
   height: 100dvh;
@@ -12,10 +16,12 @@ const StyledAbout = styled.div`
   align-items: center;
   text-align: center;
   background-color: var(--color-background);
-
-  ${media48em} {
-    padding: 0.5rem;
+  ${media84_37em} {
     height: auto;
+  }
+  ${media48em} {
+    padding: 0.8rem;
+    /* height: auto; */
   }
 `;
 
@@ -26,6 +32,10 @@ const StyledContainer = styled.div`
   justify-content: center;
   align-items: flex-start;
   padding: 0 10rem;
+  ${media84_37em} {
+    padding: 0 3rem;
+    align-items: center;
+  }
   ${media48em} {
     padding: 0;
     flex-direction: column;
@@ -44,6 +54,10 @@ const StyledAboutText = styled.div`
   text-align: left;
   height: 100%;
   line-height: 1.5rem;
+  ${media84_37em} {
+    width: 100%;
+    font-size: 1rem;
+  }
   ${media48em} {
     font-size: 0.8rem;
     width: 100%;

@@ -1,6 +1,10 @@
 /* eslint-disable react/prop-types */
 import styled from "styled-components";
-import { media48em, media31_25em } from "../../Constants/constants";
+import {
+  media48em,
+  media31_25em,
+  media84_37em,
+} from "../../Constants/constants";
 
 const StyledHeading = styled.h1`
   color: var(--color-secondary);
@@ -8,12 +12,17 @@ const StyledHeading = styled.h1`
   padding-top: 6rem;
   text-align: center;
   filter: drop-shadow(var(--shadow-md));
-  ${media48em} {
+  ${media84_37em} {
+    font-size: 1.7rem;
     padding-top: 0;
-    font-size: 0.9rem;
+  }
+  ${media48em} {
+    margin-bottom: 1.5rem;
+    padding-top: 0;
+    font-size: 1.3rem;
   }
   ${media31_25em} {
-    font-size: 0.8rem;
+    font-size: 1rem;
   }
 `;
 
@@ -25,6 +34,9 @@ const StyledParagraph = styled.p`
   line-height: 2rem;
   letter-spacing: 0.00938em;
   margin-bottom: 3rem;
+  ${media84_37em} {
+    font-size: 1rem;
+  }
   ${media48em} {
     font-size: 0.8rem;
     line-height: 0.9rem;

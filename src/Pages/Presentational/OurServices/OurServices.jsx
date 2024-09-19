@@ -1,12 +1,18 @@
 import styled from "styled-components";
 import GridItem from "./GridItem";
 import Heading from "../../../Components/Heading/Heading";
-import { media48em } from "../../../Constants/constants";
+import { media48em, media84_37em } from "../../../Constants/constants";
 
 const StyledServices = styled.div`
   width: 100%;
   /* height: 100dvh; */
   background-color: var(--color-background);
+  ${media84_37em} {
+    padding: 2rem;
+  }
+  ${media48em} {
+    padding: 0.8rem;
+  }
 `;
 
 const StyledGridContainer = styled.div`
@@ -15,6 +21,10 @@ const StyledGridContainer = styled.div`
   gap: 2rem;
   grid-template-columns: repeat(3, 1fr);
   place-items: center;
+  ${media84_37em} {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 1rem;
+  }
   ${media48em} {
     grid-template-columns: repeat(1, 1fr);
     padding: 0 2rem;
