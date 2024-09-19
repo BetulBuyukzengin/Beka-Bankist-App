@@ -26,11 +26,11 @@ const StyledCarouselControl = styled(CarouselControl)`
     background-image: ${(props) =>
       props.direction === "prev"
         ? props.isDarkMode
-          ? "url(../../../../../public/img/prevLight.png)!important"
-          : "url(../../../../../public/img/prevDark.png)!important"
+          ? "url(../../../../../img/prevLight.png)!important"
+          : "url(../../../../../img/prevDark.png)!important"
         : props.isDarkMode
-        ? "url(../../../../../public/img/nextLight.png)!important"
-        : "url(../../../../../public/img/nextDark.png)!important"};
+        ? "url(../../../../../img/nextLight.png)!important"
+        : "url(../../../../../img/nextDark.png)!important"};
     @media (max-width: 31.25em) {
       width: 1rem;
       height: 1rem;

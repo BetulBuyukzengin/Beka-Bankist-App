@@ -29,9 +29,7 @@
  ✅ Radio ile hesap seçme hatası düzelt
  ✅ Hareketsizlikte oturum kapatma
  contact form da submit işlemini yap
- deposit te para yüklerken ekranda (step içeriğinde) gelen mesajı ya kaldır ya da diğerlerine de uygulayıp  responsive ekle . görüntüsü butonların stunde olsa daha ıyı gıbı
  sign in de yanlış bilgi girildi hatası göster
- update email with email e bak ve tab(email-phone) kaldır ya da respo ekle
  Forgot password oto yonlendırme yapmıyor
  ❌ Anlaşma modalını düzelt
  ❌ Crypto-Borsa: Table / https://mui.com/material-ui/react-table/#sticky-header

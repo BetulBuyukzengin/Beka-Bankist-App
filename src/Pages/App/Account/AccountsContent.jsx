@@ -64,7 +64,7 @@ function AccountsContent({ item }) {
           </StyledTypographyH6>
         </Grid>
         <Grid item xs={12}>
-          <StyledImg src="../../../../public/img/card.png" />
+          <StyledImg src="../../../../img/card.png" />
         </Grid>
 
         <Grid

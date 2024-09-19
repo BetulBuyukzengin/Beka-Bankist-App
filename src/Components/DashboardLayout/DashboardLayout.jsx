@@ -47,7 +47,7 @@ import CustomAvatar from "../Avatar/Avatar";
 import ListIconButton from "./ListIconButton";
 import HamburgerDrawer from "../HamburgerDrawer/HamburgerDrawer";
 import AppListComponent from "../HamburgerDrawer/AppListComponent";
-
+import AutoLogout from "../../Components/AutoLogout/AutoLogout";
 const StyledLink = styled.a`
   border: none;
   color: var(--color-text);
@@ -265,7 +265,7 @@ export default function DashboardLayout() {
           backgroundColor: "var(--color-background)",
         }}
       >
-        {/* <AutoLogout /> */}
+        <AutoLogout />
         <CssBaseline />
 
         {/* Header */}

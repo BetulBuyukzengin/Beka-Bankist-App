@@ -3,6 +3,7 @@ import { Paper } from "@mui/material";
 import styled from "styled-components";
 import CustomButton from "../CustomButton/CustomButton";
 import CustomModal from "../CustomModal/CustomModal";
+import { media84_37em } from "../../Constants/constants";
 
 const StyledTitle = styled.p`
   @media (max-width: 48em) {
@@ -41,6 +42,9 @@ function CustomSettingsContent({
         <CustomButton
           style={{
             alignSelf: "center",
+            [media84_37em]: {
+              width: "100%",
+            },
             "@media (max-width:48em)": {
               fontSize: ".7rem",
             },

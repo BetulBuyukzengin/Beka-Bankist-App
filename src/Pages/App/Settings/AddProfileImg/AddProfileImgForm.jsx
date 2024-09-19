@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useUploadImg, useUser } from "../../../../services/userServices";
 import CustomButton from "../../../../Components/CustomButton/CustomButton";
+import { media84_37em } from "../../../../Constants/constants";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -66,6 +67,9 @@ function AddProfileImgForm() {
           sx={{
             // width: "30%",
             width: "40%",
+            [media84_37em]: {
+              width: "100%",
+            },
             "@media (max-width:48em)": {
               fontSize: ".6rem",
             },
@@ -94,6 +98,9 @@ function AddProfileImgForm() {
           style={{
             // width: "30%",
             width: "40%",
+            [media84_37em]: {
+              width: "100%",
+            },
             "@media (max-width:48em)": {
               fontSize: ".6rem",
             },

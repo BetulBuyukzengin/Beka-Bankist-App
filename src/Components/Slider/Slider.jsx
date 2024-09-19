@@ -153,7 +153,7 @@ export default function Slider({ data, isHead, isAvatar, selectedImage }) {
                   </Tooltip>
                 )}
                 {step.galleryImg && (
-                  <StyledImg src={`../../../public/img/${step.galleryImg}`} />
+                  <StyledImg src={`../../../img/${step.galleryImg}`} />
                 )}
               </Box>
             ) : null}

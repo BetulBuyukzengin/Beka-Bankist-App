@@ -119,7 +119,7 @@ export default function Gallery() {
             onClick={() => handleOpen(img.galleryImg)}
           >
             <StyledImg
-              src={`../../../public/img/${img.galleryImg}`}
+              src={`../../../img/${img.galleryImg}`}
               alt={`Resim ${index + 1}`}
             />
             <StyledSearchIcon />
