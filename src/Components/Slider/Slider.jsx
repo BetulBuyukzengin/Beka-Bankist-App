@@ -1,59 +1,44 @@
-// import { useTheme } from "@mui/material/styles";
-import Box from "@mui/material/Box";
-import MobileStepper from "@mui/material/MobileStepper";
-import Typography from "@mui/material/Typography";
-import SwipeableViews from "react-swipeable-views";
-import { autoPlay } from "react-swipeable-views-utils";
-import PropTypes from "prop-types";
-import Avatar from "@mui/material/Avatar";
-import Tooltip from "@mui/material/Tooltip";
-import styled from "styled-components";
-import {
-  media48em,
-  media31_25em,
-  media84_37em,
-} from "../../Constants/constants.js";
-import { useEffect, useState } from "react";
-const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
-
-Slider.propTypes = {
-  data: PropTypes.array,
-  isHead: PropTypes.bool,
-  isAvatar: PropTypes.bool,
-
-  selectedImage: PropTypes.string,
-};
 const StyledImg = styled.img`
   width: 100%;
   height: 100%;
   border: none;
 `;
-export default function Slider({ data, isHead, isAvatar, selectedImage }) {
-  const [isAutoPlay, setAutoPlay] = useState(true);
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/autoplay";
+import { Autoplay } from "swiper/modules";
+import { Avatar, Box, Tooltip, Typography } from "@mui/material";
+import {
+  media31_25em,
+  media48em,
+  media84_37em,
+} from "../../Constants/constants";
+import styled from "styled-components";
+import { useEffect, useRef, useState } from "react";
 
-  const [activeStep, setActiveStep] = useState(0);
-  const maxSteps = data?.length;
+function Slider({ data, isHead, isAvatar, selectedImage }) {
+  // Test
+  const swiperRef = useRef(null);
+  const [initialSlide, setInitialSlide] = useState(0);
 
   useEffect(() => {
-    // Tıklanan resmin index'ini bul
     const selectedImgIndex = data.findIndex(
       (item) => item.galleryImg === selectedImage
     );
-    setActiveStep(selectedImgIndex >= 0 ? selectedImgIndex : 0);
+
+    if (selectedImgIndex >= 0) {
+      // Swiper'ı manuel olarak tıklanan resme kaydır - Autoplay'i durdur
+      if (swiperRef.current && swiperRef.current.swiper) {
+        swiperRef.current.swiper.autoplay.stop(); // Autoplay durdur
+        swiperRef.current.swiper.slideTo(selectedImgIndex, 0); // Animasyonsuz slayta git
+
+        // Slayta gittikten sonra autoplay'i yeniden başlat
+        setTimeout(() => {
+          swiperRef.current.swiper.autoplay.start(); // Autoplay tekrar başlasın
+        }, 500); // Biraz gecikme ile başlat (500 ms)
+      }
+    }
   }, [selectedImage, data]);
-
-  const handleStepChange = (step) => {
-    setActiveStep(step);
-  };
-
-  const handleMouseEnter = () => {
-    setAutoPlay(false);
-  };
-
-  const handleMouseLeave = () => {
-    setAutoPlay(true);
-  };
-
   return (
     <Box
       sx={{
@@ -65,18 +50,17 @@ export default function Slider({ data, isHead, isAvatar, selectedImage }) {
         },
       }}
     >
-      <AutoPlaySwipeableViews
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        interval={3000}
-        index={activeStep}
-        onChangeIndex={handleStepChange}
-        enableMouseEvents
-        autoplay={isAutoPlay}
+      <Swiper
+        ref={swiperRef}
+        modules={[Autoplay]}
+        spaceBetween={50}
+        slidesPerView={1}
+        // autoplay={{ delay: 3000 }} // Autoplay özelliği aktif
+        initialSlide={initialSlide} // Başlangıç slaytını ayarla
       >
         {data?.map((step, index) => (
-          <div key={index}>
-            {Math.abs(activeStep - index) <= 2 ? (
+          <SwiperSlide key={index}>
+            <div>
               <Box
                 sx={{
                   width: "100%",
@@ -110,7 +94,7 @@ export default function Slider({ data, isHead, isAvatar, selectedImage }) {
                         },
                       }}
                     >
-                      {data[activeStep].head}
+                      {data[index].head}
                     </Typography>
                   )}
                 </>
@@ -137,7 +121,7 @@ export default function Slider({ data, isHead, isAvatar, selectedImage }) {
                     },
                   }}
                 >
-                  {data[activeStep].desc}
+                  {data[index].desc}
                 </Typography>
                 {isAvatar && (
                   <Tooltip sx={{ zIndex: 999 }} title={step?.name} arrow>
@@ -156,20 +140,12 @@ export default function Slider({ data, isHead, isAvatar, selectedImage }) {
                   <StyledImg src={`../../../img/${step.galleryImg}`} />
                 )}
               </Box>
-            ) : null}
-          </div>
+            </div>
+          </SwiperSlide>
         ))}
-      </AutoPlaySwipeableViews>
-      <MobileStepper
-        steps={maxSteps}
-        position="static"
-        activeStep={activeStep}
-        sx={{
-          background: "transparent",
-          justifyContent: "center",
-          display: "flex",
-        }}
-      />
+      </Swiper>
     </Box>
   );
 }
+
+export default Slider;
