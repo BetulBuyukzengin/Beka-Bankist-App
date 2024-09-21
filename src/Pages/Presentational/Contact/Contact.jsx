@@ -65,24 +65,34 @@ const StyledGridItem = styled.div`
 const StyledImg = styled.img`
   width: 2rem;
   height: 2rem;
-  ${media84_37em} {
+  /* ${media84_37em} {
     width: 1.5rem;
     height: 1.5rem;
-  }
-  ${media31_25em} {
-    width: 1rem;
-    height: 1rem;
-  }
-`;
-const StyledSpan = styled.span`
-  ${media84_37em} {
-    font-size: 1rem;
+  } */
+  ${media62_5em} {
+    width: 1.9rem;
+    height: 1.9rem;
   }
   ${media48em} {
-    font-size: 0.8rem;
+    width: 1.8rem;
+    height: 1.8rem;
+  }
+  /* ${media31_25em} {
+    width: 1.8rem;
+    height: 1.8rem;
+  } */
+`;
+const StyledSpan = styled.span`
+  font-size: 1.2rem;
+
+  /* ${media84_37em} {
+    font-size: 1.2rem;
+  } */
+  ${media48em} {
+    font-size: 1rem;
   }
   ${media31_25em} {
-    font-size: 0.7rem;
+    font-size: 0.9rem;
   }
 `;
 function Contact() {

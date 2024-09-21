@@ -31,7 +31,7 @@ const StyledHome = styled.div`
   }
   ${media31_25em} {
     /* padding: 0.6rem; */
-    padding: 2rem;
+    padding: 4rem 2rem;
   }
 `;
 

@@ -3,6 +3,7 @@ import styled from "styled-components";
 import {
   media31_25em,
   media48em,
+  media62_5em,
   media84_37em,
 } from "../../../Constants/constants";
 
@@ -50,32 +51,32 @@ const StyledHead = styled.h3`
   font-size: 1.5rem;
   color: var(--color-text);
   ${media84_37em} {
-    font-size: 1rem;
+    font-size: 1.1rem;
   }
   ${media48em} {
-    font-size: 0.9rem;
+    font-size: 1rem;
   }
   ${media31_25em} {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
   }
 `;
 
 const StyledText = styled.p`
   color: var(--color-text);
-  font-size: 1rem;
+  font-size: 1.2rem;
   width: 80%;
   margin-bottom: 0.5rem;
   text-align: center;
 
   opacity: 0.7;
   ${media84_37em} {
-    font-size: 1rem;
+    font-size: 1.1rem;
   }
   ${media48em} {
-    font-size: 0.8rem;
+    font-size: 1rem;
   }
   ${media31_25em} {
-    font-size: 0.7rem;
+    font-size: 0.9rem;
   }
 `;
 
@@ -88,6 +89,7 @@ const StyledButton = styled.button`
   border-radius: var(--border-radius-sm);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   transition: all 0.3s;
+  font-size: 1.2rem;
 
   &:hover {
     transform: translateY(-2px);
@@ -98,11 +100,17 @@ const StyledButton = styled.button`
     transform: translateY(0);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
+  ${media84_37em} {
+    font-size: 1rem;
+  }
+  ${media62_5em} {
+    font-size: 0.9rem;
+  }
   ${media48em} {
-    font-size: 0.6rem;
+    font-size: 0.8rem;
   }
   ${media31_25em} {
-    font-size: 0.5rem;
+    font-size: 0.7rem;
   }
 `;
 

@@ -30,16 +30,16 @@ const StyledTextField = styled(TextField)`
   & > label {
     font-family: "Kanit", sans-serif;
     color: var(--color-text);
-
+    font-size: 1.2rem;
     ${media84_37em} {
-      font-size: 0.9rem;
+      font-size: 1.1rem;
     }
 
     ${media48em} {
-      font-size: 0.7rem;
+      font-size: 1rem;
     }
     ${media31_25em} {
-      font-size: 0.6rem;
+      font-size: 0.9rem;
     }
 
     & + div {
@@ -62,17 +62,17 @@ const StyledContactFormTitle = styled.h3`
   letter-spacing: 0.1rem;
   color: var(--color-text);
   text-align: center;
-  font-size: 1.5rem;
+  font-size: 2rem;
 
   ${media84_37em} {
-    font-size: 1rem;
+    font-size: 1.4rem;
     margin-bottom: 2rem;
   }
   ${media48em} {
-    font-size: 0.9rem;
+    font-size: 1.3rem;
   }
   ${media31_25em} {
-    font-size: 0.8rem;
+    font-size: 1.2rem;
   }
 `;
 const StyledButton = styled.button`
@@ -146,14 +146,15 @@ function ContactForm() {
               sm={6}
               sx={{
                 "&>div>p": {
+                  fontSize: "1rem",
                   [media84_37em]: {
-                    fontSize: ".8rem",
+                    fontSize: ".9rem",
                   },
                   [media48em]: {
-                    fontSize: ".7rem",
+                    fontSize: ".8rem",
                   },
                   [media31_25em]: {
-                    fontSize: ".6rem",
+                    fontSize: ".7rem",
                   },
                 },
               }}
@@ -175,14 +176,15 @@ function ContactForm() {
               sm={6}
               sx={{
                 "&>div>p": {
+                  fontSize: "1rem",
                   [media84_37em]: {
-                    fontSize: ".8rem",
+                    fontSize: ".9rem",
                   },
                   [media48em]: {
-                    fontSize: ".7rem",
+                    fontSize: ".8rem",
                   },
                   [media31_25em]: {
-                    fontSize: ".6rem",
+                    fontSize: ".7rem",
                   },
                 },
               }}
@@ -203,14 +205,15 @@ function ContactForm() {
               xs={12}
               sx={{
                 "&>div>p": {
+                  fontSize: "1rem",
                   [media84_37em]: {
-                    fontSize: ".8rem",
+                    fontSize: ".9rem",
                   },
                   [media48em]: {
-                    fontSize: ".7rem",
+                    fontSize: ".8rem",
                   },
                   [media31_25em]: {
-                    fontSize: ".6rem",
+                    fontSize: ".7rem",
                   },
                 },
               }}
@@ -233,14 +236,15 @@ function ContactForm() {
               xs={12}
               sx={{
                 "&>div>p": {
+                  fontSize: "1rem",
                   [media84_37em]: {
-                    fontSize: ".8rem",
+                    fontSize: ".9rem",
                   },
                   [media48em]: {
-                    fontSize: ".7rem",
+                    fontSize: ".8rem",
                   },
                   [media31_25em]: {
-                    fontSize: ".6rem",
+                    fontSize: ".7rem",
                   },
                 },
               }}
@@ -261,14 +265,15 @@ function ContactForm() {
               xs={12}
               sx={{
                 "&>div>p": {
+                  fontSize: "1rem",
                   [media84_37em]: {
-                    fontSize: ".8rem",
+                    fontSize: ".9rem",
                   },
                   [media48em]: {
-                    fontSize: ".7rem",
+                    fontSize: ".8rem",
                   },
                   [media31_25em]: {
-                    fontSize: ".6rem",
+                    fontSize: ".7rem",
                   },
                 },
               }}

@@ -14,6 +14,7 @@ import {
   media62_5em,
   media84_37em,
 } from "../../../Constants/constants";
+import { composeInitialProps } from "react-i18next";
 
 const StyledFooter = styled.footer`
   background-color: var(--color-background);
@@ -36,12 +37,20 @@ const StyledFooter = styled.footer`
 const StyledCopyright = styled.p`
   display: flex;
   color: var(--color-text);
-  font-size: 13px;
+
+  font-size: 1.5rem;
+
+  ${media84_37em} {
+    font-size: 1.1rem;
+  }
+  ${media62_5em} {
+    font-size: 1rem;
+  }
   ${media48em} {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
   }
   ${media31_25em} {
-    font-size: 0.7rem;
+    font-size: 0.8rem;
   }
 `;
 const StyledGrid = styled(Grid)`
@@ -56,13 +65,32 @@ const StyledGrid = styled(Grid)`
 `;
 
 //? ----------------------objeler dizisine dönüştür, href ekle-----------------------quick listede yap
-const socialIcons = [
-  <InstagramIcon key="instagram" />,
-  <XIcon key="x" />,
-  <FacebookIcon key="facebook" />,
-  <LinkedInIcon key="linkedin" />,
-];
+// const socialIcons = [
 
+//   <InstagramIcon key="instagram" />,
+//   <XIcon key="x" />,
+//   <FacebookIcon key="facebook" />,
+//   <LinkedInIcon key="linkedin" />,
+// ];
+
+const socialIcons = [
+  {
+    component: <InstagramIcon key="instagram" />,
+    href: "https://www.instagram.com/",
+  },
+  {
+    component: <XIcon key="x" />,
+    href: "https://www.instagram.com",
+  },
+  {
+    component: <FacebookIcon key="facebook" />,
+    href: "https://www.facebook.com",
+  },
+  {
+    component: <LinkedInIcon key="linkedin" />,
+    href: "https://www.linkedin.com",
+  },
+];
 function Footer() {
   return (
     <StyledFooter>

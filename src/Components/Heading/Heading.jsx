@@ -26,8 +26,7 @@ const StyledHeading = styled.h1`
   }
   ${media31_25em} {
     margin-bottom: 1rem;
-
-    font-size: 1rem;
+    font-size: 1.2rem;
   }
 `;
 
@@ -41,14 +40,14 @@ const StyledParagraph = styled.p`
   margin-bottom: 3rem;
 
   ${media84_37em} {
-    font-size: 1rem;
+    font-size: 1.1rem;
   }
   ${media48em} {
-    font-size: 0.8rem;
+    font-size: 1rem;
     line-height: 0.9rem;
   }
   ${media31_25em} {
-    font-size: 0.7rem;
+    font-size: 0.9rem;
   }
 `;
 

@@ -45,17 +45,15 @@ function CustomAccordion({ index, expanded, handleChange, question, content }) {
             fontWeight: "bold",
             fontSize: "1.2rem",
             color: "var(--color-text)",
-            [media84_37em]: {
-              fontSize: "1rem",
-            },
+
             [media62_5em]: {
-              fontSize: ".9rem",
+              fontSize: "1.1rem",
             },
             [media48em]: {
-              fontSize: ".8rem",
+              fontSize: "1rem",
             },
             [media31_25em]: {
-              fontSize: ".7rem",
+              fontSize: ".9rem",
             },
           }}
         >
@@ -68,14 +66,16 @@ function CustomAccordion({ index, expanded, handleChange, question, content }) {
             sx={{
               color: "var(--color-text)",
               opacity: 0.7,
+              fontSize: "1.1rem",
+
               [media84_37em]: {
-                fontSize: ".9rem",
+                fontSize: "1rem",
               },
               [media48em]: {
-                fontSize: ".8rem",
+                fontSize: ".9rem",
               },
               [media31_25em]: {
-                fontSize: ".7rem",
+                fontSize: ".8rem",
               },
             }}
           >

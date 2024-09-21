@@ -59,7 +59,7 @@ const StyledAboutText = styled.div`
   align-items: center;
   width: 50%;
   /* height: auto; */
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   color: var(--color-text);
   font-family: var(--font-texts);
   padding: 2rem;
@@ -69,15 +69,15 @@ const StyledAboutText = styled.div`
 
   ${media84_37em} {
     width: 100%;
-    font-size: 1rem;
+    font-size: 1.2rem;
   }
   ${media48em} {
-    font-size: 0.8rem;
+    font-size: 1rem;
     width: 100%;
     padding: 0.5rem;
   }
   ${media31_25em} {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
   }
 `;
 

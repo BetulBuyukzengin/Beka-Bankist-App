@@ -38,7 +38,7 @@ const StyledContainer = styled.div`
   }
   ${media48em} {
     align-self: center;
-    /* width: 100%; */
+    width: 85%;
   }
 `;
 const StyledText = styled.div`
@@ -48,10 +48,10 @@ const StyledText = styled.div`
   padding: 16px 32px;
   border-radius: var(--border-radius-sm);
   ${media48em} {
-    font-size: 0.7rem;
+    font-size: 0.8rem;
   }
   ${media31_25em} {
-    font-size: 0.6rem;
+    font-size: 0.7rem;
     padding: 16px 40px;
   }
 `;

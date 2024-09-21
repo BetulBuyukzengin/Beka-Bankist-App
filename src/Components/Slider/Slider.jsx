@@ -81,16 +81,16 @@ function Slider({ data, isHead, isAvatar, selectedImage }) {
                         textAlign: "center",
                         mb: "1rem",
                         [media84_37em]: {
-                          fontSize: "1.7rem",
+                          fontSize: "1.9rem",
                         },
                         [media48em]: {
                           letterSpacing: "normal",
                           width: "100%",
-                          fontSize: "1.3rem",
+                          fontSize: "1.4rem",
                           mb: ".3rem",
                         },
                         [media31_25em]: {
-                          fontSize: "1rem",
+                          fontSize: "1.2rem",
                         },
                       }}
                     >
@@ -101,24 +101,24 @@ function Slider({ data, isHead, isAvatar, selectedImage }) {
                 <Typography
                   sx={{
                     width: "60%",
-                    fontSize: "1.2rem",
+                    fontSize: "1.3rem",
                     color: "var(--color-text)",
                     lineHeight: "2rem",
                     textAlign: "center",
                     mb: "2rem",
                     fontStyle: isAvatar && "italic",
                     [media84_37em]: {
-                      fontSize: "1rem",
+                      fontSize: "1.2rem",
                     },
                     [media48em]: {
                       width: "100%",
-                      fontSize: ".8rem",
+                      fontSize: "1rem",
                       mb: "1rem",
-                      lineHeight: "1rem",
+                      lineHeight: ".9rem",
                     },
-                    [media31_25em]: {
-                      fontSize: ".7rem",
-                    },
+                    // [media31_25em]: {
+                    //   fontSize: ".9rem",
+                    // },
                   }}
                 >
                   {data[index].desc}

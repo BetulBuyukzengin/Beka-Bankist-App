@@ -20,6 +20,7 @@ FooterList.propTypes = {
 };
 
 function FooterList({ data, direction }) {
+  console.log(data);
   return (
     <StyledList direction={direction}>
       {data.map((link, i) => (
