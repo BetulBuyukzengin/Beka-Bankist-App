@@ -23,7 +23,8 @@ const StyledServices = styled.div`
     padding: 1rem;
   }
   ${media31_25em} {
-    padding: 0.6rem;
+    /* padding: 0.6rem; */
+    padding: 0 1rem 4rem 1rem;
   }
 `;
 

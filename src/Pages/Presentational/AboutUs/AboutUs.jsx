@@ -73,7 +73,7 @@ const StyledAboutText = styled.div`
   }
   ${media48em} {
     font-size: 1rem;
-    width: 100%;
+    width: 90%;
     padding: 0.5rem;
   }
   ${media31_25em} {
