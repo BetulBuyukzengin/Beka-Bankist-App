@@ -49,9 +49,9 @@ const StyledCopyright = styled.p`
   ${media48em} {
     font-size: 0.9rem;
   }
-  ${media31_25em} {
-    font-size: 0.8rem;
-  }
+  /* ${media31_25em} {
+    font-size: 0.9rem;
+  } */
 `;
 const StyledGrid = styled(Grid)`
   align-items: center;

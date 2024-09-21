@@ -109,12 +109,12 @@ function Slider({ data, isHead, isAvatar, selectedImage }) {
                     fontStyle: isAvatar && "italic",
                     [media84_37em]: {
                       fontSize: "1.2rem",
+                      lineHeight: "1.5rem",
                     },
                     [media48em]: {
                       width: "100%",
                       fontSize: "1rem",
                       mb: "1rem",
-                      lineHeight: ".9rem",
                     },
                     // [media31_25em]: {
                     //   fontSize: ".9rem",

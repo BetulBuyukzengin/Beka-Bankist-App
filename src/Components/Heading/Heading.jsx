@@ -16,17 +16,17 @@ const StyledHeading = styled.h1`
 
   ${media84_37em} {
     margin-bottom: 1rem;
-    font-size: 1.7rem;
+    font-size: 1.9rem;
     padding-top: 0;
   }
   ${media48em} {
     margin-bottom: 1.5rem;
     padding-top: 0;
-    font-size: 1.3rem;
+    font-size: 1.7rem;
   }
   ${media31_25em} {
     margin-bottom: 1rem;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
   }
 `;
 
@@ -41,6 +41,7 @@ const StyledParagraph = styled.p`
 
   ${media84_37em} {
     font-size: 1.1rem;
+    line-height: 1.5rem;
   }
   ${media48em} {
     font-size: 1rem;

@@ -9,6 +9,7 @@ import {
   emailRegex,
   media31_25em,
   media48em,
+  media62_5em,
   media84_37em,
 } from "../../../Constants/constants";
 
@@ -65,14 +66,14 @@ const StyledContactFormTitle = styled.h3`
   font-size: 2rem;
 
   ${media84_37em} {
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     margin-bottom: 2rem;
   }
   ${media48em} {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
   }
   ${media31_25em} {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
   }
 `;
 const StyledButton = styled.button`
@@ -82,6 +83,9 @@ const StyledButton = styled.button`
   margin-top: 1rem;
   border-radius: 2px;
   border: none;
+  font-size: 1.5rem;
+  align-self: center;
+
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   &:hover {
     transform: translateY(-3px);
@@ -91,12 +95,17 @@ const StyledButton = styled.button`
     transform: translateY(0);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   }
+  ${media84_37em} {
+    font-size: 1rem;
+  }
+  ${media62_5em} {
+    font-size: 0.9rem;
+  }
   ${media48em} {
-    font-size: 0.7rem;
-    align-self: center;
+    font-size: 0.8rem;
   }
   ${media31_25em} {
-    font-size: 0.6rem;
+    font-size: 0.7rem;
   }
 `;
 
@@ -117,12 +126,13 @@ function ContactForm() {
         sx={{
           p: "2rem 4rem ",
           m: "1rem",
-
+          display: "flex",
+          flexDirection: "column",
           backgroundColor: "transparent",
           [media48em]: {
             p: "1rem",
-            display: "flex",
-            flexDirection: "column",
+            // display: "flex",
+            // flexDirection: "column",
           },
           [media31_25em]: {
             p: ".8rem",

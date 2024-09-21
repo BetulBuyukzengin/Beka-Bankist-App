@@ -51,13 +51,13 @@ const StyledHead = styled.h3`
   font-size: 1.5rem;
   color: var(--color-text);
   ${media84_37em} {
-    font-size: 1.1rem;
+    font-size: 1.3rem;
   }
   ${media48em} {
-    font-size: 1rem;
+    font-size: 1.2rem;
   }
   ${media31_25em} {
-    font-size: 0.9rem;
+    font-size: 1rem;
   }
 `;
 

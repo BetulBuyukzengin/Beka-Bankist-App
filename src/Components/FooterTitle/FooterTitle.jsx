@@ -24,9 +24,9 @@ const StyledTitle = styled.h3`
   ${media48em} {
     font-size: 0.9rem;
   }
-  ${media31_25em} {
+  /* ${media31_25em} {
     font-size: 0.8rem;
-  }
+  } */
 `;
 function FooterTitle({ children }) {
   return <StyledTitle>{children}</StyledTitle>;
