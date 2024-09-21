@@ -26,7 +26,7 @@ const StyledHome = styled.div`
   }
   ${media48em} {
     margin-top: 0;
-    padding: 1rem;
+    padding: 3rem;
     height: auto;
   }
   ${media31_25em} {
