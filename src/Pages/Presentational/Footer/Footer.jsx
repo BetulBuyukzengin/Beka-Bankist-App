@@ -73,7 +73,7 @@ const StyledGrid = styled(Grid)`
 //   <LinkedInIcon key="linkedin" />,
 // ];
 
-const socialIcons = [
+const socialMediaObjects = [
   {
     component: <InstagramIcon key="instagram" />,
     href: "https://www.instagram.com/",
@@ -102,7 +102,7 @@ function Footer() {
       >
         <StyledGrid item xs={12} sm={3}>
           <FooterTitle>Follow Us</FooterTitle>
-          <FooterList direction="row" data={socialIcons} />
+          <FooterList direction="row" data={socialMediaObjects} />
         </StyledGrid>
         <Grid item xs={12}>
           <Divider />
