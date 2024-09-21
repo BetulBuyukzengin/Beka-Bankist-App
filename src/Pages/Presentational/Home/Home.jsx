@@ -30,7 +30,8 @@ const StyledHome = styled.div`
     height: auto;
   }
   ${media31_25em} {
-    padding: 0.6rem;
+    /* padding: 0.6rem; */
+    padding: 2rem;
   }
 `;
 
