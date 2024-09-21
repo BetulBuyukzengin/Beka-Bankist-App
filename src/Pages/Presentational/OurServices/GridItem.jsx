@@ -10,7 +10,7 @@ const StyledGridItem = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   gap: 0.5rem;
   ${media84_37em} {
     align-items: center;
@@ -47,10 +47,10 @@ const StyledIconContainer = styled.div`
 `;
 
 const StyledHead = styled.h3`
-  font-size: 2rem;
+  font-size: 1.5rem;
   color: var(--color-text);
   ${media84_37em} {
-    font-size: 1.2rem;
+    font-size: 1rem;
   }
   ${media48em} {
     font-size: 0.9rem;
@@ -65,9 +65,10 @@ const StyledText = styled.p`
   font-size: 1rem;
   width: 80%;
   margin-bottom: 0.5rem;
+  text-align: center;
+
   opacity: 0.7;
   ${media84_37em} {
-    text-align: center;
     font-size: 1rem;
   }
   ${media48em} {

@@ -9,6 +9,7 @@ import PropTypes from "prop-types";
 import {
   media31_25em,
   media48em,
+  media62_5em,
   media84_37em,
 } from "../../Constants/constants";
 
@@ -42,7 +43,14 @@ function CustomAccordion({ index, expanded, handleChange, question, content }) {
             width: "maxContent",
             flexShrink: 0,
             fontWeight: "bold",
+            fontSize: "1.2rem",
             color: "var(--color-text)",
+            [media84_37em]: {
+              fontSize: "1rem",
+            },
+            [media62_5em]: {
+              fontSize: ".9rem",
+            },
             [media48em]: {
               fontSize: ".8rem",
             },

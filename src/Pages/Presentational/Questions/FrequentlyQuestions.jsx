@@ -2,7 +2,12 @@ import styled from "styled-components";
 import { useState } from "react";
 import Heading from "../../../Components/Heading/Heading";
 import CustomAccordion from "../../../Components/Accordion/Accordion";
-import { media48em, media84_37em } from "../../../Constants/constants";
+import {
+  media31_25em,
+  media48em,
+  media62_5em,
+  media84_37em,
+} from "../../../Constants/constants";
 const questions = [
   {
     question: "Can I accept both Paypal and Stripe ?",
@@ -50,12 +55,20 @@ const StyledContainer = styled.div`
   /* height: 100dvh; */
   width: 100%;
   background-color: var(--color-background);
-  padding: 0 10rem;
+  /* padding: 0 5rem; */
+  padding: 4rem;
+
   ${media84_37em} {
     padding: 2rem;
   }
+  ${media62_5em} {
+    padding: 1.5rem;
+  }
   ${media48em} {
-    padding: 0.8rem;
+    padding: 1rem;
+  }
+  ${media31_25em} {
+    padding: 0.6rem;
   }
 `;
 

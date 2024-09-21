@@ -18,14 +18,19 @@ const StyledHome = styled.div`
   background-size: cover;
   background-repeat: no-repeat;
   position: relative;
+  padding: 4rem;
+
   ${media62_5em} {
     margin-top: 4rem;
+    padding: 1.5rem;
   }
   ${media48em} {
     margin-top: 0;
-
-    padding: 0.8rem;
+    padding: 1rem;
     height: auto;
+  }
+  ${media31_25em} {
+    padding: 0.6rem;
   }
 `;
 

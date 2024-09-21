@@ -4,13 +4,16 @@ import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import { useDarkMode } from "../../Contexts/DarkModeContext";
 import { Link } from "react-router-dom";
-import { media48em } from "../../Constants/constants";
+import { media31_25em, media48em } from "../../Constants/constants";
 
 const StyledLi = styled.li`
   width: 100%;
-  font-size: 0.8rem;
+  font-size: 1rem;
   justify-content: center;
   display: flex;
+  ${media31_25em} {
+    font-size: 0.8rem;
+  }
 `;
 
 const StyledLink = styled.a`

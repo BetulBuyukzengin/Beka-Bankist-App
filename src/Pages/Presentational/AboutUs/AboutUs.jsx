@@ -4,11 +4,14 @@ import Heading from "../../../Components/Heading/Heading";
 import {
   media31_25em,
   media48em,
+  media62_5em,
   media84_37em,
 } from "../../../Constants/constants";
 
 const StyledAbout = styled.div`
-  height: 100dvh;
+  /* height: 100dvh; */
+  height: auto;
+  padding: 4rem;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -16,12 +19,19 @@ const StyledAbout = styled.div`
   align-items: center;
   text-align: center;
   background-color: var(--color-background);
+
   ${media84_37em} {
     height: auto;
+    padding: 2rem;
+  }
+  ${media62_5em} {
+    padding: 1.5rem;
   }
   ${media48em} {
-    padding: 0.8rem;
-    /* height: auto; */
+    padding: 1rem;
+  }
+  ${media31_25em} {
+    padding: 0.6rem;
   }
 `;
 
@@ -32,6 +42,8 @@ const StyledContainer = styled.div`
   justify-content: center;
   align-items: flex-start;
   padding: 0 10rem;
+
+  height: auto;
   ${media84_37em} {
     padding: 0 3rem;
     align-items: center;
@@ -46,14 +58,15 @@ const StyledAboutText = styled.div`
   display: flex;
   align-items: center;
   width: 50%;
-  height: auto;
+  /* height: auto; */
   font-size: 1.2rem;
   color: var(--color-text);
   font-family: var(--font-texts);
   padding: 2rem;
   text-align: left;
-  height: 100%;
+  /* height: 100%; */
   line-height: 1.5rem;
+
   ${media84_37em} {
     width: 100%;
     font-size: 1rem;

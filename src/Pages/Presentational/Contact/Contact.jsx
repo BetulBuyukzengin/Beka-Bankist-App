@@ -4,15 +4,26 @@ import Heading from "../../../Components/Heading/Heading";
 import {
   media31_25em,
   media48em,
+  media62_5em,
   media84_37em,
 } from "../../../Constants/constants";
 
 const StyledContactUs = styled.div`
   width: 100%;
-  /* height: 100dvh; */
   background-color: var(--color-background);
+  padding: 4rem;
+
   ${media84_37em} {
     padding: 2rem;
+  }
+  ${media62_5em} {
+    padding: 1.5rem;
+  }
+  ${media48em} {
+    padding: 1rem;
+  }
+  ${media31_25em} {
+    padding: 0.6rem;
   }
 `;
 

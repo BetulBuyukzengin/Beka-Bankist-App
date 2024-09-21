@@ -8,11 +8,14 @@ import {
 
 const StyledHeading = styled.h1`
   color: var(--color-secondary);
-  font-size: 3.8rem;
+  font-size: 2.5rem;
   padding-top: 6rem;
   text-align: center;
+  margin-bottom: 3rem;
   filter: drop-shadow(var(--shadow-md));
+
   ${media84_37em} {
+    margin-bottom: 1rem;
     font-size: 1.7rem;
     padding-top: 0;
   }
@@ -22,6 +25,8 @@ const StyledHeading = styled.h1`
     font-size: 1.3rem;
   }
   ${media31_25em} {
+    margin-bottom: 1rem;
+
     font-size: 1rem;
   }
 `;
@@ -34,6 +39,7 @@ const StyledParagraph = styled.p`
   line-height: 2rem;
   letter-spacing: 0.00938em;
   margin-bottom: 3rem;
+
   ${media84_37em} {
     font-size: 1rem;
   }

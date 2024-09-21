@@ -4,12 +4,12 @@ import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import { useDarkMode } from "../../../Contexts/DarkModeContext";
 import { Link } from "react-router-dom";
-import { media84_37em } from "../../../Constants/constants";
+import { media62_5em, media84_37em } from "../../../Constants/constants";
 
 const StyledLi = styled.li`
   font-size: 1.7rem;
 
-  &:not(:first-child),
+  /* &:not(:first-child),
   &:not(:nth-child(2)) {
     margin-left: 0.5rem;
   }
@@ -26,19 +26,24 @@ const StyledLi = styled.li`
 
   &:nth-child(7) {
     margin-left: 8rem;
-  }
+  } */
   ${media84_37em} {
     font-size: 1.1rem;
-    margin-left: 0 !important;
-    &:nth-child(1) {
+    /* margin-left: 0 !important; */
+    /* &:nth-child(1) {
       margin-right: 1rem;
     }
     &:nth-child(2) {
       margin-right: 0;
-    }
+    } */
   }
 `;
 
+const StyledMenuItems = styled.span`
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+`;
 const StyledLink = styled.a`
   border: none;
   color: var(--color-text);
@@ -85,8 +90,13 @@ const StyledImg = styled.img`
 const StyledSpan = styled.span`
   display: flex;
   align-items: center;
+  width: 30%;
   ${media84_37em} {
-    justify-content: space-around;
+    justify-content: space-evenly;
+  }
+  ${media62_5em} {
+    justify-content: space-evenly;
+    width: 40%;
   }
 `;
 
@@ -108,13 +118,7 @@ function NavItem() {
           <StyledLink href="#home">Beka-Bank</StyledLink>
         </StyledLi>
       </StyledSpan>
-      <span
-        style={{
-          display: "flex",
-          width: "50%0",
-          justifyContent: "space-evenly",
-        }}
-      >
+      <StyledMenuItems>
         <StyledLi>
           <StyledLink href="#home">Home</StyledLink>
         </StyledLi>
@@ -127,9 +131,15 @@ function NavItem() {
         <StyledLi>
           <StyledLink href="#contact">Contact</StyledLink>
         </StyledLi>
-      </span>
+      </StyledMenuItems>
 
-      <StyledSpan>
+      <span
+        style={{
+          display: "flex",
+          justifyContent: "space-evenly",
+          width: "12%",
+        }}
+      >
         <StyledLi>
           <StyledLink onClick={toggleDarkMode}>
             {isDarkMode ? <DarkModeIcon /> : <LightModeIcon />}
@@ -140,7 +150,7 @@ function NavItem() {
             <LoginIcon />
           </StyledLinkTo>
         </StyledLi>
-      </StyledSpan>
+      </span>
     </>
   );
 }

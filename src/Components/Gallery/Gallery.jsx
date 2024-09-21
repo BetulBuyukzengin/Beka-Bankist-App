@@ -6,17 +6,25 @@ import { useState } from "react";
 import {
   media31_25em,
   media48em,
+  media62_5em,
   media84_37em,
 } from "../../Constants/constants";
 
 const StyledGaleryContainer = styled.div`
-  padding: 5rem;
+  padding: 4rem;
   background-color: var(--color-background);
+
   ${media84_37em} {
     padding: 2rem;
   }
+  ${media62_5em} {
+    padding: 1.5rem;
+  }
   ${media48em} {
-    padding: 0.8rem;
+    padding: 1rem;
+  }
+  ${media31_25em} {
+    padding: 0.6rem;
   }
 `;
 const StyledGridContainer = styled.div`

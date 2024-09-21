@@ -1,16 +1,31 @@
 import styled from "styled-components";
 import Slider from "../../../Components/Slider/Slider";
 import Heading from "../../../Components/Heading/Heading";
-import { media48em } from "../../../Constants/constants";
+import {
+  media31_25em,
+  media48em,
+  media62_5em,
+  media84_37em,
+} from "../../../Constants/constants";
 
 const StyledContainer = styled.div`
   width: 100%;
   height: 100dvh;
   background-color: var(--color-background);
-  padding: 4rem 0;
+  padding: 4rem;
+
+  ${media84_37em} {
+    padding: 2rem;
+  }
+  ${media62_5em} {
+    padding: 1.5rem;
+  }
   ${media48em} {
-    /* padding: 0.8rem !important; */
+    padding: 1rem;
     height: auto;
+  }
+  ${media31_25em} {
+    padding: 0.6rem;
   }
 `;
 

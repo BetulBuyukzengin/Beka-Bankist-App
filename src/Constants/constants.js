@@ -15,10 +15,10 @@ export const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 export const addressRegex =
   /^(?<il>[a-zA-ZçÇğĞıİöÖşŞüÜ\s]+)\s+(?<ilce>[a-zA-ZçÇğĞıİöÖşŞüÜ\s]+)\s+(?<mahalle>[a-zA-ZçÇğĞıİöÖşŞüÜ\s]+)\s*[mM]ah\.\s*(?<sokak>[a-zA-ZçÇğĞıİöÖşŞüÜ\s]+)\s*[sS]ok\.\s*[nN]o\s*:\s*(?<daire>[0-9]+)$/;
 
-export const media48em = "@media (max-width:48em)";
-export const media31_25em = "@media (max-width:31.25em)";
-export const media84_37em = "@media (max-width:84.37em)";
-export const media62_5em = "@media (max-width:62.5em)";
+export const media84_37em = "@media (max-width:84.37em)"; // max 1349,92
+export const media62_5em = "@media (max-width:62.5em)"; // max 1000
+export const media48em = "@media (max-width:48em)"; // max 768
+export const media31_25em = "@media (max-width:31.25em)"; //max 500
 
 export const drawerWidth = 240;
 export const drawerWidth2 = 200;

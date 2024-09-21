@@ -57,13 +57,15 @@ const StyledTextField = styled(TextField)`
     }
   }
 `;
-const StyledContactFormTitle = styled.h2`
+const StyledContactFormTitle = styled.h3`
   margin-bottom: 1rem;
   letter-spacing: 0.1rem;
   color: var(--color-text);
   text-align: center;
+  font-size: 1.5rem;
+
   ${media84_37em} {
-    font-size: 1.7rem;
+    font-size: 1rem;
     margin-bottom: 2rem;
   }
   ${media48em} {
