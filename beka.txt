@@ -57,3 +57,6 @@ göster (https://supabase.com/dashboard/project/zztdmxtwnkykekxoupjl/auth/provid
 
 ************* Deploy ederken düzeltilecekler *********
  Hareketsizlikte oturum kapatma yı etkınlestır)
+
+ "react-swipeable-views": "^0.14.0",
+    "react-swipeable-views-utils": "^0.14.0",
