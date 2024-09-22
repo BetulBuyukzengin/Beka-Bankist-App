@@ -18,7 +18,8 @@ const StyledAbout = styled.div`
   justify-content: flex-start;
   align-items: center;
   text-align: center;
-  background-color: var(--color-background);
+  /* background-color: var(--color-background); */
+  background-color: var(--color-background-1);
 
   ${media84_37em} {
     height: auto;
@@ -49,7 +50,7 @@ const StyledContainer = styled.div`
     align-items: center;
   }
   ${media48em} {
-    padding: 0;
+    padding: 4rem 1rem;
     flex-direction: column;
   }
 `;

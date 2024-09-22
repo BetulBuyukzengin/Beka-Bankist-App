@@ -54,8 +54,6 @@ export default function AccountConsentForm({ setChecked, setOpen }) {
   const accountHoldersInformations = [
     { title: "Name - Surname", description: fullName },
     { title: "Address", description: address },
-    // Take phone number from currentUser
-    // { title: "Phone Number", description: phoneNumber },
     { title: "E-mail Address", description: user.email },
   ];
   function handleClick() {

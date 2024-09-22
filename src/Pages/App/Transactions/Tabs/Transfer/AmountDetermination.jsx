@@ -32,7 +32,6 @@ const StyledLabel = styled.label`
     font-size: 0.7rem;
   }
 `;
-// const frequentlyAmount = 500;
 
 function AmountDetermination() {
   const {
@@ -52,13 +51,11 @@ function AmountDetermination() {
   const [remainingBalance, setRemainingBalance] = useState(
     selectedAccRemainingBalance
   );
-  // findMostFrequent(array)
-  const { movements, isLoading } = useMovements();
+  const { movements } = useMovements();
   const amountToSends = movements
     ?.filter((movement) => movement.status === "Transfer")
     ?.map((movement) => movement.amountToSend);
-  // if (!amountToSends) return;
-  // const frequentlyAmount = findMostFrequent(amountToSends);
+  
 
   function handleClick() {
     setAmountToSendValue(frequentlyAmount);

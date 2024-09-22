@@ -50,7 +50,7 @@ function CreatePassword() {
     if (!token)
       return toast.error("You don't have permission to submit this form");
     try {
-      const { data, error } = await supabase.auth.updateUser({
+      const { error } = await supabase.auth.updateUser({
         password: formData.newPassword,
       });
       if (error) throw new Error(error.message);
@@ -61,8 +61,6 @@ function CreatePassword() {
         navigate("/signIn");
       }
     } catch (error) {
-      // Yeni şifren eski şifrenden farklı olmalı!
-      // toast.error("New password should be different from the old password.!");
       toast.error(error.message);
     }
   };

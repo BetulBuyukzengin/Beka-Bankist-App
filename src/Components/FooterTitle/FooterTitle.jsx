@@ -1,7 +1,6 @@
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import {
-  media31_25em,
   media48em,
   media62_5em,
   media84_37em,
@@ -24,9 +23,6 @@ const StyledTitle = styled.h3`
   ${media48em} {
     font-size: 0.9rem;
   }
-  /* ${media31_25em} {
-    font-size: 0.8rem;
-  } */
 `;
 function FooterTitle({ children }) {
   return <StyledTitle>{children}</StyledTitle>;

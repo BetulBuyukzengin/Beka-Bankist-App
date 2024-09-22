@@ -9,7 +9,6 @@ const AutoLogout = ({ timeout = 600000 }) => {
 
   const { mutateAsync: logout } = useLogout();
 
-  // Reset the timer
   const resetTimer = () => {
     if (logoutTimer) clearTimeout(logoutTimer);
     logoutTimer = setTimeout(logout, timeout);

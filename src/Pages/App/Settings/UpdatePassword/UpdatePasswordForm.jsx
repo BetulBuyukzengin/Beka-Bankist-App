@@ -25,8 +25,6 @@ const StyledUpdatePasswordTitle = styled.h4`
   }
 `;
 function UpdatePasswordForm({ setOpenModal }) {
-  // if (!formProps) return;
-  // const { setOpenModal } = formProps;
   const {
     register,
     handleSubmit,

@@ -21,23 +21,6 @@ function WithIbanTab({ iban, setIban }) {
     setIban(formattedIban);
   };
 
-  // useEffect(
-  //   function () {
-  //     if (status === "New Recipient") {
-  //       searchParams.set(
-  //         "saveAsRegisteredWithIban",
-  //         watchSaveAsRegisteredWithIban
-  //       );
-  //       setSearchParams(searchParams);
-  //     }
-  //     // else {
-  //     //   searchParams.delete("saveAsRegisteredWithIban");
-  //     //   setSearchParams(searchParams);
-  //     // }
-  //   },
-  //   [watchSaveAsRegisteredWithIban, status, setSearchParams, searchParams]
-  // );
-
   return (
     <>
       <Grid
@@ -52,10 +35,8 @@ function WithIbanTab({ iban, setIban }) {
       >
         <Grid
           item
-          // xs={6}
           xs={12}
           sm={6}
-          // md={4}
           sx={{
             display: "flex",
             gap: "1rem",
@@ -82,10 +63,8 @@ function WithIbanTab({ iban, setIban }) {
         </Grid>
         <Grid
           item
-          //  xs={6}
           xs={12}
           sm={6}
-          // md={4}
           sx={{
             display: "flex",
             gap: "1rem",
@@ -112,7 +91,6 @@ function WithIbanTab({ iban, setIban }) {
             item
             xs={12}
             sm={6}
-            // md={4}
             sx={{
               "@media(max-width:48em)": {
                 "&>div": {

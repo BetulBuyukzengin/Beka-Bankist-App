@@ -46,7 +46,6 @@ export function useCreateAccount() {
   return { mutateAsync, isPending };
 }
 
-// async function updateBalance(id, account) {
 async function updateAccount(id, account) {
   const { data, error } = await supabase
     .from("accounts")
@@ -58,13 +57,6 @@ async function updateAccount(id, account) {
   return data;
 }
 
-// export function useUpdateBalance() {
-//   const { mutateAsync, isLoading } = useMutation({
-//     mutationFn: ({ id, account }) => updateBalance(id, account),
-//     onError: () => toast.error("Transaction could not be performed"),
-//   });
-//   return { mutateAsync, isLoading };
-// }
 export function useUpdateAccount() {
   const { mutateAsync, isLoading } = useMutation({
     mutationFn: ({ id, account }) => updateAccount(id, account),

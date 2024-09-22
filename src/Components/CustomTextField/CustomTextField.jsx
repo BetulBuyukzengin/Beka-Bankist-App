@@ -66,6 +66,7 @@ function CustomTextField({
   inputProps, //! mui input props
   texttransform,
   textFieldStyles,
+  variant,
 }) {
   return (
     <StyledTextField
@@ -84,7 +85,7 @@ function CustomTextField({
       required={required}
       fullWidth
       disabled={disabled}
-      variant="outlined"
+      variant={variant}
       helperText={helperText}
       error={error}
       InputLabelProps={{

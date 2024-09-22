@@ -102,7 +102,6 @@ export default function TransactionControl() {
   const { accountNumber, balance } = JSON.parse(selectedAccount);
 
   const registered = registeredRecipient && JSON.parse(registeredRecipient);
-  // ! Burada kaldım
   return (
     <Box
       sx={{

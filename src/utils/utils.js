@@ -63,13 +63,13 @@ export function generateRandomIBAN() {
 }
 
 export function formatWord(word) {
-  return word.slice(0, 1).toUpperCase() + word.slice(1).toLowerCase();
+  return word?.slice(0, 1).toUpperCase() + word?.slice(1).toLowerCase();
 }
 
 export function formatArrayWord(words) {
   const arrayWords = words.split(" ");
   return arrayWords
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .map((word) => word?.charAt(0).toUpperCase() + word?.slice(1).toLowerCase())
     .join(" ");
 }
 export function calculateAvailableMonthlyPayment(income, expense) {
@@ -80,8 +80,6 @@ export function calculateLoanAmount(monthlyPayment, paymentPeriod) {
   const { value, interest } = paymentPeriod;
   const months = value * 12;
   const loanWithoutInterest = monthlyPayment * 0.8 * months;
-  // const interestAmount = monthlyPayment * 0.8 * months * interest;
-  // return loanWithoutInterest + interestAmount;
   return loanWithoutInterest;
 }
 export const convertToBoolean = (str) => {
@@ -122,7 +120,6 @@ export function calcRemainingLimitResetTime() {
 }
 
 export function calcNextMonth(date, numberMonth) {
-  // return addMonths(new Date(date.year, date.month - 1, date.day), numberMonth);
   return addMonths(date, numberMonth);
 }
 export function calcNextDay(date, numberDay) {
@@ -155,4 +152,50 @@ export function findMostFrequent(arr) {
   }
 
   return mostFrequent;
+}
+
+export function generateTooltipTitles(
+  isInformationsCompleted,
+  accountsLength,
+  field
+) {
+  if (field === "Accounts") {
+    return !isInformationsCompleted
+      ? "Complete your personal information before starting"
+      : !accountsLength
+      ? "Create Account"
+      : "Accounts";
+  }
+  if (field === "Movements") {
+    return !isInformationsCompleted
+      ? "Complete your personal information before starting"
+      : "Movements";
+  }
+  if (field === "Transactions") {
+    return !isInformationsCompleted
+      ? "Complete your personal information before starting"
+      : !accountsLength
+      ? "Create a bank account before using transactions"
+      : "Transactions";
+  }
+  if (field === "Settings") {
+    return !isInformationsCompleted
+      ? "Complete your personal information before starting"
+      : "Settings";
+  }
+}
+
+export function generatePrimarySidebarTexts(accountsLength, field) {
+  if (field === "Accounts") {
+    return !accountsLength ? "Create Account" : "Accounts";
+  }
+  if (field === "Movements") {
+    return "Movements";
+  }
+  if (field === "Transactions") {
+    return "Transactions";
+  }
+  if (field === "Settings") {
+    return "Settings";
+  }
 }

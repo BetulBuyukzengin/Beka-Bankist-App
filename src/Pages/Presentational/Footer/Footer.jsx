@@ -64,15 +64,6 @@ const StyledGrid = styled(Grid)`
   }
 `;
 
-//? ----------------------objeler dizisine dönüştür, href ekle-----------------------quick listede yap
-// const socialIcons = [
-
-//   <InstagramIcon key="instagram" />,
-//   <XIcon key="x" />,
-//   <FacebookIcon key="facebook" />,
-//   <LinkedInIcon key="linkedin" />,
-// ];
-
 const socialMediaObjects = [
   {
     component: <InstagramIcon key="instagram" />,

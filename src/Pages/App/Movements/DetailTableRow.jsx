@@ -62,15 +62,8 @@ function DetailTableRow({ row, open }) {
               <DetailTableHead row={row} />
               <TableBody>
                 <TableRow
-                // sx={{
-                //   "@media (max-width:48em)": {
-                //     display: "flex",
-                //     flexDirection: "column",
-                //   },
-                // }}
                 >
                   <StyledTableCell
-                  // sx={{ color: "var(--color-text)", borderBottom: "none" }}
                   >
                     {formatCurrency(selectedAccount.balance)}
                   </StyledTableCell>

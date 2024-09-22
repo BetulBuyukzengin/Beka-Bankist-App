@@ -12,7 +12,12 @@ import TimelineIcon from "@mui/icons-material/Timeline";
 import { CurrencyExchange } from "@mui/icons-material";
 import SettingsSuggestIcon from "@mui/icons-material/SettingsSuggest";
 
-function AppListComponent({ isInformationsCompleted, accounts, setUrlParams }) {
+function AppListComponent({
+  isInformationsCompleted,
+  accounts,
+  setUrlParams,
+  toggleDrawer,
+}) {
   return (
     <List>
       <ListItem
@@ -35,6 +40,7 @@ function AppListComponent({ isInformationsCompleted, accounts, setUrlParams }) {
         >
           <span>
             <ListIconButton
+              onClick={toggleDrawer}
               disabled={!isInformationsCompleted}
               path="/applayout/account"
             >
@@ -58,6 +64,7 @@ function AppListComponent({ isInformationsCompleted, accounts, setUrlParams }) {
         >
           <span>
             <ListIconButton
+              onClick={toggleDrawer}
               disabled={!isInformationsCompleted}
               path={"/applayout/movements"}
             >
@@ -81,6 +88,7 @@ function AppListComponent({ isInformationsCompleted, accounts, setUrlParams }) {
         >
           <span>
             <ListIconButton
+              onClick={toggleDrawer}
               disabled={!isInformationsCompleted || !accounts?.length}
               path={"/applayout/transactions"}
               callback={setUrlParams}
@@ -103,7 +111,7 @@ function AppListComponent({ isInformationsCompleted, accounts, setUrlParams }) {
           }
         >
           <span>
-            <ListIconButton path={"/applayout/settings"}>
+            <ListIconButton path={"/applayout/settings"} onClick={toggleDrawer}>
               <StyledListItemIcon>
                 <SettingsSuggestIcon sx={IconStyle} />
               </StyledListItemIcon>

@@ -108,10 +108,6 @@ function AccountCreate({ setOpenCreateModal }) {
     .map((account) => account.bankName);
 
   async function onSubmit(data) {
-    // Gelen verilerin boş olma ihtimaline karşı önlem için yup yerine yapılabilir.
-    // return toast.error(
-    //   "Missing user informations. Complete your informations at settings tab before creating bank account!"
-    // );
     const iban = generateRandomIBAN();
     const formDatas = {
       ...data,

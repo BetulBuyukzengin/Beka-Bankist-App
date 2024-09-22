@@ -1,9 +1,11 @@
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import LoginIcon from "@mui/icons-material/Login";
-import { Grid, Paper, TextField } from "@mui/material";
+import { Grid, Paper } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import styled from "styled-components";
+import CustomTextField from "../../../Components/CustomTextField/CustomTextField";
 import {
   emailRegex,
   media31_25em,
@@ -11,8 +13,6 @@ import {
 } from "../../../Constants/constants";
 import { useUpdateUserInformation } from "../../../services/authServices";
 import { useSignIn } from "../../../services/userServices";
-import CustomTextField from "../../../Components/CustomTextField/CustomTextField";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 const StyledForm = styled.form`
   width: 100%;
@@ -27,29 +27,7 @@ const StyledForm = styled.form`
   background-color: var(--color-background);
   font-size: 1rem;
 `;
-const StyledTextField = styled(TextField)`
-  border: 1px solid var(--color-text);
 
-  width: 100%;
-  & > label {
-    font-family: "Kanit", sans-serif;
-    color: var(--color-text);
-
-    & + div {
-      color: var(--color-text);
-      font-family: "Kanit", sans-serif;
-    }
-  }
-`;
-const StyledLink = styled(Link)`
-  align-self: center;
-  /* ${media48em} {
-    font-size: 0.8rem;
-  }
-  ${media31_25em} {
-    font-size: 0.7rem;
-  } */
-`;
 const StyledSignInFormTitle = styled.h2`
   margin-bottom: 1rem;
   letter-spacing: 0.1rem;
@@ -127,9 +105,6 @@ function AccountRecovery() {
   const navigate = useNavigate();
 
   const onSubmit = async (formData) => {
-    // const usersignIn = await signIn(formData, { error: "hata" });
-    //toast message gonder
-
     const usersignIn = await signIn(formData);
     if (usersignIn.user.user_metadata.isAccountDeleted) {
       await updateUser({
@@ -137,7 +112,6 @@ function AccountRecovery() {
         toastMessage,
       });
     }
-    // usersignIn();
     navigate("/signIn");
 
     if (!usersignIn.user.user_metadata.isAccountDeleted)

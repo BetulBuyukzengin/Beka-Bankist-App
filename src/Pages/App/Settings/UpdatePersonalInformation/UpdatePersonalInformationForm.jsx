@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { FormHelperText, Grid, Paper } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
 import { subYears } from "date-fns";
@@ -176,7 +177,6 @@ function UpdatePersonalInformationForm({ isPersonalDatas, setOpenModal }) {
               preferredCountries={["TR", "US", "KR"]}
               value={phoneNumber}
               {...register("applicantPhoneNumber", {
-                // required: "Phone Number is required!",
                 validate: (value) =>
                   matchIsValidTel(value) || "Phone Number is not valid!",
               })}

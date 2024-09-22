@@ -8,6 +8,7 @@ function ListIconButton({
   callback,
   isTransactionButton = false,
   disabled,
+  onClick,
 }) {
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -25,6 +26,7 @@ function ListIconButton({
           if (path === pathname) return;
           navigate(path);
           if (isTransactionButton) callback();
+          onClick();
         }}
       >
         {children}

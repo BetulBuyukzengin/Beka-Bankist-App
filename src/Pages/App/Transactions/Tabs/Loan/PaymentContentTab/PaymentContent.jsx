@@ -67,10 +67,6 @@ function PaymentContent({ data }) {
     selectedMonthlyPayment.totalAmountToPay,
   ]);
 
-  // const account = {
-  //   ...selectedAccount,
-  //   balance: currentBalance - selectedMonthlyPayment.totalAmountToPay,
-  // };
   const updatedPayment = useMemo(() => {
     return {
       ...selectedMonthlyPayment,
@@ -94,10 +90,6 @@ function PaymentContent({ data }) {
       {
         onSettled: () => {
           setOpen(false);
-          // searchParams.delete("paymentId");
-          // setTimeout(() => {
-          //   setSearchParams(searchParams);
-          // }, 1500);
         },
       }
     );

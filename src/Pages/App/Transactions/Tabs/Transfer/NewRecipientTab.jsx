@@ -32,7 +32,6 @@ function NewRecipientTab({ iban, setIban }) {
         resetField("shortName", { defaultValue: "" });
         setIban("TR");
       }
-      //recipientBankName yazdım bakName yerine !!!!!!!!!!!!!!!!!
       if (searchParams.get("new-recipient-tab") === "0") {
         resetField("recipientBankName", { defaultValue: "" });
         searchParams.delete("selected-bank");

@@ -131,8 +131,6 @@ function ContactForm() {
           backgroundColor: "transparent",
           [media48em]: {
             p: "1rem",
-            // display: "flex",
-            // flexDirection: "column",
           },
           [media31_25em]: {
             p: ".8rem",

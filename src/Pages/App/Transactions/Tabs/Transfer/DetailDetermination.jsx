@@ -1,16 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { FormControlLabel, FormHelperText, Grid, Switch } from "@mui/material";
-import styled from "styled-components";
 import { useUser } from "../../../../../services/userServices";
 import CustomSelect from "../../../../../Components/CustomSelect/CustomSelect";
 import CustomTextField from "../../../../../Components/CustomTextField/CustomTextField";
 import { useFormContext } from "react-hook-form";
 import { useSearchParams } from "react-router-dom";
 
-// const StyledGrid = styled(Grid)`
-//   display: flex;
-//   justify-content: center;
-// `;
 const StyleGrid = {
   display: "flex",
   justifyContent: "center",
@@ -107,8 +102,6 @@ function DetailDetermination() {
           paddingBottom: "1rem",
           paddingRight: "1rem",
           marginTop: "1rem",
-          // flexDirection: "column!important",
-          // alignItems: "center",
           "@media (max-width:48em)": {
             marginLeft: "0",
             overflow: "hidden",

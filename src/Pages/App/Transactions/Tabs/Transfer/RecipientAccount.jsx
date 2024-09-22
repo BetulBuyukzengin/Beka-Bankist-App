@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useEffect } from "react";
 import CustomTabs from "../../../../../Components/CustomTabs/CustomTabs";
 import NewRecipientTab from "./NewRecipientTab";
@@ -36,8 +37,6 @@ function RecipientAccount({ iban, setIban }) {
         resetField("shortName", { defaultValue: "" });
         setSearchParams(searchParams);
       }
-      // if (searchParams.get("recipient-account-tab") === "1") {
-      // }
     },
     [searchParams]
   );

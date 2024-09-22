@@ -1,28 +1,3 @@
-// /* eslint-disable react/prop-types */
-// import CustomTabs from "../../../../Components/CustomTabs/CustomTabs";
-// import UpdateEmailWithEmail from "./UpdateEmailTab/UpdateEmailWithEmail";
-// import UpdateEmailWithPhoneNumber from "./UpdateEmailTab/UpdateEmailWithPhoneNumber";
-
-// function UpdateEmailAdressForm({ setOpenModal }) {
-//   return (
-//     <CustomTabs
-//       tabName="UpdateEmailAdressForm"
-//       content={[
-//         {
-//           label: "With Email",
-//           component: <UpdateEmailWithEmail setOpen={setOpenModal} />,
-//         },
-//         {
-//           label: "With Phone Number",
-//           component: <UpdateEmailWithPhoneNumber />,
-//         },
-//       ]}
-//     />
-//   );
-// }
-
-// export default UpdateEmailAdressForm;
-
 /* eslint-disable react/prop-types */
 import { Grid } from "@mui/material";
 import { useForm } from "react-hook-form";
@@ -141,7 +116,6 @@ function UpdateEmailAdressForm({ setOpenModal }) {
         <Grid item xs={12} sm={6}>
           <CustomTextField
             id="yourEmail"
-            // type="text"
             textFieldStyles={{ width: "100%" }}
             label="Your Email Address"
             defaultValue={user.email}
@@ -205,7 +179,6 @@ function UpdateEmailAdressForm({ setOpenModal }) {
             texttransform="basic"
             id="password"
             textFieldStyles={{ width: "100%" }}
-            // type="text"
             label="Password"
             register={{
               ...register("password", {

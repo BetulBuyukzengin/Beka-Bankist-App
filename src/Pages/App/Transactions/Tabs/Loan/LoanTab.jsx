@@ -62,21 +62,7 @@ function LoanTab() {
 
   const validationSchema = [
     yup.object({
-      selectedAccount: yup
-        .string()
-        // .test("limit-check", function (value) {
-        //   if (
-        //     JSON.parse(value).remainingDepositLimit === 0 &&
-        //     JSON.parse(value).id === id
-        //   )
-        //     return this.createError({
-        //       message: toast.error(
-        //         showDailyLimitMessage("deposit", calcRemainingLimitResetTime())
-        //       ),
-        //     });
-        //   else return true;
-        // })
-        .required("This field is required!"),
+      selectedAccount: yup.string().required("This field is required!"),
     }),
     //validation for step 1
     yup.object({
@@ -84,11 +70,6 @@ function LoanTab() {
       applicantFullName: yup.string(),
       applicantIdentificationNumber: yup
         .string()
-        // .test(
-        //   "is-valid-identification",
-        //   "Identification number must be exactly 11 characters!",
-        //   (value) => value && value.length === identificationNumberCharacter
-        // ),
         .length(
           identificationNumberCharacter,
           "Identification number must be exactly 11 characters!"
@@ -140,7 +121,6 @@ function LoanTab() {
   });
 
   const currentStatus = searchParams.get("status");
-  // const selectedAccount = JSON.parse(searchParams.get("selectedAccount"));
 
   const prevStatus = React.useRef(null);
   const { reset } = methods;

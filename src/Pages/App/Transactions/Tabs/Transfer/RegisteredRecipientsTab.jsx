@@ -40,8 +40,6 @@ function RegisteredRecipientsTab() {
         justifyContent: "center",
         backgroundColor: "transparent",
         color: "var(--color-text)",
-        // height: "500px",
-        // overflowY: "scroll",
       }}
     >
       <Grid item xs={6} sx={GridStyle}>

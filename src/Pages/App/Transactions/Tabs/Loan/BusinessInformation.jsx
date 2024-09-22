@@ -18,7 +18,6 @@ export default function BusinessInformation() {
     >
       <Grid
         item
-        //  xs={6}
         xs={12}
         sm={6}
         sx={{
@@ -49,7 +48,6 @@ export default function BusinessInformation() {
       </Grid>
       <Grid
         item
-        // xs={6}
         xs={12}
         sm={6}
         sx={{
@@ -80,7 +78,6 @@ export default function BusinessInformation() {
       </Grid>
       <Grid
         item
-        //  xs={6}
         xs={12}
         sm={6}
         sx={{

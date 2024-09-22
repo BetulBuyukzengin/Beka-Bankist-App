@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { CurrencyExchange } from "@mui/icons-material";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
@@ -42,7 +43,11 @@ import {
   useGetAccounts,
 } from "../../services/accountServices";
 import { useLogout, useUser } from "../../services/userServices";
-import { calcRemainingLimitResetTime } from "../../utils/utils";
+import {
+  calcRemainingLimitResetTime,
+  generatePrimarySidebarTexts,
+  generateTooltipTitles,
+} from "../../utils/utils";
 import CustomAvatar from "../Avatar/Avatar";
 import ListIconButton from "./ListIconButton";
 import HamburgerDrawer from "../HamburgerDrawer/HamburgerDrawer";
@@ -75,8 +80,6 @@ export const IconStyle = {
 };
 
 export const StyledListItemText = styled(ListItemText)`
-  /* opacity: ${({ open }) => (open ? 1 : 0)}; */
-
   & > span {
     @media (max-width: 48em) {
       font-size: 0.8rem;
@@ -125,10 +128,6 @@ const openedMixin = () => ({
 const closedMixin = (theme) => ({
   backgroundColor: "var(--color-background-2)",
   color: "var(--color-text)",
-  // transition: theme.transitions.create("width", {
-  //   easing: theme.transitions.easing.sharp,
-  //   duration: theme.transitions.duration.leavingScreen,
-  // }),
   overflowX: "hidden",
   width: `calc(${theme.spacing(6)} + 1px)`, //! width: calc(48px + 1px);
   [theme.breakpoints.up("sm")]: {
@@ -196,6 +195,33 @@ export default function DashboardLayout() {
   const { accounts } = useGetAccounts();
   const { isInformationsCompleted } = useIsUserInformation();
   const { user } = useUser();
+  // Drawer state
+  const [openHamburgerDrawer, setOpenHamburgerDrawer] = React.useState(false);
+  const toggleHamburgerDrawer = () => setOpenHamburgerDrawer((open) => !open);
+  const toggleDrawer = () => setOpen((open) => !open);
+
+  const sidebarContent = [
+    {
+      field: "Accounts",
+      path: "/applayout/account",
+      icon: <AccountBalanceWalletIcon sx={IconStyle} />,
+    },
+    {
+      field: "Movements",
+      path: "/applayout/movements",
+      icon: <TimelineIcon sx={IconStyle} />,
+    },
+    {
+      field: "Transactions",
+      path: "/applayout/transactions",
+      icon: <CurrencyExchange sx={IconStyle} />,
+    },
+    {
+      field: "Settings",
+      path: "/applayout/settings",
+      icon: <SettingsSuggestIcon sx={IconStyle} />,
+    },
+  ];
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -297,32 +323,22 @@ export default function DashboardLayout() {
               sx={{
                 ...IconStyle,
                 "@media (max-width: 48em)": {
-                  // marginLeft: "-10px",
                   display: "none",
                 },
-                // "@media (max-width: 31.25em)": {
-                //   marginLeft: "-5px",
-                // },
                 marginRight: "auto",
                 ...(open && { display: "none" }),
               }}
             >
               <MenuIcon sx={IconStyle} />
             </IconButton>
-            {/* <HamburgerDrawer
-              isInformationsCompleted={isInformationsCompleted}
-              accounts={accounts}
-              setUrlParams={setUrlParams}
-              ListComponent={ListComponent}
-              // ListComponent={
-              //   <ListComponent
-              //     isInformationsCompleted={isInformationsCompleted}
-              //     accounts={accounts}
-              //     setUrlParams={setUrlParams}
-            /> */}
-            {/* } /> */}
-            <HamburgerDrawer>
+            <HamburgerDrawer
+              setOpen={setOpenHamburgerDrawer}
+              open={openHamburgerDrawer}
+              toggleDrawer={toggleHamburgerDrawer}
+            >
               <AppListComponent
+                toggleDrawer={toggleHamburgerDrawer}
+                // openDrawer={openDrawer}
                 isInformationsCompleted={isInformationsCompleted}
                 accounts={accounts}
                 setUrlParams={setUrlParams}
@@ -372,14 +388,12 @@ export default function DashboardLayout() {
             <StyledButton onClick={logout}>
               <LogoutIcon
                 sx={{
-                  // "&>svg": {
                   "@media (max-width: 48em)": {
                     fontSize: "1.3rem!important",
                   },
                   "@media (max-width: 31.25em)": {
                     fontSize: "1rem!important",
                   },
-                  // },
                 }}
               />
             </StyledButton>
@@ -422,16 +436,52 @@ export default function DashboardLayout() {
                 display: "block",
               }}
             >
-              {/*  <ListIconButton path={"/applayout/accounts"}>  */}
-              <Tooltip
+              {sidebarContent.map((cont) => (
+                <Tooltip
+                  key={cont.field}
+                  placement="right"
+                  arrow
+                  title={generateTooltipTitles(
+                    isInformationsCompleted,
+                    accounts?.length,
+                    cont.field
+                  )}
+                >
+                  <span>
+                    <ListIconButton
+                      onClick={toggleDrawer}
+                      disabled={
+                        !isInformationsCompleted ||
+                        (cont.field === "Transactions" &&
+                          accounts?.length === 0)
+                      }
+                      path={cont.path}
+                    >
+                      <StyledListItemIcon>{cont.icon}</StyledListItemIcon>
+                      <StyledListItemText
+                        primary={generatePrimarySidebarTexts(
+                          accounts?.length,
+                          cont.field
+                        )}
+                      />
+                    </ListIconButton>
+                  </span>
+                </Tooltip>
+              ))}
+              {/* <Tooltip
                 placement="right"
                 arrow
                 title={
-                  !isInformationsCompleted
-                    ? "Complete your personal information before starting"
-                    : !accounts?.length
-                    ? "Create Account"
-                    : "Accounts"
+                  generateTooltipTitles(
+                    isInformationsCompleted,
+                    accounts.length,
+                    field
+                  )
+                  // !isInformationsCompleted
+                  //   ? "Complete your personal information before starting"
+                  //   : !accounts?.length
+                  //   ? "Create Account"
+                  //   : "Accounts"
                 }
               >
                 <span>
@@ -513,7 +563,7 @@ export default function DashboardLayout() {
                     <StyledListItemText primary="Settings" />
                   </ListIconButton>
                 </span>
-              </Tooltip>
+              </Tooltip> */}
             </ListItem>
           </List>
         </Drawer>

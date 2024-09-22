@@ -23,7 +23,6 @@ function AccessDenied() {
           width: "50%",
           m: "1rem",
           backgroundColor: "transparent",
-          //   display: "flex",
         }}
       >
         <Grid
@@ -43,8 +42,6 @@ function AccessDenied() {
             style={{
               fontWeight: "bold",
               fontSize: "1rem",
-              //   alignSelf: "center",
-              //   textAlign: "center",
               [media48em]: {
                 fontSize: ".8rem",
               },
@@ -56,8 +53,6 @@ function AccessDenied() {
             You don &apos;t have permission to access this form !<br /> Write
             your e-mail address in the I forgot my password form and submit it.
             You can reset your password via the link sent to your e-mail.
-            {/* Bu forma erişim izniniz yok!Şifremiunuttum formuna e-posta adresinizi yazın ve gönderin. E-postanıza
-            gönderilen linkten şifrenizi sıfırlayabilirsiniz. */}
           </Grid>
         </Grid>
       </Paper>

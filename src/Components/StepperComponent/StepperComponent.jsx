@@ -62,11 +62,6 @@ export default function StepperComponent({
                       fontSize: ".6rem!important",
                     },
                   },
-                  // "& > span > svg > circle": {
-                  //   cx: "10px",
-                  //   cy: "10px",
-                  //   r: 10,
-                  // },
                   "& > .MuiStepLabel-labelContainer>span": {
                     color: "var(--color-text)",
                     "@media (max-width:48em)": {
@@ -118,7 +113,6 @@ export default function StepperComponent({
               color="inherit"
               disabled={activeStep === 0}
               onClick={handleBack}
-              // sx={{ mr: 1 }}
             >
               Back
             </StyledButton>
@@ -126,9 +120,6 @@ export default function StepperComponent({
               <StyledButton
                 type="button"
                 onClick={handleNext}
-                // type={
-                //   activeStep === transactionSteps.length ? "submit" : "button"
-                // }
               >
                 Next
               </StyledButton>

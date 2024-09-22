@@ -49,11 +49,6 @@ function AccountsContent({ item }) {
         <Grid item xs={12}>
           <StyledTypographyH6
             component="h6"
-            // sx={{
-            //   "@media (max-width: 31.25em)": {
-            //     fontSize: ".9rem!important",
-            //   },
-            // }}
           >
             {formatArrayWord(item.bankBranch)}-{formatArrayWord(item.bankName)}
           </StyledTypographyH6>

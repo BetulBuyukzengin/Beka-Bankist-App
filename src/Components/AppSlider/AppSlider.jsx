@@ -97,7 +97,6 @@ function AppSlider() {
         style={{
           "& > .carousel-inner": {
             backgroundColor: "yellow!important",
-            // opacity: "0!important",
           },
         }}
       >

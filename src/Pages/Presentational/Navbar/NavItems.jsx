@@ -5,37 +5,12 @@ import LightModeIcon from "@mui/icons-material/LightMode";
 import { useDarkMode } from "../../../Contexts/DarkModeContext";
 import { Link } from "react-router-dom";
 import { media62_5em, media84_37em } from "../../../Constants/constants";
+import { HashLink } from "react-router-hash-link";
 
 const StyledLi = styled.li`
   font-size: 1.7rem;
-
-  /* &:not(:first-child),
-  &:not(:nth-child(2)) {
-    margin-left: 0.5rem;
-  }
-
-  &:nth-child(3),
-  &:nth-child(4),
-  &:nth-child(5) {
-    margin-left: 1.8rem;
-  }
-
-  &:nth-child(2) {
-    margin-right: auto;
-  }
-
-  &:nth-child(7) {
-    margin-left: 8rem;
-  } */
   ${media84_37em} {
     font-size: 1.1rem;
-    /* margin-left: 0 !important; */
-    /* &:nth-child(1) {
-      margin-right: 1rem;
-    }
-    &:nth-child(2) {
-      margin-right: 0;
-    } */
   }
 `;
 
@@ -44,7 +19,7 @@ const StyledMenuItems = styled.span`
   display: flex;
   justify-content: space-evenly;
 `;
-const StyledLink = styled.a`
+const StyledLink = styled(HashLink)`
   border: none;
   color: var(--color-text);
   background-color: transparent;
@@ -100,6 +75,25 @@ const StyledSpan = styled.span`
   }
 `;
 
+const listContent = [
+  {
+    to: "home",
+    text: "Home",
+  },
+  {
+    to: "aboutUs",
+    text: "About Us",
+  },
+  {
+    to: "ourServices",
+    text: "Our Services",
+  },
+  {
+    to: "contact",
+    text: "Contact",
+  },
+];
+
 function NavItem() {
   const { isDarkMode, toggleDarkMode } = useDarkMode();
   return (
@@ -115,14 +109,21 @@ function NavItem() {
           />
         </StyledLi>
         <StyledLi>
-          <StyledLink href="#home">Beka-Bank</StyledLink>
+          <StyledLink smooth to="#home">
+            Beka-Bank
+          </StyledLink>
         </StyledLi>
       </StyledSpan>
       <StyledMenuItems>
-        <StyledLi>
-          <StyledLink href="#home">Home</StyledLink>
-        </StyledLi>
-        <StyledLi>
+        {listContent.map((cont, index) => (
+          <StyledLi key={index}>
+            <StyledLink smooth to={`#${cont.to}`}>
+              {cont.text}
+            </StyledLink>
+          </StyledLi>
+        ))}
+
+        {/* <StyledLi>
           <StyledLink href="#aboutUs">About Us</StyledLink>
         </StyledLi>
         <StyledLi>
@@ -130,7 +131,7 @@ function NavItem() {
         </StyledLi>
         <StyledLi>
           <StyledLink href="#contact">Contact</StyledLink>
-        </StyledLi>
+        </StyledLi> */}
       </StyledMenuItems>
 
       <span

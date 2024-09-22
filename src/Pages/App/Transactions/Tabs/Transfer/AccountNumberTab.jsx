@@ -63,22 +63,6 @@ function AccountNumberTab() {
     },
     [searchParams, setSearchParams, watchRecipientBankName, watchBankBranch]
   );
-  // useEffect(
-  //   function () {
-  //     if (searchParams.get("status") === "With Account Numbers") {
-  //       searchParams.set(
-  //         "saveAsRegisteredWithAccount",
-  //         watchSaveAsRegisteredWithAccount
-  //       );
-  //       setSearchParams(searchParams);
-  //     } else {
-  //       searchParams.delete("saveAsRegisteredWithAccount");
-  //       setSearchParams(searchParams);
-  //     }
-  //   },
-
-  //   [watchSaveAsRegisteredWithAccount, searchParams, setSearchParams]
-  // );
   return (
     <>
       <Grid
@@ -90,10 +74,8 @@ function AccountNumberTab() {
       >
         <Grid
           item
-          // xs={6}
           xs={12}
           sm={6}
-          // md={4}
           sx={{
             "@media(max-width:48em)": {
               "&>div": {
@@ -121,10 +103,8 @@ function AccountNumberTab() {
         </Grid>
         <Grid
           item
-          //  xs={6}
           xs={12}
           sm={6}
-          // md={4}
           sx={{
             "@media(max-width:48em)": {
               "&>div": {
@@ -151,10 +131,8 @@ function AccountNumberTab() {
         </Grid>
         <Grid
           item
-          //  xs={6}
           xs={12}
           sm={6}
-          // md={4}
           sx={{
             "@media(max-width:48em)": {
               "&>div": {
@@ -174,10 +152,8 @@ function AccountNumberTab() {
         </Grid>
         <Grid
           item
-          // xs={6}
           xs={12}
           sm={6}
-          // md={4}
           sx={{
             "@media(max-width:48em)": {
               "&>div": {
@@ -198,10 +174,8 @@ function AccountNumberTab() {
         {watchSaveAsRegisteredWithAccount && (
           <Grid
             item
-            // xs={6}
             xs={12}
             sm={6}
-            // md={4}
             sx={{
               "@media(max-width:48em)": {
                 "&>div": {
@@ -222,10 +196,8 @@ function AccountNumberTab() {
         )}
         <Grid
           item
-          // xs={watchSaveAsRegisteredWithAccount ? 6 : 12}
           xs={12}
           sm={6}
-          // md={4}
           sx={{ display: "flex", justifyContent: "end" }}
         >
           <FormControlLabel

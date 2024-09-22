@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Grid } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useSearchParams } from "react-router-dom";
@@ -16,14 +17,6 @@ function DeleteAccountConfirmationScreen({
   const accountToDelete = JSON.parse(searchParams.get("selectedAccount"));
   const { mutateAsync: deleteAccount, isPending } = useDeleteAccount();
 
-  // const onSubmit = async () => {
-  //   await deleteAccount(accountToDelete.id, {
-  //     onSuccess: () => {
-  //       setOpen(false);
-  //       clearParamsCallBack();
-  //     },
-  //   });
-  // };
   if (isPending) return <Loader />;
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

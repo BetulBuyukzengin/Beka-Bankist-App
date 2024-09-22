@@ -8,17 +8,13 @@ function CustomDatePicker({
   width,
   register,
   margin,
-  // required,
   helperText,
-  error,
 }) {
   const isError = value;
   return (
     <DatePicker
       label={label}
       value={value}
-      // error={error}
-      // required={required}
       onChange={onChange}
       slotProps={{
         popper: { placement: "right-start" },

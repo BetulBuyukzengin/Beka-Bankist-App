@@ -55,11 +55,6 @@ export default function CustomRadio({
                         fontSize: "1rem",
                       },
                     },
-                    // "&<span": {
-                    //   width: "2rem!important",
-                    //   fontSize: "2rem!important",
-                    // },
-                    // " & span:first-child":
                     "&+span": {
                       width: "17rem",
                       "@media (max-width:48em)": {

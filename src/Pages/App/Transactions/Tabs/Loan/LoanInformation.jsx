@@ -57,7 +57,6 @@ export default function LoanInformation() {
   const [totalIncome, setTotalIncome] = useState();
   const [totalExpense, setTotalExpense] = useState();
   const isTotalIncomeExpense = totalExpense && totalIncome;
-  const watchApplicantLoanAmount = watch("applicantLoanAmount");
 
   function handleLoanAmountChange(e) {
     setLoanAmount(+e.target.value);
@@ -127,7 +126,6 @@ export default function LoanInformation() {
     >
       <Grid
         item
-        // xs={6}
         xs={12}
         sm={6}
         sx={{
@@ -149,9 +147,7 @@ export default function LoanInformation() {
           label="Total Income"
           onChange={(e) => handleChangeIncome(e.target.value)}
           register={{
-            ...register("applicantTotalIncome", {
-              // required: "This field is required!",
-            }),
+            ...register("applicantTotalIncome", {}),
           }}
           helperText={errors?.applicantTotalIncome?.message}
           error={errors?.applicantTotalIncome}
@@ -160,7 +156,6 @@ export default function LoanInformation() {
 
       <Grid
         item
-        // xs={6}
         xs={12}
         sm={6}
         sx={{
@@ -183,9 +178,7 @@ export default function LoanInformation() {
           onChange={(e) => handleChangeExpense(e.target.value)}
           label="Total Expense"
           register={{
-            ...register("applicantTotalExpense", {
-              //required: "This field is //required!",
-            }),
+            ...register("applicantTotalExpense", {}),
           }}
           helperText={errors?.applicantTotalExpense?.message}
           error={errors?.applicantTotalExpense}
@@ -212,9 +205,7 @@ export default function LoanInformation() {
           id="loanPurpose"
           label="Loan Purpose"
           register={{
-            ...register("applicantLoanPurpose", {
-              //required: "This field is required!",
-            }),
+            ...register("applicantLoanPurpose", {}),
           }}
           helperText={errors?.applicantLoanPurpose?.message}
           error={errors?.applicantLoanPurpose}
@@ -223,7 +214,6 @@ export default function LoanInformation() {
 
       <Grid
         item
-        // xs={3}
         xs={6}
         sm={3}
         sx={{
@@ -256,12 +246,7 @@ export default function LoanInformation() {
           </FormHelperText>
         )}
       </Grid>
-      <Grid
-        item
-        // xs={3}
-        xs={6}
-        sm={3}
-      >
+      <Grid item xs={6} sm={3}>
         <CustomTextField
           id="-basic"
           label="Maximum Loan Amount"
@@ -269,12 +254,7 @@ export default function LoanInformation() {
           value={isTotalIncomeExpense ? maxLoanAmount.toFixed(2) : 0}
         />
       </Grid>
-      <Grid
-        item
-        //  xs={6}
-        xs={12}
-        sm={6}
-      >
+      <Grid item xs={12} sm={6}>
         <CustomTextField
           // placeholder={isTotalIncomeExpense ? maxLoanAmount : 0}
           type="number"

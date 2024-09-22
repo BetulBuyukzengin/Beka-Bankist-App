@@ -1,10 +1,11 @@
-import styled from "styled-components";
-import LoginIcon from "@mui/icons-material/Login";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
-import { useDarkMode } from "../../Contexts/DarkModeContext";
+import LoginIcon from "@mui/icons-material/Login";
 import { Link } from "react-router-dom";
-import { media31_25em, media48em } from "../../Constants/constants";
+import { HashLink } from "react-router-hash-link";
+import styled from "styled-components";
+import { media31_25em } from "../../Constants/constants";
+import { useDarkMode } from "../../Contexts/DarkModeContext";
 
 const StyledLi = styled.li`
   width: 100%;
@@ -16,7 +17,7 @@ const StyledLi = styled.li`
   }
 `;
 
-const StyledLink = styled.a`
+const StyledLink = styled(HashLink)`
   border: none;
   color: var(--color-text);
   background-color: transparent;
@@ -67,36 +68,73 @@ const StyledUl = styled.ul`
   box-shadow: var(--shadow-md);
   padding-left: 0;
 `;
-
+const StyledH6 = styled.h6`
+  margin-top: 0.5rem;
+  ${media31_25em} {
+    font-size: 0.8rem;
+  }
+`;
 //! For small devices navbar
-function PresentationalListComponent() {
+function PresentationalListComponent({ toggleDrawer }) {
   const { isDarkMode, toggleDarkMode } = useDarkMode();
+  // const [open,setOpen]=useState(false);
+  // const toggleDrawer = () => setOpen((open) => !open);
+  const listContent = [
+    {
+      to: "home",
+      text: "Beka-Bankist",
+    },
 
+    {
+      to: "home",
+      text: "Home",
+    },
+    {
+      to: "aboutUs",
+      text: "About Us",
+    },
+    {
+      to: "ourServices",
+      text: "Our Services",
+    },
+    {
+      to: "contact",
+      text: "Contact",
+    },
+  ];
   return (
     <StyledUl>
-      <StyledLi style={{ borderBottom: "1px solid var(--color-border-2)" }}>
-        <StyledImg
-          src={
-            isDarkMode ? "../../img/logo-dark.png" : "../../img/logo-light.png"
-          }
-        />
-      </StyledLi>
+      {listContent.map((cont, index) =>
+        cont.text === "Beka-Bankist" ? (
+          <StyledLi
+            key={index}
+            style={{
+              borderBottom: "1px solid var(--color-border-2)",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <StyledImg
+              src={
+                isDarkMode
+                  ? "../../img/logo-dark.png"
+                  : "../../img/logo-light.png"
+              }
+            />
+            <StyledLink smooth to={`#${cont.to}`} onClick={toggleDrawer}>
+              {cont.text}
+            </StyledLink>
+          </StyledLi>
+        ) : (
+          <StyledLi key={index}>
+            <StyledLink smooth to={`#${cont.to}`} onClick={toggleDrawer}>
+              {cont.text}
+            </StyledLink>
+          </StyledLi>
+        )
+      )}
 
-      <StyledLi>
-        <StyledLink href="#home">Beka-Bank</StyledLink>
-      </StyledLi>
-      <StyledLi>
-        <StyledLink href="#home">Home</StyledLink>
-      </StyledLi>
-      <StyledLi>
-        <StyledLink href="#aboutUs">About Us</StyledLink>
-      </StyledLi>
-      <StyledLi>
-        <StyledLink href="#ourServices">Our Services</StyledLink>
-      </StyledLi>
-      <StyledLi>
-        <StyledLink href="#contact">Contact</StyledLink>
-      </StyledLi>
       <span style={{ display: "flex" }}>
         <StyledLi>
           <StyledLink onClick={toggleDarkMode}>

@@ -68,8 +68,8 @@ function ForgotPassword() {
   } = useForm();
   const navigate = useNavigate();
   const onSubmit = async (data) => {
-    // console.log(data);
-    //????????redirect to çalışmıyor!!!!!!!!!!!!
+  
+    //???????? redirect to fix?
     await supabase.auth.resetPasswordForEmail(data.email, {
       redirectTo: "http://localhost:5173/recreatePassword",
     });

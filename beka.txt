@@ -57,6 +57,18 @@ göster (https://supabase.com/dashboard/project/zztdmxtwnkykekxoupjl/auth/provid
 
 ************* Deploy ederken düzeltilecekler *********
  Hareketsizlikte oturum kapatma yı etkınlestır)
+ oturum actıktan sonra sayfa yenılendiğinde 404 hatası -hashrouter ile yaptım bak
 
- "react-swipeable-views": "^0.14.0",
-    "react-swipeable-views-utils": "^0.14.0",
+hamburger ın dark mode rengını yap
+sign ın lerı genıslet 
+update password text fieldlarda label da kutu cızgısı arasında mesafe cok var fonttan kaynaklı olab.
+app ın font sıze ını yap respoda 
+tooltip mini ekranda tasıyor
+telefon kodu gelmiyor bayrak
+birthday 1920 geliyor ilk
+adres formatını kaldır
+resım yuklerken foto secıldı yazısı butonda yazabılır , iconla text arası bos olsun azz
+setttigs baslıgının arka rengı dark moda da kotu
+hamburgerde tıklanınca kapansın
+accounts da heıght tma kaplamamıs mobılde
+transactions da slice undefıned hatasını duzellettım kontrolet!

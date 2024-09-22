@@ -53,7 +53,6 @@ function PaymentLoan() {
         flexDirection: "column",
         alignItems: "center",
         padding: "1rem",
-        // marginBottom: "12rem",
 
         "@media (max-width:48em)": {
           marginBottom: "2rem",

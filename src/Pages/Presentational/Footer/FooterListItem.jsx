@@ -36,8 +36,8 @@ function FooterListItem({ link }) {
     <StyledItem>
       <StyledLink
         href={link.href}
-        // target="_blank"
-        // rel="noopener noreferrer"
+        target="_blank"
+        rel="noopener noreferrer"
         onClick={() => console.log(`Navigating to: ${link.href}`)}
       >
         {link.component}

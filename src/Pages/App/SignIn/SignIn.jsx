@@ -1,19 +1,20 @@
 import LoginIcon from "@mui/icons-material/Login";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-import TextField from "@mui/material/TextField";
+import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import styled from "styled-components";
-import { useDarkMode } from "../../../Contexts/DarkModeContext";
-import { useLogout, useSignIn } from "../../../services/userServices";
+import CustomTextField from "../../../Components/CustomTextField/CustomTextField";
 import {
   emailRegex,
   media31_25em,
   media48em,
 } from "../../../Constants/constants";
-import CustomTextField from "../../../Components/CustomTextField/CustomTextField";
-import { useForm } from "react-hook-form";
+import { useDarkMode } from "../../../Contexts/DarkModeContext";
+import { useLogout, useSignIn } from "../../../services/userServices";
+import CustomButton from "../../../Components/CustomButton/CustomButton";
+import { TextField } from "@mui/material";
 
 const StyledForm = styled.form`
   width: 100%;
@@ -27,20 +28,6 @@ const StyledForm = styled.form`
   color: var(--color-text);
   background-color: var(--color-background);
   font-size: 1rem;
-`;
-const StyledTextField = styled(TextField)`
-  border: 1px solid var(--color-text);
-
-  width: 100%;
-  & > label {
-    font-family: "Kanit", sans-serif;
-    color: var(--color-text);
-
-    & + div {
-      color: var(--color-text);
-      font-family: "Kanit", sans-serif;
-    }
-  }
 `;
 const StyledSignInFormTitle = styled.h2`
   margin-bottom: 1rem;
@@ -114,10 +101,22 @@ const StyledNavbar = styled.nav`
   backdrop-filter: blur(5px);
   top: 0;
 `;
-// const toastMessage = {
-//   error:
-//     "Your account is deleted as you requested. If you wish to activate your account again, you can visit account recovery page",
-// };
+
+const StyledTextField = styled(TextField)`
+  border: 1px solid var(--color-text);
+
+  width: 100%;
+  & > label {
+    font-family: "Kanit", sans-serif;
+    color: var(--color-text);
+
+    & + div {
+      color: var(--color-text);
+      font-family: "Kanit", sans-serif;
+    }
+  }
+`;
+
 function SignIn() {
   const { isDarkMode } = useDarkMode();
   const { register, handleSubmit, formState } = useForm();
@@ -126,7 +125,10 @@ function SignIn() {
   const navigate = useNavigate();
   const { mutateAsync: logout } = useLogout();
 
-  async function onSubmit(data) {
+  console.log(errors);
+
+  const onSubmit = async (data) => {
+    console.log(data);
     try {
       const signInUser = await signIn(data, {});
       if (signInUser.user.user_metadata.isAccountDeleted) {
@@ -140,7 +142,7 @@ function SignIn() {
     } catch (error) {
       throw new Error(error.message);
     }
-  }
+  };
   return (
     <StyledForm onSubmit={handleSubmit(onSubmit)}>
       <StyledNavbar>
@@ -186,20 +188,17 @@ function SignIn() {
               },
             }}
           >
-            {/* <StyledTextField */}
-            <CustomTextField
-              textFieldStyles={{ width: "100%" }}
-              texttransform="basic"
+            <StyledTextField
+              // textFieldStyles={{ width: "100%" }}
+              // texttransform="basic"
               disabled={isLoading}
               label="Email"
               variant={isDarkMode ? "filled" : "outlined"}
-              register={{
-                ...register("email", {
-                  required: "This field is required!",
-                  validate: (value) =>
-                    emailRegex.test(value) || "Format does not match email",
-                }),
-              }}
+              {...register("email", {
+                required: "This field is required!",
+                validate: (value) =>
+                  emailRegex.test(value) || "Format does not match email",
+              })}
               id="email"
               helperText={errors?.email?.message}
               error={Boolean(errors?.email)}
@@ -220,37 +219,46 @@ function SignIn() {
               },
             }}
           >
-            {/* <StyledTextField */}
-            <CustomTextField
-              textFieldStyles={{ width: "100%" }}
+            <StyledTextField
               disabled={isLoading}
               type="password"
-              texttransform="basic"
               label="Password"
               variant={isDarkMode ? "filled" : "outlined"}
-              register={{
-                ...register("password", {
-                  required: "This field is required!",
-                }),
-              }}
+              {...register("password", {
+                required: "This field is required!",
+              })}
               id="password"
               helperText={errors?.password?.message}
               error={Boolean(errors?.password)}
             />
           </Grid>
+
+          <Grid
+            item
+            xs={12}
+            sx={{ display: "flex", justifyContent: "center", gap: "1rem" }}
+          >
+            <StyledButton type="submit" disabled={isLoading}>
+              Sign in
+            </StyledButton>
+
+            <StyledLink to="/signup">
+              <StyledButton type="button" disabled={isLoading}>
+                Sign Up
+              </StyledButton>
+            </StyledLink>
+          </Grid>
         </Grid>
-        <div style={{ display: "flex", justifyContent: "center", gap: "1rem" }}>
-          <StyledButton disabled={isLoading} type="submit">
+        {/* <div style={{ display: "flex", justifyContent: "center", gap: "1rem" }}>
+          <StyledButton type="submit" disabled={isLoading}>
             Sign in
           </StyledButton>
           <StyledLink to="/signup">
-            <StyledButton disabled={isLoading}>Sign Up</StyledButton>
+            <StyledButton type="button" disabled={isLoading}>
+              Sign Up
+            </StyledButton>
           </StyledLink>
-        </div>
-        {/* <StyledLink to="/accountRecovery">
-          <StyledButton>Account Recovery</StyledButton>
-        </StyledLink> */}
-
+        </div> */}
         <StyledLink
           to="/forgotPassword"
           style={{ color: "var(--color-text)", textDecoration: "underline" }}

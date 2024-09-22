@@ -63,15 +63,6 @@ export default function CustomMenuIcon({ contents }) {
         open={open}
         onClose={handleClose}
         PaperProps={{
-          // style: {
-          //   maxHeight: ITEM_HEIGHT * 4.5,
-          //   width: "20ch",
-          //   " @media (max-width: 31.25em)": {
-          //     width: "14ch",
-          //     top: "114px",
-          //     left: "148px",
-          //   },
-          // },
           component: ResponsiveMenuPaper,
         }}
       >

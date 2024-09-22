@@ -7,7 +7,7 @@ import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import { addMonths, differenceInDays, format, isBefore } from "date-fns";
+import { differenceInDays, format, isBefore } from "date-fns";
 import { useEffect, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import { styled as styledComponents } from "styled-components";
@@ -18,7 +18,7 @@ import {
   useGetLoan,
   useUpdateLoanMonthlyPayment,
 } from "../../services/loanServices";
-import { calcNextMonth, formatCurrency } from "../../utils/utils";
+import { formatCurrency } from "../../utils/utils";
 import CustomButton from "../CustomButton/CustomButton";
 import CustomModal from "../CustomModal/CustomModal";
 
@@ -28,7 +28,6 @@ const StyledTableCell = styled(TableCell)(() => ({
     color: "var(--color-text)",
 
     "@media (max-width:48em )": {
-      // width: "15%",
       fontSize: ".9rem",
     },
     "@media (max-width:31.25em )": {
@@ -82,7 +81,7 @@ const StyledTableFooter = styledComponents.div`
 
 //? date,amount to pay , interest amount bunlar bi yerden gelsın kı table custom olsun
 export default function CustomTable() {
-  const { data: loanData, isLoading } = useGetLoan();
+  const { data: loanData } = useGetLoan();
   const loan = loanData.find((loan) => !loan.isCreditPaid).applicantPaymentPlan;
   const parsedData = loan && JSON.parse(loan);
   const [searchParams, setSearchParams] = useSearchParams();

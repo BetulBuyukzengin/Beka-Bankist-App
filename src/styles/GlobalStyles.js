@@ -10,6 +10,12 @@ const GlobalStyles = createGlobalStyle`
         --color-background-2: rgba(245, 245, 245, 1);
         --color-background-3:rgba(152,146,146,0.1);
         --color-background-4:rgba(245, 245, 245, 1);
+
+        //yeni ekledıgım
+        --color-background-5:rgba(255, 255, 255, 0.55)
+
+
+
         --color-primary: #011d98;
         --color-secondary: #5067CE;
         --color-accent: #00466A;
@@ -29,12 +35,20 @@ const GlobalStyles = createGlobalStyle`
         --color-text: #f7f7f7;
         --color-text-2: rgba(247, 247, 247, 0.2);
         --color-background: rgba(10, 10, 10, 0.8);
+        --color-background-1: #0F1214;
+
+        
         /* --color-background: rgba(10, 10, 10, 0.64);  bunu yap*/
 
       
         --color-background-2: rgba(10, 10, 10, 1);
         --color-background-3:rgba(239,239,239,0.1);
         --color-background-4:rgba(152,146,146,0.1);
+
+
+        --color-background-5:rgba(255, 255, 255, 0.15)
+
+
         --color-primary: #98aafb;
         --color-secondary: #6783fe;
         --color-accent: #c3eafe;

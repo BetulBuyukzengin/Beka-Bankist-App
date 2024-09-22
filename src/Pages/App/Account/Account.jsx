@@ -9,7 +9,6 @@ import CurrentAccounts from "./CurrentAccounts";
 function Account() {
   const { accounts, isLoading } = useGetAccounts();
 
-  // const { currentUser } = useCurrentUser();
   const navigate = useNavigate();
   const { isInformationsCompleted } = useIsUserInformation();
   useEffect(() => {
