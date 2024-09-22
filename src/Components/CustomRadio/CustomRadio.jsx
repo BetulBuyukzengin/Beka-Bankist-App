@@ -48,7 +48,6 @@ export default function CustomRadio({
                   sx={{
                     height: "7rem",
                     borderRadius: "0px",
-
                     "@media (max-width:48em)": {
                       height: "0rem",
                       "&>span>svg": {
@@ -75,6 +74,11 @@ export default function CustomRadio({
                 marginLeft: "0",
                 marginRight: "0",
                 justifyContent: "start",
+                "&>span": {
+                  "&:last-child": {
+                    width: "100%",
+                  },
+                },
               }}
               {...register}
               control={<Radio />}

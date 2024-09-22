@@ -22,6 +22,10 @@ const GlobalStyles = createGlobalStyle`
         --color-border: rgba(0, 0, 0, 0.03);
         --color-border-2: rgba(0, 0, 0, 0.1);
         --color-gray: #6c757d;
+
+       
+
+
         --color-success: #2e7d32;
         --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
         --shadow-md: 0px 0.6rem 2.4rem rgba(0, 0, 0, 0.06);
@@ -164,7 +168,9 @@ svg{
 .MuiButtonBase-root:hover{
 background-color:var( --color-text-2);
 }
-
+.carousel-inner >div{
+  background-color: transparent;
+}
 .carousel-inner > div >div{
 display: block!important;
 }

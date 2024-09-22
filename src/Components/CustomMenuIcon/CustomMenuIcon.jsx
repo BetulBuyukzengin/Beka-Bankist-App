@@ -62,6 +62,18 @@ export default function CustomMenuIcon({ contents }) {
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
+        sx={{
+          "&>div": {
+            "&:nth-child(3)": {
+              backgroundColor: "var(--color-background)",
+              color: "var(--color-text)",
+              border: "1px solid var(--color-gray)",
+              "&>ul": {
+                backgroundColor: "var(--color-background)",
+              },
+            },
+          },
+        }}
         PaperProps={{
           component: ResponsiveMenuPaper,
         }}

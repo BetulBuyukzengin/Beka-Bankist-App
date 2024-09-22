@@ -10,7 +10,7 @@ function Movements() {
     <>
       <h3
         style={{
-          backgroundColor: "var(--color-background)",
+          backgroundColor: "transparent",
           color: "var(--color-text)",
           textAlign: "center",
           marginBottom: 0,

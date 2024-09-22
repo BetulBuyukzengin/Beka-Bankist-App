@@ -48,6 +48,7 @@ const transactionSteps = [
 const StyleDiv = styled.div`
   display: flex;
   justify-content: end;
+
 `;
 
 function LoanTab() {

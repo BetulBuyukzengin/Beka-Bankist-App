@@ -55,7 +55,6 @@ function AmountDetermination() {
   const amountToSends = movements
     ?.filter((movement) => movement.status === "Transfer")
     ?.map((movement) => movement.amountToSend);
-  
 
   function handleClick() {
     setAmountToSendValue(frequentlyAmount);

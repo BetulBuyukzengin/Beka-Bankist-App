@@ -55,7 +55,7 @@ export default function MovementsTable() {
     <TableContainer
       component={Paper}
       sx={{
-        backgroundColor: "var(--color-background)",
+        backgroundColor: "transparent",
       }}
     >
       <Table

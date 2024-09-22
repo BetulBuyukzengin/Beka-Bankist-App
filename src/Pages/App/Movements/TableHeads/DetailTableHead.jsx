@@ -11,7 +11,7 @@ const StyledButton = styled.button`
   border: none;
 `;
 const StyledTableCell = styled(TableCell)`
-  color: var(--color-text);
+  color: var(--color-text) !important;
 
   @media (max-width: 48em) {
     text-align: center !important;
@@ -27,14 +27,7 @@ function DetailTableHead({ row }) {
   const handleClose = () => setOpen(false);
   return (
     <TableHead>
-      <TableRow
-      // sx={{
-      //   "@media (max-width:48em)": {
-      //     display: "flex",
-      //     flexDirection: "column",
-      //   },
-      // }}
-      >
+      <TableRow>
         <StyledTableCell>Current Balance</StyledTableCell>
         {row?.status === "Deposit" || row?.status === "Withdraw" ? (
           <>

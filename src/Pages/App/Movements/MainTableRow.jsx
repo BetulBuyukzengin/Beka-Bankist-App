@@ -6,7 +6,7 @@ import { formatCurrency, formatDate } from "../../../utils/utils";
 import styled from "styled-components";
 
 const StyledTableCell = styled(TableCell)`
-  color: var(--color-text);
+  color: var(--color-text) !important;
 
   @media (max-width: 48em) {
     padding: 0 !important;
@@ -81,15 +81,7 @@ function MainTableRow({ open, setOpen, row }) {
         />
       </TableCell>
       <StyledTableCell>{formatDate(row.createdAt)}</StyledTableCell>
-      <StyledTableCell>
-        {/* {row.status === "Withdraw" || row.status === "Transfer" ? "-  " : ""} */}
-        {/* {formatCurrency(
-          row.amountToSend ||
-            row.amountToBeDepositMyAccount ||
-            row.amountToWithdrawMyAccount
-        )} */}
-        {formatCurrency(row.amountToSend)}
-      </StyledTableCell>
+      <StyledTableCell>{formatCurrency(row.amountToSend)}</StyledTableCell>
     </TableRow>
   );
 }

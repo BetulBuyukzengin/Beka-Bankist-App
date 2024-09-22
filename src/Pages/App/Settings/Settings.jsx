@@ -10,12 +10,13 @@ import AddProfileImgForm from "./AddProfileImg/AddProfileImgForm";
 import styled from "styled-components";
 
 const StyledSettingsTitle = styled.h3`
-  background-color: var(--color-background);
+  background-color: transparent;
   color: var(--color-text);
   text-align: center;
   margin-bottom: 0;
   padding-top: 1rem;
   font-size: 1.5rem;
+  width: 100%;
   @media (max-width: 48em) {
     font-size: 0.9rem;
   }

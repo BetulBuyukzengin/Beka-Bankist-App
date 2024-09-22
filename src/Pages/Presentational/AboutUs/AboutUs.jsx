@@ -18,8 +18,7 @@ const StyledAbout = styled.div`
   justify-content: flex-start;
   align-items: center;
   text-align: center;
-  /* background-color: var(--color-background); */
-  background-color: var(--color-background-1);
+  background-color: var(--color-background);
 
   ${media84_37em} {
     height: auto;

@@ -35,7 +35,14 @@ function DeleteAccountConfirmationScreen({
             hesabınızı kapatmak istediğinizden emin misiniz?
           </p>
         </Grid>
-        <Grid item xs={12}>
+        {/* <Grid
+          item
+          xs={12}
+          sx={{
+            width: "100%",
+            justifyContent: "space-between",
+          }}
+        >
           <CustomButton
             buttonText="Cancel"
             onClick={() => {
@@ -43,6 +50,26 @@ function DeleteAccountConfirmationScreen({
               clearParamsCallBack();
             }}
           />
+          <CustomButton buttonText="Delete" type="submit" />
+        </Grid> */}
+        <Grid item xs={12} sm={4}>
+          <CustomButton
+            buttonText="Cancel"
+            onClick={() => {
+              setOpen(false);
+              clearParamsCallBack();
+            }}
+          />
+        </Grid>
+        <Grid
+          item
+          xs={12}
+          sm={4}
+          sx={{
+            width: "100%",
+            justifyContent: "space-between",
+          }}
+        >
           <CustomButton buttonText="Delete" type="submit" />
         </Grid>
       </Grid>

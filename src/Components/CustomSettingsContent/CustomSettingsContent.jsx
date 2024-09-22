@@ -29,7 +29,7 @@ function CustomSettingsContent({
           display: "flex",
           flexDirection: "column",
           gap: "1rem",
-          backgroundColor: "var(--color-background)",
+          backgroundColor: "transparent!important",
           border: "1px solid var(--color-gray)",
           color: "var(--color-text)",
           "@media (max-width:48em)": {

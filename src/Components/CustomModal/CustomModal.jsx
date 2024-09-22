@@ -20,6 +20,7 @@ const style = {
   overflowY: "auto",
   display: "flex",
   justifyContent: "center",
+  alignItems: "center",
   flexDirection: "column",
   "&:focus-visible": {
     outline: "none",

@@ -38,6 +38,7 @@ function AccountDelete() {
   return (
     <FormProvider {...methods}>
       <CustomRadio
+        border="standard"
         value={searchParams.get("selectedAccount")}
         onChange={(e) => {
           handleChange(e.target.value);

@@ -575,6 +575,7 @@ export default function DashboardLayout() {
             padding: "1rem",
             backgroundColor: "var(--color-background)",
             color: "var(--color-text)",
+            height: "100dvh",
             width: `calc(100% - ${drawerWidth}px)`,
 
             "@media (max-width: 48em)": {

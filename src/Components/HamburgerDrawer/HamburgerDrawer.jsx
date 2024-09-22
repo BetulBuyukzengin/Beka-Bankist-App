@@ -30,7 +30,7 @@ function HamburgerDrawer({ children, setOpen, open, toggleDrawer }) {
       <Drawer
         style={{
           width: "10rem",
-          backgroundColor: "var(--color-background-5)",
+          backgroundColor: "var(--color-background-2)",
         }}
         lockBackgroundScroll
         open={open}

@@ -13,13 +13,13 @@ const StyledDiv = styled.div`
   /* height: 78dvh; */
   /* background-color: red; */
   /* max-height: 500px; */
-  overflow: scroll;
+  overflow-y: scroll;
   @media (max-width: 48em) {
     height: 100dvh;
   }
 `;
 const StyledH3 = styled.h3`
-  background-color: var(--color-background);
+  background-color: transparent;
   color: var(--color-text);
   text-align: center;
   margin-bottom: 0.5rem;

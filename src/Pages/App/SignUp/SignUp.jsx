@@ -186,17 +186,14 @@ function SignUp() {
               },
             }}
           >
-            {/* <StyledTextField */}
-            <CustomTextField
+            <StyledTextField
               disabled={isLoading}
               textFieldStyles={{ width: "100%" }}
               label="Full Name"
               variant={isDarkMode ? "filled" : "outlined"}
-              register={{
-                ...register("fullName", {
-                  required: "This field is required!",
-                }),
-              }}
+              {...register("fullName", {
+                required: "This field is required!",
+              })}
               id="fullName"
               helperText={errors?.fullName?.message}
               error={Boolean(errors?.fullName)}
@@ -217,20 +214,17 @@ function SignUp() {
               },
             }}
           >
-            {/* <StyledTextField */}
-            <CustomTextField
+            <StyledTextField
               disabled={isLoading}
               texttransform="basic"
               textFieldStyles={{ width: "100%" }}
               label="Email"
               variant={isDarkMode ? "filled" : "outlined"}
-              register={{
-                ...register("email", {
-                  required: "This field is required!",
-                  validate: (value) =>
-                    emailRegex.test(value) || "Format does not match email",
-                }),
-              }}
+              {...register("email", {
+                required: "This field is required!",
+                validate: (value) =>
+                  emailRegex.test(value) || "Format does not match email",
+              })}
               id="email"
               helperText={errors?.email?.message}
               error={Boolean(errors?.email)}
@@ -251,24 +245,21 @@ function SignUp() {
               },
             }}
           >
-            {/* <StyledTextField */}
-            <CustomTextField
+            <StyledTextField
               disabled={isLoading}
               texttransform="basic"
               textFieldStyles={{ width: "100%" }}
               type="password"
               label="Password"
               variant={isDarkMode ? "filled" : "outlined"}
-              register={{
-                ...register("password", {
-                  required: "This field is required!",
-                  pattern: {
-                    value: /^(?=.*[A-Z])(?=.*\d).+$/, // En az bir büyük harf ve bir sayı içermesi
-                    message:
-                      "Password must contain at least one uppercase letter, one number and English characters.",
-                  },
-                }),
-              }}
+              {...register("password", {
+                required: "This field is required!",
+                pattern: {
+                  value: /^(?=.*[A-Z])(?=.*\d).+$/, // En az bir büyük harf ve bir sayı içermesi
+                  message:
+                    "Password must contain at least one uppercase letter, one number and English characters.",
+                },
+              })}
               id="password"
               helperText={errors?.password?.message}
               error={Boolean(errors?.password)}
@@ -288,25 +279,22 @@ function SignUp() {
               },
             }}
           >
-            {/* <StyledTextField */}
-            <CustomTextField
+            <StyledTextField
               disabled={isLoading}
               textFieldStyles={{ width: "100%" }}
               type="password"
               label="Repeat password"
               variant={isDarkMode ? "filled" : "outlined"}
-              register={{
-                ...register("repeatPassword", {
-                  required: "This field is required!",
-                  pattern: {
-                    value: /^(?=.*[A-Z])(?=.*\d).+$/, // En az bir büyük harf ve bir sayı içermesi
-                    message:
-                      "Password must contain at least one uppercase letter, one number and English characters.",
-                  },
-                  validate: (value) =>
-                    getValues().password === value || "Passwords do not match",
-                }),
-              }}
+              {...register("repeatPassword", {
+                required: "This field is required!",
+                pattern: {
+                  value: /^(?=.*[A-Z])(?=.*\d).+$/, // En az bir büyük harf ve bir sayı içermesi
+                  message:
+                    "Password must contain at least one uppercase letter, one number and English characters.",
+                },
+                validate: (value) =>
+                  getValues().password === value || "Passwords do not match",
+              })}
               id="repeatPassword"
               helperText={errors?.repeatPassword?.message}
               error={Boolean(errors?.repeatPassword)}

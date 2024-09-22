@@ -13,7 +13,7 @@ import { formatCurrency } from "../../../utils/utils";
 import styled from "styled-components";
 
 const StyledTableCell = styled(TableCell)`
-  color: var(--color-text);
+  color: var(--color-text) !important;
   border-bottom: none !important;
   @media (max-width: 48em) {
     font-size: 0.8rem !important;
@@ -61,10 +61,8 @@ function DetailTableRow({ row, open }) {
             <Table size="small" aria-label="purchases">
               <DetailTableHead row={row} />
               <TableBody>
-                <TableRow
-                >
-                  <StyledTableCell
-                  >
+                <TableRow>
+                  <StyledTableCell>
                     {formatCurrency(selectedAccount.balance)}
                   </StyledTableCell>
                   {row.status === "Deposit" || row.status === "Withdraw" ? (

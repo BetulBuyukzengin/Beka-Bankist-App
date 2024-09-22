@@ -96,7 +96,9 @@ function AppSlider() {
         interval={null}
         style={{
           "& > .carousel-inner": {
-            backgroundColor: "yellow!important",
+            "& > .carousel-item": {
+              backgroundColor: "transparent",
+            },
           },
         }}
       >

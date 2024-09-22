@@ -64,7 +64,8 @@ export default function BankAccounts({ account, border, monthlyPayment }) {
 
           border:
             border === "standard"
-              ? "none"
+              ? // ? "none"
+                "1px solid var(--color-gray)"
               : !selectedAccount && errors?.selectedAccount
               ? "1px solid var(--color-error)"
               : selectedAccount?.accountNumber === account?.accountNumber &&
