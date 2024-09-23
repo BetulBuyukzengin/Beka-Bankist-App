@@ -12,6 +12,8 @@ import {
   media62_5em,
   media84_37em,
 } from "../../../Constants/constants";
+import { useSendContactMessage } from "../../../services/contactServices";
+import Loader from "../../../Components/Loader/Loader";
 
 const StyledForm = styled.form`
   width: 100%;
@@ -113,27 +115,31 @@ function ContactForm() {
   const { isDarkMode } = useDarkMode();
   const { register, handleSubmit, formState, reset } = useForm();
   const { errors } = formState;
+  const { mutateAsync: sendMessage, isPending } = useSendContactMessage();
+  console.log(errors);
+  if (isPending) return <Loader />;
 
-  //????????????????? submit işlemini yap
-  function onSubmit() {
+  const onSubmit = async (newMessage) => {
+    await sendMessage(newMessage);
     reset();
-  }
-  errors?.message?.message;
+  };
+
   return (
-    <StyledForm onSubmit={handleSubmit(onSubmit)}>
+    <StyledForm onSubmit={handleSubmit(onSubmit)} action="POST">
       <Paper
         elevation={2}
         sx={{
-          p: "2rem 4rem ",
-          m: "1rem",
+          padding: "2rem 4rem ",
+          margin: "1rem",
           display: "flex",
           flexDirection: "column",
           backgroundColor: "transparent",
           [media48em]: {
-            p: "1rem",
+            padding: "1rem",
+            margin: 0,
           },
           [media31_25em]: {
-            p: ".8rem",
+            padding: ".8rem",
           },
         }}
       >
@@ -229,14 +235,14 @@ function ContactForm() {
               <StyledTextField
                 label="Email"
                 variant={isDarkMode ? "filled" : "outlined"}
-                {...register("eMail", {
+                {...register("email", {
                   required: "This field is required!",
                   validate: (value) =>
                     emailRegex.test(value) || "Format does not match email",
                 })}
                 id="eMail"
-                helperText={errors?.eMail?.message}
-                error={errors?.eMail}
+                helperText={errors?.email?.message}
+                error={errors?.email}
               />
             </Grid>
             <Grid
@@ -301,7 +307,7 @@ function ContactForm() {
             </Grid>
           </Grid>
         </Box>
-        <StyledButton> Send Message</StyledButton>
+        <StyledButton type="submit"> Send Message</StyledButton>
       </Paper>
     </StyledForm>
   );

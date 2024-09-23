@@ -34,10 +34,12 @@ const StyledSignInFormTitle = styled.h2`
   letter-spacing: 0.1rem;
   color: var(--color-text);
   ${media48em} {
-    font-size: 0.9rem;
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 2rem;
   }
-  ${media48em} {
-    font-size: 0.8rem;
+  ${media31_25em} {
+    font-size: 1rem;
   }
 `;
 
@@ -158,7 +160,10 @@ function SignIn() {
           backgroundColor: "transparent",
           display: "flex",
           flexDirection: "column",
+          width: "50%",
           [media48em]: {
+            width: "95%",
+            height: "85dvh",
             padding: "1rem",
           },
         }}

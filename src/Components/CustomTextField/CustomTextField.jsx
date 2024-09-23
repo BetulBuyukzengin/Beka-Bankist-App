@@ -12,10 +12,10 @@ const StyledTextField = styled(TextField)`
   & > label {
     color: var(--color-text) !important;
     @media (max-width: 48em) {
-      font-size: 0.8rem;
+      font-size: 0.9rem;
     }
     @media (max-width: 31.25em) {
-      font-size: 0.7rem;
+      font-size: 0.8rem;
     }
   }
   & > div {
@@ -37,10 +37,10 @@ const StyledTextField = styled(TextField)`
       background-color: var(--color-background-3);
     }
     @media (max-width: 48em) {
-      font-size: 0.8rem;
+      font-size: 1rem;
     }
     @media (max-width: 31.25em) {
-      font-size: 0.7rem;
+      font-size: 0.9rem;
     }
   }
   @media (max-width: 48em) {

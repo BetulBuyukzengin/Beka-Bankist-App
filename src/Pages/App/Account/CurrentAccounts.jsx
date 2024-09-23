@@ -57,10 +57,10 @@ function CurrentAccounts() {
             fontWeight: "bold",
 
             [media48em]: {
-              fontSize: "0.9rem",
+              fontSize: "1.2rem",
             },
             [media31_25em]: {
-              fontSize: "0.8rem",
+              fontSize: "1rem",
             },
           }}
         >

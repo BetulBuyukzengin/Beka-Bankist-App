@@ -17,18 +17,18 @@ const toastMessage = {
 const StyledDeleteAppAccountTitle = styled.h4`
   font-weight: "bold";
   ${media48em} {
-    font-size: 0.9rem;
+    font-size: 1.2rem;
   }
   ${media31_25em} {
-    font-size: 0.8rem;
+    font-size: 1rem;
   }
 `;
 const StyledDeleteAppAccountContent = styled.p`
   ${media48em} {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
   }
   ${media31_25em} {
-    font-size: 0.7rem;
+    font-size: 0.8rem;
   }
 `;
 function DeleteAppAccountForm() {
@@ -84,10 +84,10 @@ function DeleteAppAccountForm() {
           sx={{
             "&>div>p": {
               [media48em]: {
-                fontSize: ".7rem",
+                fontSize: ".8rem",
               },
               [media31_25em]: {
-                fontSize: ".6rem",
+                fontSize: ".7rem",
               },
             },
           }}

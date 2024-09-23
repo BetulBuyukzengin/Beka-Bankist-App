@@ -1,19 +1,18 @@
-import styled from "styled-components";
-import TextField from "@mui/material/TextField";
-import Paper from "@mui/material/Paper";
-import Grid from "@mui/material/Grid";
-import { useForm } from "react-hook-form";
-import { useDarkMode } from "../../../Contexts/DarkModeContext";
-import { Link, useNavigate } from "react-router-dom";
-import { useSignUp } from "../../../services/userServices";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import LogoutIcon from "@mui/icons-material/Logout";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import TextField from "@mui/material/TextField";
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
+import styled from "styled-components";
 import {
   emailRegex,
   media31_25em,
   media48em,
 } from "../../../Constants/constants";
-import CustomTextField from "../../../Components/CustomTextField/CustomTextField";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { useDarkMode } from "../../../Contexts/DarkModeContext";
+import { useSignUp } from "../../../services/userServices";
 
 const StyledForm = styled.form`
   width: 100%;
@@ -47,10 +46,12 @@ const StyledSignInFormTitle = styled.h2`
   letter-spacing: 0.1rem;
   color: var(--color-text);
   ${media48em} {
-    font-size: 0.9rem;
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 2rem;
   }
-  ${media48em} {
-    font-size: 0.8rem;
+  ${media31_25em} {
+    font-size: 1rem;
   }
 `;
 
@@ -143,8 +144,9 @@ function SignUp() {
           flexDirection: "column",
           width: "50%",
           [media48em]: {
+            height: "85dvh",
+            width: "95%",
             padding: "1rem",
-            width: "80%",
           },
         }}
       >
@@ -304,23 +306,6 @@ function SignUp() {
         <StyledButton type="submit" disabled={isLoading}>
           Sign Up
         </StyledButton>
-        {/* <div style={{ display: "flex", justifyContent: "center", gap: "1rem" }}>
-          <StyledLink to="/signIn">
-            <StyledButton disabled={isLoading}>Sign In</StyledButton>
-          </StyledLink>
-          <StyledButton type="submit" disabled={isLoading}>
-            Sign Up
-          </StyledButton>
-        </div> */}
-        {/* <StyledLink to="/accountRecovery">
-          <StyledButton>Account Recovery</StyledButton>
-        </StyledLink> */}
-        {/* <StyledLink
-          to="/accountRecovery"
-          style={{ color: "var(--color-text)", textDecoration: "underline" }}
-        >
-          Account Recovery
-        </StyledLink> */}
       </Paper>
     </StyledForm>
   );

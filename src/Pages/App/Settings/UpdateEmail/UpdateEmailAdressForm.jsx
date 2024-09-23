@@ -19,18 +19,18 @@ const StyledUpdateEmailTitle = styled.h4`
   font-weight: bold;
   margin-top: 1rem;
   ${media48em} {
-    font-size: 0.9rem;
+    font-size: 1.2rem;
   }
   ${media31_25em} {
-    font-size: 0.8rem;
+    font-size: 1rem;
   }
 `;
 const StyledUpdateEmailContent = styled.p`
   ${media48em} {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
   }
   ${media31_25em} {
-    font-size: 0.7rem;
+    font-size: 0.8rem;
   }
 `;
 function UpdateEmailAdressForm({ setOpenModal }) {
@@ -103,9 +103,7 @@ function UpdateEmailAdressForm({ setOpenModal }) {
         sx={{ textAlign: "center", justifyContent: "center" }}
       >
         <Grid item xs={6}>
-          <StyledUpdateEmailTitle>
-            Update Email With Email
-          </StyledUpdateEmailTitle>
+          <StyledUpdateEmailTitle>Update Email</StyledUpdateEmailTitle>
         </Grid>
         <Grid item xs={12} sx={{ marginBottom: ".5rem" }}>
           <StyledUpdateEmailContent>
@@ -193,10 +191,10 @@ function UpdateEmailAdressForm({ setOpenModal }) {
           <CustomButton
             style={{
               [media48em]: {
-                fontSize: ".7rem",
+                fontSize: ".8rem",
               },
               [media31_25em]: {
-                fontSize: ".6rem",
+                fontSize: ".7rem",
               },
             }}
             type="submit"

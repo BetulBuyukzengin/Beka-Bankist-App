@@ -24,7 +24,12 @@ function AddProfileImgForm() {
   const { handleSubmit } = useForm();
   const { isPending, mutateAsync: uploadImg } = useUploadImg();
   const { user } = useUser();
-  console.log(user.user_metadata);
+  const [selectedFile, setSelectedFile] = useState(null);
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    setSelectedFile(file);
+  };
   const onSubmit = async () => {
     await uploadImg(file);
   };
@@ -44,15 +49,15 @@ function AddProfileImgForm() {
           alignItems: "center",
           "@media (max-width:48em)": {
             padding: ".8rem",
-            fontSize: ".8rem",
+            fontSize: "1rem",
           },
           "@media (max-width:31.25em)": {
-            fontSize: ".7rem",
+            fontSize: ".8rem",
           },
         }}
       >
         <p>
-          {user.user_metadata.image
+          {user?.user_metadata?.image
             ? "Update profile image"
             : "Add profile image"}
         </p>
@@ -71,10 +76,10 @@ function AddProfileImgForm() {
               width: "100%",
             },
             "@media (max-width:48em)": {
-              fontSize: ".6rem",
+              fontSize: ".8rem",
             },
             "@media (max-width:31.25em)": {
-              fontSize: ".5rem",
+              fontSize: ".7rem",
             },
             "&>span": {
               "@media (max-width:48em)": {
@@ -84,10 +89,10 @@ function AddProfileImgForm() {
             },
           }}
         >
-          Choose image
+          {selectedFile ? "Selected" : "Choose image"}
           <VisuallyHiddenInput
             type="file"
-            onChange={(event) => setFile(event.target.files[0])}
+            onChange={handleFileChange}
             multiple
           />
         </Button>
@@ -102,10 +107,10 @@ function AddProfileImgForm() {
               width: "100%",
             },
             "@media (max-width:48em)": {
-              fontSize: ".6rem",
+              fontSize: ".8rem",
             },
             "@media (max-width:31.25em)": {
-              fontSize: ".5rem",
+              fontSize: ".7rem",
             },
           }}
         />

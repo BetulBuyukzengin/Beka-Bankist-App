@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+import { media48em } from "../Constants/constants";
 
 const GlobalStyles = createGlobalStyle`
 @import url("https://fonts.googleapis.com/css?family=Kanit:400");
@@ -12,8 +13,8 @@ const GlobalStyles = createGlobalStyle`
         --color-background-4:rgba(245, 245, 245, 1);
 
         //yeni ekledıgım
-        --color-background-5:rgba(255, 255, 255, 0.55)
-
+        --color-background-5:rgba(255, 255, 255, 0.55);
+        --color-menu-border:rgba(245, 245, 245, 0.8);
 
 
         --color-primary: #011d98;
@@ -51,6 +52,7 @@ const GlobalStyles = createGlobalStyle`
 
 
         --color-background-5:rgba(255, 255, 255, 0.15)
+        --color-menu-border:rgba(108, 117, 125, 1);
 
 
         --color-primary: #98aafb;
@@ -174,6 +176,7 @@ background-color:var( --color-text-2);
 .carousel-inner > div >div{
 display: block!important;
 }
+
 img {
   max-width: 100%;
 

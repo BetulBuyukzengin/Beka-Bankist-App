@@ -291,7 +291,7 @@ export default function DashboardLayout() {
           backgroundColor: "var(--color-background)",
         }}
       >
-        <AutoLogout />
+        {/* <AutoLogout /> */}
         <CssBaseline />
 
         {/* Header */}
@@ -360,7 +360,7 @@ export default function DashboardLayout() {
             >
               {user?.user_metadata?.fullName}
             </Typography>
-            <StyledLink onClick={toggleDarkMode}>
+            {/* <StyledLink onClick={toggleDarkMode}>
               {isDarkMode ? (
                 <DarkModeIcon
                   sx={{
@@ -396,7 +396,7 @@ export default function DashboardLayout() {
                   },
                 }}
               />
-            </StyledButton>
+            </StyledButton> */}
           </Toolbar>
         </AppBar>
 
@@ -575,7 +575,7 @@ export default function DashboardLayout() {
             padding: "1rem",
             backgroundColor: "var(--color-background)",
             color: "var(--color-text)",
-            height: "100dvh",
+            // height: "100dvh",
             width: `calc(100% - ${drawerWidth}px)`,
 
             "@media (max-width: 48em)": {

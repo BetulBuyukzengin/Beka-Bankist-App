@@ -1,4 +1,4 @@
-import { Tooltip } from "@mui/material";
+import { Divider, Tooltip } from "@mui/material";
 import {
   IconStyle,
   StyledListItemIcon,
@@ -11,6 +11,11 @@ import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import TimelineIcon from "@mui/icons-material/Timeline";
 import { CurrencyExchange } from "@mui/icons-material";
 import SettingsSuggestIcon from "@mui/icons-material/SettingsSuggest";
+import { Link } from "react-router-dom";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import LightModeIcon from "@mui/icons-material/LightMode";
+import LoginIcon from "@mui/icons-material/Login";
+import { useDarkMode } from "../../Contexts/DarkModeContext";
 
 function AppListComponent({
   isInformationsCompleted,
@@ -18,6 +23,8 @@ function AppListComponent({
   setUrlParams,
   toggleDrawer,
 }) {
+  const { isDarkMode, toggleDarkMode } = useDarkMode();
+
   return (
     <List>
       <ListItem
@@ -119,6 +126,28 @@ function AppListComponent({
             </ListIconButton>
           </span>
         </Tooltip>
+
+        <span>
+          <ListIconButton>
+            <StyledListItemIcon onClick={toggleDarkMode}>
+              {isDarkMode ? (
+                <DarkModeIcon sx={{ fontSize: "1.2rem", cursor: "pointer" }} />
+              ) : (
+                <LightModeIcon sx={{ fontSize: "1.2rem", cursor: "pointer" }} />
+              )}
+            </StyledListItemIcon>
+
+            {/* <Divider
+              variant="middle"
+              orientation="vertical"
+              sx={{ border: "1px solid red", height: "100%" }}
+            /> */}
+
+            <Link to="/signIn">
+              <LoginIcon sx={{ fontSize: "1.2rem" }} />
+            </Link>
+          </ListIconButton>
+        </span>
       </ListItem>
     </List>
   );

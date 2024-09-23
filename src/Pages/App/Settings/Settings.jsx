@@ -18,10 +18,10 @@ const StyledSettingsTitle = styled.h3`
   font-size: 1.5rem;
   width: 100%;
   @media (max-width: 48em) {
-    font-size: 0.9rem;
+    font-size: 1.2rem;
   }
   @media (max-width: 31.25em) {
-    font-size: 0.8rem;
+    font-size: 1rem;
   }
 `;
 

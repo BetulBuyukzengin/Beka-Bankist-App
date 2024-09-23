@@ -6,11 +6,13 @@ import CustomModal from "../CustomModal/CustomModal";
 import { media84_37em } from "../../Constants/constants";
 
 const StyledTitle = styled.p`
+  font-size: 1.2rem;
+
   @media (max-width: 48em) {
-    font-size: 0.8rem;
+    font-size: 1rem;
   }
   @media (max-width: 31.25em) {
-    font-size: 0.7rem;
+    font-size: 0.8rem;
   }
 `;
 function CustomSettingsContent({
@@ -42,14 +44,15 @@ function CustomSettingsContent({
         <CustomButton
           style={{
             alignSelf: "center",
+            fontSize: "1.1rem",
             [media84_37em]: {
               width: "100%",
             },
             "@media (max-width:48em)": {
-              fontSize: ".7rem",
+              fontSize: ".8rem",
             },
             "@media (max-width:31.25em)": {
-              fontSize: ".6rem",
+              fontSize: ".7rem",
             },
           }}
           buttonText={buttonText}
@@ -60,6 +63,10 @@ function CustomSettingsContent({
         paddingSize="1rem 1.5rem"
         open={openModal}
         setOpen={setOpenModal}
+        modalBoxStyles={{
+          padding: ".5rem",
+          height: "100dvh",
+        }}
       >
         {FormComponent && (
           <FormComponent setOpenModal={setOpenModal} {...formProps} />

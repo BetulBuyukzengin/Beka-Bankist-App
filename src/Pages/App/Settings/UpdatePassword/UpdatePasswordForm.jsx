@@ -17,11 +17,12 @@ const toastMessage = {
 };
 const StyledUpdatePasswordTitle = styled.h4`
   font-weight: "bold";
+  width: 100%;
   ${media48em} {
-    font-size: 0.9rem;
+    font-size: 1.2rem;
   }
   ${media31_25em} {
-    font-size: 0.8rem;
+    font-size: 1rem;
   }
 `;
 function UpdatePasswordForm({ setOpenModal }) {
@@ -52,7 +53,7 @@ function UpdatePasswordForm({ setOpenModal }) {
         gap={3}
         sx={{ justifyContent: "center", textAlign: "center" }}
       >
-        <Grid item xs={6}>
+        <Grid item xs={12}>
           <StyledUpdatePasswordTitle>Update Password</StyledUpdatePasswordTitle>
         </Grid>
         <Grid
@@ -157,10 +158,10 @@ function UpdatePasswordForm({ setOpenModal }) {
             disabled={isPending}
             style={{
               [media48em]: {
-                fontSize: ".7rem",
+                fontSize: ".8rem",
               },
               [media31_25em]: {
-                fontSize: ".6rem",
+                fontSize: ".7rem",
               },
             }}
           />

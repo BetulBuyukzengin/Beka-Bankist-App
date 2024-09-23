@@ -9,12 +9,11 @@ const StyledTableCell = styled(TableCell)`
   color: var(--color-text) !important;
 
   @media (max-width: 48em) {
-    padding: 0 !important;
+    padding: 8px !important;
     font-size: 0.8rem !important;
   }
 
   @media (max-width: 31.25em) {
-    padding: 0 !important;
     font-size: 0.7rem !important;
   }
 `;

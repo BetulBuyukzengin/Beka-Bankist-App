@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
 import { FormHelperText, Grid, Paper } from "@mui/material";
-import { DatePicker } from "@mui/x-date-pickers";
+import { DatePicker, MobileDatePicker } from "@mui/x-date-pickers";
 import { subYears } from "date-fns";
 import { MuiTelInput, matchIsValidTel } from "mui-tel-input";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import styled from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
 import CustomButton from "../../../../Components/CustomButton/CustomButton";
 import CustomTextField from "../../../../Components/CustomTextField/CustomTextField";
 import {
@@ -17,26 +17,27 @@ import { useUpdateUser } from "../../../../services/userServices";
 import { calcAge } from "../../../../utils/utils";
 import { useCurrentUser } from "../../../../Hooks/useCurrentUser";
 import { media48em } from "../../../../Constants/constants";
+import { useMediaQuery } from "@mui/material";
 
 const StyledMuiTelInput = styled(MuiTelInput)`
   width: 100%;
   & > label {
     color: var(--color-text) !important;
-    @media (max-width: 48em) {
-      font-size: 0.8rem;
+    ${media48em} {
+      font-size: 0.9rem;
     }
-    @media (max-width: 31.25em) {
-      font-size: 0.7rem;
+    ${media31_25em} {
+      font-size: 0.8rem;
     }
   }
 
   & > div {
     color: var(--color-text);
-    @media (max-width: 48em) {
-      font-size: 0.8rem;
+    ${media48em} {
+      font-size: 1rem;
     }
-    @media (max-width: 31.25em) {
-      font-size: 0.7rem;
+    ${media31_25em} {
+      font-size: 0.9rem;
     }
   }
 
@@ -55,7 +56,21 @@ const StyledMuiTelInput = styled(MuiTelInput)`
   }
 `}
 `;
+const StyledUpdateUserTitle = styled.h4`
+  font-weight: bold;
+  margin-top: 1rem;
+  text-align: center;
+  width: 100%;
+  ${media48em} {
+    font-size: 1.2rem;
+  }
+  ${media31_25em} {
+    font-size: 1rem;
+  }
+`;
 function UpdatePersonalInformationForm({ isPersonalDatas, setOpenModal }) {
+  const isMax48em = useMediaQuery("(max-width: 48em)");
+
   const { currentUser } = useCurrentUser();
 
   const [phoneNumber, setPhoneNumber] = useState(
@@ -99,7 +114,6 @@ function UpdatePersonalInformationForm({ isPersonalDatas, setOpenModal }) {
           flexDirection: "column",
           gap: "1rem",
           backgroundColor: "var(--color-background)",
-          // border: "1px solid var(--color-gray)",
           color: "var(--color-text)",
           [media48em]: {
             padding: ".3rem",
@@ -115,6 +129,11 @@ function UpdatePersonalInformationForm({ isPersonalDatas, setOpenModal }) {
             paddingRight: "1rem",
           }}
         >
+          <Grid item xs={12}>
+            <StyledUpdateUserTitle>
+              {isPersonalDatas ? "Update Personal Info " : "Add Personal Info"}
+            </StyledUpdateUserTitle>
+          </Grid>
           <Grid item xs={12} sm={6}>
             <CustomTextField
               id="identificationNumber"
@@ -189,49 +208,122 @@ function UpdatePersonalInformationForm({ isPersonalDatas, setOpenModal }) {
             )}
           </Grid>
 
+          {/* 280 px verdim en son  */}
           <Grid item xs={12} sm={6}>
-            <DatePicker
-              width="tall"
-              label="Birthday"
-              disabled={isUpdating}
-              value={birthday}
-              slotProps={{
-                popper: { placement: "right-start" },
-              }}
-              format="dd/MM/yyyy"
-              onChange={(date) => setBirthday(date)}
-              sx={{
-                width: "100%",
-                "&:hover > div > fieldset": {
-                  borderColor: "var(--color-text)!important",
-                },
-                "&>label": {
-                  color: "var(--color-text)",
-                  "@media (max-width: 48em)": {
-                    fontSize: "0.8rem",
+            {isMax48em ? (
+              <MobileDatePicker
+                width="tall"
+                label="Birthday"
+                disabled={isUpdating}
+                value={birthday}
+                slotProps={{
+                  popper: { placement: "right-start" },
+                  layout: {
+                    sx: {
+                      color: "var(--color-text)",
+                      borderRadius: "2px",
+                      borderWidth: "1px",
+                      backgroundColor: "var(--color-background)",
+                      "&>div": {
+                        alignItems: "center",
+                        "&>div": {
+                          width: "280px",
+                          justifyContent: "center",
+                          "&>div": {
+                            padding: "16px 8px",
+                            alignItems: "center",
+                          },
+                        },
+                      },
+                    },
                   },
-                  "@media (max-width: 31.25em)": {
-                    fontSize: "0.7rem",
+                }}
+                format="dd/MM/yyyy"
+                onChange={(date) => setBirthday(date)}
+                sx={{
+                  width: "100%",
+                  "&:hover > div > fieldset": {
+                    borderColor: "var(--color-text)!important",
                   },
-                },
-                "& > div": {
-                  color: "var(--color-text)",
-                  "@media (max-width: 48em)": {
-                    fontSize: "0.8rem",
+                  "&>label": {
+                    color: "var(--color-text)",
+                    [media48em]: {
+                      fontSize: "0.9rem",
+                    },
+                    [media31_25em]: {
+                      fontSize: "0.8rem",
+                    },
                   },
-                  "@media (max-width: 31.25em)": {
-                    fontSize: "0.7rem",
-                  },
+                  "& > div": {
+                    color: "var(--color-text)",
+                    [media48em]: {
+                      fontSize: "1rem",
+                    },
+                    [media31_25em]: {
+                      fontSize: "0.9rem",
+                    },
 
-                  "& > fieldset": {
-                    borderColor:
-                      !birthday || calcAge(birthday) < 18
-                        ? "red !important"
-                        : "var(--color-border-2) !important",
+                    "& > fieldset": {
+                      borderColor:
+                        !birthday || calcAge(birthday) < 18
+                          ? "red !important"
+                          : "var(--color-border-2) !important",
+                    },
                   },
-                },
-              }}
-            />
+                }}
+              />
+            ) : (
+              <DatePicker
+                // width="tall"
+                label="Birthday"
+                disabled={isUpdating}
+                value={birthday}
+                slotProps={{
+                  popper: { placement: "right-start" },
+                  layout: {
+                    sx: {
+                      color: "var(--color-text)",
+                      borderRadius: "2px",
+                      borderWidth: "1px",
+                      backgroundColor: "var(--color-background)",
+                    },
+                  },
+                }}
+                format="dd/MM/yyyy"
+                onChange={(date) => setBirthday(date)}
+                sx={{
+                  width: "100%",
+                  "&:hover > div > fieldset": {
+                    borderColor: "var(--color-text)!important",
+                  },
+                  "&>label": {
+                    color: "var(--color-text)",
+                    [media48em]: {
+                      fontSize: "0.9rem",
+                    },
+                    [media31_25em]: {
+                      fontSize: "0.8rem",
+                    },
+                  },
+                  "& > div": {
+                    color: "var(--color-text)",
+                    [media48em]: {
+                      fontSize: "1rem",
+                    },
+                    [media31_25em]: {
+                      fontSize: "0.9rem",
+                    },
+
+                    "& > fieldset": {
+                      borderColor:
+                        !birthday || calcAge(birthday) < 18
+                          ? "red !important"
+                          : "var(--color-border-2) !important",
+                    },
+                  },
+                }}
+              />
+            )}
             {calcAge(birthday) < 18 && (
               <FormHelperText error sx={{ marginLeft: ".8rem" }}>
                 You are younger than 18!

@@ -67,7 +67,7 @@ function DetailTableHead({ row }) {
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          <ReceiptContent row={row} />
+          <ReceiptContent row={row} setOpen={setOpen} />
         </Modal>
       </TableRow>
     </TableHead>

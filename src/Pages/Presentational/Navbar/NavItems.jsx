@@ -122,16 +122,6 @@ function NavItem() {
             </StyledLink>
           </StyledLi>
         ))}
-
-        {/* <StyledLi>
-          <StyledLink href="#aboutUs">About Us</StyledLink>
-        </StyledLi>
-        <StyledLi>
-          <StyledLink href="#ourServices">Our Services</StyledLink>
-        </StyledLi>
-        <StyledLi>
-          <StyledLink href="#contact">Contact</StyledLink>
-        </StyledLi> */}
       </StyledMenuItems>
 
       <span

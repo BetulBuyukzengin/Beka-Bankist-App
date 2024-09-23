@@ -1,10 +1,13 @@
 /* eslint-disable react/prop-types */
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
+import { Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import { usePDF } from "react-to-pdf";
 import styled from "styled-components";
 import CustomButton from "../../../Components/CustomButton/CustomButton";
+import { media31_25em, media48em } from "../../../Constants/constants";
 import { useUser } from "../../../services/userServices";
 import {
   formatArrayWord,
@@ -17,6 +20,8 @@ import {
 const StyledLabelTitle = styled.label`
   width: 40%;
   @media (max-width: 48em) {
+    margin-right: 1rem;
+
     font-size: 0.85rem;
   }
   @media (max-width: 31.25em) {
@@ -47,13 +52,13 @@ const StyledBox = styled(Box)`
   border: 1px solid var(--color-gray);
   width: ${({ row }) =>
     row.status === "Deposit" || row.status === "Withdraw" ? "60%" : "90%"};
-
+  height: 30rem;
+  overflow-y: scroll;
   @media (max-width: 48em) {
     width: 100%;
   }
   @media (max-width: 31.25em) {
-    width: 100%;
-    padding: 2rem 0.4rem;
+    padding: 2rem 0.3rem;
   }
 `;
 
@@ -67,15 +72,36 @@ const StyledDescription = styled(Grid)`
     font-size: 0.7rem;
   }
 `;
+const StyledFileDownloadIcon = styled.span`
+  ${media48em} {
+    font-size: 0.6rem;
+  }
 
-export default function ReceiptContent({ row }) {
+  ${media31_25em} {
+    font-size: 0.5rem;
+  }
+`;
+export default function ReceiptContent({ row, setOpen }) {
   const { user } = useUser();
-  const fullName = user.user_metadata.fullName;
-  const { toPDF, targetRef } = usePDF({ filename: "Receipt.pdf" });
-  const selectedMyAccount = JSON.parse(row.selectedAccount);
-
+  const fullName = user?.user_metadata?.fullName;
+  const { toPDF, targetRef } = usePDF({
+    filename: "Receipt.pdf",
+  });
+  const selectedMyAccount = JSON.parse(row?.selectedAccount);
   return (
-    <StyledBox row={row} ref={targetRef}>
+    <StyledBox row={row}>
+      <ArrowBackIcon
+        onClick={() => setOpen(false)}
+        sx={{
+          marginLeft: "1rem",
+          [media48em]: {
+            fontSize: "1.2rem",
+          },
+          [media31_25em]: {
+            fontSize: "1rem",
+          },
+        }}
+      />
       <CustomButton
         style={{
           display: "flex",
@@ -91,23 +117,28 @@ export default function ReceiptContent({ row }) {
         }}
         onClick={toPDF}
         buttonText={
-          <span>
+          <StyledFileDownloadIcon>
             <FileDownloadIcon sx={{ color: "white!important" }} /> Export as PDF
-          </span>
+          </StyledFileDownloadIcon>
         }
         color="success"
         variant="contained"
       />
-      <Box mb={4}>
-        <h5>{formatArrayWord("beka bankist")}</h5>
-      </Box>
       <Box
         sx={{
+          backgroundColor: "var(--color-background-2)",
+          color: "var(--color-text)",
+          padding: "2rem .5rem",
           display: "flex",
           gap: "1rem",
+          [media48em]: {
+            gap: ".5rem",
+            flexDirection: "column",
+          },
         }}
+        ref={targetRef}
       >
-        {row.status === "Deposit" || row.status === "Withdraw" ? (
+        {row?.status === "Deposit" || row?.status === "Withdraw" ? (
           <Grid
             container
             spacing={2}
@@ -119,9 +150,33 @@ export default function ReceiptContent({ row }) {
               marginLeft: "0!important",
               "@media (max-width: 48em)": {
                 padding: ".5rem",
+                width: "100%",
               },
             }}
           >
+            <Grid item xs={12}>
+              <Typography
+                component="h3"
+                sx={{
+                  backgroundColor: "var(--color-background)",
+                  color: "var(--color-text)",
+                  marginRight: "auto",
+                  marginLeft: "auto",
+                  marginBottom: "1rem",
+                  fontSize: "1.5rem",
+                  fontWeight: "bold",
+
+                  [media48em]: {
+                    fontSize: "1.2rem",
+                  },
+                  [media31_25em]: {
+                    fontSize: "1rem",
+                  },
+                }}
+              >
+                {formatArrayWord("beka bankist")}
+              </Typography>
+            </Grid>
             <Grid
               item
               xs={12}
@@ -185,6 +240,7 @@ export default function ReceiptContent({ row }) {
                 padding: "1rem",
                 borderRadius: "5px",
                 marginLeft: "0!important",
+                width: "100%",
               }}
             >
               <Grid
@@ -195,13 +251,13 @@ export default function ReceiptContent({ row }) {
                   display: "flex",
                 }}
               >
-                <StyledLabelTitle>RECIPIENT: </StyledLabelTitle>
+                <StyledLabelTitle>{formatWord("recipient")}: </StyledLabelTitle>
                 <StyledLabelDesc>
                   {formatWord(row?.recipientFullNameWithIban) ||
                     formatWord(row?.recipientFullNameWithAccount)}
                 </StyledLabelDesc>
               </Grid>
-              {row.recipientBankBranch && (
+              {row?.recipientBankBranch && (
                 <Grid
                   item
                   xs={12}
@@ -210,7 +266,9 @@ export default function ReceiptContent({ row }) {
                     display: "flex",
                   }}
                 >
-                  <StyledLabelTitle>RECIPIENT BRANCH: </StyledLabelTitle>
+                  <StyledLabelTitle>
+                    {formatArrayWord("recipient branch")}:
+                  </StyledLabelTitle>
                   <StyledLabelDesc>
                     {formatWord(row?.recipientBankBranch)}
                   </StyledLabelDesc>
@@ -224,7 +282,7 @@ export default function ReceiptContent({ row }) {
                   display: "flex",
                 }}
               >
-                {row.recipientIban && (
+                {row?.recipientIban && (
                   <>
                     <StyledLabelTitle> REIPIENT IBAN: </StyledLabelTitle>
                     <StyledLabelDesc>
@@ -276,6 +334,9 @@ export default function ReceiptContent({ row }) {
                 padding: "1rem",
                 borderRadius: "5px",
                 marginLeft: "0!important",
+                [media48em]: {
+                  width: "100%",
+                },
               }}
             >
               <Grid
@@ -319,7 +380,14 @@ export default function ReceiptContent({ row }) {
           </>
         )}
       </Box>
-      <Grid container>
+      <Grid
+        container
+        sx={{
+          [media48em]: {
+            paddingLeft: "1rem",
+          },
+        }}
+      >
         <StyledDescription
           item
           xs={12}
@@ -338,7 +406,7 @@ export default function ReceiptContent({ row }) {
             },
           }}
         >
-          DEAR {fullName.toUpperCase()}
+          DEAR {fullName?.toUpperCase()}
         </StyledDescription>
         <StyledDescription item xs={12}>
           {row.status === "Withdraw" &&
@@ -346,13 +414,18 @@ export default function ReceiptContent({ row }) {
 
           {row.status === "Deposit" &&
             `${formatCurrency(row.amountToSend)} was deposited to your ${
-              selectedMyAccount.bankName
-            } account with iban ${selectedMyAccount.iban} and account number  ${
-              selectedMyAccount.accountNumber
-            }`}
+              selectedMyAccount?.bankName
+            } account with iban ${
+              selectedMyAccount?.iban
+            } and account number  ${selectedMyAccount?.accountNumber}`}
 
-          {row.status === "Transfer" &&
-            `${row.movements} has been transferred from your account to ${row.recipient}.`}
+          {row?.status === "Transfer" &&
+            `${formatCurrency(
+              row?.amountToSend
+            )} has been transferred from your account to ${
+              row?.recipientFullNameWithIban ||
+              row?.recipientFullNameWithAccount
+            }.`}
         </StyledDescription>
         <StyledDescription item xs={12}>
           Invoice creation date: {formatDate(new Date())}
@@ -367,6 +440,7 @@ export default function ReceiptContent({ row }) {
             justifyContent: "end",
             "@media (max-width:48em) ": {
               marginLeft: "0rem",
+              marginTop: "1rem",
             },
           }}
         >

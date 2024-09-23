@@ -67,7 +67,7 @@ export default function CustomMenuIcon({ contents }) {
             "&:nth-child(3)": {
               backgroundColor: "var(--color-background)",
               color: "var(--color-text)",
-              border: "1px solid var(--color-gray)",
+              border: "1px solid var(--color-menu-border)",
               "&>ul": {
                 backgroundColor: "var(--color-background)",
               },

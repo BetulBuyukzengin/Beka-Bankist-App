@@ -11,32 +11,32 @@ import {
 } from "../../../utils/utils";
 
 const StyledTypographyH4 = styled(Typography)`
-  font-size: 1.2rem !important;
+  font-size: 1.5rem !important;
 
+  @media (max-width: 48em) {
+    font-size: 1.2rem !important;
+  }
+  @media (max-width: 31.25em) {
+    font-size: 1rem !important;
+  }
+`;
+const StyledTypographyH6 = styled(Typography)`
+  font-size: 1.5rem !important;
+
+  @media (max-width: 48em) {
+    font-size: 1.2rem !important;
+  }
+  @media (max-width: 31.25em) {
+    font-size: 1rem !important;
+  }
+`;
+const StyledValue = styled.p`
+  font-size: 1.2rem;
   @media (max-width: 48em) {
     font-size: 1rem !important;
   }
   @media (max-width: 31.25em) {
     font-size: 0.8rem !important;
-  }
-`;
-const StyledTypographyH6 = styled(Typography)`
-  font-size: 1.2rem !important;
-
-  @media (max-width: 48em) {
-    font-size: 0.9rem !important;
-  }
-  @media (max-width: 31.25em) {
-    font-size: 0.7rem !important;
-  }
-`;
-const StyledValue = styled.p`
-  font-size: 1.1rem;
-  @media (max-width: 48em) {
-    font-size: 0.9rem !important;
-  }
-  @media (max-width: 31.25em) {
-    font-size: 0.7rem;
   }
 `;
 const StyledImg = styled.img`
@@ -47,9 +47,7 @@ function AccountsContent({ item }) {
     <>
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          <StyledTypographyH6
-            component="h6"
-          >
+          <StyledTypographyH6 component="h6">
             {formatArrayWord(item.bankBranch)}-{formatArrayWord(item.bankName)}
           </StyledTypographyH6>
         </Grid>
@@ -68,6 +66,7 @@ function AccountsContent({ item }) {
           sx={{
             display: "grid",
             gridTemplateColumns: "2fr 3fr",
+            alignItems: "baseline",
             "@media (max-width: 31.25em)": {
               gridTemplateColumns: "1fr 4fr",
             },
@@ -88,6 +87,7 @@ function AccountsContent({ item }) {
           sx={{
             display: "grid",
             gridTemplateColumns: "2fr 3fr",
+            alignItems: "baseline",
             "@media (max-width: 31.25em)": {
               gridTemplateColumns: "1fr 4fr",
             },

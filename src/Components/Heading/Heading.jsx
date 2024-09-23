@@ -45,7 +45,6 @@ const StyledParagraph = styled.p`
   }
   ${media48em} {
     font-size: 1rem;
-    line-height: 0.9rem;
     width: 90%;
     text-align: left;
   }
