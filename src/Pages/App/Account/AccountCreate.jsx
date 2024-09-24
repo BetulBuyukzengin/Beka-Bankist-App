@@ -17,6 +17,8 @@ import {
   dailyDepositLimit,
   dailyTransferLimit,
   dailyWithdrawLimit,
+  media31_25em,
+  media48em,
   starterBalance,
 } from "../../../Constants/constants";
 import { useCurrentUser } from "../../../Hooks/useCurrentUser";
@@ -83,9 +85,23 @@ const StyledMuiTelInput = styled(MuiTelInput)`
     }
   }
 `;
-const StyledContainer = styled.div``;
-const StyledLabel = styled.label``;
-
+const StyledContainer = styled.div`
+  /* display: flex; */
+`;
+const StyledLabel = styled.label`
+  font-size: 1rem;
+  ${media48em} {
+    font-size: 0.9rem;
+  }
+  ${media31_25em} {
+    font-size: 0.8rem;
+  }
+`;
+const StyledForm = styled.form`
+  ${media48em} {
+    height: 100%;
+  }
+`;
 function AccountCreate({ setOpenCreateModal }) {
   const { currentUser } = useCurrentUser();
   const [open, setOpen] = useState(false);
@@ -134,7 +150,7 @@ function AccountCreate({ setOpenCreateModal }) {
   return (
     <>
       <FormProvider {...methods}>
-        <form onSubmit={methods.handleSubmit(onSubmit)}>
+        <StyledForm onSubmit={methods.handleSubmit(onSubmit)}>
           <Grid
             container
             spacing={3}
@@ -142,39 +158,44 @@ function AccountCreate({ setOpenCreateModal }) {
               display: "flex",
               paddingBottom: "1rem",
               paddingRight: "1rem",
+              // gap: ".5rem",
             }}
           >
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={6}>
               <CustomTextField
+                textFieldStyles={{ width: "100%" }}
                 id="fullName"
                 label="Full Name"
                 value={currentUser?.fullName}
                 disabled
               />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={6}>
               <CustomTextField
+                textFieldStyles={{ width: "100%" }}
                 id="identificationNumber"
                 label="Identification number"
                 value={currentUser?.identificationNumber}
                 disabled
               />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={6}>
               <CustomTextField
+                textFieldStyles={{ width: "100%" }}
                 id="address"
                 label="Address"
                 value={currentUser?.applicantAddress}
                 disabled
               />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={6}>
               <StyledMuiTelInput
                 value={currentUser?.applicantPhoneNumber}
                 disabled
+                label="Phone Number"
               />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={6}>
               <CustomSelect
                 width="100%"
                 openedBankNames={openedBankNames}
@@ -189,9 +210,9 @@ function AccountCreate({ setOpenCreateModal }) {
                 </FormHelperText>
               )}
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={6}>
               <CustomSelect
-              width="100%"
+                width="100%"
                 data={branchContent}
                 defaultValue=""
                 register={methods.register("bankBranch")}
@@ -205,7 +226,7 @@ function AccountCreate({ setOpenCreateModal }) {
               )}
             </Grid>
 
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={6}>
               <DatePicker
                 width="tall"
                 label="Birthday"
@@ -244,6 +265,7 @@ function AccountCreate({ setOpenCreateModal }) {
             <Grid
               item
               xs={12}
+              sm={6}
               sx={{
                 display: "flex",
                 justifyContent: "center",
@@ -277,7 +299,7 @@ function AccountCreate({ setOpenCreateModal }) {
           >
             <AccountConsentForm setOpen={setOpen} setChecked={setChecked} />
           </CustomModal>
-        </form>
+        </StyledForm>
       </FormProvider>
     </>
   );

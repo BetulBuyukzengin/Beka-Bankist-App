@@ -7,6 +7,7 @@ import AccountCreate from "./AccountCreate";
 import AccountDelete from "./AccountDelete";
 import { useSearchParams } from "react-router-dom";
 import { media31_25em, media48em } from "../../../Constants/constants";
+import BankAccountCreate from "./BankAccountCreate";
 
 function CurrentAccounts() {
   const [openCreateAccount, setOpenCreateAccount] = useState(false);
@@ -69,8 +70,17 @@ function CurrentAccounts() {
         <CustomMenuIcon contents={menuIconContents} />
       </Box>
       <AppSlider />
-      <CustomModal open={openCreateAccount} setOpen={setOpenCreateAccount}>
-        <AccountCreate setOpenCreateModal={setOpenCreateAccount} />
+      <CustomModal
+        open={openCreateAccount}
+        setOpen={setOpenCreateAccount}
+        modalBoxStyles={{
+          [media48em]: {
+            padding: "1.5rem .8rem",
+          },
+        }}
+      >
+        {/* <AccountCreate setOpenCreateModal={setOpenCreateAccount} /> */}
+        <BankAccountCreate setOpenCreateModal={setOpenCreateAccount} />
       </CustomModal>
       <CustomModal
         open={openDeleteAccount}
