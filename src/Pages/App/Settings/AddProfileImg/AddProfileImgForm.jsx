@@ -30,7 +30,6 @@ function AddProfileImgForm() {
     setSelectedFile(file);
   };
   const onSubmit = async () => {
-    console.log(selectedFile);
     if (!selectedFile) return;
     await uploadImg(selectedFile);
   };
