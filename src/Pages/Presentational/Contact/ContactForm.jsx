@@ -157,7 +157,6 @@ function ContactForm() {
             <Grid
               item
               xs={12}
-              sm={6}
               sx={{
                 "&>div>p": {
                   fontSize: "1rem",
@@ -187,7 +186,6 @@ function ContactForm() {
             <Grid
               item
               xs={12}
-              sm={6}
               sx={{
                 "&>div>p": {
                   fontSize: "1rem",

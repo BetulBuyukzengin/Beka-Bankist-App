@@ -61,7 +61,7 @@ export default function TransferMoneyTab() {
     useCreateRegisteredRecipient();
   const { user } = useUser();
 
-  const senderFullName = user.user_metadata.fullName;
+  const senderFullName = user?.user_metadata?.fullName;
   const [searchParams] = useSearchParams();
   const selectedAccount = JSON.parse(searchParams.get("selectedAccount"));
   const id = selectedAccount?.id;
@@ -209,7 +209,7 @@ export default function TransferMoneyTab() {
       saveAsRegisteredWithAccount: data.saveAsRegisteredWithAccount,
       saveAsRegisteredWithIban: data.saveAsRegisteredWithIban,
       recipientBankBranch: data.recipientBankBranch,
-      user_id: JSON.parse(data.selectedAccount).user_id,
+      user_id: JSON.parse(data.selectedAccount)?.user_id,
     };
     const updatedBalance = selectedAccount.balance - +data.amountToSend;
     const updatedRemainingLimit =
@@ -217,7 +217,7 @@ export default function TransferMoneyTab() {
     await createMovement({
       ...data,
       senderFullName,
-      user_id: JSON.parse(data.selectedAccount).user_id,
+      user_id: JSON.parse(data.selectedAccount)?.user_id,
     });
     const updatedAccount = {
       ...selectedAccount,

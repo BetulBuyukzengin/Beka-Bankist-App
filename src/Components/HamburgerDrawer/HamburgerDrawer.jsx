@@ -8,7 +8,7 @@ import { media48em } from "../../Constants/constants";
 const StyledSpan = styled.span`
   display: none;
   ${media48em} {
-    background-color: var(--color-background-3);
+    /* background-color: var(--color-background-3); */
     position: fixed;
     z-index: 5000;
     width: 100%;

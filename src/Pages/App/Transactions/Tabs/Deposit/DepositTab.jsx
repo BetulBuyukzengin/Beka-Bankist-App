@@ -103,7 +103,7 @@ function DepositTab() {
       selectedAccount: updatedAccount,
       status: getStatus,
       amountToSend,
-      user_id: JSON.parse(data.selectedAccount).user_id,
+      user_id: JSON.parse(data.selectedAccount)?.user_id,
     });
     navigate("/applayout/account");
   };

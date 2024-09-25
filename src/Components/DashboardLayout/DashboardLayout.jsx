@@ -3,13 +3,10 @@ import { CurrencyExchange } from "@mui/icons-material";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import DarkModeIcon from "@mui/icons-material/DarkMode";
-import LightModeIcon from "@mui/icons-material/LightMode";
-import LogoutIcon from "@mui/icons-material/Logout";
 import MenuIcon from "@mui/icons-material/Menu";
 import SettingsSuggestIcon from "@mui/icons-material/SettingsSuggest";
 import TimelineIcon from "@mui/icons-material/Timeline";
-import { ListItemText, Tooltip, ListItemIcon } from "@mui/material";
+import { ListItemIcon, ListItemText, Tooltip } from "@mui/material";
 import MuiAppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -25,7 +22,6 @@ import * as React from "react";
 import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { styled } from "styled-components";
-import { useDarkMode } from "../../../src/Contexts/DarkModeContext";
 import Protected from "../../Components/Protected/Protected";
 import {
   dailyDepositLimit,
@@ -34,6 +30,7 @@ import {
   drawerWidth,
   drawerWidth2,
   drawerWidth3,
+  media31_25em,
   media48em,
 } from "../../Constants/constants";
 import { useIsUserInformation } from "../../Hooks/useIsUserInformation";
@@ -49,26 +46,15 @@ import {
   generateTooltipTitles,
 } from "../../utils/utils";
 import CustomAvatar from "../Avatar/Avatar";
-import ListIconButton from "./ListIconButton";
-import HamburgerDrawer from "../HamburgerDrawer/HamburgerDrawer";
 import AppListComponent from "../HamburgerDrawer/AppListComponent";
-import AutoLogout from "../../Components/AutoLogout/AutoLogout";
-const StyledLink = styled.a`
-  border: none;
-  color: var(--color-text);
-  background-color: transparent;
-
-  &:hover {
-    color: var(--color-primary);
-    transform: translateY(-2px);
-    cursor: pointer;
-  }
-
-  &:active {
-    transform: translateY(0);
-  }
-`;
-
+import HamburgerDrawer from "../HamburgerDrawer/HamburgerDrawer";
+import ListIconButton from "./ListIconButton";
+import { Link } from "react-router-dom";
+import LightModeIcon from "@mui/icons-material/LightMode";
+import LoginIcon from "@mui/icons-material/Login";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import { useDarkMode } from "../../Contexts/DarkModeContext";
+import { useMediaQuery } from "@mui/material";
 export const IconStyle = {
   color: "var(--color-text)",
   "@media (max-width: 48em)": {
@@ -81,34 +67,21 @@ export const IconStyle = {
 
 export const StyledListItemText = styled(ListItemText)`
   & > span {
-    @media (max-width: 48em) {
+    ${media48em} {
       font-size: 0.8rem;
     }
 
-    @media (max-width: 31.25em) {
+    ${media31_25em} {
       font-size: 0.7rem;
     }
   }
 `;
 
-const StyledButton = styled.button`
-  border: none;
-  color: var(--color-text);
-  background-color: transparent;
-
-  &:hover {
-    color: var(--color-primary);
-    transform: translateY(-2px);
-    cursor: pointer;
-  }
-
-  &:active {
-    transform: translateY(0);
-  }
-`;
-
 export const StyledListItemIcon = styled(ListItemIcon)`
-  @media (max-width: 31.25em) {
+  ${media48em} {
+    min-width: 44px !important;
+  }
+  ${media31_25em} {
     min-width: 35px !important;
   }
 `;
@@ -186,7 +159,6 @@ const Drawer = muiStyled(MuiDrawer, {
 }));
 
 export default function DashboardLayout() {
-  const { toggleDarkMode, isDarkMode } = useDarkMode();
   const { mutateAsync: logout } = useLogout();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -199,6 +171,8 @@ export default function DashboardLayout() {
   const [openHamburgerDrawer, setOpenHamburgerDrawer] = React.useState(false);
   const toggleHamburgerDrawer = () => setOpenHamburgerDrawer((open) => !open);
   const toggleDrawer = () => setOpen((open) => !open);
+  const { isDarkMode, toggleDarkMode } = useDarkMode();
+  const isMax48em = useMediaQuery("(max-width: 48em)");
 
   const sidebarContent = [
     {
@@ -312,6 +286,8 @@ export default function DashboardLayout() {
               justifyContent: "end",
               [media48em]: {
                 gap: ".5rem",
+                paddingLeft: 0,
+                paddingRight: 0,
               },
             }}
           >
@@ -352,6 +328,7 @@ export default function DashboardLayout() {
               sx={{
                 "@media (max-width: 48em)": {
                   fontSize: ".9rem",
+                  paddingRight: "1rem",
                 },
                 "@media (max-width: 31.25em)": {
                   fontSize: ".7rem",
@@ -360,6 +337,32 @@ export default function DashboardLayout() {
             >
               {user?.user_metadata?.fullName}
             </Typography>
+
+            {/* <ListIconButton> */}
+            {!isMax48em && (
+              <>
+                <ListItemIcon
+                  onClick={toggleDarkMode}
+                  sx={{ minWidth: "40px" }}
+                >
+                  {isDarkMode ? (
+                    <DarkModeIcon
+                      sx={{ fontSize: "1.2rem", cursor: "pointer" }}
+                    />
+                  ) : (
+                    <LightModeIcon
+                      sx={{ fontSize: "1.2rem", cursor: "pointer" }}
+                    />
+                  )}
+                </ListItemIcon>
+
+                <Link to="/signIn">
+                  <LoginIcon sx={{ fontSize: "1.2rem" }} />
+                </Link>
+              </>
+            )}
+            {/* </ListIconButton> */}
+
             {/* <StyledLink onClick={toggleDarkMode}>
               {isDarkMode ? (
                 <DarkModeIcon
@@ -437,37 +440,58 @@ export default function DashboardLayout() {
               }}
             >
               {sidebarContent.map((cont) => (
-                <Tooltip
-                  key={cont.field}
-                  placement="right"
-                  arrow
-                  title={generateTooltipTitles(
-                    isInformationsCompleted,
-                    accounts?.length,
-                    cont.field
-                  )}
-                >
-                  <span>
-                    <ListIconButton
-                      onClick={toggleDrawer}
-                      disabled={
-                        !isInformationsCompleted ||
-                        (cont.field === "Transactions" &&
-                          accounts?.length === 0)
-                      }
-                      path={cont.path}
-                    >
-                      <StyledListItemIcon>{cont.icon}</StyledListItemIcon>
-                      <StyledListItemText
-                        primary={generatePrimarySidebarTexts(
-                          accounts?.length,
-                          cont.field
-                        )}
-                      />
-                    </ListIconButton>
-                  </span>
-                </Tooltip>
+                <>
+                  <Tooltip
+                    key={cont.field}
+                    placement="right"
+                    arrow
+                    title={generateTooltipTitles(
+                      isInformationsCompleted,
+                      accounts?.length,
+                      cont.field
+                    )}
+                  >
+                    <span>
+                      <ListIconButton
+                        onClick={toggleDrawer}
+                        disabled={
+                          !isInformationsCompleted ||
+                          (cont.field === "Transactions" &&
+                            accounts?.length === 0)
+                        }
+                        path={cont.path}
+                      >
+                        <StyledListItemIcon>{cont.icon}</StyledListItemIcon>
+                        <StyledListItemText
+                          primary={generatePrimarySidebarTexts(
+                            accounts?.length,
+                            cont.field
+                          )}
+                        />
+                      </ListIconButton>
+                    </span>
+                  </Tooltip>
+                </>
               ))}
+              {/* <span> */}
+              {/* <ListIconButton>
+                  <ListItemIcon onClick={toggleDarkMode}>
+                    {isDarkMode ? (
+                      <DarkModeIcon
+                        sx={{ fontSize: "1.2rem", cursor: "pointer" }}
+                      />
+                    ) : (
+                      <LightModeIcon
+                        sx={{ fontSize: "1.2rem", cursor: "pointer" }}
+                      />
+                    )}
+                  </ListItemIcon>
+
+                  <Link to="/signIn">
+                    <LoginIcon sx={{ fontSize: "1.2rem" }} />
+                  </Link>
+                </ListIconButton> */}
+              {/* </span> */}
               {/* <Tooltip
                 placement="right"
                 arrow
@@ -565,6 +589,33 @@ export default function DashboardLayout() {
                 </span>
               </Tooltip> */}
             </ListItem>
+            {/* <span
+              style={{
+                minHeight: "48px",
+                px: 2.5,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <ListIconButton>
+              <ListItemIcon onClick={toggleDarkMode} sx={{ minWidth: "40px" }}>
+                {isDarkMode ? (
+                  <DarkModeIcon
+                    sx={{ fontSize: "1.2rem", cursor: "pointer" }}
+                  />
+                ) : (
+                  <LightModeIcon
+                    sx={{ fontSize: "1.2rem", cursor: "pointer" }}
+                  />
+                )}
+              </ListItemIcon>
+
+              <Link to="/signIn">
+                <LoginIcon sx={{ fontSize: "1.2rem" }} />
+              </Link>
+              </ListIconButton>
+            </span> */}
           </List>
         </Drawer>
 

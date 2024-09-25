@@ -16,6 +16,7 @@ import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import LoginIcon from "@mui/icons-material/Login";
 import { useDarkMode } from "../../Contexts/DarkModeContext";
+import { ListItemIcon } from "@mui/material";
 
 function AppListComponent({
   isInformationsCompleted,
@@ -127,7 +128,7 @@ function AppListComponent({
           </span>
         </Tooltip>
 
-        <span>
+        {/* <span>
           <ListIconButton>
             <StyledListItemIcon onClick={toggleDarkMode}>
               {isDarkMode ? (
@@ -137,16 +138,34 @@ function AppListComponent({
               )}
             </StyledListItemIcon>
 
-            {/* <Divider
-              variant="middle"
-              orientation="vertical"
-              sx={{ border: "1px solid red", height: "100%" }}
-            /> */}
-
             <Link to="/signIn">
               <LoginIcon sx={{ fontSize: "1.2rem" }} />
             </Link>
           </ListIconButton>
+        </span> */}
+        <span
+          style={{
+            minHeight: "48px",
+            px: 2.5,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-evenly",
+            width: "74%",
+          }}
+        >
+          {/* <ListIconButton> */}
+          <ListItemIcon onClick={toggleDarkMode} sx={{ minWidth: "40px" }}>
+            {isDarkMode ? (
+              <DarkModeIcon sx={{ fontSize: "1.2rem", cursor: "pointer" }} />
+            ) : (
+              <LightModeIcon sx={{ fontSize: "1.2rem", cursor: "pointer" }} />
+            )}
+          </ListItemIcon>
+
+          <Link to="/signIn">
+            <LoginIcon sx={{ fontSize: "1.2rem" }} />
+          </Link>
+          {/* </ListIconButton> */}
         </span>
       </ListItem>
     </List>

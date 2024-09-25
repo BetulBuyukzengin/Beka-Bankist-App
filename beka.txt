@@ -59,16 +59,16 @@ göster (https://supabase.com/dashboard/project/zztdmxtwnkykekxoupjl/auth/provid
  Hareketsizlikte oturum kapatma yı etkınlestır)
  oturum actıktan sonra sayfa yenılendiğinde 404 hatası -hashrouter ile yaptım bak
 
-hamburger ın dark mode rengını yap
+Dashboard daki mainde height 100dvh verirsen diğer tablarda scroll gelmıyor
 sign ın lerı genıslet 
-update password text fieldlarda label da kutu cızgısı arasında mesafe cok var fonttan kaynaklı olab.
+text fieldlarda label da border arasında mesafe ayarı
 app ın font sıze ını yap respoda 
 tooltip mini ekranda tasıyor
-telefon kodu gelmiyor bayrak
+telefon kodu bayrak gelmiyor 
 birthday 1920 geliyor ilk
 adres formatını kaldır
-resım yuklerken foto secıldı yazısı butonda yazabılır , iconla text arası bos olsun azz
-setttigs baslıgının arka rengı dark moda da kotu
-hamburgerde tıklanınca kapansın
-accounts da heıght tma kaplamamıs mobılde
-transactions da slice undefıned hatasını duzellettım kontrolet!
+resım yuklerken foto secıldı yazısı butonda yazabılır ,iconla text arası bos olsun 
+transactions da slice undefıned hatasını kontrol et!
+Confirm delete butonlarını duzenle
+New Account taki txt field background ayarla
+lgin logout ıconları değiştir

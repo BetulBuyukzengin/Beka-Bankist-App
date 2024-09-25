@@ -67,7 +67,14 @@ const StyledMuiTelInput = styled(MuiTelInput)`
   width: 100%;
   & > div {
     color: var(--color-text);
+    ${media48em} {
+      font-size: 0.9rem;
+    }
+    ${media31_25em} {
+      font-size: 0.8rem;
+    }
   }
+
   & > div > fieldset {
     border-color: var(--color-border-2) !important;
   }
@@ -204,6 +211,7 @@ function AccountCreate({ setOpenCreateModal }) {
                 register={methods.register("bankName")}
                 error={errors?.bankName}
               />
+              ""
               {errors?.bankName && (
                 <FormHelperText error sx={{ marginLeft: ".8rem" }}>
                   {errors?.bankName?.message}

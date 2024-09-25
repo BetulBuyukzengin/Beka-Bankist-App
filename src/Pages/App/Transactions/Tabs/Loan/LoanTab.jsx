@@ -48,7 +48,6 @@ const transactionSteps = [
 const StyleDiv = styled.div`
   display: flex;
   justify-content: end;
-
 `;
 
 function LoanTab() {
@@ -163,11 +162,11 @@ function LoanTab() {
     }));
     const formDatas = {
       ...data,
-      applicantFullName: user.user_metadata.fullName,
+      applicantFullName: user?.user_metadata?.fullName,
       applicantIdentificationNumber: selectedAccount?.identificationNumber,
       applicantBirthday: selectedAccount?.birthday,
       isCreditPaid: false,
-      user_id: JSON.parse(data.selectedAccount).user_id,
+      user_id: JSON.parse(data.selectedAccount)?.user_id,
       applicantPaymentPlan: paymentData?.map((data) => {
         return {
           ...data,
