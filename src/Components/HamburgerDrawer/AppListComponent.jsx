@@ -14,9 +14,10 @@ import SettingsSuggestIcon from "@mui/icons-material/SettingsSuggest";
 import { Link } from "react-router-dom";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
-import LoginIcon from "@mui/icons-material/Login";
+import LogoutIcon from "@mui/icons-material/Logout";
 import { useDarkMode } from "../../Contexts/DarkModeContext";
 import { ListItemIcon } from "@mui/material";
+import { useLogout } from "../../services/userServices";
 
 function AppListComponent({
   isInformationsCompleted,
@@ -25,7 +26,7 @@ function AppListComponent({
   toggleDrawer,
 }) {
   const { isDarkMode, toggleDarkMode } = useDarkMode();
-
+  const { mutateAsync: logout } = useLogout();
   return (
     <List>
       <ListItem
@@ -153,7 +154,6 @@ function AppListComponent({
             width: "74%",
           }}
         >
-          {/* <ListIconButton> */}
           <ListItemIcon onClick={toggleDarkMode} sx={{ minWidth: "40px" }}>
             {isDarkMode ? (
               <DarkModeIcon sx={{ fontSize: "1.2rem", cursor: "pointer" }} />
@@ -162,10 +162,9 @@ function AppListComponent({
             )}
           </ListItemIcon>
 
-          <Link to="/signIn">
-            <LoginIcon sx={{ fontSize: "1.2rem" }} />
-          </Link>
-          {/* </ListIconButton> */}
+          <button onClick={logout}>
+            <LogoutIcon sx={{ fontSize: "1.2rem" }} />
+          </button>
         </span>
       </ListItem>
     </List>

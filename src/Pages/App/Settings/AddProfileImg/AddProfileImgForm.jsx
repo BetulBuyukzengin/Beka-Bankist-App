@@ -20,7 +20,6 @@ const VisuallyHiddenInput = styled("input")({
 });
 
 function AddProfileImgForm() {
-  const [file, setFile] = useState("");
   const { handleSubmit } = useForm();
   const { isPending, mutateAsync: uploadImg } = useUploadImg();
   const { user } = useUser();
@@ -31,7 +30,9 @@ function AddProfileImgForm() {
     setSelectedFile(file);
   };
   const onSubmit = async () => {
-    await uploadImg(file);
+    console.log(selectedFile);
+    if (!selectedFile) return;
+    await uploadImg(selectedFile);
   };
 
   return (
@@ -70,7 +71,6 @@ function AddProfileImgForm() {
           disabled={isPending}
           size="small"
           sx={{
-            // width: "30%",
             width: "40%",
             [media84_37em]: {
               width: "100%",
@@ -101,7 +101,6 @@ function AddProfileImgForm() {
           buttonText="Upload Image"
           type="submit"
           style={{
-            // width: "30%",
             width: "40%",
             [media84_37em]: {
               width: "100%",
