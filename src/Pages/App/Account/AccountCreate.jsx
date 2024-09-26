@@ -65,6 +65,15 @@ const branchContent = [
 ];
 const StyledMuiTelInput = styled(MuiTelInput)`
   width: 100%;
+
+  & > label {
+    ${media48em} {
+      font-size: 0.9rem;
+    }
+    ${media31_25em} {
+      font-size: 0.8rem;
+    }
+  }
   & > div {
     color: var(--color-text);
     ${media48em} {
@@ -93,7 +102,9 @@ const StyledMuiTelInput = styled(MuiTelInput)`
   }
 `;
 const StyledContainer = styled.div`
-  /* display: flex; */
+  ${media48em} {
+    display: flex;
+  }
 `;
 const StyledLabel = styled.label`
   font-size: 1rem;
@@ -204,14 +215,14 @@ function AccountCreate({ setOpenCreateModal }) {
             </Grid>
             <Grid item xs={12} sm={6}>
               <CustomSelect
-                width="100%"
+                fullWidth
                 openedBankNames={openedBankNames}
                 data={bankContent}
                 defaultValue=""
                 register={methods.register("bankName")}
                 error={errors?.bankName}
               />
-              ""
+
               {errors?.bankName && (
                 <FormHelperText error sx={{ marginLeft: ".8rem" }}>
                   {errors?.bankName?.message}
@@ -220,7 +231,7 @@ function AccountCreate({ setOpenCreateModal }) {
             </Grid>
             <Grid item xs={12} sm={6}>
               <CustomSelect
-                width="100%"
+                fullWidth
                 data={branchContent}
                 defaultValue=""
                 register={methods.register("bankBranch")}
@@ -248,6 +259,12 @@ function AccountCreate({ setOpenCreateModal }) {
                   },
                   "&>label": {
                     color: "var(--color-text)",
+                    [media48em]: {
+                      fontSize: ".9rem",
+                    },
+                    [media31_25em]: {
+                      fontSize: ".8rem",
+                    },
                   },
                   "& > .Mui-disabled": {
                     borderColor: "var(--color-border-2) !important",
@@ -262,6 +279,12 @@ function AccountCreate({ setOpenCreateModal }) {
                     },
                   },
                   "& div > input": {
+                    [media48em]: {
+                      fontSize: ".9rem",
+                    },
+                    [media31_25em]: {
+                      fontSize: ".8rem",
+                    },
                     "&:disabled": {
                       WebkitTextFillColor: "var(--color-text) !important",
                       color: "var(--color-text) !important",
@@ -273,7 +296,7 @@ function AccountCreate({ setOpenCreateModal }) {
             <Grid
               item
               xs={12}
-              sm={6}
+              // sm={6}
               sx={{
                 display: "flex",
                 justifyContent: "center",
@@ -297,10 +320,21 @@ function AccountCreate({ setOpenCreateModal }) {
                 disabled={!checked || isPending}
                 type="submit"
                 buttonText="create"
+                style={{
+                  marginTop: "1rem",
+                }}
               />
             </Grid>
           </Grid>
           <CustomModal
+            modalBoxStyles={{
+              height: "100%",
+              padding: "7rem 2rem",
+
+              [media48em]: {
+                padding: "5rem .9rem",
+              },
+            }}
             open={open}
             setOpen={setOpen}
             title="Bank Account Opening Disclosure and Approval Form"

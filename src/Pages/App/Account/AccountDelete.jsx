@@ -43,6 +43,9 @@ function AccountDelete() {
         onChange={(e) => {
           handleChange(e.target.value);
         }}
+        customRadioStyles={{
+          gap: ".5rem",
+        }}
       />
       <CustomModal
         open={open}
@@ -50,6 +53,11 @@ function AccountDelete() {
         title="Confirm Delete"
         clearParamsCallBack={clearSearchParams}
         shouldClearParamsOnClose
+        modalBoxStyles={{
+          maxHeight: "60dvh",
+          maxWidth: "43rem",
+          padding: "3rem 1rem",
+        }}
       >
         <DeleteAccountConfirmationScreen
           setOpen={setOpen}

@@ -1,12 +1,11 @@
 import { Box, Typography } from "@mui/material";
 import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import AppSlider from "../../../Components/AppSlider/AppSlider";
 import CustomMenuIcon from "../../../Components/CustomMenuIcon/CustomMenuIcon";
 import CustomModal from "../../../Components/CustomModal/CustomModal";
-import AccountCreate from "./AccountCreate";
-import AccountDelete from "./AccountDelete";
-import { useSearchParams } from "react-router-dom";
 import { media31_25em, media48em } from "../../../Constants/constants";
+import AccountDelete from "./AccountDelete";
 import BankAccountCreate from "./BankAccountCreate";
 
 function CurrentAccounts() {
@@ -44,6 +43,8 @@ function CurrentAccounts() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          position: "relative",
+          paddingTop: "1rem",
         }}
       >
         <Typography
@@ -67,7 +68,7 @@ function CurrentAccounts() {
         >
           MY ACCOUNTS
         </Typography>
-        <CustomMenuIcon contents={menuIconContents} />
+        <CustomMenuIcon contents={menuIconContents} isAccountsPage />
       </Box>
       <AppSlider />
       <CustomModal
@@ -79,7 +80,6 @@ function CurrentAccounts() {
           },
         }}
       >
-        {/* <AccountCreate setOpenCreateModal={setOpenCreateAccount} /> */}
         <BankAccountCreate setOpenCreateModal={setOpenCreateAccount} />
       </CustomModal>
       <CustomModal
@@ -87,6 +87,12 @@ function CurrentAccounts() {
         setOpen={setOpenDeleteAccount}
         shouldClearParamsOnClose
         clearParamsCallBack={clearSearchParams}
+        modalBoxStyles={{
+          maxHeight: "90dvh",
+          maxWidth: "43rem",
+          height: "auto",
+        }}
+        title="Your Accounts"
       >
         <AccountDelete />
       </CustomModal>

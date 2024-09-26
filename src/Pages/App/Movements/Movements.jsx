@@ -10,30 +10,14 @@ function Movements() {
   if (isLoading) return <Loader />;
   return (
     <>
-      {/* <h3
-        style={{
-          backgroundColor: "transparent",
-          color: "var(--color-text)",
-          textAlign: "center",
-          marginBottom: 0,
-          paddingTop: "1rem",
-          fontSize: "1.5rem",
-        }}
-      >
-        MOVEMENTS
-      </h3> */}
       <Typography
         component="h3"
         sx={{
           backgroundColor: "transparent",
           color: "var(--color-text)",
-          // marginRight: "auto",
-          // marginLeft: "auto",
-          // marginBottom: 0,
           textAlign: "center",
           fontSize: "1.5rem",
           fontWeight: "bold",
-
           [media48em]: {
             fontSize: "1.2rem",
           },

@@ -13,6 +13,7 @@ function CustomSelect({
   error,
   defaultValue,
   openedBankNames,
+  fullWidth,
 }) {
   return (
     <Select
@@ -34,7 +35,7 @@ function CustomSelect({
             borderColor: "var(--color-border-2)",
           },
           "@media (max-width:48em)": {
-            width: "80%",
+            width: fullWidth ? "100%" : "80%",
           },
         },
         "@media (max-width:48em)": {

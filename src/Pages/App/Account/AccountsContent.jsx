@@ -67,6 +67,8 @@ function AccountsContent({ item }) {
             display: "grid",
             gridTemplateColumns: "2fr 3fr",
             alignItems: "baseline",
+            paddingLeft: "0!important",
+
             "@media (max-width: 31.25em)": {
               gridTemplateColumns: "1fr 4fr",
             },
@@ -88,8 +90,10 @@ function AccountsContent({ item }) {
             display: "grid",
             gridTemplateColumns: "2fr 3fr",
             alignItems: "baseline",
+            paddingLeft: "0!important",
+
             "@media (max-width: 31.25em)": {
-              gridTemplateColumns: "1fr 4fr",
+              gridTemplateColumns: "2fr 4fr",
             },
           }}
         >

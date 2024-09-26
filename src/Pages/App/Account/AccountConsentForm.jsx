@@ -1,9 +1,10 @@
 /* eslint-disable react/prop-types */
 import { Grid, List, ListItem, ListItemText, Typography } from "@mui/material";
-import { useFormContext } from "react-hook-form";
+import CustomButton from "../../../Components/CustomButton/CustomButton";
+import { media31_25em, media48em } from "../../../Constants/constants";
+import { useCurrentUser } from "../../../Hooks/useCurrentUser";
 import { useUser } from "../../../services/userServices";
 import { formatDate } from "../../../utils/utils";
-import CustomButton from "../../../Components/CustomButton/CustomButton";
 
 const formContents = [
   {
@@ -33,27 +34,59 @@ const formContents = [
   },
 ];
 
-function Text({ content, type }) {
+function Text({ content, holderInformation }) {
   return (
-    <Grid container sx={{ alignItems: "center" }}>
-      <Grid item xs={type === "openingInfo" ? 12 : 3}>
-        <Typography variant="h6">{content.title}:</Typography>
+    <Grid
+      container
+      sx={{
+        alignItems: "center",
+      }}
+    >
+      <Grid item xs={12} sm={holderInformation ? 4 : 12}>
+        <Typography
+          variant="h6"
+          sx={{
+            fontWeight: "bold",
+            [media48em]: {
+              fontSize: ".9rem",
+            },
+            [media31_25em]: {
+              fontSize: ".8rem",
+            },
+          }}
+        >
+          {content.title}:
+        </Typography>
       </Grid>
-      <Grid item xs={type === "openingInfo" ? 12 : 9}>
-        <Typography variant="body2">{content.description}</Typography>
+      <Grid item xs={12} sm={holderInformation ? 8 : 12}>
+        <Typography
+          variant="body2"
+          sx={{
+            [media48em]: {
+              fontSize: ".9rem",
+            },
+            [media31_25em]: {
+              fontSize: ".8rem",
+            },
+          }}
+        >
+          {content.description}
+        </Typography>
       </Grid>
     </Grid>
   );
 }
 export default function AccountConsentForm({ setChecked, setOpen }) {
-  const { getValues } = useFormContext();
-  const { fullName, address } = getValues();
+  const {
+    currentUser: { fullName, applicantAddress },
+  } = useCurrentUser();
+
   const { user } = useUser();
   const date = new Date();
-
+  console.log(fullName, applicantAddress);
   const accountHoldersInformations = [
     { title: "Name - Surname", description: fullName },
-    { title: "Address", description: address },
+    { title: "Address", description: applicantAddress },
     { title: "E-mail Address", description: user.email },
   ];
   function handleClick() {
@@ -62,9 +95,25 @@ export default function AccountConsentForm({ setChecked, setOpen }) {
   }
 
   return (
-    <Grid container spacing={3}>
+    <Grid
+      container
+      spacing={3}
+      sx={{
+        height: "100%",
+      }}
+    >
       <Grid item xs={12}>
-        <Typography variant="body2">
+        <Typography
+          variant="body2"
+          sx={{
+            [media48em]: {
+              fontSize: ".9rem",
+            },
+            [media31_25em]: {
+              fontSize: ".8rem",
+            },
+          }}
+        >
           This document is intended for the following person(s)
           <strong> {fullName}</strong> to inform and consent to the opening of a
           bank account. The Account Holder has understood and accepted the
@@ -72,12 +121,22 @@ export default function AccountConsentForm({ setChecked, setOpen }) {
         </Typography>
       </Grid>
       <Grid item xs={12}>
-        <Typography variant="h5">
+        <Typography
+          variant="h5"
+          sx={{
+            [media48em]: {
+              fontSize: "1rem",
+            },
+            [media31_25em]: {
+              fontSize: ".9rem",
+            },
+          }}
+        >
           <strong>Account Holder Information:</strong>
         </Typography>
         <List
           sx={{
-            bgcolor: "background.paper",
+            backgroundColor: "transparent",
             position: "relative",
             "& ul": { padding: 0 },
           }}
@@ -89,23 +148,53 @@ export default function AccountConsentForm({ setChecked, setOpen }) {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "start",
+                width: "100%",
+                [media48em]: {
+                  fontSize: "1rem",
+                  paddingLeft: "0",
+                  paddingRight: "0",
+                },
+                [media31_25em]: {
+                  fontSize: ".9rem",
+                },
               }}
             >
               <ListItemText
-                sx={{ width: "90%" }}
-                primary={<Text content={information} />}
+                sx={{
+                  width: "90%",
+                  [media48em]: {
+                    fontSize: "1rem",
+                    paddingLeft: "0",
+                    paddingRight: "0",
+                  },
+                  [media31_25em]: {
+                    fontSize: ".9rem",
+                  },
+                }}
+                primary={<Text content={information} holderInformation />}
               />
             </ListItem>
           ))}
         </List>
       </Grid>
       <Grid item xs={12}>
-        <Typography variant="h5">
+        <Typography
+          variant="h5"
+          sx={{
+            fontWeight: "bold",
+            [media48em]: {
+              fontSize: "1rem",
+            },
+            [media31_25em]: {
+              fontSize: ".9rem",
+            },
+          }}
+        >
           <strong>Bank Account Opening Information:</strong>
         </Typography>
         <List
           sx={{
-            bgcolor: "background.paper",
+            backgroundColor: "transparent",
             position: "relative",
             "& ul": { padding: 0 },
           }}
@@ -119,24 +208,63 @@ export default function AccountConsentForm({ setChecked, setOpen }) {
                 alignItems: "start",
               }}
             >
-              <ListItemText
-                primary={<Text content={content} type="openingInfo" />}
-              />
+              <ListItemText primary={<Text content={content} />} />
             </ListItem>
           ))}
         </List>
       </Grid>
       <Grid item xs={12}>
-        <Typography variant="h6">
+        <Typography
+          variant="h6"
+          sx={{
+            [media48em]: {
+              fontSize: "1rem",
+            },
+            [media31_25em]: {
+              fontSize: ".9rem",
+            },
+          }}
+        >
           <strong>Approval:</strong>
         </Typography>
-        <Typography variant="body2" sx={{ margin: ".5rem 0" }}>
+        <Typography
+          variant="body2"
+          sx={{
+            margin: ".5rem 0",
+            [media48em]: {
+              fontSize: ".9rem",
+            },
+            [media31_25em]: {
+              fontSize: ".8rem",
+            },
+          }}
+        >
           Based on the above information, the Account Holder, bank account
           opening for the necessary approval.
         </Typography>
-        <Typography variant="body1">{formatDate(date)}</Typography>
+        <Typography
+          variant="body1"
+          sx={{
+            [media48em]: {
+              fontSize: ".9rem",
+            },
+            [media31_25em]: {
+              fontSize: ".8rem",
+            },
+          }}
+        >
+          {formatDate(date)}
+        </Typography>
       </Grid>
-      <Grid item xs={12} sx={{ justifyContent: "center", display: "flex" }}>
+      <Grid
+        item
+        xs={12}
+        sx={{
+          justifyContent: "center",
+          display: "flex",
+          paddingBottom: "2rem",
+        }}
+      >
         <CustomButton buttonText="Read and Understood" onClick={handleClick} />
       </Grid>
     </Grid>

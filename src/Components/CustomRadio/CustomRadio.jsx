@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
-/* eslint-disable react/prop-types */
 import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
 import BankAccounts from "../../Pages/App/Transactions/Tabs/Transfer/BankAccounts";
 import Registereds from "../../Pages/App/Transactions/Tabs/Transfer/Registereds";
 import { useGetAccounts } from "../../services/accountServices";
 import Loader from "../Loader/Loader";
+import { media48em } from "../../Constants/constants";
 
 export default function CustomRadio({
   register,
@@ -15,11 +15,17 @@ export default function CustomRadio({
   monthlyPayment,
   registeredRecipients,
   isRegisteredRecipients,
+  customRadioStyles,
 }) {
   const { isLoading, accounts } = useGetAccounts();
 
   if (isLoading) return <Loader />;
-
+  const radioGrupStyles = {
+    display: "flex",
+    gap: "1rem",
+    cursor: "default",
+    flexDirection: "column",
+  };
   return (
     <RadioGroup
       aria-labelledby="selected-account-aria-label"
@@ -28,9 +34,8 @@ export default function CustomRadio({
       onChange={onChange}
       onClick={onClick}
       sx={{
-        display: "flex",
-        gap: "1rem",
-        cursor: "default",
+        ...radioGrupStyles,
+        ...customRadioStyles,
       }}
     >
       {isRegisteredRecipients
@@ -48,7 +53,7 @@ export default function CustomRadio({
                   sx={{
                     height: "7rem",
                     borderRadius: "0px",
-                    "@media (max-width:48em)": {
+                    [media48em]: {
                       height: "0rem",
                       "&>span>svg": {
                         fontSize: "1rem",
@@ -56,7 +61,7 @@ export default function CustomRadio({
                     },
                     "&+span": {
                       width: "17rem",
-                      "@media (max-width:48em)": {
+                      [media48em]: {
                         width: "10rem",
                       },
                     },

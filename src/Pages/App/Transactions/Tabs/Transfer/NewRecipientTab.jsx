@@ -4,6 +4,7 @@ import AccountNumberTab from "./AccountNumberTab";
 import { useSearchParams } from "react-router-dom";
 import { useFormContext } from "react-hook-form";
 import { useEffect } from "react";
+import { useMediaQuery } from "@mui/material";
 const content = [
   {
     label: "With Iban",
@@ -13,12 +14,12 @@ const content = [
 ];
 
 function NewRecipientTab({ iban, setIban }) {
-  const orientation = "vertical";
   const [searchParams, setSearchParams] = useSearchParams();
   const { resetField, watch } = useFormContext();
   const watchSaveAsRegisteredWithIban = watch("saveAsRegisteredWithIban");
-
   const watchSaveAsRegisteredWithAccount = watch("saveAsRegisteredWithAccount");
+  const isMax48em = useMediaQuery("(max-width: 48em)");
+  const orientation = isMax48em ? "horizontal" : "vertical";
 
   const mainTabLabel = content.map((tab) => {
     return tab.label;

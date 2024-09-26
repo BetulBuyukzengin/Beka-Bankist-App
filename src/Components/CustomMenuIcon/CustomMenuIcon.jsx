@@ -24,7 +24,7 @@ const ResponsiveMenuPaper = styled.div`
     width: 14ch;
   }
 `;
-export default function CustomMenuIcon({ contents }) {
+export default function CustomMenuIcon({ contents, isAccountsPage }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
@@ -37,7 +37,7 @@ export default function CustomMenuIcon({ contents }) {
   };
 
   return (
-    <div>
+    <div style={{ position: isAccountsPage && "absolute", right: 0 }}>
       <IconButton
         aria-label="more"
         id="long-button"

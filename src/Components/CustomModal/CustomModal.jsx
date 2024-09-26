@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Box, Modal, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import { media31_25em, media48em } from "../../Constants/constants";
 
 const style = {
   position: "absolute",
@@ -63,7 +64,17 @@ function CustomModal({
         {title && (
           <Typography
             variant="h4"
-            sx={{ marginBottom: "1rem", textAlign: "center" }}
+            sx={{
+              marginBottom: "1rem",
+              textAlign: "center",
+              fontWeight: "bold",
+              [media48em]: {
+                fontSize: "1rem",
+              },
+              [media31_25em]: {
+                fontSize: ".9rem",
+              },
+            }}
           >
             {title}
           </Typography>

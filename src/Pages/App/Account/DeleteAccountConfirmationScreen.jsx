@@ -6,7 +6,21 @@ import CustomButton from "../../../Components/CustomButton/CustomButton";
 import Loader from "../../../Components/Loader/Loader";
 import { useDeleteAccount } from "../../../services/accountServices";
 import { formatIBAN } from "../../../utils/utils";
+import styled from "styled-components";
+import { media31_25em, media48em } from "../../../Constants/constants";
 
+const StyledConfirmationContent = styled.p`
+  /* width: 70% */
+  font-size: 1.2rem;
+  text-align: start;
+
+  ${media48em} {
+    font-size: 0.9rem;
+  }
+  ${media31_25em} {
+    font-size: 0.8rem;
+  }
+`;
 function DeleteAccountConfirmationScreen({
   setOpen,
   clearParamsCallBack,
@@ -15,9 +29,10 @@ function DeleteAccountConfirmationScreen({
   const { handleSubmit } = useForm();
   const [searchParams] = useSearchParams();
   const accountToDelete = JSON.parse(searchParams.get("selectedAccount"));
-  const { mutateAsync: deleteAccount, isPending } = useDeleteAccount();
+  const { isPending } = useDeleteAccount();
 
   if (isPending) return <Loader />;
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Grid
@@ -25,52 +40,53 @@ function DeleteAccountConfirmationScreen({
         sx={{
           display: "flex",
           textAlign: "center",
+          justifyContent: "center",
         }}
       >
         <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
-          <p style={{ width: "70%" }}>
+          <StyledConfirmationContent>
             <strong>{formatIBAN(accountToDelete.accountNumber)}</strong> hesap
             numaralı
             <strong> {formatIBAN(accountToDelete.iban)}</strong> iban nolu
             hesabınızı kapatmak istediğinizden emin misiniz?
-          </p>
-        </Grid>
-        {/* <Grid
-          item
-          xs={12}
-          sx={{
-            width: "100%",
-            justifyContent: "space-between",
-          }}
-        >
-          <CustomButton
-            buttonText="Cancel"
-            onClick={() => {
-              setOpen(false);
-              clearParamsCallBack();
-            }}
-          />
-          <CustomButton buttonText="Delete" type="submit" />
-        </Grid> */}
-        <Grid item xs={12} sm={4}>
-          <CustomButton
-            buttonText="Cancel"
-            onClick={() => {
-              setOpen(false);
-              clearParamsCallBack();
-            }}
-          />
+          </StyledConfirmationContent>
         </Grid>
         <Grid
           item
           xs={12}
-          sm={4}
+          sm={6}
           sx={{
-            width: "100%",
-            justifyContent: "space-between",
+            display: "flex",
+            justifyContent: "space-evenly",
           }}
         >
-          <CustomButton buttonText="Delete" type="submit" />
+          <CustomButton
+            buttonText="Cancel"
+            onClick={() => {
+              setOpen(false);
+              clearParamsCallBack();
+            }}
+            style={{
+              [media48em]: {
+                fontSize: ".7rem",
+              },
+              [media31_25em]: {
+                fontSize: ".6rem",
+              },
+            }}
+          />
+          <CustomButton
+            buttonText="Delete"
+            type="submit"
+            style={{
+              [media48em]: {
+                fontSize: ".7rem",
+              },
+              [media31_25em]: {
+                fontSize: ".6rem",
+              },
+            }}
+          />
         </Grid>
       </Grid>
     </form>

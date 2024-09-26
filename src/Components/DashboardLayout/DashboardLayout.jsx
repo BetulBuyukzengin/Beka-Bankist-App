@@ -170,7 +170,7 @@ export default function DashboardLayout() {
   // Drawer state
   const [openHamburgerDrawer, setOpenHamburgerDrawer] = React.useState(false);
   const toggleHamburgerDrawer = () => setOpenHamburgerDrawer((open) => !open);
-  const toggleDrawer = () => setOpen((open) => !open);
+  const toggleDrawer = () => setOpen(false);
   const { isDarkMode, toggleDarkMode } = useDarkMode();
   const isMax48em = useMediaQuery("(max-width: 48em)");
 
@@ -361,45 +361,6 @@ export default function DashboardLayout() {
                 </Link>
               </>
             )}
-            {/* </ListIconButton> */}
-
-            {/* <StyledLink onClick={toggleDarkMode}>
-              {isDarkMode ? (
-                <DarkModeIcon
-                  sx={{
-                    "@media (max-width: 48em)": {
-                      fontSize: "1.3rem",
-                    },
-                    "@media (max-width: 31.25em)": {
-                      fontSize: "1rem",
-                    },
-                  }}
-                />
-              ) : (
-                <LightModeIcon
-                  sx={{
-                    "@media (max-width: 48em)": {
-                      fontSize: "1.3rem",
-                    },
-                    "@media (max-width: 31.25em)": {
-                      fontSize: "1rem",
-                    },
-                  }}
-                />
-              )}
-            </StyledLink>
-            <StyledButton onClick={logout}>
-              <LogoutIcon
-                sx={{
-                  "@media (max-width: 48em)": {
-                    fontSize: "1.3rem!important",
-                  },
-                  "@media (max-width: 31.25em)": {
-                    fontSize: "1rem!important",
-                  },
-                }}
-              />
-            </StyledButton> */}
           </Toolbar>
         </AppBar>
 

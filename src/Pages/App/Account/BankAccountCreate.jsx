@@ -26,6 +26,7 @@ function BankAccountCreate({ setOpenCreateModal }) {
           marginBottom: 0,
           fontSize: "1.5rem",
           fontWeight: "bold",
+          margin: "1rem 0",
 
           [media48em]: {
             fontSize: "1.2rem",

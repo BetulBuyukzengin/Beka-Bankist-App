@@ -12,10 +12,10 @@ const StyledH6 = styled.h6`
   color: var(--color-text);
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   @media (max-width: 48em) {
-    font-size: 0.7rem;
+    font-size: 0.9rem;
   }
   @media (max-width: 31.25em) {
-    font-size: 0.6rem;
+    font-size: 0.8rem;
   }
 `;
 const StyledH5 = styled.h5`
@@ -23,10 +23,10 @@ const StyledH5 = styled.h5`
   font-size: 1.1rem;
   color: var(--color-text);
   @media (max-width: 48em) {
-    font-size: 0.7rem;
+    font-size: 0.9rem;
   }
   @media (max-width: 31.25em) {
-    font-size: 0.6rem;
+    font-size: 0.8rem;
   }
 `;
 const StyledCheckComponent = styled.div`
