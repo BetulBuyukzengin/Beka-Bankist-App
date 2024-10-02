@@ -1,8 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import CustomSettingsContent from "../../../Components/CustomSettingsContent/CustomSettingsContent";
-import UpdatePersonalInformationForm from "./UpdatePersonalInformation/UpdatePersonalInformationForm";
-
+import UpdatePersonalInformationForm from "../Settings/UpdatePersonalInformation/UpdatePersonalInformationForm";
 function PersonalInformationSettings({ isPersonalDatas }) {
   const [openModal, setOpenModal] = useState(false);
 

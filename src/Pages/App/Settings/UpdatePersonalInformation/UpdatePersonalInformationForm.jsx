@@ -68,7 +68,10 @@ const StyledUpdateUserTitle = styled.h4`
     font-size: 1rem;
   }
 `;
-function UpdatePersonalInformationForm({ isPersonalDatas, setOpenModal }) {
+export default function UpdatePersonalInformationForm({
+  isPersonalDatas,
+  setOpenModal,
+}) {
   const isMax48em = useMediaQuery("(max-width: 48em)");
 
   const { currentUser } = useCurrentUser();
@@ -194,7 +197,8 @@ function UpdatePersonalInformationForm({ isPersonalDatas, setOpenModal }) {
               disabled={isUpdating}
               label="Phone number"
               preferredCountries={["TR", "US", "KR"]}
-              value={phoneNumber}
+              value={phoneNumber || "+90"}
+              // defaultValue="+90"
               {...register("applicantPhoneNumber", {
                 validate: (value) =>
                   matchIsValidTel(value) || "Phone Number is not valid!",
@@ -350,5 +354,3 @@ function UpdatePersonalInformationForm({ isPersonalDatas, setOpenModal }) {
     </form>
   );
 }
-
-export default UpdatePersonalInformationForm;
