@@ -34,34 +34,33 @@ function Settings() {
       container
       gap={2}
       sx={{
-        // alignItems: "center",
         flexDirection: "column",
         height: "max-content",
         textAlign: "center",
         placeContent: "center",
       }}
     >
-      <Grid item xs={6}>
+      <Grid item xs={12} sm={6}>
         <StyledSettingsTitle>SETTINGS</StyledSettingsTitle>
       </Grid>
 
-      <Grid item xs={6}>
+      <Grid item xs={12} sm={6}>
         <PersonalInformationSettings
           isPersonalDatas={isInformationsCompleted}
         />
       </Grid>
       {isInformationsCompleted && (
         <>
-          <Grid item xs={6}>
+          <Grid item xs={12} sm={6}>
             <UpdateEmail />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} sm={6}>
             <UpdatePassword />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} sm={6}>
             <DeleteAppAccount />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} sm={6}>
             <AddProfileImgForm />
           </Grid>
         </>

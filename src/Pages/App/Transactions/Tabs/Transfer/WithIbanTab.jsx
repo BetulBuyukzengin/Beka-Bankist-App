@@ -108,11 +108,7 @@ function WithIbanTab({ iban, setIban }) {
             />
           </Grid>
         )}
-        <Grid
-          item
-          xs={watchSaveAsRegisteredWithIban ? 6 : 12}
-          sx={{ display: "flex", justifyContent: "end" }}
-        >
+        <Grid item xs={12} sx={{ display: "flex", justifyContent: "end" }}>
           <FormControlLabel
             sx={{
               "&> span:last-child": {

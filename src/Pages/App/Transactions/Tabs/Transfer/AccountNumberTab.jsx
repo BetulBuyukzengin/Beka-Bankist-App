@@ -194,12 +194,7 @@ function AccountNumberTab() {
             {}
           </Grid>
         )}
-        <Grid
-          item
-          xs={12}
-          sm={6}
-          sx={{ display: "flex", justifyContent: "end" }}
-        >
+        <Grid item xs={12} sx={{ display: "flex", justifyContent: "end" }}>
           <FormControlLabel
             sx={{
               "&> span:last-child": {

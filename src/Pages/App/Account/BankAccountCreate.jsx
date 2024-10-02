@@ -5,17 +5,6 @@ import AccountCreate from "./AccountCreate";
 function BankAccountCreate({ setOpenCreateModal }) {
   return (
     <>
-      {/* <h3
-        style={{
-          backgroundColor: "var(--color-background)",
-          color: "var(--color-text)",
-          textAlign: "center",
-          paddingTop: "1rem",
-          marginBottom: "1rem",
-        }}
-      >
-        Account Create
-      </h3> */}
       <Typography
         component="h3"
         sx={{
@@ -27,7 +16,7 @@ function BankAccountCreate({ setOpenCreateModal }) {
           fontSize: "1.5rem",
           fontWeight: "bold",
           margin: "1rem 0",
-
+          textAlign: "center",
           [media48em]: {
             fontSize: "1.2rem",
           },

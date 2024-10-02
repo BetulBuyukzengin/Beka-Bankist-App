@@ -14,12 +14,12 @@ function a11yProps(index) {
   };
 }
 
-const boxStyle = {
+const getBoxStyle = (orientation) => ({
   flexGrow: 1,
   display: "flex",
-  height: 224,
-};
-
+  minHeight: 180,
+  flexDirection: orientation === "horizontal" ? "column" : "row",
+});
 const tabVerticalStyle = {
   "&:not(:last-child)": {
     borderBottom: "1.5px solid var(--color-border-2)",
@@ -66,7 +66,7 @@ export default function CustomTabs({ content, orientation, tabName }) {
   }, [searchParams, tabName]);
 
   return (
-    <Box sx={orientation && boxStyle} {...swipeHandlers}>
+    <Box sx={orientation && getBoxStyle(orientation)} {...swipeHandlers}>
       <Tabs
         value={tabIndex}
         onChange={(event, newValue) => setTabIndex(newValue)}
@@ -135,7 +135,10 @@ export default function CustomTabs({ content, orientation, tabName }) {
         ))}
       </Tabs>
 
-      <div style={{ minHeight: "70dvh" }}>{content[tabIndex].component}</div>
+      {/* 
+      check!
+      <div style={{ minHeight: "70dvh" }}>{content[tabIndex].component}</div> */}
+      <div>{content[tabIndex].component}</div>
     </Box>
   );
 }
