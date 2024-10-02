@@ -18,6 +18,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { useDarkMode } from "../../Contexts/DarkModeContext";
 import { ListItemIcon } from "@mui/material";
 import { useLogout } from "../../services/userServices";
+import { generatePrimarySidebarTexts } from "../../utils/utils";
 
 function AppListComponent({
   isInformationsCompleted,
@@ -27,6 +28,29 @@ function AppListComponent({
 }) {
   const { isDarkMode, toggleDarkMode } = useDarkMode();
   const { mutateAsync: logout } = useLogout();
+
+  const sidebarContent = [
+    {
+      field: "Accounts",
+      path: "/applayout/account",
+      icon: <AccountBalanceWalletIcon sx={IconStyle} />,
+    },
+    {
+      field: "Movements",
+      path: "/applayout/movements",
+      icon: <TimelineIcon sx={IconStyle} />,
+    },
+    {
+      field: "Transactions",
+      path: "/applayout/transactions",
+      icon: <CurrencyExchange sx={IconStyle} />,
+    },
+    {
+      field: "Settings",
+      path: "/applayout/settings",
+      icon: <SettingsSuggestIcon sx={IconStyle} />,
+    },
+  ];
   return (
     <List>
       <ListItem
@@ -35,115 +59,42 @@ function AppListComponent({
           display: "block",
         }}
       >
-        {/* <ListIconButton path={"/applayout/accounts"}> */}
-        <Tooltip
-          placement="right"
-          arrow
-          title={
-            !isInformationsCompleted
-              ? "Complete your personal information before starting"
-              : !accounts?.length
-              ? "Create Account"
-              : "Accounts"
-          }
-        >
-          <span>
-            <ListIconButton
-              onClick={toggleDrawer}
-              disabled={!isInformationsCompleted}
-              path="/applayout/account"
-            >
-              <StyledListItemIcon>
-                <AccountBalanceWalletIcon sx={IconStyle} />
-              </StyledListItemIcon>
-              <StyledListItemText
-                primary={!accounts?.length ? "Create Account" : "Accounts"}
-              />
-            </ListIconButton>
-          </span>
-        </Tooltip>
-        <Tooltip
-          placement="right"
-          arrow
-          title={
-            !isInformationsCompleted
-              ? "Complete your personal information before starting"
-              : "Movements"
-          }
-        >
-          <span>
-            <ListIconButton
-              onClick={toggleDrawer}
-              disabled={!isInformationsCompleted}
-              path={"/applayout/movements"}
-            >
-              <StyledListItemIcon>
-                <TimelineIcon sx={IconStyle} />
-              </StyledListItemIcon>
-              <StyledListItemText primary="Movements" />
-            </ListIconButton>
-          </span>
-        </Tooltip>
-        <Tooltip
-          placement="right"
-          arrow
-          title={
-            !isInformationsCompleted
-              ? "Complete your personal information before starting"
-              : !accounts?.length
-              ? "Create a bank account before using transactions"
-              : "Transactions"
-          }
-        >
-          <span>
-            <ListIconButton
-              onClick={toggleDrawer}
-              disabled={!isInformationsCompleted || !accounts?.length}
-              path={"/applayout/transactions"}
-              callback={setUrlParams}
-              isTransactionButton
-            >
-              <StyledListItemIcon>
-                <CurrencyExchange sx={IconStyle} />
-              </StyledListItemIcon>
-              <StyledListItemText primary="Transactions" />
-            </ListIconButton>
-          </span>
-        </Tooltip>
-        <Tooltip
-          placement="right"
-          arrow
-          title={
-            !isInformationsCompleted
-              ? "Complete your personal information before starting"
-              : "Settings"
-          }
-        >
-          <span>
-            <ListIconButton path={"/applayout/settings"} onClick={toggleDrawer}>
-              <StyledListItemIcon>
-                <SettingsSuggestIcon sx={IconStyle} />
-              </StyledListItemIcon>
-              <StyledListItemText primary="Settings" />
-            </ListIconButton>
-          </span>
-        </Tooltip>
+        {sidebarContent.map((cont) => (
+          <Tooltip
+            key={cont.field}
+            placement="right"
+            arrow
+            title={(isInformationsCompleted, accounts?.length, cont.field)}
+            // title={
+            //   !isInformationsCompleted
+            //     ? "Complete your personal information before starting"
+            //     : !accounts?.length
+            //     ? "Create Account"
+            //     : "Accounts"
+            // }
+          >
+            <span>
+              <ListIconButton
+                onClick={toggleDrawer}
+                disabled={
+                  !isInformationsCompleted ||
+                  (cont.field === "Transactions" && accounts?.length === 0)
+                }
+                path={cont.path}
+              >
+                <StyledListItemIcon>{cont.icon}</StyledListItemIcon>
 
-        {/* <span>
-          <ListIconButton>
-            <StyledListItemIcon onClick={toggleDarkMode}>
-              {isDarkMode ? (
-                <DarkModeIcon sx={{ fontSize: "1.2rem", cursor: "pointer" }} />
-              ) : (
-                <LightModeIcon sx={{ fontSize: "1.2rem", cursor: "pointer" }} />
-              )}
-            </StyledListItemIcon>
+                <StyledListItemText
+                  primary={generatePrimarySidebarTexts(
+                    accounts?.length,
+                    cont.field
+                  )}
+                />
+              </ListIconButton>
+            </span>
+          </Tooltip>
+        ))}
 
-            <Link to="/signIn">
-              <LoginIcon sx={{ fontSize: "1.2rem" }} />
-            </Link>
-          </ListIconButton>
-        </span> */}
         <span
           style={{
             minHeight: "48px",
@@ -162,7 +113,7 @@ function AppListComponent({
             )}
           </ListItemIcon>
 
-          <button onClick={logout}>
+          <button onClick={logout} style={{ border: "none" }}>
             <LogoutIcon sx={{ fontSize: "1.2rem" }} />
           </button>
         </span>
