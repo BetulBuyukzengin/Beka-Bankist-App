@@ -178,11 +178,11 @@ function UpdatePersonalInformationForm({ isPersonalDatas, setOpenModal }) {
               register={{
                 ...register("applicantAddress", {
                   required: "Address is required!",
-                  pattern: {
-                    value: addressRegex,
-                    message:
-                      "Address format should match city,district,neighbourhood,street,door number without commas",
-                  },
+                  // pattern: {
+                  //   value: addressRegex,
+                  //   message:
+                  //     "Address format should match city,district,neighbourhood,street,door number without commas",
+                  // },
                 }),
               }}
               helperText={errors?.applicantAddress?.message}
