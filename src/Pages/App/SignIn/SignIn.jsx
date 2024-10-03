@@ -254,19 +254,13 @@ function SignIn() {
             </StyledLink>
           </Grid>
         </Grid>
-        {/* <div style={{ display: "flex", justifyContent: "center", gap: "1rem" }}>
-          <StyledButton type="submit" disabled={isLoading}>
-            Sign in
-          </StyledButton>
-          <StyledLink to="/signup">
-            <StyledButton type="button" disabled={isLoading}>
-              Sign Up
-            </StyledButton>
-          </StyledLink>
-        </div> */}
         <StyledLink
           to="/forgotPassword"
-          style={{ color: "var(--color-text)", textDecoration: "underline" }}
+          style={{
+            color: "var(--color-text)",
+            textDecoration: "underline",
+            margin: ".3rem 0",
+          }}
         >
           Forgot Password
         </StyledLink>
