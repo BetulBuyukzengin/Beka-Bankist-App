@@ -6,7 +6,11 @@ import { useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
-import { transferPrice } from "../../../../../Constants/constants";
+import {
+  media31_25em,
+  media48em,
+  transferPrice,
+} from "../../../../../Constants/constants";
 import {
   formatArrayWord,
   formatCurrency,
@@ -46,6 +50,12 @@ const StyledLabel = styled.label`
   text-align: center;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
+  ${media48em} {
+    font-size: 0.8rem;
+  }
+  ${media31_25em} {
+    font-size: 0.7rem;
+  }
 `;
 const StyledItem = styled(Paper)`
   width: 70%;
@@ -53,20 +63,20 @@ const StyledItem = styled(Paper)`
   color: var(--color-text) important !important;
   padding: 0.5rem 0rem;
   text-align: center;
-  @media (max-width: 48em) {
+  ${media48em} {
     font-size: 0.8rem;
   }
-  @media (max-width: 31.25em) {
+  ${media31_25em} {
     font-size: 0.7rem;
   }
 `;
 const StyledDiv = styled.div`
   margin-right: 1rem;
-  @media (max-width: 48em) {
+  ${media48em} {
     font-size: 0.8rem;
     margin-right: 0;
   }
-  @media (max-width: 31.25em) {
+  ${media31_25em} {
     font-size: 0.7rem;
   }
 `;
@@ -82,6 +92,8 @@ export default function TransactionControl() {
     "status",
     (getStatus === "New Recipient" ||
       getStatus === "Registered Recipients" ||
+      getStatus === "With Iban" ||
+      getStatus === "With Account Numbers" ||
       getStatus === "Transfer") &&
       "Transfer"
   );
@@ -99,7 +111,8 @@ export default function TransactionControl() {
     amountToSend,
     registeredRecipient,
   } = getValues();
-  const { accountNumber, balance } = JSON.parse(selectedAccount);
+  const { accountNumber, balance } =
+    selectedAccount && JSON.parse(selectedAccount);
 
   const registered = registeredRecipient && JSON.parse(registeredRecipient);
   return (
@@ -122,7 +135,7 @@ export default function TransactionControl() {
           },
         }}
       >
-        <StyledGrid item xs={8}>
+        <StyledGrid item xs={12}>
           <StyledItem>Recipient Account</StyledItem>
           {!registered ? (
             <StyledBox>
@@ -151,48 +164,49 @@ export default function TransactionControl() {
             <StyledBox>
               <StyledDiv>
                 Full Name:
-                {formatArrayWord(registered.recipientFullNameWithAccount) ||
-                  formatArrayWord(registered.recipientFullNameWithIban)}
+                {formatArrayWord(registered?.recipientFullNameWithAccount) ||
+                  formatArrayWord(registered?.recipientFullNameWithIban)}
               </StyledDiv>
-              {registered.recipientBankName && (
+              {registered?.recipientBankName && (
                 <StyledDiv>
-                  Bank Name: {formatWord(registered.recipientBankName)}
+                  Bank Name: {formatWord(registered?.recipientBankName)}
                 </StyledDiv>
               )}
-              {registered.recipientBankBranch && (
+              {registered?.recipientBankBranch && (
                 <StyledDiv>
-                  Bank Branch: {formatWord(registered.recipientBankBranch)}
+                  Bank Branch: {formatWord(registered?.recipientBankBranch)}
                 </StyledDiv>
               )}
               <StyledDiv>
-                {registered.recipientAccountNumber ? "Account Number" : "Iban"}:{" "}
-                {formatIBAN(registered.recipientAccountNumber) ||
-                  formatIBAN(registered.recipientIban)}
+                {registered?.recipientAccountNumber ? "Account Number" : "Iban"}
+                :
+                {formatIBAN(registered?.recipientAccountNumber) ||
+                  formatIBAN(registered?.recipientIban)}
               </StyledDiv>
             </StyledBox>
           )}
         </StyledGrid>
 
-        <StyledGrid item xs={8}>
+        <StyledGrid item xs={12}>
           <StyledItem>Sender Account</StyledItem>
           <StyledBox>
             <StyledDiv>Selected Account: {formatIBAN(accountNumber)}</StyledDiv>
             <StyledDiv>Balance: {formatCurrency(balance)}</StyledDiv>
           </StyledBox>
         </StyledGrid>
-        <StyledGrid item xs={8}>
+        <StyledGrid item xs={12}>
           <StyledItem>Amount: </StyledItem>
           <StyledBox>
             <StyledLabel>{formatCurrency(amountToSend)}</StyledLabel>
           </StyledBox>
         </StyledGrid>
-        <StyledGrid item xs={8}>
+        <StyledGrid item xs={12}>
           <StyledItem>Payment Method </StyledItem>
           <StyledBox>
             <StyledLabel>{generatePaymentMethod(paymentMethod)}</StyledLabel>
           </StyledBox>
         </StyledGrid>
-        <StyledGrid item xs={8}>
+        <StyledGrid item xs={12}>
           <StyledItem>Description </StyledItem>
           <StyledBox>
             <StyledLabel>
@@ -200,13 +214,13 @@ export default function TransactionControl() {
             </StyledLabel>
           </StyledBox>
         </StyledGrid>
-        <StyledGrid item xs={8}>
+        <StyledGrid item xs={12}>
           <StyledItem>Transfer Price</StyledItem>
           <StyledBox>
             <StyledLabel>{formatCurrency(transferPrice)}</StyledLabel>
           </StyledBox>
         </StyledGrid>
-        <StyledGrid item xs={8}>
+        <StyledGrid item xs={12}>
           <StyledItem>Transaction Date</StyledItem>
           <DatePicker
             value={date}
@@ -216,20 +230,62 @@ export default function TransactionControl() {
               setValue("transactionDate", newValue);
             }}
             disabled
+            // sx={{
+            //   marginTop: "1rem",
+            //   width: "70%",
+            //   "&:hover > div > fieldset": {
+            //     borderColor: "var(--color-text)!important",
+            //   },
+            //   "&>label": {
+            //     color: "var(--color-text)!important",
+            //   },
+            //   "& > div": {
+            //     color: "var(--color-text)!importan",
+
+            //     "& > fieldset": {
+            //       borderColor: "var(--color-border-2) !important",
+            //     },
+            //   },
+            // }}
             sx={{
+              // width: "100%",
+              // "&:hover > div > fieldset": {
+              //   borderColor: "var(--color-text)!important",
+              // },
+              // "&>label": {
+              //   color: "var(--color-text)!important",
+              //   backgroundColor: "transparent!important",
+              //   [media48em]: {
+              //     fontSize: ".8rem",
+              //   },
+              //   [media31_25em]: {
+              //     fontSize: ".7rem",
+              //   },
+              // },
               marginTop: "1rem",
               width: "70%",
-              "&:hover > div > fieldset": {
-                borderColor: "var(--color-text)!important",
+              "& > .Mui-disabled": {
+                borderColor: "var(--color-border-2) !important",
+                backgroundColor: "var(--color-background-3)",
               },
-              "&>label": {
-                color: "var(--color-text)",
-              },
+
               "& > div": {
                 color: "var(--color-text)",
 
                 "& > fieldset": {
                   borderColor: "var(--color-border-2) !important",
+                },
+              },
+              "& div > input": {
+                [media48em]: {
+                  fontSize: ".8rem",
+                },
+                [media31_25em]: {
+                  fontSize: ".7rem",
+                },
+                "&:disabled": {
+                  WebkitTextFillColor: "var(--color-text) !important",
+                  color: "var(--color-text) !important",
                 },
               },
             }}
