@@ -67,9 +67,11 @@ export function formatWord(word) {
 }
 
 export function formatArrayWord(words) {
-  const arrayWords = words.split(" ");
+  const arrayWords = words?.split(" ");
   return arrayWords
-    .map((word) => word?.charAt(0).toUpperCase() + word?.slice(1).toLowerCase())
+    ?.map(
+      (word) => word?.charAt(0).toUpperCase() + word?.slice(1).toLowerCase()
+    )
     .join(" ");
 }
 export function calculateAvailableMonthlyPayment(income, expense) {
