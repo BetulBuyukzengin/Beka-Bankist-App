@@ -28,14 +28,12 @@
  ✅ Registered recipients yoksa mesaj goster
  ✅ Radio ile hesap seçme hatası düzelt
  ✅ Hareketsizlikte oturum kapatma
- contact form da submit işlemini yap
- sign in de yanlış bilgi girildi hatası göster
+ ✅ contact form da submit işlemini yap
  Forgot password oto yonlendırme yapmıyor
  ❌ Anlaşma modalını düzelt
- ❌ Crypto-Borsa: Table / https://mui.com/material-ui/react-table/#sticky-header
  ❌ Dil destegini ayarla
  ❌ Sayfanın text içeriğini düzenle
- ❌ Responsive
+ ✅ Responsive
  ❌ Background dark mode da renk değiştir
  ❌ AccountCreate yerine CreateAccount şeklinde yapılabilir hepsını duzelt 
  ? Eğer şifremi unuttum ile yeni şifre oluşturulduğunda mevcut hesap giriş yapılı ise otomatik olarak çıkış yapmalı.
@@ -67,7 +65,6 @@ tooltip mini ekranda tasıyor
 telefon kodu bayrak gelmiyor 
 birthday 1920 geliyor ilk
 adres formatını kaldır
-resım yuklerken foto secıldı yazısı butonda yazabılır ,iconla text arası bos olsun 
 transactions da slice undefıned hatasını kontrol et!
 Confirm delete butonlarını duzenle
 New Account taki txt field background ayarla

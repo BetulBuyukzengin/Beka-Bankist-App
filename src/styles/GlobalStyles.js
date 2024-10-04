@@ -11,9 +11,8 @@ const GlobalStyles = createGlobalStyle`
         --color-background-2: rgba(245, 245, 245, 1);
         --color-background-3:rgba(152,146,146,0.1);
         --color-background-4:rgba(245, 245, 245, 1);
-
-        //yeni ekledıgım
         --color-background-5:rgba(255, 255, 255, 0.55);
+        --color-background-6 :rgba(255, 255, 255, 1);
         --color-menu-border:rgba(245, 245, 245, 0.8);
 
 
@@ -41,20 +40,12 @@ const GlobalStyles = createGlobalStyle`
         --color-text-2: rgba(247, 247, 247, 0.2);
         --color-background: rgba(10, 10, 10, 0.8);
         --color-background-1: #0F1214;
-
-        
-        /* --color-background: rgba(10, 10, 10, 0.64);  bunu yap*/
-
-      
         --color-background-2: rgba(10, 10, 10, 1);
         --color-background-3:rgba(239,239,239,0.1);
         --color-background-4:rgba(152,146,146,0.1);
-
-
-        --color-background-5:rgba(255, 255, 255, 0.15)
+        --color-background-5:rgba(255, 255, 255, 0.15);
+        --color-background-6 :rgba(10, 10, 10, 1);
         --color-menu-border:rgba(108, 117, 125, 1);
-
-
         --color-primary: #98aafb;
         --color-secondary: #6783fe;
         --color-accent: #c3eafe;
@@ -84,7 +75,7 @@ const GlobalStyles = createGlobalStyle`
     --radialPrimaryAccent: radial-gradient(#475ad4, #808fef);
     --radialSecondaryAccent: radial-gradient(#6e7eec, #808fef);
     --color-error:#d32f2f;
-    /* Belki kullanırız */
+    /*Maybe */
     /*
     --color-brand-50: #eef2ff;
     --color-brand-100: #e0e7ff;
