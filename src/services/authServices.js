@@ -26,6 +26,5 @@ export async function verifyUserPassword(userEmail, userPassword) {
   if (signInError) {
     toast.error("Current password is incorrect:", signInError.message);
     return false;
-  }
-  return true;
+  } else return true;
 }
