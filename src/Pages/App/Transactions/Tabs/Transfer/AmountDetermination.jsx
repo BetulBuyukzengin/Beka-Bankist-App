@@ -150,7 +150,7 @@ function AmountDetermination() {
         >
           <CustomTextField
             id="amountToSend"
-            width="tall"
+            textFieldStyles={{ width: "100%", padding: 0 }}
             label="Amount to send"
             value={amountToSendValue}
             onChange={(e) => handleAmountChange(e.target.value)}

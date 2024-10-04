@@ -67,6 +67,7 @@ const StyledMuiTelInput = styled(MuiTelInput)`
   width: 100%;
 
   & > label {
+    color: var(--color-text) !important;
     ${media48em} {
       font-size: 0.9rem;
     }
@@ -258,7 +259,8 @@ function AccountCreate({ setOpenCreateModal }) {
                     borderColor: "var(--color-text)!important",
                   },
                   "&>label": {
-                    color: "var(--color-text)",
+                    color: "var(--color-text)!important",
+                    backgroundColor: "transparent!important",
                     [media48em]: {
                       fontSize: ".9rem",
                     },

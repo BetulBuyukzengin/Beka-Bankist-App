@@ -4,6 +4,8 @@ import { useFormContext } from "react-hook-form";
 import { useSearchParams } from "react-router-dom";
 import CustomRadio from "../../../../../Components/CustomRadio/CustomRadio";
 import { useGetRegisteredRecipients } from "../../../../../services/registeredRecipientsServices";
+import styled from "styled-components";
+import { media31_25em, media48em } from "../../../../../Constants/constants";
 
 const GridStyle = {
   justifyContent: "center",
@@ -15,7 +17,16 @@ const GridStyle = {
     marginTop: "1rem",
   },
 };
-
+const StyledRegisteredUsers = styled.div`
+  text-align: center;
+  padding: 2rem 0;
+  ${media48em} {
+    font-size: 0.9rem;
+  }
+  ${media31_25em} {
+    font-size: 0.8rem;
+  }
+`;
 function RegisteredRecipientsTab() {
   const { data: registeredRecipients } = useGetRegisteredRecipients();
   const { register } = useFormContext();
@@ -27,9 +38,9 @@ function RegisteredRecipientsTab() {
   }
   if (registeredRecipients.length === 0)
     return (
-      <div style={{ textAlign: "center", padding: "2rem 0" }}>
+      <StyledRegisteredUsers>
         No registered users available...
-      </div>
+      </StyledRegisteredUsers>
     );
   return (
     <Grid

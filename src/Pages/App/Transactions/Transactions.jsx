@@ -73,7 +73,6 @@ function Transactions() {
           if (params.has(param)) newSearchParams.set(param, params.get(param));
         });
         const newUrl = `${pathname}?${newSearchParams.toString()}`; // Sadece path'i al, search kısmını temizle
-
         navigate(newUrl, { replace: true }); // replace: true, history stack'ini değiştirmeden yönlendirme yapar
       };
       if (currentParamValue !== prevParamValueRef.current) {

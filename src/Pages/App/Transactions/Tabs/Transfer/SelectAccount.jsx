@@ -8,10 +8,13 @@ import { useSearchParams } from "react-router-dom";
 const StyledBox = styled(Box)`
   background-color: transparent;
   display: flex;
+  width: 25%;
+  min-height: 35dvh;
+  height: auto;
   align-items: center;
   justify-content: center;
-  width: 25%;
   cursor: pointer;
+  margin-top: 0.6rem;
   @media (max-width: 48em) {
     width: 100%;
   }
