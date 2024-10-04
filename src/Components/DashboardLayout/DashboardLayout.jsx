@@ -3,10 +3,18 @@ import { CurrencyExchange } from "@mui/icons-material";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import LightModeIcon from "@mui/icons-material/LightMode";
+import LoginIcon from "@mui/icons-material/Login";
 import MenuIcon from "@mui/icons-material/Menu";
 import SettingsSuggestIcon from "@mui/icons-material/SettingsSuggest";
 import TimelineIcon from "@mui/icons-material/Timeline";
-import { ListItemIcon, ListItemText, Tooltip } from "@mui/material";
+import {
+  ListItemIcon,
+  ListItemText,
+  Tooltip,
+  useMediaQuery,
+} from "@mui/material";
 import MuiAppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -20,7 +28,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
 import { useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { styled } from "styled-components";
 import Protected from "../../Components/Protected/Protected";
 import {
@@ -33,13 +41,14 @@ import {
   media31_25em,
   media48em,
 } from "../../Constants/constants";
+import { useDarkMode } from "../../Contexts/DarkModeContext";
 import { useIsUserInformation } from "../../Hooks/useIsUserInformation";
 import AppLayout from "../../Pages/App/AppLayout";
 import {
   useDailyRemainingLimit,
   useGetAccounts,
 } from "../../services/accountServices";
-import { useLogout, useUser } from "../../services/userServices";
+import { useUser } from "../../services/userServices";
 import {
   calcRemainingLimitResetTime,
   generatePrimarySidebarTexts,
@@ -49,12 +58,7 @@ import CustomAvatar from "../Avatar/Avatar";
 import AppListComponent from "../HamburgerDrawer/AppListComponent";
 import HamburgerDrawer from "../HamburgerDrawer/HamburgerDrawer";
 import ListIconButton from "./ListIconButton";
-import { Link } from "react-router-dom";
-import LightModeIcon from "@mui/icons-material/LightMode";
-import LoginIcon from "@mui/icons-material/Login";
-import DarkModeIcon from "@mui/icons-material/DarkMode";
-import { useDarkMode } from "../../Contexts/DarkModeContext";
-import { useMediaQuery } from "@mui/material";
+import { useCurrentUser } from "../../Hooks/useCurrentUser";
 export const IconStyle = {
   color: "var(--color-text)",
   "@media (max-width: 48em)": {
@@ -159,7 +163,6 @@ const Drawer = muiStyled(MuiDrawer, {
 }));
 
 export default function DashboardLayout() {
-  const { mutateAsync: logout } = useLogout();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const { mutateAsync: updateDailyLimits } = useDailyRemainingLimit();
@@ -167,6 +170,8 @@ export default function DashboardLayout() {
   const { accounts } = useGetAccounts();
   const { isInformationsCompleted } = useIsUserInformation();
   const { user } = useUser();
+  const { currentUser } = useCurrentUser();
+
   // Drawer state
   const [openHamburgerDrawer, setOpenHamburgerDrawer] = React.useState(false);
   const toggleHamburgerDrawer = () => setOpenHamburgerDrawer((open) => !open);
@@ -325,6 +330,7 @@ export default function DashboardLayout() {
               noWrap
               component="div"
               sx={{
+                color: "var(--color-text)",
                 "@media (max-width: 48em)": {
                   fontSize: ".9rem",
                   paddingRight: "1rem",
@@ -334,7 +340,7 @@ export default function DashboardLayout() {
                 },
               }}
             >
-              {user?.user_metadata?.fullName}
+              {currentUser?.fullName}
             </Typography>
 
             {/* <ListIconButton> */}
@@ -413,7 +419,10 @@ export default function DashboardLayout() {
                   >
                     <span>
                       <ListIconButton
-                        onClick={toggleDrawer}
+                        onClick={() => {
+                          toggleDrawer();
+                          if (cont.field === "Transactions") setUrlParams();
+                        }}
                         disabled={
                           !isInformationsCompleted ||
                           (cont.field === "Transactions" &&
