@@ -259,7 +259,7 @@ function SignIn() {
           style={{
             color: "var(--color-text)",
             textDecoration: "underline",
-            margin: ".3rem 0",
+            margin: ".5rem 0",
           }}
         >
           Forgot Password
