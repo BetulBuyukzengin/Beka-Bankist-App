@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { MenuItem, Select, Tooltip } from "@mui/material";
+import { MenuItem, Select } from "@mui/material";
 
 function CustomSelect({
   value,
@@ -76,31 +76,6 @@ function CustomSelect({
         },
       }}
     >
-      {/* {data.map((item, index) => (
-        <Tooltip
-          arrow
-          key={index}
-          title={
-            openedBankNames?.includes(item.value)
-              ? `You have already an account on ${item.content}`
-              : null
-          }
-        >
-          <span>
-            <MenuItem
-              sx={{
-                pointerEvents: openedBankNames?.includes(item.value) && "none",
-              }}
-              key={index}
-              value={item.value}
-              disabled={openedBankNames?.includes(item.value)}
-            >
-              {item.content}
-            </MenuItem>
-          </span>
-        </Tooltip>
-      ))} */}
-
       {data.map((item, index) => (
         <MenuItem
           key={index}

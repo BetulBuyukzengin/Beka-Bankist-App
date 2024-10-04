@@ -81,7 +81,6 @@ function CustomTextField({
       id={id}
       type={type}
       label={label}
-      inputProps={inputProps}
       required={required}
       fullWidth
       disabled={disabled}
@@ -91,6 +90,7 @@ function CustomTextField({
       InputLabelProps={{
         shrink: true,
       }}
+      InputProps={inputProps}
     />
   );
 }

@@ -13,7 +13,6 @@ const StyledMenu = styled.div`
 `;
 export default function MenuIcon({ isMovementsTable, sortAndFilterOptions }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
-
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -54,10 +53,9 @@ export default function MenuIcon({ isMovementsTable, sortAndFilterOptions }) {
         onClose={handleClose}
         PaperProps={{
           style: {
-            backgroundColor: "var(--color-background-2)",
-
             maxHeight: ITEM_HEIGHT * 4.5,
             width: isMovementsTable ? "30ch" : "20ch",
+            backgroundColor: "var(--color-background-6)",
           },
         }}
       >
@@ -65,7 +63,9 @@ export default function MenuIcon({ isMovementsTable, sortAndFilterOptions }) {
           <MenuItem
             key={option.label}
             selected={option}
-            // sx={{ backgroundColor: "transparent!important" }}
+            sx={{
+              backgroundColor: "var(--color-background-6)!important",
+            }}
             onClick={() => {
               handleClose();
             }}
