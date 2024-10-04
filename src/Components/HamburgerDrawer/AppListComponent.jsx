@@ -113,7 +113,10 @@ function AppListComponent({
             )}
           </ListItemIcon>
 
-          <button onClick={logout} style={{ border: "none" }}>
+          <button
+            onClick={logout}
+            style={{ border: "none", backgroundColor: "transparent" }}
+          >
             <LogoutIcon sx={{ fontSize: "1.2rem" }} />
           </button>
         </span>
