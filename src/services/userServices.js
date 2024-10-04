@@ -20,8 +20,8 @@ export function useSignIn() {
       queryClient.setQueryData(["user"]);
       // navigate("/applayout/account", { replace: true });
     },
-    onError: () => {
-      toast.error("Sign in failed");
+    onError: (error) => {
+      toast.error(error.message);
     },
   });
   return { mutateAsync, isLoading };
@@ -81,7 +81,8 @@ async function signUp(data) {
       },
     },
   });
-
+  console.log(data);
+  console.log(error);
   if (error) throw new Error(error.message);
 
   if (user) {
