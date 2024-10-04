@@ -1,24 +1,22 @@
-import { Divider, Tooltip } from "@mui/material";
+import { CurrencyExchange } from "@mui/icons-material";
+import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import LightModeIcon from "@mui/icons-material/LightMode";
+import LogoutIcon from "@mui/icons-material/Logout";
+import SettingsSuggestIcon from "@mui/icons-material/SettingsSuggest";
+import TimelineIcon from "@mui/icons-material/Timeline";
+import { ListItemIcon, Tooltip } from "@mui/material";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import { useDarkMode } from "../../Contexts/DarkModeContext";
+import { useLogout } from "../../services/userServices";
+import { generatePrimarySidebarTexts } from "../../utils/utils";
 import {
   IconStyle,
   StyledListItemIcon,
   StyledListItemText,
 } from "../DashboardLayout/DashboardLayout";
 import ListIconButton from "../DashboardLayout/ListIconButton";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
-import TimelineIcon from "@mui/icons-material/Timeline";
-import { CurrencyExchange } from "@mui/icons-material";
-import SettingsSuggestIcon from "@mui/icons-material/SettingsSuggest";
-import { Link } from "react-router-dom";
-import DarkModeIcon from "@mui/icons-material/DarkMode";
-import LightModeIcon from "@mui/icons-material/LightMode";
-import LogoutIcon from "@mui/icons-material/Logout";
-import { useDarkMode } from "../../Contexts/DarkModeContext";
-import { ListItemIcon } from "@mui/material";
-import { useLogout } from "../../services/userServices";
-import { generatePrimarySidebarTexts } from "../../utils/utils";
 
 function AppListComponent({
   isInformationsCompleted,
@@ -75,7 +73,10 @@ function AppListComponent({
           >
             <span>
               <ListIconButton
-                onClick={toggleDrawer}
+                onClick={() => {
+                  toggleDrawer();
+                  if (cont.field === "Transactions") setUrlParams();
+                }}
                 disabled={
                   !isInformationsCompleted ||
                   (cont.field === "Transactions" && accounts?.length === 0)
