@@ -1,6 +1,6 @@
 # BEKA BANKIST APP
 
-## Canlı versiyon : <a href="https://beka-bankist-app.netlify.app">BEKA BANKIST</a>
+## Canlı versiyon : <a href="">BEKA BANKIST</a>
 
 - React js vite ile oluşturduğum bu uygulama, Beka Bankist i tanıtmak için web sitesi, işlemleri gerçekleştirmek için uygulama kısmı olmak üzere 2 kısımdan oluşan, kullanıcıların tek bir uygulama üzerinden farklı banka hesapları açarak transfer, kredi çekme, para yükleme ve para çekme işlemlerini yapabileceği bir uygulamadır.
 
