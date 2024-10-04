@@ -4,7 +4,7 @@ import CustomButton from "../../../Components/CustomButton/CustomButton";
 import { media31_25em, media48em } from "../../../Constants/constants";
 import { useCurrentUser } from "../../../Hooks/useCurrentUser";
 import { useUser } from "../../../services/userServices";
-import { formatDate } from "../../../utils/utils";
+import { formatArrayWord, formatDate } from "../../../utils/utils";
 
 const formContents = [
   {
@@ -83,10 +83,10 @@ export default function AccountConsentForm({ setChecked, setOpen }) {
 
   const { user } = useUser();
   const date = new Date();
-  console.log(fullName, applicantAddress);
+
   const accountHoldersInformations = [
-    { title: "Name - Surname", description: fullName },
-    { title: "Address", description: applicantAddress },
+    { title: "Name - Surname", description: formatArrayWord(fullName) },
+    { title: "Address", description: formatArrayWord(applicantAddress) },
     { title: "E-mail Address", description: user.email },
   ];
   function handleClick() {
@@ -115,9 +115,9 @@ export default function AccountConsentForm({ setChecked, setOpen }) {
           }}
         >
           This document is intended for the following person(s)
-          <strong> {fullName}</strong> to inform and consent to the opening of a
-          bank account. The Account Holder has understood and accepted the
-          information set out below.
+          <strong> {formatArrayWord(fullName)}</strong> to inform and consent to
+          the opening of a bank account. The Account Holder has understood and
+          accepted the information set out below.
         </Typography>
       </Grid>
       <Grid item xs={12}>
