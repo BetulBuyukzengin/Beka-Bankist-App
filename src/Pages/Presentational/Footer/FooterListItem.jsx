@@ -31,7 +31,6 @@ const StyledLink = styled.a`
   }
 `;
 function FooterListItem({ link }) {
-  console.log(link);
   return (
     <StyledItem>
       <StyledLink
