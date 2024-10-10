@@ -1,5 +1,5 @@
 import { createGlobalStyle } from "styled-components";
-import { media48em } from "../Constants/constants";
+import { media31_25em, media48em } from "../Constants/constants";
 
 const GlobalStyles = createGlobalStyle`
 @import url("https://fonts.googleapis.com/css?family=Kanit:400");
@@ -51,7 +51,10 @@ const GlobalStyles = createGlobalStyle`
         --color-accent: #c3eafe;
         --color-border: rgba(255, 255, 255, 0.03);
         --color-border-2: rgba(255, 255, 255, 0.33);
-        --color-gray: #a0a0a0;
+        /* --color-gray: #a0a0a0; */
+        --color-gray: #675d5d;
+
+
         --color-success: #2e7d32;
         --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
         --shadow-md: 0px 0.6rem 2.4rem rgba(0, 0, 0, 0.3);
@@ -176,18 +179,39 @@ img {
 }
 
 /* Toastify responsive */
-@media (max-width: 48em) {
-  .Toastify__toast {
-    font-size: .8rem; /* Yazı boyutunu küçült */
+.Toastify__toast-container
+{
+  width: 35%;
+  ${media48em}{
+    width:75%
+  }
+  ${media31_25em}{
+    width:100%
   }
 }
-@media (max-width: 31.25em) {
-  .Toastify__toast {
-    margin: .5rem;
-    width: 90%; /* Mobilde ekranın %90'ı kadar genişlik */
-    height:20px;
-    font-size: .7rem; /* Yazı boyutunu küçült */
+.Toastify__toast {
+  height: 100%;
+  ${media48em}{
+    font-size: .8rem; 
+  }
+  ${media31_25em} {
+      margin: .5rem;
+      width: 100%; /* Mobilde ekranın %100 ü kadar genişlik */
+      height:25px;
+      font-size: .7rem; 
   }
 }
+
+input{
+&:-webkit-autofill,
+&:-webkit-autofill:hover,
+&:-webkit-autofill:focus,
+&:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px var(--color-background) inset !important;
+  -webkit-text-fill-color: var(--color-text) !important;
+  transition: background-color 5000s ease-in-out 0s;
+}}
+
+
 `;
 export default GlobalStyles;
