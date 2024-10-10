@@ -325,7 +325,7 @@ function AccountCreate({ setOpenCreateModal }) {
                   marginTop: "1rem",
                   backgroundColor: "var(--color-background-3)",
                   border: "1px solid var(--color-background-3)",
-                  color: "var(--color-background-3)",
+                  color: "var(--color-text)",
                 }}
               />
             </Grid>
@@ -334,9 +334,11 @@ function AccountCreate({ setOpenCreateModal }) {
             modalBoxStyles={{
               height: "100%",
               padding: "7rem 2rem",
-
               [media48em]: {
+                width: "100%",
+                maxHeight: "100dvh",
                 padding: "5rem .9rem",
+                border: "none",
               },
             }}
             open={open}

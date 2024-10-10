@@ -34,7 +34,12 @@ function AccessDenied() {
           }}
         >
           <Grid item xs={12}>
-            <ArrowBackIcon onClick={() => navigate("/forgotPassword")} />
+            <ArrowBackIcon
+              onClick={() => navigate("/forgotPassword")}
+              sx={{
+                cursor: "pointer",
+              }}
+            />
           </Grid>
           <Grid
             item

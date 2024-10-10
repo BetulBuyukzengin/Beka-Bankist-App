@@ -93,6 +93,7 @@ export default function ReceiptContent({ row, setOpen }) {
       <ArrowBackIcon
         onClick={() => setOpen(false)}
         sx={{
+          cursor: "pointer",
           marginLeft: "1rem",
           [media48em]: {
             fontSize: "1.2rem",

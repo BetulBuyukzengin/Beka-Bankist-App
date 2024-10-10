@@ -17,7 +17,12 @@ function CustomButton({
       onClick={onClick}
       variant={variant || "outlined"}
       color={color || "primary"}
-      sx={style}
+      sx={{
+        ...style,
+        backgroundColor: disabled
+          ? "var(--color-background-3)"
+          : "var(--color-background=",
+      }}
     >
       {buttonText}
     </Button>

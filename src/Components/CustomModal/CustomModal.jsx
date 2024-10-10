@@ -84,7 +84,12 @@ function CustomModal({
           }}
         >
           <CloseIcon
-            sx={{ right: "1rem", top: "1rem", position: "absolute" }}
+            sx={{
+              right: "1rem",
+              top: "1rem",
+              position: "absolute",
+              cursor: "pointer",
+            }}
             onClick={() => {
               setOpen(false);
               if (shouldClearParamsOnClose) clearParamsCallBack();

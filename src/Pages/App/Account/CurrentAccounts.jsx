@@ -77,7 +77,10 @@ function CurrentAccounts() {
         setOpen={setOpenCreateAccount}
         modalBoxStyles={{
           [media48em]: {
+            width: "100%",
+            maxHeight: "100dvh",
             padding: "1.5rem .8rem",
+            border: "none",
           },
         }}
       >

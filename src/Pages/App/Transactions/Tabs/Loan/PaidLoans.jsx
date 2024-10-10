@@ -209,7 +209,12 @@ const PaidLoanPaymentTable = ({ loanId, setOpenLoanTable }) => {
           justifyContent: "space-between",
         }}
       >
-        <ArrowBackIcon onClick={() => setOpenLoanTable(false)} />
+        <ArrowBackIcon
+          onClick={() => setOpenLoanTable(false)}
+          sx={{
+            cursor: "pointer",
+          }}
+        />
 
         <StyledPaidLoanPaymentTable>
           Details of {formatDate(selectedLoan.created_at)} dated loan&apos;s

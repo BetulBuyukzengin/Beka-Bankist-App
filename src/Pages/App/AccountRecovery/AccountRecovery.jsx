@@ -144,6 +144,7 @@ function AccountRecovery() {
             <ArrowBackIcon
               onClick={() => navigate("/signIn")}
               sx={{
+                cursor: "pointer",
                 [media48em]: {
                   fontSize: "0.9rem",
                 },
