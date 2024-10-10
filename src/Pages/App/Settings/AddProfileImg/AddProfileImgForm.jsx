@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { useUploadImg, useUser } from "../../../../services/userServices";
 import CustomButton from "../../../../Components/CustomButton/CustomButton";
 import { media84_37em } from "../../../../Constants/constants";
+import { toast } from "react-toastify";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -30,7 +31,8 @@ function AddProfileImgForm() {
     setSelectedFile(file);
   };
   const onSubmit = async () => {
-    if (!selectedFile) return;
+    if (!selectedFile)
+      return toast.warning("Please select a profile picture before uploading!");
     await uploadImg(selectedFile);
   };
 
