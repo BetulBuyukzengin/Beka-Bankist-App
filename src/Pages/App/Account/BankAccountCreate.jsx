@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Typography } from "@mui/material";
 import { media31_25em, media48em } from "../../../Constants/constants";
 import AccountCreate from "./AccountCreate";

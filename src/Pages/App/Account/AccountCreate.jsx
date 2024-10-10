@@ -177,7 +177,6 @@ function AccountCreate({ setOpenCreateModal }) {
               display: "flex",
               paddingBottom: "1rem",
               paddingRight: "1rem",
-              // gap: ".5rem",
             }}
           >
             <Grid item xs={12} sm={6}>
