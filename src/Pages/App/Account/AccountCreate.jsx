@@ -336,6 +336,7 @@ function AccountCreate({ setOpenCreateModal }) {
               padding: "7rem 2rem",
               [media48em]: {
                 width: "100%",
+                height: "100dvh",
                 maxHeight: "100dvh",
                 padding: "5rem .9rem",
                 border: "none",
