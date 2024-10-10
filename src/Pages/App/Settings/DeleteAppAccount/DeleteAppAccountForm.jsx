@@ -9,6 +9,8 @@ import {
 } from "../../../../services/authServices";
 import styled from "styled-components";
 import { media31_25em, media48em } from "../../../../Constants/constants";
+import { useGetAccounts } from "../../../../services/accountServices";
+import { toast } from "react-toastify";
 
 const toastMessage = {
   success: "Account deleted successfully!",
@@ -40,14 +42,21 @@ function DeleteAppAccountForm() {
   const { mutateAsync: logOut } = useLogout();
   const { user } = useUser();
   const { mutateAsync: updateUser } = useUpdateUserInformation();
-
+  const { accounts, isLoading } = useGetAccounts();
+  const canBeDeleted = accounts?.every((account) => account.balance === 0);
   const onSubmit = async (formDatas) => {
     //! Current password is true or not
     const isCorrectPassword = await verifyUserPassword(
       user.email,
       formDatas.password
     );
-    if (isCorrectPassword) {
+    if (!canBeDeleted)
+      return toast.error(
+        "You cannot close your account because there is a remaining balance. Please clear your balance!"
+      );
+    // Hesabınızda kalan bakiye bulunduğu için hesabınızı kapatamazsınız. Lütfen hesabınızdaki bakiyeyi sıfırlayın
+    if (canBeDeleted && isCorrectPassword) {
+      // if (isCorrectPassword) {
       await updateUser({
         updatedUser: { data: { isAccountDeleted: true } },
         toastMessage,

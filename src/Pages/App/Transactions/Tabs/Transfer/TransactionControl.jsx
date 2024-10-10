@@ -230,48 +230,15 @@ export default function TransactionControl() {
               setValue("transactionDate", newValue);
             }}
             disabled
-            // sx={{
-            //   marginTop: "1rem",
-            //   width: "70%",
-            //   "&:hover > div > fieldset": {
-            //     borderColor: "var(--color-text)!important",
-            //   },
-            //   "&>label": {
-            //     color: "var(--color-text)!important",
-            //   },
-            //   "& > div": {
-            //     color: "var(--color-text)!importan",
-
-            //     "& > fieldset": {
-            //       borderColor: "var(--color-border-2) !important",
-            //     },
-            //   },
-            // }}
             sx={{
-              // width: "100%",
-              // "&:hover > div > fieldset": {
-              //   borderColor: "var(--color-text)!important",
-              // },
-              // "&>label": {
-              //   color: "var(--color-text)!important",
-              //   backgroundColor: "transparent!important",
-              //   [media48em]: {
-              //     fontSize: ".8rem",
-              //   },
-              //   [media31_25em]: {
-              //     fontSize: ".7rem",
-              //   },
-              // },
               marginTop: "1rem",
               width: "70%",
               "& > .Mui-disabled": {
                 borderColor: "var(--color-border-2) !important",
                 backgroundColor: "var(--color-background-3)",
               },
-
               "& > div": {
                 color: "var(--color-text)",
-
                 "& > fieldset": {
                   borderColor: "var(--color-border-2) !important",
                 },
