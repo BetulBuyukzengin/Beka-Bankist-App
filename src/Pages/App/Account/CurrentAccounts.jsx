@@ -50,7 +50,8 @@ function CurrentAccounts() {
         <Typography
           component="h3"
           sx={{
-            backgroundColor: "var(--color-background)",
+            // backgroundColor: "var(--color-background)",
+            backgroundColor: "transparent",
             color: "var(--color-text)",
             marginRight: "auto",
             marginLeft: "auto",
