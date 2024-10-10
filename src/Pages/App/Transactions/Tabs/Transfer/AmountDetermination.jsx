@@ -138,6 +138,10 @@ function AmountDetermination() {
             ...BoxStyle,
             padding: "0",
             border: "none",
+            "@media (max-width:48em)": {
+              padding: "0!important",
+              width: "80%",
+            },
             "&>div>p": {
               "@media (max-width:48em)": {
                 fontSize: ".7rem",

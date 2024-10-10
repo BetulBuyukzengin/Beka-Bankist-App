@@ -214,11 +214,20 @@ export default function TransferMoneyTab() {
     const updatedBalance = selectedAccount.balance - +data.amountToSend;
     const updatedRemainingLimit =
       selectedAccount.remainingTransferLimit - +data.amountToSend;
-    await createMovement({
-      ...data,
-      senderFullName,
-      user_id: JSON.parse(data.selectedAccount)?.user_id,
-    });
+    await createMovement(
+      {
+        ...data,
+        senderFullName,
+        user_id: JSON.parse(data.selectedAccount)?.user_id,
+      },
+      {
+        onSuccess: () => toast.success("Transfer was successfully completed"),
+        onError: () =>
+          toast.error(
+            "An error occurred during transfer transaction, please try again later!"
+          ),
+      }
+    );
     const updatedAccount = {
       ...selectedAccount,
       balance: updatedBalance,

@@ -29,13 +29,13 @@ export function useCreateMovements() {
     mutationFn: (data) => {
       createMovements(data);
     },
-    onSuccess: () => {
-      toast.success("Transfer was successfully completed");
-    },
-    onError: () =>
-      toast.error(
-        "An error occurred during transfer transaction, please try again later!"
-      ),
+    // onSuccess: () => {
+    //   toast.success("Transfer was successfully completed");
+    // },
+    // onError: () =>
+    //   toast.error(
+    //     "An error occurred during transfer transaction, please try again later!"
+    //   ),
   });
   return { isCreating, createMovement };
 }

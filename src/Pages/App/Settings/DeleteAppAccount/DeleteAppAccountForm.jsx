@@ -43,7 +43,7 @@ function DeleteAppAccountForm() {
   const { user } = useUser();
   const { mutateAsync: updateUser } = useUpdateUserInformation();
   const { accounts, isLoading } = useGetAccounts();
-  const canBeDeleted = accounts?.every((account) => account.balance === 0);
+  const canBeDeleted = accounts?.every((account) => account?.balance === 0);
   const onSubmit = async (formDatas) => {
     //! Current password is true or not
     const isCorrectPassword = await verifyUserPassword(

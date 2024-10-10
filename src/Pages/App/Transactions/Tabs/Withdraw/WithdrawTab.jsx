@@ -133,13 +133,22 @@ function WithdrawTab() {
       balance: currentBalance - Number(amountToSend),
     };
     await withdrawMoney({ id, account: updatedAccount });
-    await createMovement({
-      selectedAccount: updatedAccount,
-      status: getStatus,
-      amountToSend,
+    await createMovement(
+      {
+        selectedAccount: updatedAccount,
+        status: getStatus,
+        amountToSend,
 
-      user_id: JSON.parse(data.selectedAccount)?.user_id,
-    });
+        user_id: JSON.parse(data.selectedAccount)?.user_id,
+      },
+      {
+        onSuccess: () => toast.success("Withdraw was successfully completed"),
+        onError: () =>
+          toast.error(
+            "An error occurred during withdraw transaction, please try again later!"
+          ),
+      }
+    );
     navigate("/applayout/account");
   };
 
@@ -156,8 +165,8 @@ function WithdrawTab() {
         {activeStep === transactionSteps.length && (
           <StyledDiv>
             {isLoading
-              ? "Transfer transaction is in progress"
-              : "Transfer was successfully completed ..."}
+              ? "Withdraw transaction is in progress"
+              : "Withdraw was successfully completed ..."}
           </StyledDiv>
         )}
       </form>

@@ -28,7 +28,8 @@ function DeleteAccountConfirmationScreen({
 }) {
   const { handleSubmit } = useForm();
   const [searchParams] = useSearchParams();
-  const accountToDelete = JSON.parse(searchParams.get("selectedAccount"));
+  const accountToDelete =
+    accountToDelete && JSON.parse(searchParams.get("selectedAccount"));
   const { isPending } = useDeleteAccount();
 
   if (isPending) return <Loader />;
@@ -45,9 +46,9 @@ function DeleteAccountConfirmationScreen({
       >
         <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
           <StyledConfirmationContent>
-            <strong>{formatIBAN(accountToDelete.accountNumber)}</strong> hesap
+            <strong>{formatIBAN(accountToDelete?.accountNumber)}</strong> hesap
             numaralı
-            <strong> {formatIBAN(accountToDelete.iban)}</strong> iban nolu
+            <strong> {formatIBAN(accountToDelete?.iban)}</strong> iban nolu
             hesabınızı kapatmak istediğinizden emin misiniz?
           </StyledConfirmationContent>
         </Grid>
