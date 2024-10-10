@@ -2,6 +2,8 @@
 import { Box, Modal, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { media31_25em, media48em } from "../../Constants/constants";
+import { useSpring, animated } from "@react-spring/web";
+import React from "react";
 
 const style = {
   position: "absolute",
@@ -11,6 +13,7 @@ const style = {
   width: "90%",
   backgroundColor: "var(--color-background-2  )",
   border: "1px solid var(--color-gray)",
+  borderRadius: "5px",
   color: "var(--color-text)",
   boxShadow: 24,
   p: "3rem 2rem",
@@ -27,6 +30,31 @@ const style = {
     outline: "none",
   },
 };
+
+const Fade = React.forwardRef(function Fade(props, ref) {
+  const { children, in: open, onClick, onEnter, onExited, ...other } = props;
+  const style = useSpring({
+    from: { opacity: 0 },
+    to: { opacity: open ? 1 : 0 },
+    onStart: () => {
+      if (open && onEnter) {
+        onEnter(null, true);
+      }
+    },
+    onRest: () => {
+      if (!open && onExited) {
+        onExited(null, true);
+      }
+    },
+  });
+
+  return (
+    <animated.div ref={ref} style={style} {...other}>
+      {React.cloneElement(children, { onClick })}
+    </animated.div>
+  );
+});
+
 function CustomModal({
   children,
   setOpen,
@@ -47,40 +75,42 @@ function CustomModal({
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-      <Box
-        sx={{
-          ...style,
-          padding: paddingSize,
-          ...modalBoxStyles,
-        }}
-      >
-        <CloseIcon
-          sx={{ right: "1rem", top: "1rem", position: "absolute" }}
-          onClick={() => {
-            setOpen(false);
-            if (shouldClearParamsOnClose) clearParamsCallBack();
+      <Fade in={open}>
+        <Box
+          sx={{
+            ...style,
+            padding: paddingSize,
+            ...modalBoxStyles,
           }}
-        />
-        {title && (
-          <Typography
-            variant="h4"
-            sx={{
-              marginBottom: "1rem",
-              textAlign: "center",
-              fontWeight: "bold",
-              [media48em]: {
-                fontSize: "1rem",
-              },
-              [media31_25em]: {
-                fontSize: ".9rem",
-              },
+        >
+          <CloseIcon
+            sx={{ right: "1rem", top: "1rem", position: "absolute" }}
+            onClick={() => {
+              setOpen(false);
+              if (shouldClearParamsOnClose) clearParamsCallBack();
             }}
-          >
-            {title}
-          </Typography>
-        )}
-        {children}
-      </Box>
+          />
+          {title && (
+            <Typography
+              variant="h4"
+              sx={{
+                marginBottom: "1rem",
+                textAlign: "center",
+                fontWeight: "bold",
+                [media48em]: {
+                  fontSize: "1rem",
+                },
+                [media31_25em]: {
+                  fontSize: ".9rem",
+                },
+              }}
+            >
+              {title}
+            </Typography>
+          )}
+          {children}
+        </Box>
+      </Fade>
     </Modal>
   );
 }
