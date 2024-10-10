@@ -35,14 +35,14 @@ export default function CustomTabs({ content, orientation, tabName }) {
   const [tabIndex, setTabIndex] = React.useState(0);
   const [searchParams, setSearchParams] = useSearchParams();
 
-  // Swipeable (kaydırma) hareketlerini yöneten kanca
-  const swipeHandlers = useSwipeable({
-    // Sola kaydırıldığında tabIndex artıyor (bir sonraki sekmeye geçiyor)
-    onSwipedLeft: () =>
-      setTabIndex((prev) => Math.min(prev + 1, content.length - 1)),
-    // Sağa kaydırıldığında tabIndex azalıyor (bir önceki sekmeye geçiyor)
-    onSwipedRight: () => setTabIndex((prev) => Math.max(prev - 1, 0)),
-  });
+  // // Swipeable (kaydırma) hareketlerini yöneten kanca
+  // const swipeHandlers = useSwipeable({
+  //   // Sola kaydırıldığında tabIndex artıyor (bir sonraki sekmeye geçiyor)
+  //   onSwipedLeft: () =>
+  //     setTabIndex((prev) => Math.min(prev + 1, content.length - 1)),
+  //   // Sağa kaydırıldığında tabIndex azalıyor (bir önceki sekmeye geçiyor)
+  //   onSwipedRight: () => setTabIndex((prev) => Math.max(prev - 1, 0)),
+  // });
 
   // Arama parametrelerine göre tabIndex ayarlanıyor
   useEffect(() => {
@@ -66,7 +66,8 @@ export default function CustomTabs({ content, orientation, tabName }) {
   }, [searchParams, tabName]);
 
   return (
-    <Box sx={orientation && getBoxStyle(orientation)} {...swipeHandlers}>
+    // <Box sx={orientation && getBoxStyle(orientation)} {...swipeHandlers}>
+    <Box sx={orientation && getBoxStyle(orientation)}>
       <Tabs
         value={tabIndex}
         onChange={(event, newValue) => setTabIndex(newValue)}
