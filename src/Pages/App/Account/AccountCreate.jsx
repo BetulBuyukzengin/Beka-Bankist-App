@@ -323,6 +323,9 @@ function AccountCreate({ setOpenCreateModal }) {
                 buttonText="create"
                 style={{
                   marginTop: "1rem",
+                  backgroundColor: "var(--color-background-3)",
+                  border: "1px solid var(--color-background-3)",
+                  color: "var(--color-background-3)",
                 }}
               />
             </Grid>

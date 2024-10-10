@@ -11,9 +11,9 @@ import styled from "styled-components";
 
 const StyledDiv = styled.div`
   /* height: 78dvh; */
-  /* background-color: red; */
   /* max-height: 500px; */
   overflow-y: scroll;
+  width: 100%;
   @media (max-width: 48em) {
     height: 100dvh;
   }

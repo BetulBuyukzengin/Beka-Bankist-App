@@ -39,7 +39,7 @@ const StyledSignInFormTitle = styled.h2`
     margin-bottom: 2rem;
   }
   ${media31_25em} {
-    font-size: 1rem;
+    font-size: 1.3rem;
   }
 `;
 
@@ -71,10 +71,10 @@ const StyledButton = styled.button`
   }
   ${media48em} {
     padding: 0.5rem;
-    font-size: 0.8rem;
+    font-size: 1rem;
   }
   ${media31_25em} {
-    font-size: 0.7rem;
+    font-size: 0.9rem;
   }
 `;
 

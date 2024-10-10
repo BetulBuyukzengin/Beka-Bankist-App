@@ -1,23 +1,21 @@
 /* eslint-disable react/prop-types */
-import { FormHelperText, Grid, Paper } from "@mui/material";
+import { FormHelperText, Grid, Paper, useMediaQuery } from "@mui/material";
 import { DatePicker, MobileDatePicker } from "@mui/x-date-pickers";
 import { subYears } from "date-fns";
 import { MuiTelInput, matchIsValidTel } from "mui-tel-input";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import styled, { ThemeProvider } from "styled-components";
+import styled from "styled-components";
 import CustomButton from "../../../../Components/CustomButton/CustomButton";
 import CustomTextField from "../../../../Components/CustomTextField/CustomTextField";
 import {
-  addressRegex,
   identificationNumberCharacter,
   media31_25em,
+  media48em,
 } from "../../../../Constants/constants";
+import { useCurrentUser } from "../../../../Hooks/useCurrentUser";
 import { useUpdateUser } from "../../../../services/userServices";
 import { calcAge } from "../../../../utils/utils";
-import { useCurrentUser } from "../../../../Hooks/useCurrentUser";
-import { media48em } from "../../../../Constants/constants";
-import { useMediaQuery } from "@mui/material";
 
 const StyledMuiTelInput = styled(MuiTelInput)`
   width: 100%;

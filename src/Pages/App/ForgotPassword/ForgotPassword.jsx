@@ -30,10 +30,10 @@ const StyledButton = styled.button`
   }
   ${media48em} {
     padding: 0.5rem;
-    font-size: 0.8rem;
+    font-size: 1rem;
   }
   ${media31_25em} {
-    font-size: 0.7rem;
+    font-size: 0.9rem;
   }
 `;
 const StyledForm = styled.form`
@@ -54,10 +54,10 @@ const StyledSignInFormTitle = styled.h2`
   letter-spacing: 0.1rem;
   color: var(--color-text);
   ${media48em} {
-    font-size: 0.9rem;
+    font-size: 1.5rem;
   }
   ${media48em} {
-    font-size: 0.8rem;
+    font-size: 1.3rem;
   }
 `;
 function ForgotPassword() {
@@ -68,7 +68,6 @@ function ForgotPassword() {
   } = useForm();
   const navigate = useNavigate();
   const onSubmit = async (data) => {
-  
     //???????? redirect to fix?
     await supabase.auth.resetPasswordForEmail(data.email, {
       redirectTo: "http://localhost:5173/recreatePassword",

@@ -3,7 +3,7 @@ import { Paper } from "@mui/material";
 import styled from "styled-components";
 import CustomButton from "../CustomButton/CustomButton";
 import CustomModal from "../CustomModal/CustomModal";
-import { media84_37em } from "../../Constants/constants";
+import { media48em, media84_37em } from "../../Constants/constants";
 
 const StyledTitle = styled.p`
   font-size: 1.2rem;
@@ -66,6 +66,11 @@ function CustomSettingsContent({
         modalBoxStyles={{
           padding: ".5rem",
           height: "100dvh",
+          [media48em]: {
+            maxHeight: "100dvh",
+            width: "100%",
+            border: "none",
+          },
         }}
       >
         {FormComponent && (

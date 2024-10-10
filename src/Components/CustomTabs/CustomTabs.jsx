@@ -6,6 +6,7 @@ import * as React from "react";
 import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useSwipeable } from "react-swipeable";
+import { media48em } from "../../Constants/constants";
 
 function a11yProps(index) {
   return {
@@ -79,6 +80,9 @@ export default function CustomTabs({ content, orientation, tabName }) {
           backgroundColor: "transparent",
           "& > .MuiTabs-scroller > .MuiTabs-flexContainer": {
             justifyContent: "center",
+            [media48em]: {
+              justifyContent: "space-evenly",
+            },
           },
         }}
       >
@@ -119,7 +123,7 @@ export default function CustomTabs({ content, orientation, tabName }) {
                   }
                 : {
                     ...tabHorizontalStyle,
-                    color: "var(--color-text)",
+
                     "@media  (max-width:48em)": {
                       fontSize: ".7rem!important",
                     },
