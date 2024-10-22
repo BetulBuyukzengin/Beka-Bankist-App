@@ -16,6 +16,7 @@ import {
   maxAccountNumberLength,
   maxIbanLength,
   minAmountToSend,
+  transferPrice,
 } from "../../../../../Constants/constants";
 import {
   useDailyRemainingLimit,
@@ -226,7 +227,8 @@ export default function TransferMoneyTab() {
     //   recipientBankBranch: selectedRegisteredRecipient.recipientBankBranch,
     //   user_id: JSON.parse(selectedRegisteredRecipient.selectedAccount)?.user_id,
     // };
-    const updatedBalance = selectedAccount.balance - +data.amountToSend;
+    const updatedBalance =
+      selectedAccount.balance - +data.amountToSend - transferPrice;
     const updatedRemainingLimit =
       selectedAccount.remainingTransferLimit - +data.amountToSend;
 
