@@ -14,7 +14,9 @@ import {
 import { useDarkMode } from "../../../Contexts/DarkModeContext";
 import { useLogout, useSignIn } from "../../../services/userServices";
 import CustomButton from "../../../Components/CustomButton/CustomButton";
-import { TextField } from "@mui/material";
+import { IconButton, InputAdornment, TextField } from "@mui/material";
+import { useState } from "react";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 const StyledForm = styled.form`
   width: 100%;
@@ -126,8 +128,11 @@ function SignIn() {
   const { mutateAsync: signIn, isLoading } = useSignIn();
   const navigate = useNavigate();
   const { mutateAsync: logout } = useLogout();
+  const [showPassword, setShowPassword] = useState(false);
 
-  console.log(errors);
+  const handleClickShowPassword = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
 
   const onSubmit = async (data) => {
     console.log(data);
@@ -226,13 +231,37 @@ function SignIn() {
           >
             <StyledTextField
               disabled={isLoading}
-              type="password"
+              type={showPassword ? "text" : "password"}
               label="Password"
               variant={isDarkMode ? "filled" : "outlined"}
               {...register("password", {
                 required: "This field is required!",
               })}
               id="password"
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={handleClickShowPassword}
+                      edge="end"
+                      sx={{
+                        "& > .MuiSvgIcon-root": {
+                          [media48em]: {
+                            width: ".7em",
+                            height: ".7em",
+                          },
+                          [media31_25em]: {
+                            width: ".7em",
+                            height: ".7em",
+                          },
+                        },
+                      }}
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
               helperText={errors?.password?.message}
               error={Boolean(errors?.password)}
             />

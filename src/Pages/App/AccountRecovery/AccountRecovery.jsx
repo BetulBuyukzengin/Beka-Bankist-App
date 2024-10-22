@@ -1,6 +1,12 @@
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import LoginIcon from "@mui/icons-material/Login";
-import { Grid, Paper } from "@mui/material";
+import {
+  Grid,
+  IconButton,
+  InputAdornment,
+  Paper,
+  TextField,
+} from "@mui/material";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -13,7 +19,22 @@ import {
 } from "../../../Constants/constants";
 import { useUpdateUserInformation } from "../../../services/authServices";
 import { useSignIn } from "../../../services/userServices";
+import { useState } from "react";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
+const StyledTextField = styled(TextField)`
+  border: 1px solid var(--color-text);
+  width: 100%;
+  & > label {
+    font-family: "Kanit", sans-serif;
+    color: var(--color-text);
+
+    & + div {
+      color: var(--color-text);
+      font-family: "Kanit", sans-serif;
+    }
+  }
+`;
 const StyledForm = styled.form`
   width: 100%;
   height: 100dvh;
@@ -103,6 +124,11 @@ function AccountRecovery() {
   const { mutateAsync: updateUser, isPending: isRecovering } =
     useUpdateUserInformation();
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
 
   const onSubmit = async (formData) => {
     const usersignIn = await signIn(formData);
@@ -168,13 +194,11 @@ function AccountRecovery() {
               },
             }}
           >
-            {/* <StyledTextField */}
             <CustomTextField
               disabled={isRecovering}
               texttransform="basic"
               textFieldStyles={{ width: "100%" }}
               label="Email"
-              //   variant={isDarkMode ? "filled" : "outlined"}
               register={{
                 ...register("email", {
                   required: "This field is required!",
@@ -202,21 +226,38 @@ function AccountRecovery() {
               },
             }}
           >
-            {/* <StyledTextField
-             */}
-            <CustomTextField
+            <StyledTextField
               disabled={isRecovering}
-              textFieldStyles={{ width: "100%" }}
-              texttransform="basic"
-              type="password"
+              type={showPassword ? "text" : "password"}
               label="Password"
-              //   variant={isDarkMode ? "filled" : "outlined"}
-              register={{
-                ...register("password", {
-                  required: "This field is required!",
-                }),
-              }}
+              {...register("password", {
+                required: "This field is required!",
+              })}
               id="password"
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={handleClickShowPassword}
+                      edge="end"
+                      sx={{
+                        "& > .MuiSvgIcon-root": {
+                          [media48em]: {
+                            width: ".7em",
+                            height: ".7em",
+                          },
+                          [media31_25em]: {
+                            width: ".7em",
+                            height: ".7em",
+                          },
+                        },
+                      }}
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
               helperText={errors?.password?.message}
               error={Boolean(errors?.password)}
             />
