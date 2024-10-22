@@ -59,6 +59,8 @@ import AppListComponent from "../HamburgerDrawer/AppListComponent";
 import HamburgerDrawer from "../HamburgerDrawer/HamburgerDrawer";
 import ListIconButton from "./ListIconButton";
 import { useCurrentUser } from "../../Hooks/useCurrentUser";
+import AutoLogout from "../AutoLogout/AutoLogout";
+
 export const IconStyle = {
   color: "var(--color-text)",
   "@media (max-width: 48em)": {
@@ -68,7 +70,12 @@ export const IconStyle = {
     fontSize: "1rem",
   },
 };
-
+const StyledImg = styled.img`
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  margin-bottom: 0.5rem;
+`;
 export const StyledListItemText = styled(ListItemText)`
   & > span {
     ${media48em} {
@@ -270,9 +277,8 @@ export default function DashboardLayout() {
           backgroundColor: "var(--color-background)",
         }}
       >
-        {/* <AutoLogout /> */}
+        <AutoLogout />
         <CssBaseline />
-
         {/* Header */}
         <AppBar
           position="fixed"
@@ -317,6 +323,21 @@ export default function DashboardLayout() {
               open={openHamburgerDrawer}
               toggleDrawer={toggleHamburgerDrawer}
             >
+              <div
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <StyledImg
+                  src={
+                    isDarkMode
+                      ? "../../img/logo-dark.png"
+                      : "../../img/logo-light.png"
+                  }
+                />
+              </div>
               <AppListComponent
                 toggleDrawer={toggleHamburgerDrawer}
                 isInformationsCompleted={isInformationsCompleted}
@@ -393,11 +414,25 @@ export default function DashboardLayout() {
               )}
             </IconButton>
           </DrawerHeader>
+          <div
+            style={{
+              width: "100%",
+              display: !open ? "none" : "flex",
+              justifyContent: "center",
+            }}
+          >
+            <StyledImg
+              src={
+                isDarkMode
+                  ? "../../img/logo-dark.png"
+                  : "../../img/logo-light.png"
+              }
+            />
+          </div>
           <Divider
             variant="fullWidth "
             sx={{ borderColor: "var(--color-text)" }}
           />
-
           <List>
             <ListItem
               disablePadding
@@ -445,7 +480,6 @@ export default function DashboardLayout() {
             </ListItem>
           </List>
         </Drawer>
-
         <Box
           component="main"
           sx={{

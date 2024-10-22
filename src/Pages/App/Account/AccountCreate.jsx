@@ -109,6 +109,7 @@ const StyledContainer = styled.div`
 `;
 const StyledLabel = styled.label`
   font-size: 1rem;
+  align-self: center;
   ${media48em} {
     font-size: 0.9rem;
   }

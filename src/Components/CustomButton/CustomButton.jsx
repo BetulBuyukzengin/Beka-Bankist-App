@@ -19,9 +19,11 @@ function CustomButton({
       color={color || "primary"}
       sx={{
         ...style,
-        backgroundColor: disabled
-          ? "var(--color-background-3)"
-          : "var(--color-background=",
+        backgroundColor: disabled && "var(--color-background-3)!important",
+        color: disabled && "white!important",
+        // backgroundColor: disabled
+        //   ? "var(--color-background-3)!important"
+        //   : "var(--color-background)!important",
       }}
     >
       {buttonText}
