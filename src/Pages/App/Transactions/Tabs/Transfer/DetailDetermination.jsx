@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { FormControlLabel, FormHelperText, Grid, Switch } from "@mui/material";
-import { useUser } from "../../../../../services/userServices";
+import { getCurrentUser, useUser } from "../../../../../services/userServices";
 import CustomSelect from "../../../../../Components/CustomSelect/CustomSelect";
 import CustomTextField from "../../../../../Components/CustomTextField/CustomTextField";
 import { useFormContext } from "react-hook-form";
 import { useSearchParams } from "react-router-dom";
+import { useCurrentUser } from "../../../../../Hooks/useCurrentUser";
 
 const StyleGrid = {
   display: "flex",
@@ -36,7 +37,7 @@ function DetailDetermination() {
   );
   const [showUsernameInDescription, setShowUsernameInDescription] =
     useState(false);
-  const { user } = useUser();
+  const { currentUser } = useCurrentUser();
   const {
     register,
     setValue,
@@ -51,7 +52,7 @@ function DetailDetermination() {
 
   useEffect(() => {
     const updatedDescription = showUsernameInDescription
-      ? `${description} ${user?.user_metadata?.fullName}`
+      ? `${description} ${currentUser?.fullName}`
       : description;
     setValue("transferDescription", updatedDescription);
     searchParams.set("description", updatedDescription);
@@ -62,7 +63,7 @@ function DetailDetermination() {
     setValue,
     searchParams,
     setSearchParams,
-    user?.user_metadata?.fullName,
+    currentUser?.fullName,
   ]);
 
   useEffect(

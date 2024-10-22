@@ -3,6 +3,7 @@ import { styled } from "@mui/material/styles";
 import Badge from "@mui/material/Badge";
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
+import { useCurrentUser } from "../../Hooks/useCurrentUser";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -34,6 +35,8 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 }));
 
 export default function CustomAvatar({ user }) {
+  const { currentUser } = useCurrentUser();
+  const fullName = currentUser?.fullName;
   return (
     <Stack
       direction="row"
@@ -50,7 +53,7 @@ export default function CustomAvatar({ user }) {
         variant="dot"
       >
         <Avatar
-          alt={user?.user_metadata?.fullName}
+          alt={fullName}
           src={user?.user_metadata?.image}
           sx={{
             objectFit: "contain",
