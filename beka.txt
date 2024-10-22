@@ -29,13 +29,12 @@
  ✅ Radio ile hesap seçme hatası düzelt
  ✅ Hareketsizlikte oturum kapatma
  ✅ contact form da submit işlemini yap
- Forgot password oto yonlendırme yapmıyor
- ❌ Anlaşma modalını düzelt
+ ✅ Auto logout oluyor
+ ✅ Bakiye ve de kredi ödemesi varken hesap silinemez.
+ ❓ Forgot password oto yonlendırme yapmıyor
  ❌ Dil destegini ayarla
  ❌ Sayfanın text içeriğini düzenle
  ✅ Responsive
- ❌ Background dark mode da renk değiştir
- ❌ AccountCreate yerine CreateAccount şeklinde yapılabilir hepsını duzelt 
  ? Eğer şifremi unuttum ile yeni şifre oluşturulduğunda mevcut hesap giriş yapılı ise otomatik olarak çıkış yapmalı.
  ? Adres bilgileri api den çekilip select ile seçme ve haritada markup göster
  ❔ Access token bazen null geliyor onu çözemedim.
@@ -49,23 +48,12 @@
 |||||||||||||||||||||||||||||   V2 [ OPTIONAL ]   |||||||||||||||||||||||||||||||||
 ❔ Kredi çekme talebi için telefondan onay alsın.
 ❔ Transaction controlde işlem tarihi seçebilmeyi ve işlemin o tarihte gerçekleşmesini sağla
-
 ❔ With phone number ı disabled yaptım tooltip ile yakında gelecek şeklinde kullanıcılara mesaj olarak 
 göster (https://supabase.com/dashboard/project/zztdmxtwnkykekxoupjl/auth/providers) : Onay bağlantısı mı kod mu geliyor kontrol et!
 
-************* Deploy ederken düzeltilecekler *********
- Hareketsizlikte oturum kapatma yı etkınlestır)
- oturum actıktan sonra sayfa yenılendiğinde 404 hatası -hashrouter ile yaptım bak
 
-Dashboard daki mainde height 100dvh verirsen diğer tablarda scroll gelmıyor
-sign ın lerı genıslet 
-text fieldlarda label da border arasında mesafe ayarı
-app ın font sıze ını yap respoda 
-tooltip mini ekranda tasıyor
-telefon kodu bayrak gelmiyor 
-birthday 1920 geliyor ilk
-adres formatını kaldır
+
+❓Son stepte confirm butonunda enter ile submit yaparken required hatası alıyorum
 transactions da slice undefıned hatasını kontrol et!
-Confirm delete butonlarını duzenle
-New Account taki txt field background ayarla
-lgin logout ıconları değiştir
+oturum actıktan sonra sayfa yenılendiğinde 404 hatası -hashrouter ile yaptım bak
+loanda accont create te disabled butonu text colorı beyaz olabılır ya da durabılır en son kontrol et 
