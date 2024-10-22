@@ -207,7 +207,7 @@ input{
 &:-webkit-autofill:hover,
 &:-webkit-autofill:focus,
 &:-webkit-autofill:active {
-  -webkit-box-shadow: 0 0 0 30px var(--color-background) inset !important;
+  -webkit-box-shadow: 0 0 0 30px transparent inset !important;
   -webkit-text-fill-color: var(--color-text) !important;
   transition: background-color 5000s ease-in-out 0s;
 }}
