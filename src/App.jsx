@@ -2,11 +2,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import {
-  RouterProvider,
-  createBrowserRouter,
-  createHashRouter,
-} from "react-router-dom";
+import { RouterProvider, createHashRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -15,6 +11,8 @@ import { DarkModeProvider } from "./Contexts/DarkModeContext.jsx";
 import { LoanPaymentModalProvider } from "./Contexts/ModalContext.jsx";
 import Account from "./Pages/App/Account/Account.jsx";
 import AccountRecovery from "./Pages/App/AccountRecovery/AccountRecovery.jsx";
+import CreatePassword from "./Pages/App/ForgotPassword/CreatePassword.jsx";
+import ForgotPassword from "./Pages/App/ForgotPassword/ForgotPassword.jsx";
 import Movements from "./Pages/App/Movements/Movements.jsx";
 import Settings from "./Pages/App/Settings/Settings.jsx";
 import SignIn from "./Pages/App/SignIn/SignIn.jsx";
@@ -22,8 +20,6 @@ import SignUp from "./Pages/App/SignUp/SignUp.jsx";
 import Transactions from "./Pages/App/Transactions/Transactions.jsx";
 import Presentational from "./Pages/Presentational/Presentational.jsx";
 import GlobalStyles from "./styles/GlobalStyles";
-import ForgotPassword from "./Pages/App/ForgotPassword/ForgotPassword.jsx";
-import CreatePassword from "./Pages/App/ForgotPassword/CreatePassword.jsx";
 
 const router = createHashRouter([
   {

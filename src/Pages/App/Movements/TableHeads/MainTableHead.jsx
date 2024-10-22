@@ -131,7 +131,7 @@ function MainTableHead() {
         </TableCell>
         <StyledTableCell>Status</StyledTableCell>
         <StyledTableCell>Date</StyledTableCell>
-        <StyledTableCell>Movements</StyledTableCell>
+        <StyledTableCell>Amount</StyledTableCell>
       </TableRow>
     </TableHead>
   );

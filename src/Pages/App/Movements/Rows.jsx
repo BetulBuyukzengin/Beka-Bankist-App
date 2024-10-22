@@ -7,7 +7,6 @@ import MainTableRow from "./MainTableRow";
 export default function Rows(props) {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
-
   return (
     <React.Fragment>
       <MainTableRow open={open} setOpen={setOpen} row={row} />

@@ -91,6 +91,10 @@ function CustomTextField({
         shrink: true,
       }}
       InputProps={inputProps}
+      // InputProps={{
+      //   ...inputProps,
+      //   ...register, // register prop'unu buraya ekliyoruz
+      // }}
     />
   );
 }

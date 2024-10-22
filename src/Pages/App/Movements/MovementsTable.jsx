@@ -19,7 +19,6 @@ export default function MovementsTable() {
   const sort = searchParams.get("sort");
   const { data: filteredMovements, isLoading: isLoadingFiltered } =
     useFilterMovements({ filter });
-
   const [movementsState, setMovementsState] = useState(movements || []);
 
   useEffect(() => {
