@@ -39,7 +39,9 @@ function AmountDetermination() {
     setValue,
     formState: { errors },
   } = useFormContext();
-  const [amountToSendValue, setAmountToSendValue] = useState(0);
+  const [amountToSendValue, setAmountToSendValue] = useState("");
+  // const [amountToSendValue, setAmountToSendValue] = useState(0);
+
   const [newRemainingLimit, setNewRemainingLimit] = useState();
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedAccRemainingBalance = JSON.parse(
@@ -97,7 +99,8 @@ function AmountDetermination() {
   useEffect(
     function () {
       if (currentStatus !== prevStatus.current) {
-        setAmountToSendValue(0);
+        setAmountToSendValue("");
+        // setAmountToSendValue(0);
       }
     },
     [currentStatus]
