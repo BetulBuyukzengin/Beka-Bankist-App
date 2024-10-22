@@ -54,7 +54,7 @@ function WithIbanTab({ iban, setIban }) {
             value={iban}
             onChange={(event) => handleChange(event)}
             register={{
-              ...register("recipientIban", {}),
+              ...register("recipientIban"),
             }}
             inputProps={{ maxLength: maxIbanLength }}
             helperText={errors?.recipientIban?.message}

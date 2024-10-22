@@ -139,11 +139,9 @@ function UpdatePasswordForm({ setOpenModal }) {
             label="Current Password"
             type={showOldPassword ? "text" : "password"}
             textFieldStyles={{ width: "100%" }}
-            register={{
-              ...register("currentPassword", {
-                required: "Current password is required!",
-              }),
-            }}
+            {...register("currentPassword", {
+              required: "Current password is required!",
+            })}
             helperText={errors?.currentPassword?.message}
             error={errors?.currentPassword}
             InputLabelProps={{
@@ -196,16 +194,14 @@ function UpdatePasswordForm({ setOpenModal }) {
             label="New Password"
             type={showNewPassword ? "text" : "password"}
             textFieldStyles={{ width: "100%" }}
-            register={{
-              ...register("newPassword", {
-                required: "New password is required!",
-                pattern: {
-                  value: /^(?=.*[A-Z])(?=.*\d).+$/, //! Contain at least one uppercase letter and one number
-                  message:
-                    "Password must contain at least one uppercase letter, one number and English characters.",
-                },
-              }),
-            }}
+            {...register("newPassword", {
+              required: "New password is required!",
+              pattern: {
+                value: /^(?=.*[A-Z])(?=.*\d).+$/, //! Contain at least one uppercase letter and one number
+                message:
+                  "Password must contain at least one uppercase letter, one number and English characters.",
+              },
+            })}
             InputLabelProps={{
               shrink: true,
             }}
@@ -258,13 +254,11 @@ function UpdatePasswordForm({ setOpenModal }) {
             textFieldStyles={{ width: "100%" }}
             type={showRepeatPassword ? "text" : "password"}
             label="Repeat New Password"
-            register={{
-              ...register("repeatNewPassword", {
-                required: "Repeat password is required!",
-                validate: (value) =>
-                  getValues().newPassword === value || "Passwords do not match",
-              }),
-            }}
+            {...register("repeatNewPassword", {
+              required: "Repeat password is required!",
+              validate: (value) =>
+                getValues().newPassword === value || "Passwords do not match",
+            })}
             InputLabelProps={{
               shrink: true,
             }}

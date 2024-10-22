@@ -1,6 +1,45 @@
-import { Grid } from "@mui/material";
-import CustomTextField from "../../../../../Components/CustomTextField/CustomTextField";
+import { Grid, TextField } from "@mui/material";
 import { useFormContext } from "react-hook-form";
+import styled from "styled-components";
+
+const StyledTextField = styled(TextField)`
+  width: 50%;
+  &:hover > div > fieldset {
+    border-color: var(--color-gray) !important;
+  }
+  & > label {
+    color: var(--color-text) !important;
+    @media (max-width: 48em) {
+      font-size: 0.9rem;
+    }
+    @media (max-width: 31.25em) {
+      font-size: 0.8rem;
+    }
+  }
+  & > div {
+    color: var(--color-text);
+    & > fieldset {
+      border-color: var(--color-border-2);
+    }
+  }
+  & div > input {
+    &:disabled {
+      -webkit-text-fill-color: var(--color-text) !important;
+      color: var(--color-text) !important;
+    }
+    &:disabled + fieldset {
+      border-color: var(--color-border-2) !important;
+      background-color: var(--color-background-3);
+    }
+    @media (max-width: 48em) {
+      font-size: 1rem;
+    }
+    @media (max-width: 31.25em) {
+      font-size: 0.9rem;
+    }
+  }
+`;
+
 function Withdraw() {
   const {
     register,
@@ -27,11 +66,11 @@ function Withdraw() {
           },
         }}
       >
-        <CustomTextField
+        <StyledTextField
           type="number"
           id="loadMoney"
           label="Amount to withdraw"
-          register={{ ...register("amountToSend") }}
+          {...register("amountToSend")}
           helperText={errors?.amountToSend?.message}
           error={errors?.amountToSend}
         />

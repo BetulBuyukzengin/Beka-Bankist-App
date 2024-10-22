@@ -1,12 +1,50 @@
-import { Grid } from "@mui/material";
-import CustomTextField from "../../../../../Components/CustomTextField/CustomTextField";
+import { Grid, TextField } from "@mui/material";
 import { useFormContext } from "react-hook-form";
 import { useSearchParams } from "react-router-dom";
+import styled from "styled-components";
 
+const StyledTextField = styled(TextField)`
+  width: 50%;
+  &:hover > div > fieldset {
+    border-color: var(--color-gray) !important;
+  }
+  & > label {
+    color: var(--color-text) !important;
+    @media (max-width: 48em) {
+      font-size: 0.9rem;
+    }
+    @media (max-width: 31.25em) {
+      font-size: 0.8rem;
+    }
+  }
+  & > div {
+    color: var(--color-text);
+    & > fieldset {
+      border-color: var(--color-border-2);
+    }
+  }
+  & div > input {
+    &:disabled {
+      -webkit-text-fill-color: var(--color-text) !important;
+      color: var(--color-text) !important;
+    }
+    &:disabled + fieldset {
+      border-color: var(--color-border-2) !important;
+      background-color: var(--color-background-3);
+    }
+    @media (max-width: 48em) {
+      font-size: 1rem;
+    }
+    @media (max-width: 31.25em) {
+      font-size: 0.9rem;
+    }
+  }
+`;
 function Deposit() {
   const {
     register,
     formState: { errors },
+    setValue,
   } = useFormContext();
   const [searchParams] = useSearchParams();
   return (
@@ -30,14 +68,12 @@ function Deposit() {
           },
         }}
       >
-        <CustomTextField
-          width="short"
+        <StyledTextField
+          // width="short"
           id="depositMoney"
           label="Amount to be deposit"
           type="number"
-          register={{
-            ...register("amountToSend"),
-          }}
+          {...register("amountToSend")}
           helperText={errors?.amountToSend?.message}
           error={errors?.amountToSend}
         />

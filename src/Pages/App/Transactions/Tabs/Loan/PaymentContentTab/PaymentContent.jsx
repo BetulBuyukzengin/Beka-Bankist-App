@@ -18,7 +18,7 @@ import PaymentTransaction from "./PaymentTransaction";
 function PaymentContent({ data }) {
   const [activeStep, setActiveStep] = React.useState(0);
   const { mutateAsync: updateBalance } = useUpdateAccount();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const selectedAccount = JSON.parse(searchParams.get("selectedAccount"));
   const { setOpen } = useLoanPaymentModal();
   const { mutateAsync: updateLoan } = useUpdateLoanMonthlyPayment();
@@ -28,7 +28,6 @@ function PaymentContent({ data }) {
   const selectedMonthlyPayment = data.find(
     (obj) => obj.id === +searchParams.get("paymentId")
   );
-
   const validationSchema = [
     yup.object({
       selectedAccount: yup

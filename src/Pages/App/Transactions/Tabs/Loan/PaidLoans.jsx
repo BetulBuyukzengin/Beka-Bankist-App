@@ -216,10 +216,10 @@ const PaidLoanPaymentTable = ({ loanId, setOpenLoanTable }) => {
           }}
         />
 
-        <StyledPaidLoanPaymentTable>
+        {/* <StyledPaidLoanPaymentTable>
           Details of {formatDate(selectedLoan.created_at)} dated loan&apos;s
           payment list.
-        </StyledPaidLoanPaymentTable>
+        </StyledPaidLoanPaymentTable> */}
         <CustomButton
           style={{
             "@media(max-width:48em)": {
@@ -256,6 +256,10 @@ const PaidLoanPaymentTable = ({ loanId, setOpenLoanTable }) => {
           variant="contained"
         />
       </span>
+      <StyledPaidLoanPaymentTable>
+        Details of {formatDate(selectedLoan.created_at)} dated loan&apos;s
+        payment list.
+      </StyledPaidLoanPaymentTable>
       <TableContainer component={Paper}>
         <Table
           ref={targetRef}
