@@ -199,44 +199,112 @@ export default function TransferMoneyTab() {
   }, [reset, currentStatus]);
 
   const onSubmit = async (data) => {
-    const registeredRecipients = {
-      recipientFullNameWithAccount: data.recipientFullNameWithAccount,
-      recipientShortName: data.shortName,
-      recipientFullNameWithIban: data.recipientFullNameWithIban,
-      recipientIban: data.recipientIban,
-      recipientAccountNumber: data.recipientAccountNumber,
-      recipientBankName: data.recipientBankName,
-      saveAsRegisteredWithAccount: data.saveAsRegisteredWithAccount,
-      saveAsRegisteredWithIban: data.saveAsRegisteredWithIban,
-      recipientBankBranch: data.recipientBankBranch,
-      user_id: JSON.parse(data.selectedAccount)?.user_id,
-    };
+    //sender name ya context user dan a ya da selectedaccounttan al
+    const selectedAccount =
+      data?.selectedAccount && JSON.parse(data?.selectedAccount);
+    console.log("data:", data);
+    console.log("selectedAccount :", selectedAccount);
+
+    // if (!data?.registeredRecipient) return null;
+    // console.log("secilen kayıtlı kullaınıcı:", selectedRegisteredRecipient);
+
+    // const selectedRegisteredRecipient = JSON.parse(data?.registeredRecipient);
+    // const registeredRecipients = {
+    //   recipientFullNameWithAccount:
+    //     selectedRegisteredRecipient.recipientFullNameWithAccount,
+    //   recipientShortName: selectedRegisteredRecipient.shortName,
+    //   recipientFullNameWithIban:
+    //     selectedRegisteredRecipient.recipientFullNameWithIban,
+    //   recipientIban: selectedRegisteredRecipient.recipientIban,
+    //   recipientAccountNumber:
+    //     selectedRegisteredRecipient.recipientAccountNumber,
+    //   recipientBankName: selectedRegisteredRecipient.recipientBankName,
+    //   saveAsRegisteredWithAccount:
+    //     selectedRegisteredRecipient.saveAsRegisteredWithAccount,
+    //   saveAsRegisteredWithIban:
+    //     selectedRegisteredRecipient.saveAsRegisteredWithIban,
+    //   recipientBankBranch: selectedRegisteredRecipient.recipientBankBranch,
+    //   user_id: JSON.parse(selectedRegisteredRecipient.selectedAccount)?.user_id,
+    // };
     const updatedBalance = selectedAccount.balance - +data.amountToSend;
     const updatedRemainingLimit =
       selectedAccount.remainingTransferLimit - +data.amountToSend;
-    await createMovement(
-      {
-        ...data,
-        senderFullName,
-        user_id: JSON.parse(data.selectedAccount)?.user_id,
-      },
-      {
-        onSuccess: () => toast.success("Transfer was successfully completed"),
-        onError: () =>
-          toast.error(
-            "An error occurred during transfer transaction, please try again later!"
-          ),
-      }
-    );
+
+    if (data.saveAsRegisteredWithIban || data.saveAsRegisteredWithAccount) {
+      const registeredRecipients = {
+        recipientFullNameWithAccount: data?.recipientFullNameWithAccount,
+        recipientShortName: data?.shortName,
+        recipientFullNameWithIban: data?.recipientFullNameWithIban,
+        recipientIban: data?.recipientIban,
+        recipientAccountNumber: data?.recipientAccountNumber,
+        recipientBankName: data?.recipientBankName,
+        saveAsRegisteredWithAccount: data?.saveAsRegisteredWithAccount,
+        saveAsRegisteredWithIban: data?.saveAsRegisteredWithIban,
+        recipientBankBranch: data?.recipientBankBranch,
+        user_id: JSON.parse(data?.selectedAccount)?.user_id,
+      };
+      await createRegisteredRecipient(registeredRecipients);
+    }
+    if (data?.registeredRecipient) {
+      const formattedRegisteredRecipient = JSON.parse(
+        data?.registeredRecipient
+      );
+      await createMovement(
+        {
+          ...data,
+          recipientFullNameWithAccount:
+            formattedRegisteredRecipient?.recipientFullNameWithAccount,
+          recipientFullNameWithIban:
+            formattedRegisteredRecipient?.recipientFullNameWithIban,
+          recipientIban: formattedRegisteredRecipient?.recipientIban,
+          recipientAccountNumber:
+            formattedRegisteredRecipient?.recipientAccountNumber,
+          senderFullName: selectedAccount?.fullName,
+          user_id: JSON.parse(data.selectedAccount)?.user_id,
+        },
+        {
+          onSuccess: () => toast.success("Transfer was successfully completed"),
+          onError: () =>
+            toast.error(
+              "An error occurred during transfer transaction, please try again later!"
+            ),
+        }
+      );
+    } else {
+      await createMovement(
+        {
+          ...data,
+          senderFullName: selectedAccount?.fullName,
+          user_id: JSON.parse(data.selectedAccount)?.user_id,
+        },
+        {
+          onSuccess: () => toast.success("Transfer was successfully completed"),
+          onError: () =>
+            toast.error(
+              "An error occurred during transfer transaction, please try again later!"
+            ),
+        }
+      );
+    }
+    // await createMovement(
+    //   {
+    //     ...data,
+    //     senderFullName: selectedAccount?.fullName,
+    //     user_id: JSON.parse(data.selectedAccount)?.user_id,
+    //   },
+    //   {
+    //     onSuccess: () => toast.success("Transfer was successfully completed"),
+    //     onError: () =>
+    //       toast.error(
+    //         "An error occurred during transfer transaction, please try again later!"
+    //       ),
+    //   }
+    // );
     const updatedAccount = {
       ...selectedAccount,
       balance: updatedBalance,
       remainingTransferLimit: updatedRemainingLimit,
     };
-
-    if (data.saveAsRegisteredWithIban || data.saveAsRegisteredWithAccount) {
-      await createRegisteredRecipient(registeredRecipients);
-    }
 
     await updateBalance({ id, account: updatedAccount });
     navigate("/applayout/account");

@@ -65,6 +65,7 @@ export function useUpdateAccount() {
   });
   return { mutateAsync, isLoading };
 }
+
 async function deleteAccount(id) {
   const { error } = await supabase.from("accounts").delete().eq("id", id);
   if (error) throw new Error(error);
