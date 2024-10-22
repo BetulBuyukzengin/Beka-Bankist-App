@@ -1,7 +1,10 @@
 /* eslint-disable react/prop-types */
-import { Grid } from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { Grid, IconButton, InputAdornment, TextField } from "@mui/material";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import styled from "styled-components";
 import CustomButton from "../../../../Components/CustomButton/CustomButton";
 import CustomTextField from "../../../../Components/CustomTextField/CustomTextField";
 import {
@@ -13,8 +16,44 @@ import { useCurrentUser } from "../../../../Hooks/useCurrentUser";
 import { verifyUserPassword } from "../../../../services/authServices";
 import { useUpdateUser, useUser } from "../../../../services/userServices";
 import { supabase } from "../../../../Supabase/supabase";
-import styled from "styled-components";
 
+const StyledTextField = styled(TextField)`
+  width: 100%;
+  &:hover > div > fieldset {
+    border-color: var(--color-gray) !important;
+  }
+  & > label {
+    color: var(--color-text) !important;
+    @media (max-width: 48em) {
+      font-size: 0.9rem;
+    }
+    @media (max-width: 31.25em) {
+      font-size: 0.8rem;
+    }
+  }
+  & > div {
+    color: var(--color-text);
+    & > fieldset {
+      border-color: var(--color-border-2);
+    }
+  }
+  & div > input {
+    &:disabled {
+      -webkit-text-fill-color: var(--color-text) !important;
+      color: var(--color-text) !important;
+    }
+    &:disabled + fieldset {
+      border-color: var(--color-border-2) !important;
+      background-color: var(--color-background-3);
+    }
+    @media (max-width: 48em) {
+      font-size: 1rem;
+    }
+    @media (max-width: 31.25em) {
+      font-size: 0.9rem;
+    }
+  }
+`;
 const StyledUpdateEmailTitle = styled.h4`
   font-weight: bold;
   margin-top: 1rem;
@@ -34,6 +73,10 @@ const StyledUpdateEmailContent = styled.p`
   }
 `;
 function UpdateEmailAdressForm({ setOpenModal }) {
+  const [showPassword, setShowPassword] = useState(false);
+  const handleClickShowOldPassword = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
   const {
     register,
     handleSubmit,
@@ -173,15 +216,40 @@ function UpdateEmailAdressForm({ setOpenModal }) {
             },
           }}
         >
-          <CustomTextField
+          <StyledTextField
             texttransform="basic"
             id="password"
+            type={showPassword ? "text" : "password"}
             textFieldStyles={{ width: "100%" }}
             label="Password"
             register={{
               ...register("password", {
                 required: "Password is required!",
               }),
+            }}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={handleClickShowOldPassword}
+                    edge="end"
+                    sx={{
+                      "& > .MuiSvgIcon-root": {
+                        [media48em]: {
+                          width: ".7em",
+                          height: ".7em",
+                        },
+                        [media31_25em]: {
+                          width: ".7em",
+                          height: ".7em",
+                        },
+                      },
+                    }}
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
             }}
             helperText={errors?.password?.message}
             error={errors?.password}
